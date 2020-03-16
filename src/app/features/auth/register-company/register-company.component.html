@@ -1,0 +1,284 @@
+<header id="header" class="animated fadeInDown" style="text-align: center;">
+
+  <div id="logo-group">
+    <!-- <span id="logo"> 
+      <img src="assets/img/logo.png" alt="SmartAdmin"> 
+    </span> -->
+  </div>
+
+  <div class="logo-text" style="float: none;">
+    <span>Register Company Information to Join BeyeBook</span>
+  </div>
+
+  <span id="extr-page-header-space">
+    <span class="hidden-mobile hiddex-xs"><b>ID를 갖고 계십니까?</b></span> <a routerLink="/auth/login" class="btn btn-danger">Sign
+      In</a> </span>
+
+</header>
+<div id="main" role="main" class="animated fadeInDown">
+
+  <!-- MAIN CONTENT -->
+  <div id="content">
+    <!-- <span><b> Welcome {{ username }}</b></span> -->
+
+    <!-- START ROW -->
+
+    <div class="row">
+
+      <!-- NEW COL START -->
+      <article class="col-sm-12 col-md-12 col-lg-12">
+
+        <form [formGroup]="regisCompanyForm" (ngSubmit)="onSubmit()" class="smart-form frm-detail">
+          <header>
+            <b>회사정보를 등록하세요</b>
+          </header>
+
+          <fieldset>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">컴퍼니 한글명</label>
+              <label class="input col-md-2 col-lg-2">
+                <input type="text" name="company_local_nm" formControlName="company_local_nm" [(ngModel)]="model.company_local_nm"
+                  autocomplete="off" required>
+
+              </label>
+              <label class="text-error col-md-2 col-lg-2" *ngIf="submitted && f.company_local_nm.errors">
+                <span *ngIf="f.company_local_nm.errors.required" class="text-danger">Company Local Name is required</span>
+              </label>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">컴퍼니 영문명</label>
+              <label class="input col-md-2 col-lg-2">
+                <input type="text" name="company_eng_nm" formControlName="company_eng_nm" [(ngModel)]="model.company_eng_nm"
+                  autocomplete="off">
+              </label>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">컴퍼니 약어명</label>
+              <label class="input col-md-2 col-lg-2">
+                <input type="text" name="company_sim_nm" formControlName="company_sim_nm" [(ngModel)]="model.company_sim_nm"
+                  autocomplete="off" required>
+              </label>
+              <label class="text-error col-md-2 col-lg-2" *ngIf="submitted && f.company_sim_nm.errors">
+                <span *ngIf="f.company_sim_nm.errors.required" class="text-danger">Company Dspl Name is required</span>
+              </label>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">컴퍼니 타입</label>
+              <section>
+                <div class="inline-group col-md-2 col-lg-2">
+                  <label class="radio" *ngFor="let type of companyTypes">
+                    <input type="radio" name="company_type" formControlName="company_type" [(ngModel)]="model.company_type"
+                      [value]="type.value" required>
+                    <i></i>{{type.name | i18n}}
+                  </label>
+                </div>
+              </section>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">국가명</label>
+              <label class="input col-md-2 col-lg-2">
+                <select name="country_gen_cd" formControlName="country_gen_cd" [(ngModel)]="model.country_gen_cd" [defaultVal]="model.country_gen_cd"
+                  select2 style="width:100%;" class="select2 required" placeHolder="고르다 국가명">
+                  <option *ngFor="let country of countries" value={{country.gen_cd}}>{{country.gen_nm}}</option>
+                </select>
+              </label>
+              <label class="text-error col-md-2 col-lg-2" *ngIf="submitted && f.country_gen_cd.errors">
+                <span *ngIf="f.country_gen_cd.errors.required" class="text-danger">Please select country</span>
+              </label>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">화폐단위</label>
+              <label class="input col-md-2 col-lg-2">
+                <select name="currency_gen_cd" formControlName="currency_gen_cd" [(ngModel)]="model.currency_gen_cd"
+                  [defaultVal]="model.currency_gen_cd" select2 style="width:100%;" class="select2 required" placeHolder="고르다 화폐단위">
+                  <option *ngFor="let currency of currencies" value={{currency.gen_cd}}>{{currency.gen_nm}}</option>
+                </select>
+              </label>
+              <label class="text-error col-md-2 col-lg-2" *ngIf="submitted && f.currency_gen_cd.errors">
+                <span *ngIf="f.currency_gen_cd.errors.required" class="text-danger">Please select currency</span>
+              </label>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">법인등록번호</label>
+              <label class="input col-md-2 col-lg-2">
+                <input type="text" name="com_regist_num" formControlName="com_regist_num" [(ngModel)]="model.com_regist_num"
+                  autocomplete="off" required>
+              </label>
+              <label class="text-error col-md-2 col-lg-2" *ngIf="submitted && f.com_regist_num.errors">
+                <span *ngIf="f.com_regist_num.errors.required" class="text-danger">Company Register No is
+                  required</span>
+              </label>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">사업자등록번호</label>
+              <label class="input col-md-2 col-lg-2">
+                <input type="text" name="biz_regist_num" formControlName="biz_regist_num" [(ngModel)]="model.biz_regist_num"
+                  autocomplete="off" required>
+              </label>
+              <label class="text-error col-md-2 col-lg-2" *ngIf="submitted && f.biz_regist_num.errors">
+                <span *ngIf="f.biz_regist_num.errors.required" class="text-danger">Business License No is required</span>
+              </label>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">업태</label>
+              <label class="input col-md-2 col-lg-2">
+                <select name="biz_conditions_gen_cd" formControlName="biz_conditions_gen_cd" [(ngModel)]="model.biz_conditions_gen_cd"
+                  [defaultVal]="model.biz_conditions_gen_cd" select2 style="width:100%;" class="select2 required" placeHolder="고르다 업태">
+                  <option *ngFor="let condition of businessConditions" value={{condition.gen_cd}}>{{condition.gen_nm}}</option>
+                </select>
+              </label>
+              <label class="text-error col-md-2 col-lg-2" *ngIf="submitted && f.biz_conditions_gen_cd.errors">
+                <span *ngIf="f.biz_conditions_gen_cd.errors.required" class="text-danger">Please select condition</span>
+              </label>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">업종</label>
+              <label class="input col-md-2 col-lg-2">
+                <select name="biz_type_gen_cd" formControlName="biz_type_gen_cd" [(ngModel)]="model.biz_type_gen_cd" [defaultVal]="model.biz_type_gen_cd"
+                  select2 style="width:100%;" class="select2 required" placeHolder="고르다 업종">
+                  <option *ngFor="let cat of businessCategory" value={{cat.gen_cd}}>{{cat.gen_nm}}</option>
+                </select>
+              </label>
+              <label class="text-error col-md-2 col-lg-2" *ngIf="submitted && f.biz_type_gen_cd.errors">
+                <span *ngIf="f.biz_type_gen_cd.errors.required" class="text-danger">Please select category</span>
+              </label>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center label-center col-md-1 col-lg-1">전화번호</label>
+              <label class="input col-md-2 col-lg-2">
+                <input type="text" name="tel_no" formControlName="tel_no" [(ngModel)]="model.tel_no" autocomplete="off"
+                  required>
+              </label>
+              <label class="text-error col-md-2 col-lg-2" *ngIf="submitted && f.tel_no.errors">
+                <span *ngIf="f.tel_no.errors.required" class="text-danger">Tel No is required</span>
+              </label>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center label-center col-md-1 col-lg-1">Fax No</label>
+              <label class="input col-md-2 col-lg-2">
+                <input type="text" name="fax_no" formControlName="fax_no" [(ngModel)]="model.fax_no" autocomplete="off">
+              </label>
+            </section>
+
+            <section class="textarea-padding">
+              <label class="label label-center col-md-1 col-lg-1">주소</label>
+              <label class="textarea col-md-2 col-lg-2">
+                <textarea rows="3" name="address" formControlName="address" [(ngModel)]="model.address" class="custom-scroll"
+                  required></textarea>
+              </label>
+              <label class="text-error col-md-2 col-lg-2" *ngIf="submitted && f.address.errors">
+                <span *ngIf="f.address.errors.required" class="text-danger">Address is required</span>
+              </label>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">우편번호</label>
+              <label class="input col-md-1 col-lg-1">
+                <input type="text" name="zip_code" formControlName="zip_code" [(ngModel)]="model.zip_code" autocomplete="off"
+                  required>
+              </label>
+              <label class="text-error col-md-2 col-lg-2" *ngIf="submitted && f.zip_code.errors">
+                <span *ngIf="f.zip_code.errors.required" class="text-danger">Zip Code is required</span>
+              </label>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">E-Mail</label>
+              <label class="input col-md-2 col-lg-2">
+                <input type="text" name="email" formControlName="email" [(ngModel)]="model.email" autocomplete="off"
+                  required>
+              </label>
+              <label class="text-error col-md-2 col-lg-2" *ngIf="submitted && f.email.errors">
+                <span *ngIf="f.email.errors.required" class="text-danger">E-Mail is required</span>
+                <span *ngIf="f.email.errors.pattern" class="text-danger">E-Mail must be a valid email
+                  address</span>
+              </label>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">Homepage</label>
+              <label class="input col-md-2 col-lg-2">
+                <input type="text" name="homepage" formControlName="homepage" [(ngModel)]="model.homepage" autocomplete="off">
+              </label>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">비즈니스 키워드</label>
+              <label class="input col-md-2 col-lg-2">
+                <input type="text" name="biz_keyword" formControlName="biz_keyword" [(ngModel)]="model.biz_keyword"
+                  autocomplete="off">
+              </label>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">사용구분</label>
+              <section>
+                <div class="inline-group col-md-2 col-lg-2">
+                  <label class="radio" *ngFor="let type of usingTypes">
+                    <input type="radio" name="usingType" formControlName="usingType" [(ngModel)]="model.usingType"
+                      [value]="type.value" required (change)="onTypeOfUsingChanged()">
+                    <i></i>{{type.name | i18n}}
+                  </label>
+                </div>
+              </section>
+            </section>
+
+            <!-- <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">사용등급</label>
+              <label class="input col-md-2 col-lg-2">
+                <select id="payment_level" name="payment_level" formControlName="payment_level" [(ngModel)]="model.payment_level"
+                  [defaultVal]="model.payment_level" select2 style="width:100%;" class="select2" placeHolder="고르다 사용등급"
+                  (ngModelChange)="onPaymentLevelChanged($event)">
+                  <option *ngFor="let level of paymentLevels" value={{level.value}}>{{level.name}}</option>
+                </select>
+              </label>
+            </section>
+
+            <section class="top-bottom-padding">
+              <label class="label label-center col-md-1 col-lg-1">월결제액</label>
+              <label class="input state-disabled col-md-1 col-lg-1">
+                <input type="number" name="money_month" formControlName="money_month" [(ngModel)]="model.money_month"
+                  autocomplete="off" disabled>
+              </label>
+              <label class="label label-center col-md-1 col-lg-1" style="margin-left: 10px;">원 (VAT 별도)</label>
+            </section> -->
+
+          </fieldset>
+
+          <footer>
+            <div class="col-md-3 col-lg-3">
+              <div class="pull-right">
+                <button type="submit" class="btn btn-primary">
+                  신청
+                </button>
+                <button (click)="onCancel()" class="btn btn-warning">
+                  취소
+                </button>
+              </div>
+            </div>
+          </footer>
+        </form>
+
+      </article>
+      <!-- END COL -->
+
+    </div>
+
+    <!-- END ROW -->
+
+
+  </div>
+
+</div>

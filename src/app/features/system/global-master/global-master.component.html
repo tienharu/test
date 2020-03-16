@@ -1,0 +1,225 @@
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-magic"></i>Global Master</h1>
+      </div>
+    </div>
+  </div>
+  <!-- (ngSubmit)="frmDetail.form.valid && onSubmit()" -->
+  <div class="row">
+    <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" [saUiValidate]="validationOptions"
+      class="smart-form atman-form-small no-header frm-detail" novalidate="novalidate" style="margin-bottom: 0;">
+      <section class="col col-5" style="padding-bottom: 30px;">
+        <fieldset>
+          <!-- <input type="hidden" name="global_unit_id" [(ngModel)]="detailInfo.global_unit_id" /> -->
+          <!-- Row 1 -->
+          <div class="row">
+            <section class="col col-3">
+              <label class="label" style="margin-top: 7px;">Global ID</label>
+            </section>
+            <section class="col col-2">
+              <label class="input state-disabled">
+                <input type="text" name="global_unit_id" [(ngModel)]="detailInfo.global_unit_id" autocomplete="off" disabled/>
+              </label>
+            </section>
+          </div>
+          <!-- Row 2 -->
+          <div class="row">
+            <section class="col col-3">
+              <label class="label" style="margin-top: 7px;">Global Name</label>
+            </section>
+            <section class="col col-9">
+              <label class="input">
+                <input type="text" name="global_unit_nm" [(ngModel)]="detailInfo.global_unit_nm" autocomplete="off" required class="required_input"/>
+              </label>
+            </section>
+          </div>
+          <!-- Row 3 -->
+          <div class="row">
+            <section class="col col-3">
+              <label class="label" style="margin-top: 7px;">Global Type</label>
+            </section>
+            <section class="col col-9">
+              <div class="inline-group" style="height: 30px;">
+                <label class="radio left-radio" *ngFor="let type of globalTypes" style="width: 20%; margin-top: 2px; margin-bottom: 0;">
+                  <input type="radio" name="global_type" [(ngModel)]="detailInfo.global_type" [value]="type.value" (change)="onChangeGlobalType(detailInfo.global_type, detailInfo.global_sector)"
+                    required>
+                  {{type.name | i18n}}
+                  <i></i>
+                </label>
+              </div>
+            </section>
+          </div>
+          <!-- Row 4 -->
+          <div class="row">
+            <section class="col col-3">
+              <label class="label" style="margin-top: 7px;">Company</label>
+            </section>
+            <section class="col col-9">
+              <div class="input-group">
+                <label class="input state-disabled">
+                  <select name="company_id" select2 required style="width:100%;" class="select2 required"
+                    [(ngModel)]="detailInfo.company_id">
+                    <option *ngFor="let com of companies" [value]=com.company_id [selected]="detailInfo.company_id == com.company_id">{{com.company_local_nm}}</option>
+                  </select>
+                </label>
+                <div class="input-group-addon" style="padding: 0px;border-width: 0px;background-color: transparent">
+                  <label class="input state-disabled" style="width: 100px">
+                    <input class="extra" disabled type="number" [(ngModel)]="detailInfo.company_id" name="company_id_selected"/>
+                  </label>
+                </div>
+              </div>
+            </section>
+          </div>
+          <!-- Row 5 -->
+          <div class="row">
+            <section class="col col-3">
+              <label class="label" style="margin-top: 7px;">Global Sector</label>
+            </section>
+            <section class="col col-9">
+              <div class="inline-group" style="height: 30px;">
+                <label class="radio left-radio" *ngFor="let type of globalSectors" style="width: 20%; margin-top: 2px; margin-bottom: 0;">
+                  <input type="radio" name="global_sector" [(ngModel)]="detailInfo.global_sector"  [value]="type.value" (change)="onChangeGlobalType(detailInfo.global_type, detailInfo.global_sector)"
+                    required>
+                  {{type.name | i18n}}
+                  <i></i>
+                </label>
+              </div>
+            </section>
+          </div>
+          <!-- Row 6 -->
+          <div class="row">
+            <section class="col col-3">
+              <label class="label" style="margin-top: 7px;">Use YN</label>
+            </section>
+            <section class="col col-9">
+              <section class="col col-5" style="padding-left: 0;">
+                <label class="input" style="float: left;">
+                  <label class="checkbox" style="padding-left: 7px;">
+                    <input id="chbOutStk" type="checkbox" [(ngModel)]="detailInfo.use_yn" name="use_yn" checked="detailInfo.use_yn">
+                    <i style="left: 0; top: 0;"></i>
+                  </label>
+                </label>
+              </section>
+            </section>
+          </div>
+          <!-- Row 7 -->
+          <div class="row">
+            <section class="col col-3">
+              <label class="label" style="margin-top: 7px;">Order by Seq</label>
+            </section>
+            <section class="col col-9">
+              <label class="input">
+                <input type="number" name="orderby_seq" [(ngModel)]="detailInfo.orderby_seq" autocomplete="off" />
+              </label>
+            </section>
+          </div>
+          <!-- Row 8 -->
+          <div class="row">
+            <section class="col col-3">
+              <label class="label" style="margin-top: 7px;">Remark</label>
+            </section>
+            <section class="col col-9">
+              <!-- <label class="label">{{'REMARK' | i18n}}</label> -->
+              <label class="input">
+                <label class="textarea">
+                  <textarea autocomplete="off" rows="2" [(ngModel)]="detailInfo.remark" name="remark"></textarea>
+                </label>
+              </label>
+            </section>
+          </div>
+          <!-- Row 13 -->
+          <div class="row">
+            <section class="col col-sm-12">
+              <button type="button" name="btnCloseProgram" (click)="onCloseProgram()"
+                class="btn btn-cancel">
+                <!-- <i class="fa fa-times"></i> -->
+                Close
+              </button>
+              <button type="button" name="reset" (click)="onReset()"
+                class="btn btn-reset-form">
+                <!-- <i class="fa fa-refresh"></i> -->
+                Reset
+              </button>
+              <button type="button" name="btnDelete" (click)="onDelete()"
+                class="btn btn-delete">
+                <!-- <i class="fa fa-trash-o"></i> -->
+                Delete             
+              </button>
+              <button type="submit" [disabled]="!this.permission.canSave" name="submit"
+                class="btn btn-primary">
+                <!-- <i class="fa fa-save"></i> -->
+                Save
+              </button>
+            </section>
+          </div>
+        </fieldset>
+      </section>
+    </form>
+
+    <article class="col-sm-7">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <!-- <h2>{{'GENERAL MASTER' | i18n}}</h2> -->
+            <h2>Global Master Info</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" paginationLength="true" filter="true" (rowClick)="onRowClick($event)"
+                tableClass="global-list-info table table-striped table-condensed table-hover table-bordered">
+                <thead>
+                  <tr class="heading">
+                    <th>Unit ID</th>
+                    <th>Global Name</th>
+                    <th>Type</th>
+                    <th>Company ID</th>
+                    <th>Sector</th>
+                    <th>Use</th>
+                    <th>Remark</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter ID" />
+                    </th>
+                    <th class="hasinput">
+                      <!-- <select name="filter_cate_cd" class="form-control select-filter" placeHolder="Filter category">
+                        <option value="">All</option>
+                        <option *ngFor="let category of Categories" value={{category.cate_cd}}>{{category.cate_nm}}
+                        </option>
+                      </select> -->
+                      <input type="text" class="form-control" placeholder="Filter Global Name" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Type" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Company Name" />
+                    </th>
+                    <th class="hasinput">
+                      <!-- <select id="filerByStatus" class="form-control select-filter">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select> -->
+                      <input type="text" class="form-control" placeholder="Filter Sector" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Use" />
+                    </th>
+
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Remark" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+  </div>
+</div>

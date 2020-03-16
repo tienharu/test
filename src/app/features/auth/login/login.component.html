@@ -1,0 +1,141 @@
+<header id="header" class="animated fadeInDown">
+
+  <!-- <div id="logo-group">
+    <span id="logo">
+      <img src="assets/img/logo.png" alt="SmartAdmin"> 
+    </span>
+  </div> -->
+
+  <div class="logo-text logo-text-hr">
+      <!-- <img alt="AtmanEuler" src="assets/img/logo.png"> -->
+      <img alt="AtmanEuler" src="assets/img/logo-hr.png" style="height: 17px;">
+  </div>
+
+  <span id="extr-page-header-space">
+    <span class="hidden-mobile hiddex-xs">Need an account?</span>
+    <a routerLink="/auth/register" class="btn btn-danger">Create Account</a>
+  </span>
+
+</header>
+<div id="main" role="main" class="animated fadeInDown">
+
+  <div id="content" class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
+        <div class="txt-color-red login-header-big logo-text2 logo-text2-hr">
+            <img class="logo_log" alt="AtmanEuler" src="assets/img/logo-gray.png" style="height: 23px;">
+            <!-- <img class="logo_log" alt="AtmanEuler" src="assets/img/logo-gray-hr.png"> -->
+        </div>
+
+        <div class="hero">
+          <div class="pull-left login-desc-box-l">
+            <h4 class="paragraph-header login">
+                It’s Okay to be smart. 
+                <br>
+                Experience the global excellence business management of AtmanEuler, everywhere you go!                
+            </h4>
+
+            <!-- <h4 class="paragraph-header">
+            </h4> -->
+
+            <div class="login-app-icons">
+              <a href="https://atmaneuler.com/" class="btn btn-danger btn-sm">Find out more</a>&nbsp;
+              <a href="http://blog.atmaneuler.com/" class="btn btn-danger btn-sm">Knowledge Edge</a>
+            </div>
+          </div>
+          <div class="iphoneatman">  
+            <img src="assets/img/demo/iphone5s-atman.png" class="pull-right display-image" alt="" style="width:180px">
+          </div>    
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <h5 class="about-heading">About AtmanEuler - Are you up to date?</h5>
+            <p class="logindes">             
+              IT 정보기술을 적극 활용하지 못하는 만큼 경쟁에서 뒤쳐지는 시대입니다. 그러나 두려움은 없습니다. 글로벌 비즈니스 현장과 학계에서 검증된 프로세스 & 이론을 기반으로 Mobil ∙ iOT Device & 최고의 WEB 기술을 통합한 아트만오일러를 활용하여 비즈니스를 선진화하고 과학적인 경영의사결정체계를 구축할 수 있습니다.
+            </p>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 Knowledge">
+            <h5 class="about-heading">
+              Knowledge Based Business System!
+            </h5>
+            <p class="logindes">
+              비즈니스인을 위한 지식창고입니다. 자연과학 ∙ 수학 ∙ 인공지능 ∙ 인문학 ∙ 비즈니스이론 그 경계를 구분하지 않습니다. 
+              올바른 사고과<span style="font-size: 9px">정思考過程</span>과 사고능력<span style="font-size: 9px">思考能力</span>에 가치를 부여합니다. AtMAN은 『명백한 사실 and 반박할 수 없는 결론』만을 인정합니다.                
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+        <div class="well no-padding">
+          <form #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && onSubmit()" class="smart-form client-form"
+            novalidate>
+            <header class="left">
+              <b>Sign In</b>
+            </header>
+            <fieldset>
+              <section>
+                <label class="label">Username</label>
+                <label class="input" [ngClass]="{ 'state-error': loginForm.submitted && !username.valid }">
+                  <i class="icon-prepend fa fa-user"></i>
+                  <input type="email" name="email" [(ngModel)]="model.username" class="std" autocomplete="off" required #username="ngModel"
+                    placeholder="Enter username">
+                  <b class="tooltip tooltip-top-right">
+                    <i class="fa fa-user"></i>
+                    Enter your username</b>
+                  <span [hidden]="!loginForm.submitted || username.valid" class="text-danger">Username is required</span>
+                </label>
+              </section>
+              <section>
+                <label class="label">Password</label>
+                <label class="input" [ngClass]="{ 'state-error': loginForm.submitted && !password.valid }">
+                  <i class="icon-prepend fa fa-lock"></i>
+                  <input type="password" name="password" [(ngModel)]="model.password" class="std" required #password="ngModel"
+                    placeholder="Enter password">
+                  <b class="tooltip tooltip-top-right">
+                    <i class="fa fa-lock"></i> Enter your password</b>
+                  <span [hidden]="!loginForm.submitted || password.valid" class="text-danger">Password is required</span>
+                </label>
+
+                <div class="note">
+                  <a routerLink="/auth/forgot-password">Forgot password?</a>
+                </div>
+              </section>
+              <section>
+                <label class="checkbox">
+                  <input type="checkbox" name="remember" checked>
+                  <i></i>Stay signed in</label>
+              </section>
+              <section *ngIf="!loginSuccess && errMessage">
+                <label class="text-danger">{{errMessage}}</label>
+              </section>
+            </fieldset>
+            <footer>
+              <button type="submit" class="btn btn-primary" [ngClass]="loading?'disabled':''">
+                <i class="fa fa-refresh fa-spin" *ngIf="loading"></i>
+                {{loading?'Signing':'Sign in'}}
+            </button>
+            </footer>
+          </form>
+        </div>
+        <!-- <h5 class="text-center"> - Or sign in using -</h5>
+        <ul class="list-inline text-center">
+          <li>
+            <a (click)="(null)" class="btn btn-primary btn-circle">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a (click)="(null)" class="btn btn-info btn-circle">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a (click)="(null)" class="btn btn-warning btn-circle">
+              <i class="fa fa-linkedin"></i>
+            </a>
+          </li>
+        </ul> -->
+      </div>
+    </div>
+  </div>
+</div>

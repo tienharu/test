@@ -1,0 +1,193 @@
+<div id="content">
+  <div class="well well-sm">
+    <div class="row">
+      <div class="col-lg-1">
+        <select [disabled]="!permission.canSearch" select2 class="month-year form-control select2" name="month_year" [(ngModel)]="headerModel.month_year" [defaultVal]="headerModel.month_year"
+          style="width:100%" placeHolder="YYYY-MM">
+          
+          <option *ngFor="let item of yearMonths" value="{{item.sbtyear}}-{{item.sbtmonth}}">{{item.sbtyear}}-{{item.sbtmonth|number:'2.0'}}</option>
+        </select>
+      </div>
+
+      <div class="col-lg-2">
+        <select [disabled]="!permission.canSearch" select2 class="form-control select2" name="jobTypeId" [(ngModel)]="headerModel.jobTypeId"
+          style="width:100%" placeHolder="Select job type" allowClear='true'>
+          <option></option>
+          <option *ngFor="let item of jobTypes" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+        </select>
+      </div>
+      <div class="col-lg-2">
+        <select [disabled]="!permission.canSearch" select2 class="form-control select2" name="jobClassId" [(ngModel)]="headerModel.jobClassId"
+          style="width:100%" placeHolder="Select job class" allowClear='true'>
+          <option></option>
+          <option *ngFor="let item of jobClass" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+        </select>
+      </div>
+      <div class="col-lg-7">
+        <button [disabled]="!permission.canSearch" type="button" (click)="searchData()" class="btn btn-sm btn-default margin-right-5">
+          <i class="fa fa-search"></i>
+          {{'SEARCH' | i18n}}
+        </button>
+        <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs">
+          <i class="fa fa-times"></i>
+          {{'button-close' | i18n}}
+        </button>
+        <button type="button" (click)="openSalaryCreatePopup()" class="btn btn-sm btn-primary pull-right">
+          <i class="fa fa-plus"></i>
+          {{'Create-Standard-Salary' | i18n}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="isSelected">
+    <article class="col-sm-12 col-md-12 col-lg-12">
+      <div sa-widget color="atman">
+        <header>
+          <span class="widget-icon">
+            <i class="fa fa-edit"></i>
+          </span>
+          <h2>{{'SALARY-INFO' | i18n}}</h2>
+        </header>
+        <div>
+          <div class="widget-body no-padding">
+            <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" class="smart-form atman-form-small frm-detail"
+              novalidate="novalidate" [saUiValidate]="validationOptions">
+              <fieldset>
+                <input type="hidden" name="company_id" [(ngModel)]="salaryInfo.company_id" />
+                <div class="row">
+                  <section class="col col-2">
+                    <label class="label">{{'SALARY-BASIC' | i18n}}</label>
+                    <label class="input">
+                      <i class="icon-append fa fa-book"></i>
+                      <input type="text" name="sbt_basic_amt" [(ngModel)]="salaryInfo.sbt_basic_amt" autocomplete="off"
+                        required />
+                    </label>
+                  </section>
+                  <section class="col col-2">
+                    <label class="label">{{'SALARY-AMT-1' | i18n}}</label>
+                    <label class="input">
+                      <i class="icon-append fa fa-book"></i>
+                      <input type="text" name="sbt_1_atm" [(ngModel)]="salaryInfo.sbt_1_atm" autocomplete="off"
+                        required />
+                    </label>
+                  </section>
+                  <section class="col col-2">
+                    <label class="label">{{'SALARY-AMT-2' | i18n}}</label>
+                    <label class="input">
+                      <i class="icon-append fa fa-phone"></i>
+                      <input type="text" name="sbt_2_atm" [(ngModel)]="salaryInfo.sbt_2_atm" autocomplete="off"
+                        required />
+                    </label>
+                  </section>
+                  <section class="col col-2">
+                    <label class="label">{{'SALARY-AMT-3' | i18n}}</label>
+                    <label class="input">
+                      <i class="icon-append fa fa-book"></i>
+                      <input type="text" name="sbt_3_atm" [(ngModel)]="salaryInfo.sbt_3_atm" autocomplete="off"
+                        required />
+                    </label>
+                  </section>
+                </div>
+              </fieldset>
+              <footer>
+                <button type="button" name="reset" (click)="onReset()" class="btn btn-default btn-xs edit-program">
+                  <i class="fa fa-refresh"></i>
+                  {{'button-reset' | i18n}}
+                </button>
+                <button type="submit" [disabled]="!permission.canSave" name="submit" class="btn btn-primary btn-xs edit-program">
+                  <i class="fa fa-save"></i>
+                  {{'button-save' | i18n}}
+                </button>
+              </footer>
+            </form>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div class="row">
+    <article class="col-sm-12">
+      <div sa-widget color="atman" class="jarviswidget-atman">
+        <header>
+          <span class="widget-icon">
+            <i class="fa fa-list"></i>
+          </span>
+          <h2>{{'SALARY-TABLE' | i18n}}</h2>
+        </header>
+        <div>
+          <div class="widget-body no-padding scroll-vertical">
+            <sa-datatable [options]="options" id="example" (rowDbClick)="openSalaryUpdatePopup($event)" paginationLength="true"
+              filter="true" tableClass="salaryListInfo table table-striped table-condensed table-hover table-bordered datagrid_languages">
+              <thead>
+                <tr class="heading datatable_title">
+                  <th>{{'SALARY-CODE' | i18n}}</th>
+                  <th>{{'JOB-CLASS' | i18n}}</th>
+                  <th>{{'SALARY-BASIC' | i18n}}</th>
+                  <th>{{'SALARY-AMT-1' | i18n}}</th>
+                  <th>{{'SALARY-AMT-2' | i18n}}</th>
+                  <th>{{'SALARY-AMT-3' | i18n}}</th>
+                  <th>{{'CREATED-BY' | i18n}}</th>
+                  <th>{{'CREATED-DATE' | i18n}}</th>
+                  <th>{{'REMARK' | i18n}}</th>
+                </tr>
+                <tr class="table_filter">
+                  <th class="hasinput table_border_filter">
+                    <select id="FilterDropdownNoAlign" class="form-control select-filter">
+                      <option value="">All</option>
+                      <option *ngFor="let type of jobTypes" value={{type.gen_cd}}>{{type.gen_nm}}</option>
+                    </select>
+                  </th>
+                  <th class="hasinput table_border_filter">
+                    <select id="FilterDropdownNoAlign" class="form-control select-filter">
+                      <option value="">All</option>
+                      <option *ngFor="let type of jobClass" value={{type.gen_cd}}>{{type.gen_nm}}</option>
+                    </select>
+                  </th>
+                  <th class="hasinput table_border_filter">
+                    <input type="text" class="form-control" placeholder="" />
+                  </th>
+                  <th class="hasinput table_border_filter">
+                    <input type="text" class="form-control" placeholder="" />
+                  </th>
+                  <th class="hasinput table_border_filter">
+                    <input type="text" class="form-control" placeholder="" />
+                  </th>
+                  <th class="hasinput table_border_filter">
+                    <input type="text" class="form-control" placeholder="" />
+                  </th>
+                  <th class="hasinput table_border_filter">
+                    <input type="text" class="form-control" placeholder="" />
+                  </th>
+                  <th class="hasinput icon-addon table_border_filter">
+                    <div class="">
+                      <i class="fa fa-calendar margin-top-5"></i>
+                      <input type="text" class="form-control" placeholder="YYYY-MM-DD" class="form-control datepicker"
+                        [saUiDatepicker]="{}" />
+                    </div>
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="" />
+                  </th>
+                </tr>
+              </thead>
+            </sa-datatable>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+<ng-template #popupUpdateSalary>
+  <sa-popup-modal headerTitle="Standard Basic Salary Update" width="500" height="400" (onClose)="closeSalaryPopup()">
+    <sa-salary-data salaryJson="{{salaryInfo|json}}"></sa-salary-data>
+  </sa-popup-modal>
+</ng-template>
+
+<ng-template #popupCreateSalary>
+    <sa-popup-modal headerTitle="Standard Basic Salary Create" width="350" height="600" (onClose)="closeCreateSalaryPopup()">
+      <sa-salary-create-data [lastMonthData]="lastMonthData"></sa-salary-create-data>
+    </sa-popup-modal>
+  </ng-template>
+
+

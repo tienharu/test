@@ -1,0 +1,87 @@
+<form class="smart-form frm-detail" #frmDetail="ngForm" novalidate="novalidate" (ngSubmit)="frmDetail.form.valid && onSubmit()" [saUiValidate]="validationOptions">
+    <fieldset>
+      <section class="col-lg-12">
+        <label class="label">{{'ACTIVITY-TITLE'|i18n}}</label>
+        <label class="input col-lg-3">
+          <select select2 class="select2" name="tel_title_type" required [(ngModel)]="telActivity.tel_title_type"
+          [defaultVal]="telActivity.tel_title_type" style="width:100%">
+            <option value="1">{{'POPUP-ACTIVITY-SEND' | i18n}}</option>
+            <option value="2">{{'POPUP-ACTIVITY-RECEPTION' | i18n}}</option>
+          </select>
+        </label>
+        <label class="input col-lg-9">
+          <label class="input col-lg-12">
+            <input type="text" class="title-input none-boder-left" required placeholder="Please enter title" name="title_nm" [(ngModel)]="telActivity.title_nm"
+              autocomplete="off" />
+          </label>
+        </label>
+      </section>
+      <section class="col-lg-12">
+        <div class="col col-3" style="padding-left: 0">
+          <label class="label">{{'ACTIVITY-DATE'|i18n}}</label>
+          <label class="input"> <i class="icon-append fa fa-calendar"></i>
+            <input type="text" required name="tel_ymd" [(ngModel)]="telActivity.tel_ymd" class="tel-ymd-datepicker"
+              autocomplete="off">
+          </label>
+        </div>
+        <div class="col col-9" style="padding-right: 0">
+          <label class="label">{{'ACTIVITY-DEFAULT-DESTINATION'|i18n}}</label>
+          <div class="select2-custom">
+            <select id="default" data-placeholder="Select an option"  select2 multiple style="width:100%" class="select2" (ngModelChange)="getDefaultSelect($event)" name="select2">
+                <optgroup label="Customer">
+                  <option *ngFor="let item of customer" value="1-{{item.trader_id}}">{{item.trader_local_nm}}</option>
+                </optgroup>
+                <optgroup label="Contactor">
+                  <option *ngFor="let item of contactor" value="2-{{item.contactor_id}}">{{item.contactor_nm}}</option>
+                </optgroup>
+            </select>
+        </div>
+        </div>
+      </section>
+      <section class="col-lg-12">
+        <label class="label">{{'ACTIVITY-ADDITIONAL-TARGETS'|i18n}}</label>
+        <label class="input col-lg-12 multiple-select">
+          <div class="select2-custom">
+            <select id="additional"  select2 multiple style="width:100%" class="select2" (ngModelChange)="getAdditionSelect($event)" name="select2">
+              <optgroup label="Customer">
+                <option *ngFor="let item of customer" value="1-{{item.trader_id}}-0">{{item.trader_local_nm}}</option>
+              </optgroup>
+              <optgroup label="Contactor">
+                <option *ngFor="let item of contactor" value="2-{{item.contactor_id}}-2">{{item.contactor_nm}}</option>
+              </optgroup>
+              <optgroup label="User">
+                <option *ngFor="let item of user" value="2-{{item.user_id}}-1">{{item.user_nm}}</option>
+              </optgroup>
+          </select>
+        </div>
+        </label>
+      </section>
+      <section class="col-lg-12">
+        <label class="label">{{'ACTIVITY-CONTENTS'| i18n}}</label>
+        <!-- <label class="textarea">
+          <textarea rows="9" name="contents" required [(ngModel)]="telActivity.contents" class="custom-scroll"></textarea> </label>
+        <div class="note">
+        </div> -->
+        <label class="input col-lg-12">
+            <!-- <input type="text"  summernote name="contents" required [(ngModel)]="emailActivity.contents" [defaultVal] ="defaultContent" (change)="changeContent($event)"  /> -->
+            <input type="text" summernote name="contents" id="telContent" value="{{defaultContent}}" required [defaultVal] ="defaultContent" />
+          </label>
+      </section>
+    </fieldset>
+    <footer class="custom-footer">
+        <button type="button" name="close" (click)="onClose()" class="btn btn-close">
+            <i class="fa fa-remove"></i>
+            {{'button-close' | i18n}}
+          </button>
+      <button class="btn btn-small btn-primary btn-save" type="submit"><i class="fa fa-save"></i> {{'BUTTON-SAVE'|
+        i18n}}</button>
+        <ng-container *ngIf="telActivity.tel_id > 0; else reset">
+          <button class="btn btn-small btn-danger btn-delete" type="button" (click)="onDelete()"><i class="fa fa-delete"></i>
+            {{'BUTTON-DELETE'| i18n}}</button>
+        </ng-container>
+        <ng-template #reset>
+          <button class="btn btn-small btn-default btn-reset" type="button" (click)="onReset()"><i class="fa fa-refresh"></i>
+            {{'BUTTON-RESET'| i18n}}</button>
+        </ng-template>
+    </footer>
+  </form>

@@ -1,0 +1,50 @@
+:host /deep/ .search-style-btn{
+    margin-top: 1px !important;
+    height: 22px !important;
+    line-height: 1px !important;
+}
+
+#start-date {
+    position: inherit;
+    float: right;
+    top: 16px;
+    right: 5px;
+}
+#from-date {
+    position: inherit;
+    float: right;
+    top: 16px;
+    right: 5px;
+}
+.letter-spacing{
+    text-align: center;
+    margin-top: 1.1%;
+    font-family: Helvetica;
+    font-size: 13px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 0.67;
+    letter-spacing: normal;
+    color: var(--black);
+}
+
+
+.margin-top-10 {
+    margin-top: 10px;
+}
+.btn-popup {
+    height: 22px !important;
+    line-height: 1 !important;
+}
+#non-padding-right{
+    padding-right: 0;
+}
+.fix-width-blank {
+    width: 5.33%;
+}
+.fix-width-field {
+    width: 19.66%;
+}
+.margin-top-1 {
+    margin-top: 1px;
+}

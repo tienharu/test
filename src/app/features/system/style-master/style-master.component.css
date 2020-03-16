@@ -1,0 +1,48 @@
+
+:host /deep/ .frm-style-detail .input-group-btn .btn{
+    margin: 0;
+    height: 22px;
+}
+
+:host /deep/ .frm-style-detail .margin-bottom-25{
+    margin-bottom: 25px !important;
+}
+
+:host /deep/ .frm-style-detail .input-group-btn .btn .icon-append{
+  top: 0px;
+  right: 0px;
+  border: 0;
+}
+
+:host /deep/ .radio-order-type{
+    position: relative;
+}
+
+:host /deep/ .radio-order-type .order-main{ 
+    position: absolute;
+    left: 10%;
+}
+
+:host /deep/ .radio-order-type .order-sample{ 
+    position: absolute;
+    right: 10%;
+}
+
+:host /deep/ .price-format{
+    text-align: right !important;
+}
+
+:host /deep/ #materialTabs > li.active > a{
+    box-shadow: 0 -3px 0 #57889c ;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+
+:host /deep/ button.btn-style-popup{
+    float: none !important;
+    width: 120px;
+    height: 40px;
+    padding: 5px;
+    margin-top: 0px !important;
+}

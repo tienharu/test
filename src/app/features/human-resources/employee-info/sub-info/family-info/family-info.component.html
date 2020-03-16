@@ -1,0 +1,119 @@
+<div class="col-lg-12 right-content">
+    <section class="widget-body no-padding col-lg-4 field-1">
+        <form class="smart-form frmFamily" #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" novalidate="novalidate"
+            [saUiValidate]="validationOptions">
+            <fieldset>
+                <section class="col-lg-12">
+                    <label class="label col-lg-5">{{'Relation' | i18n}}</label>
+                    <label class="input col-lg-6">
+                        <select select2 class="select2 required" required name="relate_gen" [(ngModel)]="familyInfo.relate_gen" [defaultVal]="familyInfo.relate_gen"
+                            style="width:100%" placeHolder="Relation">
+                            <option *ngFor="let item of relation" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                        </select>
+                    </label>
+                </section>
+                <section class="col-lg-12">
+                    <label class="label col-lg-5">{{'Family-Name' | i18n}}</label>
+                    <label class="input col-lg-6">
+                        <input type="text" name="family" required [(ngModel)]="familyInfo.family" />
+                    </label>
+                </section>
+                <section class="col-lg-12">
+                    <label class="label col-lg-5">{{'BIRTH-DAY' | i18n}}</label>
+                    <label class="input col-lg-6"> <i class="icon-append fa fa-calendar"></i>
+                        <input type="text" class="" [saUiDatepicker] placeholder="yyyy-mm-dd" autocomplete="off" name="birth_ymd" [(ngModel)]="familyInfo.birth_ymd">
+                    </label>
+                </section>
+                <section class="col-lg-12">
+                    <label class="label col-lg-5">{{'WORK-PLACE' | i18n}}</label>
+                    <label class="input col-lg-6">
+                        <input type="text" name="duty_place" [(ngModel)]="familyInfo.duty_place" />
+                    </label>
+                </section>
+                <section class="col-lg-12">
+                    <label class="label col-lg-5">{{'NATIONAL-ID' | i18n}}</label>
+                    <label class="input col-lg-6">
+                        <input type="text" name="national_id" [(ngModel)]="familyInfo.national_id" />
+                    </label>
+                </section>
+                <section class="col-lg-12">
+                    <label class="label col-lg-5">{{'Social-Ins-No' | i18n}}</label>
+                    <label class="input col-lg-6">
+                        <input type="text" name="social_insurance_num" [(ngModel)]="familyInfo.social_insurance_num" />
+                    </label>
+                </section>
+                <section class="col-lg-12">
+                    <label class="label col-lg-5">{{'Medical-Ins-No' | i18n}}</label>
+                    <label class="input col-lg-6">
+                        <input type="text" name="medical_insurance_num" [(ngModel)]="familyInfo.medical_insurance_num" />
+                    </label>
+                </section>
+                <section class="col-lg-12">
+                    <label class="label col-lg-5">{{'Remarks' | i18n}}</label>
+                    <label class="textarea col-lg-6">
+                        <textarea rows="3" class="custom-scroll" name="remark" [(ngModel)]="familyInfo.remark"></textarea> </label>
+                    <div class="note">
+                    </div>
+                </section>
+                <section class="col-lg-11 btn-cmd">
+                    <button class="btn btn-small btn-primary"  [disabled]="!permission.canSave"><i class="fa fa-save" type="submit"></i> {{'BUTTON-SAVE' | i18n}}</button>
+                    <button class="btn btn-small btn-default" (click)="onReset()" type="button"><i class="fa fa-refresh"></i> {{'BUTTON-RESET' | i18n}}</button>
+                </section>
+            </fieldset>
+        </form>
+    
+    </section>
+    <section class="col-lg-8 field-2">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+            <div>
+                <div class="widget-body no-padding">
+                    <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                        tableClass="eplFamilyInfoList table table-striped table-condensed table-hover table-bordered">
+                        <thead>
+                            <tr class="heading">
+                                <th>{{'Relation' | i18n}}</th>
+                                <th>{{'FAMILY-NAME' | i18n}}</th>
+                                <th>{{'Birthday' | i18n}}</th>
+                                <th>{{'NATIONAL-ID' | i18n}}</th>
+                                <th>{{'Social-Ins-No' | i18n}}</th>
+                                <th>{{'MEDICAL-INS-NO' | i18n}}</th>
+                                <th>{{'WORK-PLACE' | i18n}}</th>
+                                <th>{{'Remarks' | i18n}}</th>
+                            </tr>
+                            <tr>
+                                <th class="hasinput">
+                                        <select class="form-control select-filter" name="filter_relate"
+                                        style="width:100%">
+                                        <option value="">{{'All' | i18n}}</option>
+                                        <option *ngFor="let item of relation" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                    </select>
+                                </th>
+                                <th class="hasinput">
+                                    <input type="text" class="form-control" placeholder="Filter Name" />
+                                </th>
+                                <th class="hasinput">
+                                    <input type="text" class="form-control" placeholder="Filter Name" />
+                                </th>
+                                <th class="hasinput">
+                                    <input type="text" class="form-control" placeholder="Filter Name" />
+                                </th>
+                                <th class="hasinput">
+                                    <input type="text" class="form-control" placeholder="Social Ins" />
+                                </th>
+                                <th class="hasinput">
+                                    <input type="text" class="form-control" placeholder="Medical Ins" />
+                                </th>
+                                <th class="hasinput">
+                                    <input type="text" class="form-control" placeholder="Work place" />
+                                </th>
+                                <th class="hasinput">
+                                    <input type="text" class="form-control" placeholder="Remarks" />
+                                </th>
+                            </tr>
+                        </thead>
+                    </sa-datatable>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

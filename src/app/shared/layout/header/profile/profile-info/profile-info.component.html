@@ -1,0 +1,59 @@
+<!-- [saUiValidate]="resetValidationOptions" -->
+<form #frmUserInfo="ngForm" (ngSubmit)="frmUserInfo.form.valid && onSaveInfo()" class="smart-form" novalidate="novalidate">
+    <fieldset>
+        <section>
+            <div class="row">
+              <label class="label col col-4 text-right">Display Name</label>
+              <div class="col col-6">
+                  <div class="input">
+                      <input type="text" name="full_name" [(ngModel)]="userInfo.full_name">
+                    </div>
+              </div>
+            </div>
+          </section>
+          
+        <section>
+            <div class="row">
+              <label class="label col col-4 text-right">User Language</label>
+              <div class="col col-6">
+                  <div class="select">
+                      <select name="user_language" [(ngModel)]="userInfo.user_language" style="width:100%;" class="">
+                          <option *ngFor="let l of languagesSupported" value="{{l.lang_key}}">{{l.lang_title}}</option>
+                        </select>
+                        <i></i>
+                    </div>
+              </div>
+            </div>
+          </section>
+      <section>
+        <div class="row">
+          <label class="label col col-4 text-right">Change Avatar</label>
+          <div class="col col-6">
+              <div class="input input-file">
+                  <span class="button">
+                    <input type="file" id="file" name="file" (change)="onFileChange($event)" accept="image/gif, image/jpeg, image/png">Browse</span>
+                    <input type="text" placeholder="Select an image(width >=400px)" readonly="">
+                </div>
+                <div style="margin-top: 5px">
+                    <img src="userInfo.avatar" [hidden]='imageSelected' width="50px" onerror="this.src='/assets/img/avatars/male.png'"/>
+                </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="row">
+          <div  class="col col-lg-12 text-center">
+            <img id="avatarImage" src="" [hidden]='!imageSelected'/>
+            <i class='text-sm' [hidden]='!imageSelected'>Press ESC to clear selection</i>
+          </div>
+        </div>
+      </section>
+      
+    </fieldset>
+  
+    <footer>
+        <button type="button" (click)="cancelChanges()" class="btn btn-default">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]='!imageSelected'>Save</button>
+    </footer>
+  </form>
+  

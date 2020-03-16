@@ -1,0 +1,18 @@
+<h2 class="custom-header-sharing">{{'Sharing-Information-Component-Header'|i18n}}</h2>
+<!-- <div class="row"> -->
+    <!-- <div class="col-md-1 padding-left-0">
+        
+      </div> -->
+<div [ngClass]="classBootstrap" class="custom-sharing">
+    <a class="btn btn-default btn-sm clearSelected" (click)="clearAll()" title="Clear Selected"><i class="fa fa-trash-o"></i></a>
+  <select id="e1" class="form-control select2" [defaultVal]="updateData" select3 (ngModelChange)="getOutSelect($event)" multiple>
+    <optgroup class="group" label="Group">
+      <option  data-icon="fa fa-sitemap" *ngFor="let g of listGroup" value="1-{{g.sharing_group_id}}">{{g.sharing_group_nm}}</option>
+    </optgroup>
+    <optgroup class="user" label="User">
+      <option data-icon="fa fa-user" *ngFor="let u of listUser" value="2-{{u.user_id}}"><i class="fa fa-user"></i>{{u.user_nm}}</option>
+    </optgroup>
+
+  </select>
+</div>
+

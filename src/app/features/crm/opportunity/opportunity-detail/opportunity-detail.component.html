@@ -1,0 +1,264 @@
+<div id="content" class="customer-detail">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[('Sales-Opportunity-Detail'|i18n)]" icon="bar-chart-o" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>
+  <div class="well well-sm opportunity">
+    <span class="label label-info" style="background-color: #00b5ad;color: white;">{{opportunityDetail.salesopt_type_nm}}</span>
+    <h3 class="sales-name">{{opportunityDetail.salesopt_nm}}</h3>
+    <span class="label label-default" style="color: #333;background-color: #e5e5e5;"><i class="fa fa-pencil"></i> by {{opportunityDetail.creator}}</span>
+    <div class="btn-actions" style="top: -6px;">
+      <a href="javascript:void(0);" class="btn btn-default btn-sm" (click)="openEditDetailPopup()"><i class="fa fa-edit"></i></a>
+      <a [routerLink]="['/crm-sales-opportunity']" class="btn btn-default btn-sm"><i class="fa fa-mail-reply"></i></a>
+    </div>
+  </div>
+  <article class="smart-form opportunity">
+    <div class="jarviswidget" data-widget-editbutton="false" data-widget-deletebutton="false">
+      <!-- widget div-->
+      <div class="col col-lg-12" style="top: -20px;">
+        <div class="col col-lg-4" style="border-right: 1px solid #e5e5e5;">
+          <section class="col-lg-12">
+            <label class="label col-lg-3">{{'OPPORTUNITY-LB-ESTIMATED-REVENUE' | i18n}}</label>
+            <label class="input col-lg-9 data">
+              <ng-container *ngIf="opportunityDetail.sale_activitys; else noneExpect">
+                <p>{{opportunityDetail.sale_activitys.expect_amt | number}} ￦</p>
+              </ng-container>
+              <ng-template #noneExpect>
+                <p>0 ￦</p>
+              </ng-template>
+            </label>
+          </section>
+          <section class="col-lg-12">
+            <label class="label col-lg-3">{{'OPPORTUNITY-LB-ESTIMATED-PURCHASE' | i18n}}</label>
+            <label class="input col-lg-9 data">
+              <ng-container *ngIf="opportunityDetail.sale_activitys; else nonePurch_amt">
+                <p>{{opportunityDetail.sale_activitys.purch_amt | number}} ￦</p>
+              </ng-container>
+              <ng-template #nonePurch_amt>
+                <p>0 ￦</p>
+              </ng-template>
+            </label>
+          </section>
+          <section class="col-lg-12">
+              <label class="label col-lg-3">{{'OPPORTUNITY-LB-PROGRESS-RATE' | i18n}}</label>
+              <label class="input col-lg-9 data" style="top: 5px;">
+                <div class="customProgress">
+                  <span id="progressRate" style="text-align: center;color: #3e3a3a;line-height: 18px;">
+                      <ng-container *ngIf="opportunityDetail.sale_activitys; else nonestatus_num">
+                          <ng-container *ngIf="opportunityDetail.sale_activitys.sales_status_num > 0">
+                              {{opportunityDetail.sale_activitys.sales_status_num}}%
+                          </ng-container>
+                        </ng-container>
+                        <ng-template #nonestatus_num>
+                          <p>none</p>
+                        </ng-template>
+                  </span>
+                  <p style="color: red; top: -19px; text-align: center; font-size: 12px" *ngIf="isShow">Lost or Holding</p>
+                </div>
+              </label>
+            </section>
+            <section class="col-lg-12">
+              <label class="label col-lg-3">{{'OPPORTUNITY-LB-POSSIBILITY' | i18n}}:</label>
+              <label class="input col-lg-9 data" style="top: 5px;">
+                <div class="customProgress">
+                  <span id="porgressPossibility" style="text-align: center;color: #3e3a3a;line-height: 18px;">
+                    <ng-container *ngIf="opportunityDetail.sale_activitys; else nonepossibility">
+                    {{opportunityDetail.sale_activitys.possibility}}%                      
+                    </ng-container>
+                    <ng-template #nonepossibility>
+                        <p>none</p>
+                    </ng-template>
+                    
+                  </span>
+                </div>
+              </label>
+            </section>
+        </div>
+        <div class="col col-lg-4" style="border-right: 1px solid #e5e5e5;height: 160px;">
+          <section class="col-lg-12">
+            <label class="label col-lg-3" style="width: 138px;">{{'OPPORTUNITY-LB-CUSTOMER-INFORMATION' | i18n}}</label>
+            <p class="col col-lg-8" style="top: 7px;">
+              <span class="label label-info"><i class="fa fa-building"></i> {{opportunityDetail.customer_nm}}</span>
+              <span class="label label-warning"><i class="fa fa-user"></i> {{opportunityDetail.customer_contactor_nm}}</span>
+            </p>
+          </section>
+          <section class="col-lg-12">
+            <label class="label col-lg-3" style="width: 138px;">{{'OPPORTUNITY-LB-CONTRACTOR-INFORMATION' | i18n}}</label>
+            <p class="col col-lg-8" style="top: 7px;">
+              <span class="label label-info"><i class="fa fa-building"></i> {{opportunityDetail.contractor_nm}}</span>
+              <span class="label label-warning"><i class="fa fa-user"></i>
+                {{opportunityDetail.contractor_contactor_nm}}</span>
+            </p>
+          </section>
+        </div>
+        <div class="col col-lg-4">
+          <section class="col-lg-12">
+            <label class="label col-lg-3">{{'OPPORTUNITY-LB-LAST-BUSINESS-DAY' | i18n}}</label>
+            <label class="input col-lg-9 data">
+              <ng-container *ngIf="opportunityDetail.sale_activitys; else nonecreated_time">
+                <p>{{opportunityDetail.created_time}}</p>
+              </ng-container>
+              <ng-template #nonecreated_time>
+                <p>none</p>
+              </ng-template>
+            </label>
+          </section>
+          <section class="col-lg-12">
+            <label class="label col-lg-3">{{'OPPORTUNITY-LB-MODIFIED-DATE' | i18n}}</label>
+            <label class="input col-lg-9 data">
+              <ng-container *ngIf="opportunityDetail.sale_activitys; else nonechanged_time">
+                <p>{{opportunityDetail.changed_time}}</p>
+
+              </ng-container>
+              <ng-template #nonechanged_time>
+                <p>none</p>
+              </ng-template>
+            </label>
+          </section>
+          <section class="col-lg-12">
+            <label class="label col-lg-3">{{'OPPORTUNITY-LB-AM-IN-CHARGE' | i18n}}</label>
+            <label class="input col-lg-9 data">
+              <p>{{opportunityDetail.admin_nm}}</p>
+            </label>
+          </section>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article style="margin-top: 30px;">
+    <div class="jarviswidget" data-widget-editbutton="false" data-widget-fullscreenbutton="false"
+      data-widget-custombutton="false" data-widget-sortable="false">
+      <header>
+        <ul class="nav nav-tabs pull-left in new-activity">
+          <li style="height: 32px;">
+            <div style="top: -6px; position: relative;">
+              <button type="button" [ngClass]="{'disabledTab': !showTab}" class="btn btn-success dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+                <i class="fa fa-plus"></i>&nbsp;&nbsp;{{'TAB-NEW-ACTIVITY' | i18n}}
+              </button>
+              <ul class="dropdown-menu running-task" role="menu">
+                <li><a href="javascript:void(0);" (click)="openPopup('business')"><i class="fa fa-suitcase"></i>{{'TAB-BUSINESS'
+                  | i18n}}</a></li>
+                    <li><a href="javascript:void(0);" (click)="openPopup('email')"><i class="fa fa-envelope-o"></i>{{'TAB-EMAIL'
+                      | i18n}}</a></li>
+                  <li><a href="javascript:void(0);" (click)="openPopup('tel')"><i class="fa fa-phone"></i>{{'TAB-TELEPHONE'
+                      | i18n}}</a></li>
+                  <li><a href="javascript:void(0);" (click)="openPopup('meeting')"><i class="fa fa-comments-o"></i>{{'TAB-CONFERENCE'
+                      | i18n}}</a></li>
+                  <li><a href="javascript:void(0);" (click)="openPopup('issue')"><i class="fa fa-info-circle"></i>{{'TAB-ISSUE'
+                      | i18n}}</a></li>
+              </ul>
+
+            </div>
+          </li>
+          <li class="active">
+            <a data-toggle="tab" [ngClass]="{'disabledTab': !showTab}" href="#total"> <i class="fa fa-clock-o"></i> <span class="hidden-mobile hidden-tablet"></span>
+              {{'TAB-TOTAL-ACTIVITY' | i18n}}</a>
+          </li>
+          <li (click)="loadInfo('business')">
+            <a data-toggle="tab" [ngClass]="{'disabledTab': !showTab}" href="#business"> <i class="fa fa-suitcase"></i> <span class="hidden-mobile hidden-tablet"></span>
+              {{'TAB-SALE-STATUS-ACTIVITY' | i18n}}</a>
+          </li>
+          <li (click)="loadInfo('email')">
+            <a data-toggle="tab" [ngClass]="{'disabledTab': !showTab}" href="#email"> <i class="fa fa-envelope-o"></i> <span class="hidden-mobile hidden-tablet"></span>
+              {{'TAB-EMAIL-ACTIVITY' | i18n}}</a>
+          </li>
+          <li (click)="loadInfo('tel')">
+            <a data-toggle="tab" [ngClass]="{'disabledTab': !showTab}" href="#telephone"> <i class="fa fa-phone"></i> <span class="hidden-mobile hidden-tablet"></span>
+              {{'TAB-TELEPHONE-ACTIVITY' | i18n}}</a>
+          </li>
+          <li (click)="loadInfo('meeting')">
+            <a data-toggle="tab" [ngClass]="{'disabledTab': !showTab}" href="#conference"> <i class="fa fa-comments-o"></i> <span class="hidden-mobile hidden-tablet"></span>
+              {{'TAB-CONFERENCE-ACTIVITY' | i18n}}</a>
+          </li>
+          <li (click)="loadInfo('issue')">
+            <a data-toggle="tab" [ngClass]="{'disabledTab': !showTab}" href="#issue"> <i class="fa fa-info-circle"></i> <span class="hidden-mobile hidden-tablet"></span>
+              {{'TAB-ISSUE-ACTIVITY' | i18n}}</a>
+          </li>
+        </ul>
+      </header>
+      <div>
+        <div class="widget-body">
+          <div class="tab-content">
+            <div class="tab-pane active" id="total">
+              <section>
+                <h3>Total</h3>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+              </section>
+            </div>
+            <div class="tab-pane" id="business">
+                <sa-business-status-detail></sa-business-status-detail>
+            </div>
+            <div class="tab-pane" id="email">
+              <sa-email-detail></sa-email-detail>
+            </div>
+            <div class="tab-pane" id="telephone">
+              <sa-telephone-detail></sa-telephone-detail>
+            </div>
+            <div class="tab-pane" id="conference">
+              <sa-conference-detail></sa-conference-detail>
+            </div>
+            <div class="tab-pane" id="issue">
+              <sa-issue-detail></sa-issue-detail>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+<ng-template #popupBusiness>
+  <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-BUSINESS-STATUS' | i18n}}" width="780" height="600" (onClose)="closePopup()">
+    <sa-business-status companyId="{{opportunityDetail.company_id}}" opportunityId="{{opportunityId}}" Id={{Id}}
+      opportunityDetailJson="{{opportunityDetail|json}}" (childCall)="reloadList($event)"></sa-business-status>
+  </sa-popup-modal>
+</ng-template>
+<ng-template #popupEmail>
+  <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-EMAIL' | i18n}}" width="750" height="600" (onClose)="closePopup()">
+    <sa-email companyId="{{opportunityDetail.company_id}}" inputFuncId="{{inputFuncId}}" funcRefCd="{{funcRefCd}}" Id={{Id}}
+      (childCall)="reloadList($event)" customer="{{customer|json}}"  contactor="{{contactor|json}}"  user="{{user|json}}" ></sa-email>
+  </sa-popup-modal>
+</ng-template>
+<ng-template #popupTelephone>
+  <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-TELEPHONE' | i18n}}" width="750" height="600" (onClose)="closePopup()">
+    <sa-telephone companyId="{{opportunityDetail.company_id}}" inputFuncId="{{inputFuncId}}" funcRefCd="{{funcRefCd}}"
+      Id={{Id}} (childCall)="reloadList($event)" customer="{{customer|json}}"  contactor="{{contactor|json}}"  user="{{user|json}}"></sa-telephone>
+  </sa-popup-modal>
+</ng-template>
+<ng-template #popupConference>
+  <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-CONFERENCE' | i18n}}" width="750" height="600" (onClose)="closePopup()">
+    <sa-conference companyId="{{opportunityDetail.company_id}}" inputFuncId="{{inputFuncId}}" funcRefCd="{{funcRefCd}}"
+      Id={{Id}} (childCall)="reloadList($event)" customer="{{customer|json}}"  contactor="{{contactor|json}}"  user="{{user|json}}"></sa-conference>
+  </sa-popup-modal>
+</ng-template>
+
+<ng-template #popupIssue>
+  <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-ISSUE' | i18n}}" width="750" height="600" (onClose)="closePopup()">
+    <sa-issue companyId="{{opportunityDetail.company_id}}" inputFuncId="{{inputFuncId}}" funcRefCd="{{funcRefCd}}" Id={{Id}}
+      (childCall)="reloadList($event)" customer="{{customer|json}}"  contactor="{{contactor|json}}"  user="{{user|json}}"></sa-issue>
+  </sa-popup-modal>
+</ng-template>
+
+<ng-template #popupEditDetail>
+    <sa-popup-modal headerTitle="{{'OPPORTUNITY-HEADER-EDIT-SALES-OPPORTUNITY-DATA-MANAGEMENT' | i18n}}" width="800" height="900" (onClose)="closeEditDetailPopup()">
+      <sa-opportunity-popup (childCall)="reloadData($event)" EditDetailJson="{{opportunityDetail|json}}"
+      customer="{{customer|json}}"  contactor="{{contactor|json}}"  user="{{user|json}}" saleType={{saleType|json}}></sa-opportunity-popup>
+    </sa-popup-modal>
+  </ng-template>

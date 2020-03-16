@@ -1,0 +1,166 @@
+<div id="content">
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-4">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman" class="col-lg-12"
+          style="margin-bottom: 10px;">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-edit"></i>
+            </span>
+            <h2>{{'SPECIAL-SALARY-INFO' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" class="smart-form atman-form-small frm-detail"
+                novalidate="novalidate" [saUiValidate]="validationOptions">
+                <fieldset>
+                  <div class="row">
+                    <section class="col col-3">
+                      <label class="label">{{"Year" | i18n}}</label>
+                      <label class="input">
+                        <select name="year" [(ngModel)]="SPSalaryInfo.year" [defaultVal]="SPSalaryInfo.year" [disabled]="isDisabled"
+                          select2 style="width:100%;" required class="select2 required" placeHolder="Select menu"
+                          allowClear="true">
+                          <option value=""></option>
+                          <option *ngFor="let s of year" value={{s.value}}>{{s.name}}</option>
+                        </select>
+                      </label>
+                    </section>
+                    <section class="col col-3">
+                      <label class="label">{{"Month" | i18n}}</label>
+                      <label class="input">
+                        <select name="month" [(ngModel)]="SPSalaryInfo.month" [defaultVal]="SPSalaryInfo.month"
+                          [disabled]="isDisabled" select2 style="width:100%;" required class="select2 required"
+                          placeHolder="Select menu" allowClear="true">
+                          <option value=""></option>
+                          <option *ngFor="let s of month" value={{s.value}}>{{s.name}}</option>
+                        </select>
+                      </label>
+                    </section>
+                  </div>
+
+                  <div class="row">
+                    <section class="col col-6">
+                      <label class="label">{{"SPECIAL-PAY-NAME" | i18n}}</label>
+                      <label class="input">
+                        <input class="required_input" type="text" name="special_pay_item_nm" [(ngModel)]="SPSalaryInfo.special_pay_item_nm"
+                          autocomplete="off" required />
+                      </label>
+                    </section>
+                    <section class="col col-6">
+                      <label class="label">{{'TAX-YN' | i18n}}</label>
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="tax_yn" [(ngModel)]="SPSalaryInfo.tax_yn" checked="SPSalaryInfo.tax_yn">
+                          <i></i>
+                        </label>
+                      </label>
+                    </section>
+                  </div>
+                </fieldset>
+                <footer>
+                  <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs">
+                    <i class="fa fa-times"></i>
+                    {{'button-close' | i18n}}
+                  </button>
+                  <button type="button" (click)="onReset()" name="reset" class="btn btn-default btn-xs edit-program">
+                    <i class="fa fa-refresh"></i>
+                    {{'button-reset' | i18n}}
+                  </button>
+                  <button type="submit" [disabled]="!permission.canSave" name="submit" class="btn btn-primary btn-xs edit-program">
+                    <i class="fa fa-save"></i>
+                    {{'button-save' | i18n}}
+                  </button>
+                </footer>
+              </form>
+
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-lg-12" style="padding: 0;">
+            <label class="input col-lg-4" style="padding: 0;">
+                <select select2 class="select2" name="yearFilter" [(ngModel)]="yearFilter" style="width:100%" (onSelectedChange)="filterByYear($event)">
+                    <option *ngFor="let item of year" value="{{item.value}}">{{item.name}}</option>
+                </select>
+            </label>
+      </div> -->
+        <div class="col-lg-12" style="padding: 0;">
+          <fieldset>
+            <section>
+              <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman special-salary-table">
+                <header>
+                  <span class="widget-icon">
+                    <i class="fa fa-list"></i>
+                  </span>
+                  <h2 style="padding-right: 30px;">{{'SPECIAL-SALARY-LIST' | i18n}}</h2>
+                  <label class="input col-lg-2 pull-right" style="padding: 0;">
+                    <select select2 class="select2" name="yearFilter" [(ngModel)]="yearFilter" style="width:100%"
+                      (onSelectedChange)="filterByYear($event)">
+                      <option *ngFor="let item of year" value="{{item.value}}">{{item.value}}</option>
+                    </select>
+                  </label>
+                </header>
+                <div>
+                  <div class="widget-body no-padding">
+                    <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                      tableClass="SPSalaryList table-striped table-condensed table-hover table-bordered tbl-sharing-group">
+                      <thead>
+                        <tr class="heading datatable_title">
+                          <th>{{"COMPANY" | i18n}}</th>
+                          <th>{{"YEAR" | i18n}}</th>
+                          <th>{{"MONTH" | i18n}}</th>
+                          <th>{{'SPECIAL-PAY-NAME' | i18n}}</th>
+                          <th>{{'TAX-YN' | i18n}}</th>
+                        </tr>
+                        <tr class="table_filter">
+                          <th class="hasinput table_border_filter">
+                            <input type="text" class="form-control" placeholder="" />
+                          </th>
+                          <th class="hasinput table_border_filter">
+                            <input type="text" class="form-control" placeholder="" />
+                          </th>
+                          <th class="hasinput table_border_filter">
+                            <input type="text" class="form-control" placeholder="" />
+                          </th>
+                          <th class="hasinput table_border_filter">
+                            <input type="text" class="form-control" placeholder="" />
+                          </th>
+                          <th class="hasinput table_border_filter">
+                            <select id="FilterDropdown" class="form-control tax-filter">
+                              <option value="">All</option>
+                              <option value="Yes">Yes</option>
+                              <option value="No">No</option>
+                            </select>
+                          </th>
+                        </tr>
+
+                      </thead>
+                    </sa-datatable>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </fieldset>
+        </div>
+      </article>
+      <article class="col-sm-8">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman special-salary-table">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>{{'SPECIAL-SALARY-EMPLOYEE-LIST' | i18n}}</h2>
+            <div class="col-sm-3 pull-right" *ngIf="SPSalaryInfo.special_pay_item_id > 0">
+              <select select2 class="select2" [(ngModel)]="SPSalaryInfo.orgid" name="orgid" style="width:100%"
+                allowClear='true' (ngModelChange)="searchEmployee()">
+                <option *ngFor="let item of departments" value="{{item.org_cd}}">{{item.org_tree_nm}}</option>
+              </select>
+            </div>
+          </header>
+          <sa-special-salary-detail></sa-special-salary-detail>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

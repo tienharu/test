@@ -1,0 +1,57 @@
+:host /deep/ .price-format{
+    text-align: right !important;
+}
+
+:host /deep/ #materialTabs > li.active > a{
+    box-shadow: 0 -3px 0 #57889c ;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+:host /deep/ .frm-work-order-detail .input-group-addon{
+    padding: 0px 8px;
+}
+:host /deep/ .frm-work-order-detail .input-group-addon .onoffswitch{
+    width: 40px;
+}
+:host /deep/ .frm-work-order-detail .input-group-addon .onoffswitch input{
+    display: none;
+}
+:host /deep/ .frm-work-order-detail .input-group-addon .onoffswitch .onoffswitch-inner::before{
+    float: left;
+    width: 50%;
+    height: 10px;
+    line-height: 12px;
+    font-size: 8px;
+    padding-left: 5px;
+}
+:host /deep/ .frm-work-order-detail .input-group-addon .onoffswitch .onoffswitch-inner::after{
+    float: left;
+    width: 50%;
+    height: 10px;
+    line-height: 12px;
+    font-size: 8px;
+    padding-left: 5px;
+}
+:host /deep/ .frm-work-order-detail .input-group-addon .onoffswitch-switch{
+    width: 15px;
+    height: 15px;
+    right: 25px;
+}
+:host /deep/ .frm-work-order-detail .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch{
+    right: 0px;
+}
+:host /deep/ .frm-work-order-detail .input-group-addon .onoffswitch-switch::before{
+    line-height: 15px;
+}
+
+:host /deep/ .frm-work-order-detail .input-group-btn .btn{
+    margin: 0;
+    height: 22px;
+}
+
+:host /deep/ .frm-work-order-detail .input-group-btn .btn .icon-append{
+  top: 0px;
+  right: 0px;
+  border: 0;
+}

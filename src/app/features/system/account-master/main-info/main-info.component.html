@@ -1,0 +1,41 @@
+<div id="content" style="overflow-y: unset;">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[('ACCOUNT-MASTER'|i18n)]" icon="users" class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+    </sa-big-breadcrumbs>
+  </div>
+
+  <div class="widget-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <ul id="myTab1" class="nav nav-tabs">
+          <li class="active">
+            <a href="#s1" data-toggle="tab">{{'Global_AC_Code' | i18n}}</a>
+          </li>
+          <li class="">
+            <a href="#s2" data-toggle="tab">{{'Company_AC_Code' | i18n}}</a>
+          </li>
+          <li class="">
+            <a href="#s3" data-toggle="tab">{{'Company_CF_Code' | i18n}}</a>
+          </li>
+          <li class="">
+            <a href="#s4" data-toggle="tab">{{'Local_Language_Setting' | i18n}}</a>
+          </li>
+        </ul>
+        <div id="myTabContent1" class="tab-content padding-10">
+          <div class="tab-pane fade active in" id="s1">
+            <sa-global-ac></sa-global-ac>
+          </div>
+          <div class="tab-pane fade " id="s2">
+            <sa-company-ac></sa-company-ac>
+          </div>
+          <div class="tab-pane fade " id="s3">
+            <sa-company-cf></sa-company-cf>
+          </div>
+          <div class="tab-pane fade" id="s4">
+            <sa-local-language-setting></sa-local-language-setting>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

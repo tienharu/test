@@ -1,0 +1,14 @@
+.center-loading{
+    z-index: 99999;
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 45%;
+    text-align: center;
+    padding: 5px;
+    background: white;
+    border: solid 1px #a90329;
+    border-radius: 5px;
+    color: #a90329;
+    width: 200px;
+}

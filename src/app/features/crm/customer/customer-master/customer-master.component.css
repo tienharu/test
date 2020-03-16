@@ -1,0 +1,39 @@
+/* i.fa {
+    display: inline-block;
+    border-radius: 60px;
+    box-shadow: 0px 0px 2px #888;
+    padding: 0.5em 0.6em;
+  
+  } */
+.status .who{padding: 15px}
+.status .text {
+    padding: 15px;
+}
+.status .text div {
+    margin-bottom: 10px;
+}
+.status .links{
+    padding: 15px;
+}
+.status .links li {
+    padding-right: 0;
+}
+.panel-default:hover {
+    border-color: #9da4ab;
+    box-shadow: 0 1px 3px 1px rgb(136, 140, 144);
+}
+
+.dropdown-menu {
+    background: #fff;
+    border-bottom: 2px solid #efefef;
+}
+.dropdown-menu>li>a {
+    color: #333!important;
+}
+.dropdown-menu > li > a:hover{
+    background-color: #efefef;
+        color: #333;
+}
+.customer-star{
+    padding: 5px 9px 7px 10px;
+}

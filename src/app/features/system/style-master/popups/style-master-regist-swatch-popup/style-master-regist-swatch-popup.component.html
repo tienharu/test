@@ -1,0 +1,126 @@
+<!-- <div id="content-popup" > -->
+<form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+  class="smart-form atman-form-small no-header frm-detail" novalidate="novalidate" [saUiValidate]="validationOptions">
+  <fieldset>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10" style="margin-left: 8%;">
+        <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <section class="col col-lg-7">
+            <section class="col-lg-8">
+              <label class="label">{{'SM_SWATCH' | i18n}}</label>
+              <label class="input">
+                <input type="text" name="swatchName" [(ngModel)]="detailInfo.swatchName" autocomplete="off" required />
+              </label>
+            </section>
+            <section class="col-lg-4">
+              <label class="label" style="visibility: hidden">{{'SM_SWATCH_CODE' | i18n}}</label>
+              <label class="input state-disabled">
+                <input type="text" name="swatchId" class="center" value={{detailInfo.swatchId}} autocomplete="off"
+                  disabled />
+              </label>
+            </section>
+          </section>
+          <section class="col col-lg-3">
+            <section class="col-lg-4">
+              <label class="label">{{'NO' | i18n}}</label>
+              <label class="input">
+                <input type="number" name="swatchNo" [(ngModel)]="detailInfo.swatchNo" autocomplete="off" required />
+              </label>
+            </section>
+          </section>
+          <section class="col col-lg-2 checkbox-field-right" style="top: 16px;">
+            <label class="checkbox" style="float: right;">
+              <input type="checkbox" name="useYn" [(ngModel)]="detailInfo.useYn" checked="detailInfo.useYn" />
+              <i></i>
+              <span>{{'ACTIVE' | i18n}}</span>
+            </label>
+          </section>
+
+          <section class="col col-lg-12">
+            <section class="col-lg-12">
+              <div class="input input-file">
+                <label class="label">{{'SM_ATTACH_FILE' | i18n}}</label>
+                <span class="button" style="right: 0; top: 18px !important;">
+                <input type="file" id="file" name="file" (change)="onChange($event)">Browse</span>
+                <input type="text" name="attachFiles" placeholder="Select an attach file" accept="image/gif, image/jpeg, image/png" readonly="" [(ngModel)]="attachFiles">
+              </div>
+            </section>
+          </section>
+        </section>
+        <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <section class="col col-lg-7">
+            <label class="label">{{'DESCRIPTION' | i18n}}</label>
+            <label class="textarea">
+              <textarea placeholder="Description" [(ngModel)]="detailInfo.remark" name="remark" autocomplete="off"
+                rows="1"></textarea>
+            </label>
+          </section>
+          <section class="col col-lg-5">
+            <section class=" col-lg-12" style="margin-top: 7px;">
+              <button type="button" name="btnCloseProgram" (click)="onClose()" class="btn btn-cancel">
+                <i class="fa fa-times"></i>
+                {{'button-close' | i18n}}
+              </button>
+              <button type="submit" name="submit" class="btn btn-primary" [disabled]="isDisable">
+                <i class="fa fa-save"></i>
+                {{'BUTTON-SAVE' | i18n}}
+              </button>
+            </section>
+          </section>
+
+        </section>
+      </div>
+    </div>
+  </fieldset>
+</form>
+<sa-widgets-grid>
+  <div class="row">
+    <article class="col-sm-12">
+      <article class="col col-sm-12">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>{{'SM_SWATCH_HEADER' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options_popup" (rowClick)="onRowClick($event)" [paginationLength]="false"
+                filter="true"
+                tableClass="table projects-table table-striped table-condensed table-hover table-bordered swatch_table">
+                <thead>
+                  <tr class="heading">
+                    <th>{{'SWATCH_NAME' | i18n}}</th>
+                    <th>{{'NO' | i18n}}</th>
+                    <th>{{'SM_ATTACH_FILE' | i18n}}</th>
+                    <th>{{'NO' | i18n}}</th>
+                    <th>{{'REMARK' | i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </article>
+  </div>
+</sa-widgets-grid>
+<!-- </div> -->

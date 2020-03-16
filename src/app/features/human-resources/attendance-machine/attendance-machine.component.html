@@ -1,0 +1,107 @@
+<div id="content">
+  <div class="well well-sm overtime-tool">
+    <div class="row">
+      <div class="col-lg-2">
+        <label class="col-lg-4 title">{{'FROM'|i18n}}</label>
+        <label class="input col-lg-8" style="padding:0">
+          <input id="dateFrom" type="text" class="form-control" autocomplete="off" placeholder="YYYY-MM-DD" name="fromDate" [(ngModel)]="searchInfo.fromDate"
+            class="form-control datepicker" [saUiDatepicker]="{}" />
+        </label>
+      </div>
+      <div class="col-lg-2">
+        <label class="col-lg-4 title">{{'TO'|i18n}}</label>
+        <label class="input col-lg-8" style="padding:0">
+          <input id="dateTo" type="text" class="form-control" autocomplete="off" placeholder="YYYY-MM-DD" name="toDate" [(ngModel)]="searchInfo.toDate" 
+            class="form-control datepicker" [saUiDatepicker]="{}" />
+        </label>
+      </div>
+
+      <div class="col-lg-2">
+        <label class="col-lg-4 title">{{'HR_ID'|i18n}}</label>
+        <label class="input col-lg-8" style="padding:0">
+          <input type="text" name="hr_id" class="form-control" placeHolder="Hr Code" autocomplete="off"
+            [(ngModel)]="searchInfo.hr_id">
+        </label>
+      </div>
+
+      <div class="col-lg-6">
+        <button  type="button" (click)="searchData()"
+          class="btn btn-sm btn-default margin-right-5">
+          <i class="fa fa-search"></i>
+          {{'SEARCH' | i18n}}
+        </button>
+        <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs pull-right">
+          <i class="fa fa-times"></i>
+          {{'button-close' | i18n}} 
+        </button>
+        <button type="button" (click)="excelExport()"  class="btn btn-info margin-right-5">
+          <i class="fa fa-file-excel-o"></i>
+          {{'Excel' | i18n}}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <article class="col-sm-12">
+      <div sa-widget color="atman" class="jarviswidget-atman">
+        <header>
+          <span class="widget-icon">
+            <i class="fa fa-list"></i>
+          </span>
+          <h2>{{'ATTENDANCE-MACHINE-TABLE' | i18n}}</h2>
+        </header>
+        <div>
+          <div class="widget-body no-padding scroll-vertical">
+            <sa-datatable [options]="options" id="example" paginationLength="true" filter="true"
+              tableClass="MachineListInfo table table-striped table-condensed table-hover table-bordered datagrid_languages">
+              <thead>
+                <tr class="heading datatable_title">
+                  <th>{{'HR-ID' | i18n}}</th>
+                  <th>{{'PAYROLL_MASTER_LBL_EMP_NAME' | i18n}}</th>
+                  <!-- <th>{{'DEPARTMENT' | i18n}}</th> -->
+                  <th>{{'MACHINE_IN_OUT' | i18n}}</th>
+                  <th>{{'CREATED-BY' | i18n}}</th>
+                  <th>{{'CREATED-DATE' | i18n}}</th>
+                  <th>{{'MACHINE_ID'| i18n}}</th>
+                  <th>{{'TYPE' | i18n}}</th>
+                </tr>
+                <tr class="table_filter">
+                  <th class="hasinput table_border_filter">
+                    <input type="text" class="form-control" placeholder="HR ID" />
+                  </th>
+                  <th class="hasinput table_border_filter">
+                    <input type="text" class="form-control" placeholder="Name" />
+                  </th>
+                  <!-- <th class="hasinput table_border_filter">
+                    <input type="text" class="form-control" placeholder="Department" />
+                  </th> -->
+                  
+                  <th class="hasinput table_border_filter">
+                    <input type="text" class="form-control center" placeholder="IN/OUT" />
+                  </th>
+                 
+                  <th class="hasinput table_border_filter">
+                    <input type="text" class="form-control center" placeholder="Creator" />
+                  </th>
+                  <th class="hasinput icon-addon table_border_filter">
+                    <div class="">
+                      <i class="fa fa-calendar margin-top-5"></i>
+                      <input type="text" class="form-control" placeholder="YYYY-MM-DD" class="form-control datepicker"
+                        [saUiDatepicker]="{}" />
+                    </div>
+                  </th>
+                  <th class="hasinput table_border_filter">
+                    <input type="text" class="form-control" placeholder="Source" />
+                  </th>
+                  <th class="hasinput table_border_filter">
+                    <input type="text" class="form-control" placeholder="Remark" />
+                  </th>
+                </tr>
+              </thead>
+            </sa-datatable>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>

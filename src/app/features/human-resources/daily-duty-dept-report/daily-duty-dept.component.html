@@ -1,0 +1,197 @@
+<div id="content">
+        <div class="well well-sm">
+            <div class="row">
+            <div class="col-lg-2 smart-form">
+                <section>
+                <label class="input">
+                    <select
+                    select2
+                    class="form-control select2"
+                    [(ngModel)]="orgid"
+                    style="width:100%"
+                    placeHolder="Select Department"
+                    allowClear="true">
+                    <option *ngFor="let item of departments"
+                        value="{{ item.org_cd }}">{{ item.org_tree_nm }}</option>
+                    </select>
+                </label>
+                </section>
+            </div>
+            <div class="col-lg-2 smart-form">
+                <section>
+                <label class="input">
+                  <i class="icon-append fa fa-calendar"></i>
+                  <input
+                  type="text"
+                  autocomplete="off"
+                  [(ngModel)]="calendar"
+                  placeholder="Date"
+                  (ngModelChange)="changeDate($event)"
+                  [saUiDatepicker]="{}"/>
+                </label>
+                </section>
+            </div>
+            <div class="col-lg-3">
+                <button
+                type="button"
+                (click)="search(false)"
+                class="btn btn-default btn-sm margin-right-5">
+                <i class="fa fa-search"></i> {{ "SEARCH" | i18n }}
+                </button>
+                <button
+                type="button"
+                (click)="exportXLSX()"
+                class="btn btn-success btn-sm margin-right-5">
+                <i class="fa fa-file-excel-o"></i>
+                {{ "BUTTON-EXCEL" | i18n }}
+                </button>
+                <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs">
+                <i class="fa fa-times"></i>
+                {{'button-close' | i18n}}
+                </button>
+            </div>
+            </div>
+        </div>
+        <div>
+          <sa-widgets-grid>
+            <div class="row">
+              <section class="col-sm-12">
+                <div sa-widget [editbutton]="false" color="darken">
+                  <header>
+                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                    <h2>{{ "DAILY_DUTY_DEPT_REPORT" | i18n }}</h2>
+                  </header>
+                  <div>
+                    <div class="widget-body no-padding table-wrap">
+                      <table 
+                        class="table table-striped table-condensed table-hover
+                        table-bordered cell-border table-grid">
+                        <thead>
+                          <tr>
+                            <th class="center" title='{{ "DAILY_DUTY_DEPT_NO" | i18n }}'>{{ "DAILY_DUTY_DEPT_NO" | i18n }}</th>
+                            <th class="left" title='{{ "DAILY_DUTY_DEPT_DEPT" | i18n }}'>{{ "DAILY_DUTY_DEPT_DEPT" | i18n }}</th>
+                            <th class="left" title='{{ "DAILY_DUTY_DEPT_IN" | i18n }}'>{{ "DAILY_DUTY_DEPT_IN" | i18n }}</th>
+                            <th class="left" title='{{ "DAILY_DUTY_DEPT_OUT" | i18n }}'>{{ "DAILY_DUTY_DEPT_OUT" | i18n }}</th>
+                            <th class="center" *ngFor="let a of attendances" [attr.title]="a.gen_nm">{{a.text_value_1}}</th>
+                            <th class="center" title='{{ "DAILY_DUTY_DEPT_MALE" | i18n }}'>{{ "DAILY_DUTY_DEPT_MALE" | i18n }}</th>
+                            <th class="center" title='{{ "DAILY_DUTY_DEPT_FEMALE" | i18n }}'>{{ "DAILY_DUTY_DEPT_FEMALE" | i18n }}</th>
+                            <th class="center" title='{{ "DAILY_DUTY_DEPT_OT1" | i18n }}'>{{ "DAILY_DUTY_DEPT_OT1" | i18n }}</th>
+                            <th class="center" title='{{ "DAILY_DUTY_DEPT_OT2" | i18n }}'>{{ "DAILY_DUTY_DEPT_OT2" | i18n }}</th>
+                            <th class="center" title='{{ "DAILY_DUTY_DEPT_OT3" | i18n }}'>{{ "DAILY_DUTY_DEPT_OT3" | i18n }}</th>
+                            <th class="center" title='{{ "DAILY_DUTY_DEPT_OT4" | i18n }}'>{{ "DAILY_DUTY_DEPT_OT4" | i18n }}</th>
+                            <th class="center" title='{{ "DAILY_DUTY_DEPT_OT5" | i18n }}'>{{ "DAILY_DUTY_DEPT_OT5" | i18n }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                            *ngFor="let e of (department.detail
+                            | paginate
+                            : {
+                            itemsPerPage: pageSize,
+                            currentPage: page,
+                            totalItems: totalItems
+                            });
+                            let i= index">
+                            <td
+                              class="center"
+                              style="width:30px;vertical-align:middle;">
+                              {{ pageSize * (page - 1) + (i + 1) }}
+                            </td>
+                            <td t="s"
+                              class="left"
+                              style="width:150px;vertical-align:middle;">
+                              {{ e.department }}
+                            </td>
+                            <td
+                              class="right"
+                              style="width: 80px;vertical-align:middle;">
+                              {{ e.in }}
+                            </td>
+                            <td
+                              class="right"
+                              style="width:80px;vertical-align:middle;">
+                              {{ e.out }}
+                            </td>
+                            <td class="right" *ngFor="let a of e.attendance_summary">{{a}}</td>
+                            <td
+                              class="right"
+                              style="width:60px;vertical-align:middle;">
+                              {{ e.male }}
+                            </td>
+                            <td
+                              class="right"
+                              style="width:60px;vertical-align:middle;">
+                              {{ e.female }}
+                            </td>
+                            <td
+                              class="right"
+                              style="width:60px;vertical-align:middle;">
+                              {{ e.ot1 }}
+                            </td>
+                            <td
+                              class="right"
+                              style="width:60px;vertical-align:middle;">
+                              {{ e.ot2 }}
+                            </td>
+                            <td
+                              class="right"
+                              style="width:60px;vertical-align:middle;">
+                              {{ e.ot3 }}
+                            </td>
+                            <td
+                              class="right"
+                              style="width:60px;vertical-align:middle;">
+                              {{ e.ot4 }}
+                            </td>
+                            <td
+                              class="right"
+                              style="width:50px;vertical-align:middle;">
+                              {{ e.ot5 }}
+                            </td>
+                          </tr>
+                          <tr *ngIf="department.detail.length > 0">
+                            <td colspan="2" class="center"><strong>{{ "DAILY_DUTY_DEPT_TOTAL" | i18n }}</strong></td>
+                            <td class="right"><strong>{{department.total_in}}</strong></td>
+                            <td class="right"><strong>{{department.total_out}}</strong></td>
+                            <td class="right" *ngFor="let a of department.total_attendance_summary"><strong>{{a}}</strong></td>
+                            <td class="right"><strong>{{department.total_male}}</strong></td>
+                            <td class="right"><strong>{{department.total_female}}</strong></td>
+                            <td class="right"><strong>{{department.total_ot1}}</strong></td>
+                            <td class="right"><strong>{{department.total_ot2}}</strong></td>
+                            <td class="right"><strong>{{department.total_ot3}}</strong></td>
+                            <td class="right"><strong>{{department.total_ot4}}</strong></td>
+                            <td class="right"><strong>{{department.total_ot5}}</strong></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="widget-foot">
+                      <div class="row">
+                        <div class="atman-paging dt-toolbar-footer">
+                          <div class="col-sm-6 col-xs-12 hidden-xs">
+                            <div class="dataTables_info">
+                              {{ "COMMON_LBL_SHOW" | i18n }} {{ from_record }}
+                              {{ "COMMON_LBL_SHOW_TO" | i18n }} {{ to_record }}
+                              {{ "COMMON_LBL_SHOW_OF" | i18n }} {{ totalItems }}
+                              {{ "COMMON_LBL_SHOW_ENTRIES" | i18n }}
+                            </div>
+                          </div>
+                          <div class="col-sm-6 col-xs-12 hidden-xs">
+                            <pagination-controls
+                              class="my-pagination"
+                              (pageChange)="changePage($event)"
+                              [autoHide]="true"
+                              [previousLabel]="labels.previousLabel"
+                              [nextLabel]="labels.nextLabel">
+                            </pagination-controls>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </sa-widgets-grid>
+        </div>
+    </div>

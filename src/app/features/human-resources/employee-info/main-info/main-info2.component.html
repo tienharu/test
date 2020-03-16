@@ -1,0 +1,545 @@
+<div id="content">
+    <div class="row">
+        <sa-big-breadcrumbs [items]="[('Employee-Management-Header'|i18n)]" icon="users"
+            class="col-xs-12 col-sm-12 col-md-6 col-lg-5"></sa-big-breadcrumbs>
+        <div class="col-sm-12 col-md-6 col-lg-7 smart-form" style="padding-top: 20px; padding-left: 0">
+            <section class="col col-3">
+                <label class="input">
+                  <select
+                    select2
+                    class="form-control select2"
+                    [(ngModel)]="searchModel.departId"
+                    style="width:100%"
+                    placeHolder="All department"
+                    allowClear="true">
+                    <option
+                      *ngFor="let item of org"
+                      value="{{ item.org_cd }}">{{ item.org_tree_nm }}</option>
+                  </select>
+                </label>
+              </section>
+              <section class="col col-2 padding-left-0">
+                <label class="input">
+                    <input type="text" placeholder="ID/Name..." [(ngModel)]="searchModel.keyword"/>
+                </label>
+            </section>
+            <section class="col col-2 padding-left-0">
+                <label class="input">
+                  <select select2 class="form-control select2" style="width:100%" [(ngModel)]="searchModel.filterStatus" placeHolder="All status" allowClear="true">
+                    <option value="-1">All</option>
+                    <option value="1">Working</option>
+                    <option value="0">Stop work</option>
+                    <option value="2" title="Pragnant >7th month/Baby under 1 yr old">On maternity</option>
+                    <option value="3" title="Maternity leave-off">Maternity off</option>
+                  </select>
+                </label>
+              </section>
+            <section class="col-sm-1">
+                <label class="input"> 
+                    <input type="text" [(ngModel)]="searchModel.from" id="d_from" placeholder="From..." style="width: 90px;" class="center"
+                    autocomplete="off" [saUiDatepicker]="{minRestrict:'#d_to'}" />
+                </label>
+            </section>
+            <section style="float:left;text-align: center;width: 15px;">
+                <label class="input">&nbsp;</label>
+            </section>
+            <section class="col-sm-1">
+                <label class="input">
+                    <input type="text" [(ngModel)]="searchModel.to" id="d_to" placeholder="to date" style="width: 90px;" class="center"
+                    autocomplete="off" [saUiDatepicker]="{maxRestrict:'#d_from'}" />
+                </label>
+            </section>
+            <div class="pull-right col-sm-2">
+                <button type="button" (click)="searchEmployee()" class="btn btn-default btn-sm btn-30 margin-right-5">
+                    <i class="fa fa-search"></i>
+                    {{'SEARCH' | i18n}}
+                </button>
+                <button type="button" (click)="exportExcelEmployee()" class="btn btn-success btn-sm btn-30">
+                    <i class="fa fa-file-excel-o"></i>
+                    Excel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <sa-widgets-grid>
+        <div class="human-resources">
+            <section class="col-xs-12 col-sm-7 col-md-7 col-lg-5 hr-avatar">
+                <div class="widget-body no-padding">
+                    <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+                        class="smart-form atman-form-small frm-detail" novalidate="novalidate"
+                        [saUiValidate]="validationOptions">
+                        <fieldset class="hr-skin" style="margin-bottom: 20px;">
+                            <input type="hidden" name="company_id" [(ngModel)]="mainInfo.company_id" />
+                            <div class="col-lg-4 left-column">
+                                <img class="hr-img" id="profileImage"
+                                    src="{{mainInfo.image_url||'/assets/img/epl_avatar.jpg'}}"
+                                    onerror="this.src='/assets/img/epl_avatar.jpg'"
+                                    style="margin-bottom: 10px;margin-top: 5px;width: 202px;height: 248px;" />
+                                <section class="col-lg-11">
+                                    <button for="file-upload" class="btn btn-info btn-small col-lg-4 hr-btn-image"
+                                        (click)="onOpenFile($event)" type="button">{{'Image'|i18n}}</button>
+                                    <input type="file" id="file-upload" accept="image/gif, image/jpeg, image/png"
+                                        (change)="onFileChange($event)" class="uploadFile" />
+                                    <div class="col-lg-8 hr-traning">
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="training_yn"
+                                                [(ngModel)]="mainInfo.training_yn">
+                                            <i></i></label><label>{{'Training-Y/N'|i18n}}</label>
+                                    </div>
+                                </section>
+                                <section class="col-lg-11" style="margin-top: 21px;">
+                                    <button type="button" class="col-lg-12 btn btn-small hr-cus-button hr-btn-contract"
+                                        (click)="openContractPopup()">{{'Contract-Condition'|i18n}}</button>
+                                </section>
+                                <section class="col-lg-11 hr-start-end">
+                                    <label class="input col-lg-5 hr-start">
+                                        <input type="text" class="disabled center" disabled="disabled"
+                                            [value]="extraInfo.last_contract_info ? extraInfo.last_contract_info.last_contract_from : ''" />
+                                    </label>
+                                    <label class="input col-lg-5 hr-end">
+                                        <input type="text" class="disabled center" disabled="disabled"
+                                            [value]="extraInfo.last_contract_info ? extraInfo.last_contract_info.last_contract_to : ''" />
+                                    </label>
+                                    <label class="input col-lg-1 hr-number type-1">
+                                        <input type="text" class="disabled center" disabled="disabled"
+                                            [value]="extraInfo.last_contract_info ? extraInfo.last_contract_info.last_contract_no : ''" />
+                                    </label>
+                                </section>
+                            </div>
+                            <div class="col-lg-8 right-column">
+                                <div class="row content">
+                                    <section class="col-lg-5 column1">
+                                        <section class="col-lg-12">
+                                            <label class="label">{{'COMPANY'|i18n}}</label>
+                                            <label class="input col-lg-12 lb2">
+                                                <select select2 class="select2" name="company_id" required
+                                                    [(ngModel)]="mainInfo.company_id" [defaultVal]="mainInfo.company_id"
+                                                    style="width:100%" placeHolder="Company">
+                                                    <option *ngFor="let item of company" value="{{item.company_id}}">
+                                                        {{item.company_nm}}</option>
+                                                </select>
+                                            </label>
+                                        </section>
+                                        <section class="col-lg-12">
+                                            <label class="label">{{'HR-CODE'|i18n}}</label>
+                                            <label class="input col-lg-8 lb2">
+                                                <input type="text" class="type-3 center required"
+                                                    [ngClass]="{'disabled': isUpdating}" [disabled]='isUpdating'
+                                                    maxlength='20' placeholder="..." name="hr_id"
+                                                    [(ngModel)]="mainInfo.hr_id" />
+                                            </label>
+                                            <label class="checkbox col-lg-2 lb2 pull-right"
+                                                [ngClass]="{'state-disabled': isUpdating}"
+                                                title="{{'HR-CODE-AUTO-MSG'|i18n}}">
+                                                <input type="checkbox" name="hr_auto" [disabled]='isUpdating'
+                                                    (click)='onAutoGenIDChanged($event)'>
+                                                <i></i>{{'Auto'|i18n}}
+                                            </label>
+                                        </section>
+                                        <section class="col-lg-12">
+                                            <label class="label">{{'Full-Name'|i18n}}</label>
+                                            <label class="input">
+                                                <input type="text" name="employee_nm" required
+                                                    [(ngModel)]="mainInfo.employee_nm" maxlength='50'
+                                                    (ngModelChange)="setDisplayName()" />
+                                            </label>
+                                        </section>
+                                        <section class="col-lg-12 display-name">
+                                            <label class="label">{{'Display-Name'|i18n}}</label>
+                                            <label class="input col-lg-12 lb1">
+                                                <input type="text" name="employee_nm_simple" required
+                                                    [(ngModel)]="mainInfo.employee_nm_simple" maxlength='50' />
+                                            </label>
+                                        </section>
+                                        <section class="col-lg-12">
+                                            <label class="label">{{'Emp-Entrance-Date'|i18n}}</label>
+                                            <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                                                <input type="text" required name="entrance_ymd"
+                                                    [(ngModel)]="mainInfo.entrance_ymd" [saUiDatepicker]
+                                                    placeholder="yyyy-mm-dd" autocomplete="off">
+                                            </label>
+                                        </section>
+                                        <section class="col-lg-12">
+                                            <label class="label">{{'National-ID'|i18n}}</label>
+                                            <label class="input">
+                                                <input type="text" name="national_id" [(ngModel)]="mainInfo.national_id"
+                                                    maxlength='20' />
+                                            </label>
+                                        </section>
+                                        <section class="col-lg-12">
+                                            <label class="label">{{'Tax-ID'|i18n}}</label>
+                                            <label class="input">
+                                                <input type="text" name="tax_no" [(ngModel)]="mainInfo.tax_no"
+                                                    maxlength='20' />
+                                            </label>
+                                        </section>
+
+                                        <!-- <section class="col-lg-12 insurance">
+                                            <label class="label"></label>
+                                            <button class="btn btn-sm hr-cus-button col-lg-9" type="button" (click)="openInsurancePopup()">{{'Insurance-Data'|i18n}}</button>
+                                            <label class="input col-lg-1 type-1">
+                                                <input type="text" disabled class="center" [value]="extraInfo.insurance_count" />
+                                            </label>
+                                        </section> -->
+                                        <section class="col-lg-12">
+                                            <label class="label">{{'Address'|i18n}}</label>
+                                        </section>
+                                    </section>
+                                    <section class="col-lg-5 column2">
+                                        <section class="col-lg-12">
+                                            <label class="label">{{'Department' | i18n}}</label>
+                                            <label class="input">
+                                                <select select2 class="select2 disabled" disabled name="org_id"
+                                                    [(ngModel)]="mainInfo.org_id" [defaultVal]="mainInfo.org_id"
+                                                    style="width:100%" placeholder="Personal basic info">
+                                                    <option value=''></option>
+                                                    <option *ngFor="let item of org" value="{{item.org_cd}}">
+                                                        {{item.org_tree_nm}}</option>
+                                                </select>
+                                            </label>
+                                        </section>
+                                        <section class="col-lg-12 country">
+                                            <label class="label">{{'Country-of-origin'|i18n}}</label>
+                                            <label class="input">
+                                                <select name="birth_country_gen_cd"
+                                                    [(ngModel)]="mainInfo.birth_country_gen_cd"
+                                                    [defaultVal]="mainInfo.birth_country_gen_cd" select2
+                                                    style="width:100%;" class="select2">
+                                                    <option *ngFor="let ct of countryCode" value="{{ct.gen_cd}}">
+                                                        {{ct.gen_nm}}</option>
+                                                </select>
+                                            </label>
+                                        </section>
+                                        <section class="col-lg-12">
+                                            <label class="label">{{'Birth-Day'|i18n}}</label>
+                                            <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                                                <input type="text" name="birth_ymd" [(ngModel)]="mainInfo.birth_ymd"
+                                                    [saUiDatepicker] placeholder="yyyy-mm-dd" autocomplete="off">
+                                            </label>
+                                        </section>
+                                        <section class="col-lg-12">
+                                            <label class="label">{{'Place-of-Birth'|i18n}}</label>
+                                            <label class="input">
+                                                <!-- <input type="text" name="birth_address" [(ngModel)]="mainInfo.birth_address" /> -->
+                                                <select name="birth_address_gen_cd"
+                                                    [(ngModel)]="mainInfo.birth_address_gen_cd"
+                                                    [defaultVal]="mainInfo.birth_address_gen_cd" select2
+                                                    style="width:100%;" class="select2">
+                                                    <option *ngFor="let ct of placeOfBirth" value="{{ct.gen_cd}}">
+                                                        {{ct.gen_nm}}</option>
+                                                </select>
+                                            </label>
+                                        </section>
+                                        <section class="col-lg-6">
+                                            <label class="label">{{'SEX'|i18n}}</label>
+                                            <label class="input">
+                                                <select name="gender" [(ngModel)]="mainInfo.gender"
+                                                    [defaultVal]="mainInfo.gender" select2 class="select2"
+                                                    style="width:100%;">
+                                                    <option value="1" selected>Male</option>
+                                                    <option value="2">Female</option>
+                                                </select>
+                                            </label>
+                                        </section>
+                                        <div class="col-lg-6 married">
+                                            <label class="label" style="text-align:right">{{'Married'|i18n}}</label>
+                                            <label class="checkbox">
+                                                <input type="checkbox" name="married_yn"
+                                                    [(ngModel)]="mainInfo.married_yn" [checked]="mainInfo.married_yn">
+                                                <i></i></label>
+                                        </div>
+                                        <section class="col-lg-12">
+                                            <div class="col-lg-6">
+                                                <label class="label">{{'Number-of-Child'|i18n}}</label>
+                                                <label class="input col-lg-2 type-1" style="width: 31%;">
+                                                    <input type="text" class="center" name="child_number"
+                                                        [(ngModel)]="mainInfo.child_number" />
+                                                </label>
+                                            </div>
+                                            <!-- <div class="col-lg-6 married">
+                                                <label class="label"
+                                                    style="text-align:right">{{'Pregnant'|i18n}}</label>
+                                                <label class="checkbox">
+                                                    <input type="checkbox" name="pregnant_y_n" (ngModelChange)="onPregnantChanged($event)"
+                                                        [disabled]="mainInfo.gender==1"
+                                                        [(ngModel)]="mainInfo.pregnant_y_n"
+                                                        [checked]="mainInfo.pregnant_y_n">
+                                                    <i></i></label>
+                                            </div> -->
+                                        </section>
+                                        <section class="col-lg-12 bank-book">
+                                            <label class="label">{{'Bank-Book-No'|i18n}}</label>
+                                            <label class="input col-lg-6 lb1">
+                                                <input type="text" class="type-4" name="bankbook_num1"
+                                                    [(ngModel)]="mainInfo.bankbook_num1" maxlength='30'
+                                                    placeholder="Acount No" />
+                                            </label>
+                                            <label class="input col-lg-5">
+                                                <input type="text" class="type-3" name="bank_nm1"
+                                                    [(ngModel)]="mainInfo.bank_nm1" maxlength='30'
+                                                    placeholder="Bank Name" />
+                                            </label>
+                                        </section>
+                                        <section class="col-lg-12 bank-book">
+                                            <label class="input col-lg-6 lb1">
+                                                <input type="text" class="type-4" name="bankbook_num2"
+                                                    [(ngModel)]="mainInfo.bankbook_num2" maxlength='30'
+                                                    placeholder="Acount No" />
+                                            </label>
+                                            <label class="input col-lg-5">
+                                                <input type="text" class="type-3" name="bank_nm2"
+                                                    [(ngModel)]="mainInfo.bank_nm2" maxlength='30'
+                                                    placeholder="Bank Name" />
+                                            </label>
+                                        </section>
+
+
+                                    </section>
+
+                                </div>
+                                <div class="row content">
+                                    <section class="padding-lr-15">
+                                        <label class="input">
+                                            <input name="address" [(ngModel)]="mainInfo.address" />
+                                        </label>
+                                    </section>
+                                </div>
+                                <div class="row content">
+                                    <section class="btn-main btn-cmd padding-lr-15 pull-right">
+                                        <button class="btn btn-small btn-primary" [disabled]="!permission.canSave"
+                                            name="submit" type="submit"><i class="fa fa-save"></i>
+                                            {{'BUTTON-SAVE'|i18n}}</button>
+                                        <button class="btn btn-small btn-default" name="reset" type="button"
+                                            (click)="onReset(frmDetail)"><i class="fa fa-refresh"></i>
+                                            {{'BUTTON-RESET'|i18n}}</button>
+                                        <button class="btn btn-small btn-close margin-right-0" name="close"
+                                            type="button" (click)="onCloseProgram()"><i class="fa fa-times"></i>
+                                            {{'BUTTON-CLOSE'|i18n}}</button>
+                                    </section>
+                                </div>
+                            </div>
+                            <!--<div class="col-lg-12">
+                     <section class="col-lg-8 address">
+                        <label class="label">Address</label>
+                        <label class="input">
+                            <input type="text" name="address" [(ngModel)]="mainInfo.address" />
+                        </label>
+                    </section> 
+                    <section class="col-lg-4 btn-cmd">
+                        <button class="btn btn-small btn-primary" name="submit" type="submit" style="margin: 0 4px;"><i class="fa fa-save"></i> Save</button>
+                        <button class="btn btn-small btn-default" name="reset" type="button" (click)="onReset(frmDetail)" ><i class="fa fa-refresh"></i> Reset</button>
+                    </section>
+                </div>-->
+                        </fieldset>
+
+                    </form>
+                </div>
+            </section>
+
+            <section class="col-xs-12 col-sm-7 col-md-5 col-lg-7 hr-avatar-table">
+                <div sa-widget class="jarviswidget-atman" color="atman">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-list"></i>
+                        </span>
+                        <h2>{{'Employee-Management-Header'|i18n}}</h2>
+                    </header>
+                    <div>
+                        <div class="widget-body no-padding">
+                            <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true"
+                                filter="true"
+                                tableClass="eplList table table-striped table-condensed table-hover table-bordered">
+                                <thead>
+                                    <tr class="heading">
+                                        <th>{{'HR-ID'|i18n}}</th>
+                                        <th>{{'NATIONAL-ID'|i18n}}</th>
+                                        <th>{{'FULL-NAME'|i18n}}</th>
+                                        <th>{{'Start-work'|i18n}}</th>
+                                        <th>{{'Department'|i18n}}</th>
+                                        <th>{{'Salary-Code'|i18n}}</th>
+                                        <th>{{'Phone'|i18n}}</th>
+                                        <th>{{'Gender'|i18n}}</th>
+                                        <th>{{'Birthday'|i18n}}</th>
+
+                                        <th>{{'UPDATED-BY' | i18n}}</th>
+                                        <th>{{'UPDATED-DATE' | i18n}}</th>
+                                        <th>{{'CREATED-BY' | i18n}}</th>
+                                        <th>{{'CREATED-DATE' | i18n}}</th>
+                                    </tr>
+                                    <!-- <tr>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control center" placeholder="HR ID" />
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="ID Card" />
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Name" />
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Date" />
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Department" />
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Job type" />
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Phone" />
+                                        </th>
+                                        <th class="hasinput">
+                                            <select id="filerByGender" class="form-control select-filter">
+                                                <option value="">{{'All'|i18n}}</option>
+                                                <option value="1">{{'MALE'|i18n}}</option>
+                                                <option value="2">{{'Female'|i18n}}</option>
+                                            </select>
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Birthday" />
+                                        </th>
+                                        
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Changer" />
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Filter Date"
+                                                class="form-control datepicker" [saUiDatepicker]="{}" /></th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Creator" />
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Filter Date"
+                                                class="form-control datepicker" [saUiDatepicker]="{}" />
+                                        </th>
+                                    </tr> -->
+                                </thead>
+                            </sa-datatable>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="col-xs-12 col-sm-7 col-md-7 col-lg-12 atman-form-small sub-data">
+                <div sa-widget class="jarviswidget-atman" color="atman">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-edit"></i>
+                        </span>
+                        <h2>{{'EMPLOYEE-DETAIL-INFO'|i18n}} </h2>
+                    </header>
+                    <div style="position: relative;">
+                        <div *ngIf="mainInfo.hr_id==''"
+                            style="background: #fdf6f6;opacity: 0.5;cursor: not-allowed; position: absolute; top: 0; left: 0; width: 100%;height: 100%; z-index: 100;">
+                        </div>
+                        <div class="widget-body">
+                            <div>
+                                <div class="tabs-left">
+                                    <ul class="nav nav-tabs tabs-left col-lg-2" style="margin-bottom: 13px;"
+                                        id="menu-list-info">
+                                        <li class="active">
+                                            <a href="#tab-r1" id="personal-basic" data-toggle="tab"><span
+                                                    class="badge bg-color-greenLight txt-color-white">1</span>
+                                                {{'Personal-Basic'|i18n}}</a>
+                                        </li>
+                                        <li (click)="callChild('family')">
+                                            <a href="#tab-r2" id="family-info" data-toggle="tab"><span
+                                                    class="badge bg-color-greenLight txt-color-white">2</span>
+                                                {{'Family-Info'|i18n}}</a>
+                                        </li>
+                                        <li (click)="callChild('academic')">
+                                            <a href="#tab-r3" id="academic-info" data-toggle="tab"><span
+                                                    class="badge bg-color-greenLight txt-color-white">3</span>
+                                                {{'Academic-Info'|i18n}}</a>
+                                        </li>
+                                        <li (click)="callChild('career')">
+                                            <a href="#tab-r4" id="career-info" data-toggle="tab"><span
+                                                    class="badge bg-color-greenLight txt-color-white">4</span>
+                                                {{'Career-Info'|i18n}}</a>
+                                        </li>
+                                        <li (click)="callChild('reward-punish')">
+                                            <a href="#tab-r5" id="reward-punish" data-toggle="tab"><span
+                                                    class="badge bg-color-greenLight txt-color-white">5</span>
+                                                {{'Reward-Punish'|i18n}}</a>
+                                        </li>
+                                        <li (click)="callChild('training')">
+                                            <a href="#tab-r6" id="training-info" data-toggle="tab"><span
+                                                    class="badge bg-color-greenLight txt-color-white">6</span>
+                                                {{'Traning-Info'|i18n}}</a>
+                                        </li>
+                                        <li (click)="callChild('medical')">
+                                            <a href="#tab-r7" id="medical-info" data-toggle="tab"><span
+                                                    class="badge bg-color-greenLight txt-color-white">7</span>
+                                                {{'Medical-Info'|i18n}}</a>
+                                        </li>
+                                        <li (click)="callChild('appraisal')">
+                                            <a href="#tab-r8" id="appraisal-info" data-toggle="tab"><span
+                                                    class="badge bg-color-greenLight txt-color-white">8</span>
+                                                {{'Appraisal-Info'|i18n}}</a>
+                                        </li>
+                                        <li (click)="callChild('insurance')">
+                                            <a href="#tab-r9" id="insurance-data" data-toggle="tab"><span
+                                                    class="badge bg-color-greenLight txt-color-white">9</span>
+                                                {{'Insurance-Data'|i18n}}</a>
+                                        </li>
+                                        <li    (click)="callChild('maternity')">
+                                            <a href="#tab-r10" id="maternity-info" data-toggle="tab">
+                                                <span class="badge bg-color-greenLight txt-color-white">10</span>
+                                                {{'Maternity-info'|i18n}}</a>
+                                           
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content col-lg-10 padding-bottom-10">
+                                    <div class="tab-pane active" id="tab-r1">
+                                        <sa-personal-basic></sa-personal-basic>
+                                    </div>
+
+                                    <div class="tab-pane" id="tab-r2">
+                                        <sa-family-info></sa-family-info>
+                                    </div>
+                                    <div class="tab-pane" id="tab-r3">
+                                        <sa-academic-info></sa-academic-info>
+                                    </div>
+                                    <div class="tab-pane" id="tab-r4">
+                                        <sa-career-info></sa-career-info>
+                                    </div>
+                                    <div class="tab-pane" id="tab-r5">
+                                        <sa-reward-punish></sa-reward-punish>
+                                    </div>
+                                    <div class="tab-pane" id="tab-r6">
+                                        <sa-traning-info></sa-traning-info>
+                                    </div>
+                                    <div class="tab-pane" id="tab-r7">
+                                        <sa-medical-info></sa-medical-info>
+                                    </div>
+                                    <div class="tab-pane" id="tab-r8">
+                                        <sa-appraisal-info></sa-appraisal-info>
+                                    </div>
+                                    <div class="tab-pane" id="tab-r9">
+                                        <sa-insurance-data></sa-insurance-data>
+                                    </div>
+                                    <div class="tab-pane" id="tab-r10">
+                                        <sa-maternity-info></sa-maternity-info>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </sa-widgets-grid>
+</div>
+
+<!-- <ng-template #popupInsuranceData>
+    <sa-popup-modal headerTitle="Insurance Data" width="1000" height="600" (onClose)="closeInsurancePopup()">
+        <sa-insurance-data companyId="{{mainInfo.company_id}}" hrId="{{mainInfo.hr_id}}"></sa-insurance-data>
+    </sa-popup-modal>
+</ng-template> -->
+<ng-template #popupContractData>
+    <sa-popup-modal headerTitle="Contract Condition" width="1000" height="600" (onClose)="closeContractPopup()">
+        <sa-contract-data companyId="{{mainInfo.company_id}}" hrId="{{mainInfo.hr_id}}"></sa-contract-data>
+    </sa-popup-modal>
+</ng-template>

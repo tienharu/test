@@ -1,0 +1,16 @@
+.project .project-name{
+    margin: 0;
+    display: inline;
+    font-size: 14px;
+    position: relative;
+    top: 1px;
+    padding: 0 6px;}
+.project .btn-actions{float: right; top: -6px; position: relative;}
+.project .btn-actions a{margin: 0 3px;}
+.project .content{top: -20px;padding-bottom: 15px;}
+.project .left-column{border-right: 1px solid #ddd;padding-right: 30px;}
+.project .left-column .title,.project .right-column .title{border-bottom: 1px solid #ddd;}
+.project .left-column .title p,.project .right-column .title p{line-height: 40px;font-size:14px}
+.project .right-column{padding-left: 30px;}
+.project .right-column .sale-name{height: 17px;}
+.project .right-column .sale-name p{padding: 0;font-size: 13px;}

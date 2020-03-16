@@ -1,0 +1,98 @@
+<form class="smart-form frm-detail" #frmDetail="ngForm" novalidate="novalidate" (ngSubmit)="frmDetail.form.valid && onSubmit()"  [saUiValidate]="validationOptions">
+    <fieldset>
+      <section class="col-lg-12">
+        <label class="label">{{'ACTIVITY-SUPPORT-TITLE'|i18n}}</label>
+        <label class="input col-lg-3">
+          <select select2 class="select2" name="project_task_type_gen_cd" required [(ngModel)]="supportActivity.project_task_type_gen_cd"
+          [defaultVal]="supportActivity.project_task_type_gen_cd" style="width:100%">
+          <option *ngFor="let item of taskType" value="item.gen_cd">{{item.gen_nm | i18n}}</option>        
+          </select>
+        </label>
+        <label class="input col-lg-9">
+          <label class="input col-lg-12">
+            <input type="text" class="title-input none-boder-left" required placeholder="Please enter title" name="project_task_nm" [(ngModel)]="supportActivity.project_task_nm"
+              autocomplete="off" />
+          </label>
+        </label>
+      </section>
+      <section class="col-lg-12">
+        <div class="col col-3" style="padding-left: 0">
+          <label class="label">{{'ACTIVITY-SUPPORT-START-DATE'|i18n}}</label>
+          <label class="input"> <i class="icon-append fa fa-calendar"></i>
+            <input type="text" required name="start_ymd" [(ngModel)]="supportActivity.start_ymd" class="support-ymd-datepicker"
+              autocomplete="off">
+          </label>
+        </div>
+        <div class="col col-5">
+            <label class="label">{{'ACTIVITY-SUPPORT-WORK-TIME'|i18n}}</label>
+            <label class="input col-lg-2">
+                <input type="text" class="title-input none-boder-left" required placeholder="0" name="work_hour" [(ngModel)]="supportActivity.work_hour"
+                  autocomplete="off" />
+              </label>
+            <label class="input col-lg-2">
+                <input type="text" class="title-input none-boder-left" required placeholder="0" name="work_minute" [(ngModel)]="supportActivity.work_minute"
+                  autocomplete="off" />
+              </label>
+            <label class="input col-lg-8">
+              <select select2 class="select2" name="work_unit_gen_cd" required [(ngModel)]="supportActivity.work_unit_gen_cd"
+              [defaultVal]="supportActivity.work_unit_gen_cd" style="width:100%">
+                <option *ngFor="let item of workUnit" value="item.gen_cd">{{item.gen_nm | i18n}}</option>   
+              </select>
+            </label>
+            
+          </div>
+          <div class="col col-4" style="padding-right: 0">
+              <label class="label">{{'ACTIVITY-SUPPORT-PLACE'|i18n}}</label>
+              <label class="input">
+                  <input type="text" class="title-input none-boder-left" required placeholder="0" name="work_place_text" [(ngModel)]="supportActivity.work_place_text"
+                    autocomplete="off" />
+              </label>
+            </div>
+      </section>
+      <section class="col-lg-12">
+          <div class="col col-6" style="padding-left: 0">
+              <label class="label">{{'ACTIVITY-SUPPORT-WORKER'|i18n}}</label>
+              <div class="select2-custom">
+                <select id="worker" data-placeholder="Select an option"  select2 multiple style="width:100%" class="select2" (ngModelChange)="getWorkerSelect($event)" name="select2">
+                    <optgroup label="Customer">
+                      <option *ngFor="let item of user" value="true-{{item.user_id}}-true">{{item.user_nm}}</option>
+                    </optgroup>
+                    <optgroup label="Contactor">
+                      <option *ngFor="let item of contactor" value="false-{{item.contactor_id}}-true">{{item.contactor_nm}}</option>
+                    </optgroup>
+                </select>
+              </div>
+            </div>
+            <div class="col col-6" style="padding-right: 0;">
+                <label class="label">{{'ACTIVITY-SUPPORT-REQUESTER'|i18n}}</label>
+                <div class="select2-custom">
+                    <select id="requester" data-placeholder="Select an option"  select2 multiple style="width:100%" class="select2" (ngModelChange)="getRequesterSelect($event)" name="select2">
+                        <option *ngFor="let item of contactor" value="false-{{item.contactor_id}}-false">{{item.contactor_nm}}</option>
+                    </select>
+                  </div>
+            </div>
+      </section>
+      <section class="col-lg-12">
+        <label class="label">{{'ACTIVITY-SUPPORT-CONTENTS'| i18n}}</label>
+        <label class="input col-lg-12">
+          <input type="text" summernote name="contents" id="supportContent" value="{{defaultContent}}" required [defaultVal] ="defaultContent" />
+        </label>
+      </section>
+    </fieldset>
+    <footer class="custom-footer">
+        <button type="button" name="close" (click)="onClose()" class="btn btn-close">
+            <i class="fa fa-remove"></i>
+            {{'button-close' | i18n}}
+          </button>
+      <button class="btn btn-small btn-primary btn-save" type="submit"><i class="fa fa-save"></i> {{'BUTTON-SAVE'|
+        i18n}}</button>
+        <ng-container *ngIf="supportActivity.project_task_id > 0; else reset">
+          <button class="btn btn-small btn-danger btn-delete" type="button" (click)="onDelete()"><i class="fa fa-delete"></i>
+            {{'BUTTON-DELETE'| i18n}}</button>
+        </ng-container>
+        <ng-template #reset>
+          <button class="btn btn-small btn-default btn-reset" type="button" (click)="onReset()"><i class="fa fa-refresh"></i>
+            {{'BUTTON-RESET'| i18n}}</button>
+        </ng-template>
+    </footer>
+  </form>

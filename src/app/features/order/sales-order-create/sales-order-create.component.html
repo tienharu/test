@@ -1,0 +1,503 @@
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-magic"></i>Sale Order Create</h1>
+      </div>
+    </div>
+  </div>
+  <!-- (ngSubmit)="frmDetail.form.valid && onSubmit()" -->
+  <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+    class="smart-form atman-form-small no-header frm-detail" novalidate="novalidate" [saUiValidate]="validationOptions">
+    <fieldset>
+      <input type="hidden" name="salesOrderCd" [(ngModel)]="detailInfo.salesOrderCd" />
+      <!-- Row 1 -->
+      <div class="row">
+        <section class="col col-3">
+          <section class="col col-6">
+            <label class="input">
+              {{'SO_RECIEVE_DATE' | i18n}}
+              <input type="text" class="main required_input required" name="receiveDateYmd" [(ngModel)]="detailInfo.receiveDateYmd"  [saUiDatepicker]="" placeholder="Select" autocomplete="off" required  />
+            </label>
+          </section>
+          <section class="col col-6">
+            <label class="input state-disabled">
+              {{'SO_No' | i18n}}
+              <!-- <select name="salesOrderNo" [(ngModel)]="detailInfo.salesOrderNo" [defaultVal]="detailInfo.salesOrderNo" select2 style="width:100%;"
+                class="select2 parent_cd" placeHolder="..." disabled>
+              </select> -->
+              <input type="text" name="salesOrderNo" autocomplete="off" [(ngModel)]="detailInfo.salesOrderNo"  disabled />
+            </label>
+          </section>
+        </section>
+        <section class="col col-3">
+          <section class="col col-sm-12">
+            <label class="input">
+              {{'SO_ORDER_NAME' | i18n}}
+              <input type="text" class="main required_input required" name="SalesOrderNm"  [(ngModel)]="detailInfo.salesOrderNm" autocomplete="off" required />
+            </label>
+          </section>
+        </section>
+        <section class="col col-3">
+          <section class="col col-sm-12">
+            <button type="button" name="btnCaculate" class="btn btn-calculate btn-form-input">
+              {{'SO_CALCUATE_PRE_COST' | i18n}}
+            </button>
+          </section>
+        </section>
+        <section class="col col-3">
+          <section class="col col-6">
+            <button type="button" name="btnConfirmOrder" class="btn btn-confirm-order btn-form-input">
+              {{'SO_CONFIRM_ORDER' | i18n}}
+            </button>
+          </section>
+          <section class="col col-6">
+            <label class="input">
+              {{'SO_CONFIRM_DATE' | i18n}}
+              <input type="text" class="main required_input required" name="confirmedYmd" [(ngModel)]="detailInfo.confirmedYmd" [saUiDatepicker]="" placeholder="Select"  autocomplete="off"  required/>
+            </label>
+          </section>
+        </section>
+      </div>
+      <!-- Row 2 -->
+      <div class="row">
+        <section class="col col-3">
+          <section class="col col-sm-12">
+            <label class="input">
+              {{'SO_CUSTOMER' | i18n}}
+              <select name="customerCd" select2 [(ngModel)]="detailInfo.customerCd" [defaultVal]="detailInfo.customerCd"
+                style="width:100%;" class="select2 parent_cd required"  placeHolder="Select " required>
+                <option *ngFor="let customer of customerName" value={{customer.type_gen_cd}} >{{customer.trader_local_nm}}</option>
+              </select>
+            </label>
+          </section>
+        </section>
+        <section class="col col-3">
+          <section class="col col-7">
+            <label class="input">
+              {{'SO_PAYMENT_TERM' | i18n}}
+              <select name="paymentTermGenCd" [(ngModel)]="detailInfo.paymentTermGenCd" [defaultVal]="detailInfo.paymentTermGenCd" select2
+              style="width:100%;" class="select2 parent_cd required" placeHolder="Select" required>
+              <option *ngFor="let paymentTerm of paymentTerms" value={{paymentTerm.gen_cd}}>{{paymentTerm.gen_nm}}</option>
+            </select>
+            </label>
+          </section>
+          <section class="col col-5">
+            <label class="input">
+              {{'SO_STOCK_TYPE' | i18n}}
+              <select name="stockUnitGenCd" [(ngModel)]="detailInfo.stockUnitGenCd" [defaultVal]="detailInfo.stockUnitGenCd" select2
+              style="width:100%;" class="select2 parent_cd required" placeHolder="Select " required>
+              <option *ngFor="let stockType of stockTypes" value={{stockType.gen_cd}}>{{stockType.gen_nm}}</option>
+            </select>
+            </label>
+          </section>
+        </section>
+        <section class="col col-3">
+          <section class="col col-4">
+            <label class="input state-disabled">
+              {{'SO_ITEM_COST' | i18n}}
+              <input type="text" name="itemCost"   autocomplete="off" disabled />
+            </label>
+          </section>
+          <section class="col col-4">
+            <label class="input state-disabled">
+                {{'SO_UTILTY' | i18n}}
+              <input type="text" name="ulity"  autocomplete="off" disabled />
+            </label>
+          </section>
+          <section class="col col-4">
+            <label class="input state-disabled">
+              {{'SO_TOTAL_COST' | i18n}}
+              <input type="text" name="totalCost"  autocomplete="off" disabled />
+            </label>
+          </section>
+        </section>
+        <section class="col col-3">
+          <section class="col col-6">
+            <label class="input state-disabled">
+              {{'SO_FINAL_ORDER_AMOUNT' | i18n}}
+              <input type="text" name="finalOrderAmount" [(ngModel)]="detailInfo.finalOrderAmount" autocomplete="off" disabled />
+            </label>
+          </section>
+          <section class="col col-6">
+            <label class="input state-disabled">
+              {{'SO_FINAL_COST' | i18n}}
+              <input type="text" name="finalCost"  [(ngModel)]="detailInfo.finalCost"   autocomplete="off" disabled />
+            </label>
+          </section>
+        </section>
+      </div>
+      <!-- Row 3 -->
+      <div class="row">
+        <section class="col col-3">
+          <section class="col col-sm-12">
+            <label class="input">
+              {{'SO_BIZ_UNIT' | i18n}}
+              <select name="bizUnitId" select2 [(ngModel)]="detailInfo.bizUnitId" [defaultVal]="detailInfo.bizUnitId"
+              style="width:100%;" class="select2 parent_cd required"  placeHolder="Select" required>
+              <option *ngFor="let bizUnit of bizUnits" value={{bizUnit.global_unit_id}} >{{bizUnit.global_unit_nm}}</option>
+            </select>
+            </label>
+          </section>
+        </section>
+        <section class="col col-3">
+          <section class="col col-3">
+            <label class="input state-disabled">
+              {{'SO_DELIVERY' | i18n}}
+              <input type="text" name="deliveryYmd" autocomplete="off" [(ngModel)]="detailInfo.deliveryYmd"  disabled />
+            </label>
+          </section>
+          <section class="col col-3">
+            <label class="input" style="visibility: hidden;">
+              .
+            </label>
+            <label class="input state-disabled">
+              <span id="order-character-1">~</span>
+              <input type="text"  name= "dueDateYmd" [(ngModel)]="detailInfo.dueDateYmd" autocomplete="off" disabled />
+            </label>
+          </section>
+          <section class="col col-3">
+            <label class="input" style="visibility: hidden;">
+              .
+            </label>
+            <label class="input" style="width: 28px;">
+              <span id="order-character-2">Times</span>
+              <input type="number"  min=0 oninput="validity.valid||(value='');" class="center" name = "times" [(ngModel)]="detailInfo.times" autocomplete="off"  required/>
+            </label>
+          </section>
+          <section class="col col-3">
+            <label class="input">
+              {{'SO_TERMS' | i18n}}
+              <select name="termGenCd" [(ngModel)]="detailInfo.termGenCd" [defaultVal]="detailInfo.termGenCd" select2
+              style="width:100%;" class="select2 parent_cd required" placeHolder="Select " required>
+              <option *ngFor="let term of terms" value={{term.gen_cd}}>{{term.gen_nm}}</option>
+            </select>
+            </label>
+          </section>
+        </section>
+        <section class="col col-3">
+          <section class="col col-4">
+            <label class="input state-disabled">
+              {{'SO_OVERHEAD' | i18n}}
+              <input type="text" name="overhead"   autocomplete="off" disabled />
+            </label>
+          </section>
+          <section class="col col-3">
+            <label class="input" style="visibility: hidden;">
+.
+            </label>
+            <span id="order-character-3">%</span>
+            <label class="input state-disabled">
+              <input type="text" name="overheadPercent" autocomplete="off" disabled />
+            </label>
+          </section>
+          <section class="col col-5" style="top: 16px; left: 28px;">
+            <label class="input">
+              <label class="checkbox">
+                <label for="chbOutStk" class="checkbox-inline" style="right: 50px;">{{'SO_CANCEL_ORDER' | i18n}}</label>
+                <input id="chbOutStk" type="checkbox">
+                <i style="left: 85px;"></i>
+              </label>
+            </label>
+          </section>
+        </section>
+        <section class="col col-3">
+          <section class="col col-5">
+            <label class="input state-disabled">
+              {{'SO_FINAL_OVERHEAD' | i18n}}
+              <input type="text" name="finalOverhead"  [(ngModel)]="detailInfo.finalOverhead" autocomplete="off" disabled />
+            </label>
+          </section>
+          <section class="col col-3">
+            <label class="input" style="visibility: hidden;">
+              .
+            </label>
+            <span id="order-character-3">%</span>
+            <label class="input state-disabled">
+              <input type="text" name="finalOverheadPercent"  autocomplete="off" disabled />
+            </label>
+          </section>
+          <section class="col col-4 checkbox-field-right" style="top: 16px;">
+            <label class="checkbox">
+              <input type="checkbox" name="useYn" [(ngModel)]="detailInfo.useYn" checked="detailInfo.useYn" />
+              <i></i>
+              <span>Active</span>
+            </label>
+          </section>
+        </section>
+      </div>
+      <!-- Row 4 -->
+      <div class="row">
+        <section class="col col-3">
+          <section class="col col-6">
+            <label class="input">
+              <label style="width: 50px;">{{'SO_CURRENCY' | i18n}}</label>
+              <span id="order-character-4">icon</span>
+              <select name="currencyGenCd" select2 [(ngModel)]="detailInfo.currencyGenCd" [defaultVal]="detailInfo.currencyGenCd"
+              style="width:100%;" class="select2 parent_cd required"  placeHolder="Select " required>
+              <option *ngFor="let currency of currencys" value={{currency.gen_cd}} >{{currency.gen_nm}}</option>
+            </select>
+            </label>
+          </section>
+          <section class="col col-6">
+            <label class="input">
+              {{'SO_TAX' | i18n}}
+              <select name="taxCodeGenCd" select2 [(ngModel)]="detailInfo.taxCodeGenCd" [defaultVal]="detailInfo.taxCodeGenCd"
+              style="width:100%;" class="select2 parent_cd required"  placeHolder="Select " required>
+              <option *ngFor="let tax of taxs" value={{tax.gen_cd}} >{{tax.gen_nm}}</option>
+            </select>
+            </label>
+          </section>
+        </section>
+        <section class="col col-3">
+          <section class="col col-4">
+            <label class="input state-disabled">
+              {{'SO_ORDER_AMOUNT' | i18n}}
+              <input type="text" name="orderAmount"  [(ngModel)]="detailInfo.orderAmount" autocomplete="off" disabled />
+            </label>
+          </section>
+          <section class="col col-4">
+            <label class="input state-disabled">
+              {{'SO_TAX' | i18n}}
+              <input type="text" name="tax"  [(ngModel)]="detailInfo.taxAmount" autocomplete="off" disabled />
+            </label>
+          </section>
+          <section class="col col-4">
+            <label class="input state-disabled">
+              {{'SO_TOTAL' | i18n}}
+              <input type="text" name="total"  [(ngModel)]="detailInfo.totalAmount" autocomplete="off" disabled />
+            </label>
+          </section>
+        </section>
+        <section class="col col-3">
+          <section class="col col-4">
+            <label class="input">
+              {{'SO_CANCEL_DATE' | i18n}}
+              <input type="text"class="main required_input required"  name="cancelYmd" [(ngModel)]="detailInfo.cancelYmd"  [saUiDatepicker]="" placeholder="Select" autocomplete="off" required/>
+            </label>
+          </section>
+          <section class="col col-8">
+            <label class="input state-disabled">
+              {{'SO_CANCEL_REASON' | i18n}}
+              <select name="cancelReason" select2 [(ngModel)]="detailInfo.cancelReason" [defaultVal]="detailInfo.cancelReason"
+              style="width:100%;" class="select2 parent_cd required"  placeHolder="Select " required>
+              <option *ngFor="let listCancelReason of listCancelReasons" value={{listCancelReason.value}} >{{listCancelReason.title}}</option>
+            </select>
+            </label>
+          </section>
+        </section>
+        <section class="col col-3">
+          <section class="col col-6">
+            <button type="button" name="btnMPSCreation" class="btn btn-mps-creation btn-form-input">
+              Go to MPS Creation
+            </button>
+          </section>
+          <section class="col col-6">
+            <button type="submit" name="btnHeaderSave" class="btn btn-header-save btn-form-input">
+              Header Save
+            </button>
+          </section>
+        </section>
+      </div>
+      <!-- Row 5 -->
+      <div class="row">
+        <section class="col col-sm-12">
+          <section class="col col-sm-12">
+            <label class="input">
+              {{'DESCRIPTION' | i18n}}
+              <label class="textarea">
+                <textarea autocomplete="off" rows="2"></textarea>
+              </label>
+            </label>
+          </section>
+        </section>
+      </div>
+      <!-- Row 6 -->
+      <div class="row">
+        <section class="col col-sm-12">
+          <section class="col col-sm-12" style="text-align: left;">
+            <button type="button" (click)="onCloseProgram()" name="btnCloseProgram" class="btn btn-cancel">
+              {{'BUTTON-CANCEL' | i18n}}
+            </button>
+            <button type="button" name="btnList"  class="btn btn-list">
+              <!-- <i class="fa fa-list"></i> -->
+              <!-- {{'BUTTON_GO_LIST' | i18n}} -->
+              Go List
+            </button>
+            <button type="button" (click)="onReset()" name="btnReset" class="btn btn-reset-form">
+              {{'BUTTON-RESET' | i18n}}
+            </button>
+            <button type="button" name="btnDelete" (click)="SelectedAll()" class="btn btn-delete">
+              {{'BUTTON-DELETE' | i18n}}
+            </button>
+            <button type="button" [disabled]="!this.permission.canSave" name="btnSubmit"  (click) = "onSaveAll()"  class="btn btn-primary">
+              {{'BUTTON-SAVE' | i18n}}
+            </button>
+          </section>
+        </section>
+      </div>
+    </fieldset>
+  </form>
+  <!-- Data table -->
+  <sa-widgets-grid>
+    <div class="row">
+            <div class="at-smart-table" >
+              <section class="col-lg-12 table-bordered" >
+                <div class="section-path-tables" style="padding: 0;min-width: 300px; overflow: auto;">
+                  <ng2-smart-table class="table table-striped table-condensed table-hover" 
+                    [settings]="settingsPath" [source]="pathsSource" (deleteConfirm)="onDeletePathConfirm($event)"
+                    (createConfirm)="onCreatePathConfirm($event)" (editConfirm)="onSaveConfirm($event)"> 
+                  </ng2-smart-table>
+                </div>
+              </section> 
+            </div>
+      <!-- <article class="col-sm-12"> -->
+        <!-- <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>Sales Order Create</h2>
+          </header> -->
+        <!-- <div>
+          <div class="widget-body no-padding">
+            <sa-datatable [options]="options" (rowClick)="onRowClick($event)" [paginationLength]="false" filter="true"
+              tableClass="table table-striped table-condensed table-hover table-bordered">
+              <thead>
+                <tr class="heading">
+                  <th rowspan="2">Del</th>
+                  <th rowspan="2">No</th>
+                  <th colspan="4" class="center">Order Delivery</th>
+                  <th colspan="6" class="center">Order Item</th>
+                  <th colspan="6" class="center">Stock</th>
+                  <th colspan="3" class="center">Order Amount Plan</th>
+                  <th colspan="7" class="center">Sales Money Status</th>
+                  <th rowspan="2">MPS</th>
+                  <th rowspan="2">Remark</th>
+                </tr>
+                <tr class="heading">
+                  <th class="col-border-top">Delivery</th>
+                  <th class="col-border-top">PO</th>
+                  <th class="col-border-top">PO No</th>
+                  <th class="col-border-top">Destination</th>
+                  <th class="col-border-top">Item Name</th>
+                  <th class="col-border-top">Itemized</th>
+                  <th class="col-border-top">Unit</th>
+                  <th class="col-border-top">Set</th>
+                  <th class="col-border-top">Biz Unit</th>
+                  <th class="col-border-top">Order QTY</th>
+                  <th class="col-border-top">Free</th>
+                  <th class="col-border-top">Assign</th>
+                  <th class="col-border-top">Shortage</th>
+                  <th class="col-border-top">Available</th>
+                  <th class="col-border-top">Target</th>
+                  <th class="col-border-top">Need</th>
+                  <th class="col-border-top">Price</th>
+                  <th class="col-border-top">Order Amount</th>
+                  <th class="col-border-top">Due Date</th>
+                  <th class="col-border-top">Price</th>
+                  <th class="col-border-top">Order Amount</th>
+                  <th class="col-border-top">Due Date</th>
+                  <th class="col-border-top">Unit Cost</th>
+                  <th class="col-border-top">Item Cost</th>
+                  <th class="col-border-top">Unility</th>
+                  <th class="col-border-top">Total Cost</th>
+                </tr>
+                <tr>
+                  <th class="hasinput"></th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Filter No" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Filter Delivery" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Filter PO" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Filter PO No" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Destination" /
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Item Name" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Itemized" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Unit" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Set" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Biz Unit" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Order QTY" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Free" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Assign" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Shortage" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Available" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Target" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Need" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Price" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Order Amount" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Due Date" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Price" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Order Amount" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Due Date" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Unit Cost" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Item Cost" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Unility" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Total Cost" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="MPS" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" placeholder="Remark" />
+                  </th>
+              </thead>
+            </sa-datatable>
+          </div>
+        </div> -->
+      <!-- </article> -->
+    </div>
+
+  </sa-widgets-grid>
+</div>

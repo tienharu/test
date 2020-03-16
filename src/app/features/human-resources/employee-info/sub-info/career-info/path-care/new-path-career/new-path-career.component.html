@@ -1,0 +1,173 @@
+<form class="smart-form atman-form-small frmNewCare" #frmPathCarrer="ngForm"  novalidate="novalidate"
+            [saUiValidate]="validPathCareOptions"  (ngSubmit)="frmPathCarrer.form.valid && onPathCarrerSubmit()">
+                    <fieldset>
+                            <section class="col-lg-12">
+                                    <section class="col col-3">
+                                            <label class="label">{{'Date'| i18n}}</label>
+                                            <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                                                <input type="text" name="path_ymd" [(ngModel)]="pathCareerInfo.path_ymd" required autocomplete="off" placeholder="yy-mm-dd" [saUiDatepicker]>
+                                            </label>
+                                    </section>
+                                    <section class="col col-3">
+                                            <label class="label">{{'PATH-CAREER'| i18n}}</label>
+                                            <label class="input">
+                                                <select select2 class="select2 required" required name="path_gen_cd" [(ngModel)]="pathCareerInfo.path_gen_cd" [defaultVal]="pathCareerInfo.path_gen_cd" style="width:100%">
+                                                    <option *ngFor="let item of PathCareer" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                </select>
+                                            </label>
+                                    </section>
+                            </section>
+                            <section class="col-lg-12">
+                                    <section class="col col-3">
+                                            <label class="label">{{'FROM-ORG'| i18n}}</label>
+                                            <label class="input">
+                                                    <select select2 class="select2" [disabled]="pathCareerInfo.from_org_cd" name="from_org_cd" [(ngModel)]="pathCareerInfo.from_org_cd" [defaultVal]="pathCareerInfo.from_org_cd" style="width:100%">
+                                                        <option *ngFor="let item of Org" value="{{item.org_cd}}">{{item.org_tree_nm}}</option>
+                                                    </select>
+                                                </label>
+                                    </section>
+                                    <section class="col col-3">
+                                            <label class="label">{{'TO-ORG'| i18n}}</label>
+                                            <label class="input">
+                                                    <select select2 class="select2" name="to_org_cd" [(ngModel)]="pathCareerInfo.to_org_cd" [defaultVal]="pathCareerInfo.to_org_cd" style="width:100%">
+                                                        <option *ngFor="let item of Org" value="{{item.org_cd}}">{{item.org_tree_nm}}</option>
+                                                    </select>
+                                                </label>
+                                    </section>
+                                    <section class="col col-3">
+                                            <label class="label">{{'FROM-SALARY'| i18n}}</label>
+                                            <label class="input">
+                                                    <select select2 class="select2" [disabled]="pathCareerInfo.from_job_type_gen_cd" name="from_job_type_gen_cd" [(ngModel)]="pathCareerInfo.from_job_type_gen_cd" [defaultVal]="pathCareerInfo.from_job_type_gen_cd" style="width:100%">
+                                                        <option *ngFor="let item of Salary" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                    </select>
+                                                </label>
+                                    </section>
+                                    <section class="col col-3">
+                                            <label class="label">{{'TO-SALARY'| i18n}}</label>
+                                            <label class="input">
+                                                    <select select2 class="select2" name="to_job_type_gen_cd" [(ngModel)]="pathCareerInfo.to_job_type_gen_cd" [defaultVal]="pathCareerInfo.to_job_type_gen_cd" style="width:100%">
+                                                        <option *ngFor="let item of Salary" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                    </select>
+                                                </label>
+                                    </section>
+                            </section>
+                             <section class="col-lg-12">
+                                    <section class="col col-3">
+                                            <label class="label">{{'FROM-HR-CLASS'| i18n}}</label>
+                                            <label class="input">
+                                                    <select select2 class="select2" [disabled]="pathCareerInfo.from_hr_class_gen_cd" name="from_hr_class_gen_cd" [(ngModel)]="pathCareerInfo.from_hr_class_gen_cd" [defaultVal]="pathCareerInfo.from_hr_class_gen_cd" style="width:100%">
+                                                        <option *ngFor="let item of HRClass" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                    </select>
+                                                </label>
+                                    </section>
+                                    <section class="col col-3">
+                                            <label class="label">{{'To-Hr-Class'| i18n}}</label>
+                                            <label class="input">
+                                                    <select select2 class="select2" required name="to_hr_class_gen_cd" [(ngModel)]="pathCareerInfo.to_hr_class_gen_cd" [defaultVal]="pathCareerInfo.to_hr_class_gen_cd" style="width:100%">
+                                                        <option *ngFor="let item of HRClass" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                    </select>
+                                                </label>
+                                    </section>
+                                    <section class="col col-3">
+                                            <label class="label">{{'FROM-DUTY-KIND'| i18n}}</label>
+                                            <label class="input">
+                                                    <select select2 class="select2" [disabled]="pathCareerInfo.from_duty_kind_gen_cd" name="from_duty_kind_gen_cd" [(ngModel)]="pathCareerInfo.from_duty_kind_gen_cd" [defaultVal]="pathCareerInfo.from_duty_kind_gen_cd" style="width:100%">
+                                                        <option *ngFor="let item of DutyKind" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                    </select>
+                                                </label>
+                                    </section>
+                                    <section class="col col-3">
+                                            <label class="label">{{'TO-DUTY-KIND'| i18n}}</label>
+                                            <label class="input">
+                                                    <select select2 class="select2" name="to_duty_kind_gen_cd" [(ngModel)]="pathCareerInfo.to_duty_kind_gen_cd" [defaultVal]="pathCareerInfo.to_duty_kind_gen_cd" style="width:100%">
+                                                        <option *ngFor="let item of DutyKind" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                    </select>
+                                                </label>
+                                    </section>
+                            </section>
+                            <section class="col-lg-12">
+                                    <section class="col col-3">
+                                            <label class="label">{{'FROM-DUTY-TYPE'| i18n}}</label>
+                                            <label class="input">
+                                                    <select select2 class="select2" [disabled]="pathCareerInfo.from_duty_type_id" name="from_duty_type_id" [(ngModel)]="pathCareerInfo.from_duty_type_id" [defaultVal]="pathCareerInfo.from_duty_type_id" style="width:100%">
+                                                        <option *ngFor="let item of DutyType" value="{{item.duty_type_id}}">{{item.duty_type_nm}}</option>
+                                                    </select>
+                                                </label>
+                                    </section>
+                                    <section class="col col-3">
+                                            <label class="label">{{'TO-DUTY-TYPE'| i18n}}</label>
+                                            <label class="input">
+                                                    <select select2 class="select2" name="to_duty_type_id" [(ngModel)]="pathCareerInfo.to_duty_type_id" [defaultVal]="pathCareerInfo.to_duty_type_id" style="width:100%">
+                                                            <option *ngFor="let item of DutyType" value="{{item.duty_type_id}}">{{item.duty_type_nm}}</option>
+                                                    </select>
+                                                </label>
+                                    </section>
+                                    <section class="col col-3">
+                                            <label class="label">{{'FROM-DUTY-STATUS'| i18n}}</label>
+                                            <label class="input">
+                                                    <select select2 class="select2" [disabled]="pathCareerInfo.from_duty_status_gen_cd" name="from_duty_status_gen_cd" [(ngModel)]="pathCareerInfo.from_duty_status_gen_cd" [defaultVal]="pathCareerInfo.from_duty_status_gen_cd" style="width:100%">
+                                                        <option *ngFor="let item of DutyStatus" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                    </select>
+                                                </label>
+                                    </section>
+                                    <section class="col col-3">
+                                            <label class="label">{{'TO-DUTY-STATUS'| i18n}}</label>
+                                            <label class="input">
+                                                    <select select2 class="select2" name="to_duty_status_gen_cd" [(ngModel)]="pathCareerInfo.to_duty_status_gen_cd" [defaultVal]="pathCareerInfo.to_duty_status_gen_cd" style="width:100%">
+                                                        <option *ngFor="let item of DutyStatus" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                    </select>
+                                            </label>
+                                    </section>
+                            </section>
+                            <section class="col-lg-12">
+                                    <section class="col col-3">
+                                            <label class="label">{{'FROM-WORK-PLACE'| i18n}}</label>
+                                            <label class="input">
+                                                    <select select2 class="select2" [disabled]="pathCareerInfo.from_work_place_gen_cd" name="from_work_place_gen_cd" [(ngModel)]="pathCareerInfo.from_work_place_gen_cd" [defaultVal]="pathCareerInfo.from_work_place_gen_cd" style="width:100%">
+                                                        <option *ngFor="let item of WorkPlace" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                    </select>
+                                                </label>
+                                    </section>
+                                    <section class="col col-3">
+                                            <label class="label">{{'TO-WORK-PLACE'| i18n}}</label>
+                                            <label class="input">
+                                                    <select select2 class="select2" name="to_work_place_gen_cd" [(ngModel)]="pathCareerInfo.to_work_place_gen_cd" [defaultVal]="pathCareerInfo.to_work_place_gen_cd" style="width:100%">
+                                                        <option *ngFor="let item of WorkPlace" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                    </select>
+                                                </label>
+                                    </section>
+                                    <section class="col col-3">
+                                            <label class="label">{{'FROM-TAX-NO'| i18n}}</label>
+                                            <label class="input">
+                                                    <select select2 class="select2" [disabled]="pathCareerInfo.from_tax_cd_gen_cd" name="from_tax_cd_gen_cd" [(ngModel)]="pathCareerInfo.from_tax_cd_gen_cd" [defaultVal]="pathCareerInfo.from_tax_cd_gen_cd" style="width:100%">
+                                                        <option *ngFor="let item of TaxCode" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                    </select>
+                                                </label>
+                                    </section>
+                                    <section class="col col-3">
+                                            <label class="label">{{'TO-TAX-NO'| i18n}}</label>
+                                            <label class="input">
+                                                    <select select2 class="select2" name="to_tax_cd_gen_cd" [(ngModel)]="pathCareerInfo.to_tax_cd_gen_cd" [defaultVal]="pathCareerInfo.to_tax_cd_gen_cd" style="width:100%">
+                                                        <option *ngFor="let item of TaxCode" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                    </select>
+                                                </label>
+                                    </section>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label" style="padding: 0 15px;">{{'Reason'| i18n}}</label>
+                                    <label class="textarea" style="padding: 0 15px;">
+                                        <textarea rows="3" name="reason" [(ngModel)]="pathCareerInfo.reason" class="custom-scroll"></textarea> </label>
+                                    <div class="note">
+                                    </div>
+                            </section> 
+                            
+                    </fieldset>
+                    <footer>
+                            <section class="col-lg-12 btn-cmd">
+                                    <button class="btn btn-small btn-primary" [disabled]="!permission.canSave" type="submit"><i class="fa fa-save"></i> {{'BUTTON-SAVE'| i18n}}</button>
+                                    <button class="btn btn-small btn-default" type="button" (click)="onReset()"><i class="fa fa-refresh"></i> {{'BUTTON-RESET'| i18n}}</button>
+                                </section>
+                      <!-- <button class="btn btn-small btn-primary btn-save" type="submit" name="submit"><i class="fa fa-save"></i> {{'BUTTON-SAVE'| i18n}}</button>
+                      <button class="btn btn-small btn-default" type="button" (click)="onReset()"><i class="fa fa-refresh"></i> {{'BUTTON-RESET'| i18n}}</button> -->
+                    </footer>
+                </form>

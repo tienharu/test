@@ -1,0 +1,23 @@
+<div id="popup-modal" class="ui-sortable">
+    <div sa-popup color="atman">
+        <header class="">
+            <span class="widget-icon">
+                <i class="fa {{this.icon}}"></i>
+            </span>
+            <h2>{{headerTitle}}</h2>
+            <div class="jarviswidget-ctrls" role="menu">
+                <!-- <a href="javascript:;" (click)="toggleCollapse()" class="button-icon jarviswidget-toggle-btn" rel="tooltip"
+                    title="Collapse" data-placement="bottom"><i class="fa fa-minus "></i></a> -->
+                <a *ngIf="allowFullScreen==true" href="javascript:;" (click)="toggleFullscreen()" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip"
+                    title="Fullscreen" data-placement="bottom"><i class="fa fa-expand "></i></a>
+                <a href="javascript:;" (click)="closePopup()" class="button-icon jarviswidget-delete-btn" rel="tooltip" data-dismiss="modal"
+                    title="Close" data-placement="bottom"><i class="fa fa-times"></i></a>
+            </div>
+        </header>
+        <div role="content">
+            <div class="widget-body no-padding">
+                <ng-content></ng-content>
+            </div>
+        </div>
+    </div>
+</div>

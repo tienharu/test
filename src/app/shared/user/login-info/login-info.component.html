@@ -1,0 +1,35 @@
+<div class="top-user-profile">
+  <div *ngIf="user?.user_name"><a class="username noselect" data-toggle="dropdown">
+	   <img [src]="user.avatar" alt="me"
+          class="online"/><span>{{user.full_name }}</span> <i class="fa fa-angle-down"></i>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a (click)="(null)" class="padding-10 padding-top-0 padding-bottom-0"><i
+          class="fa fa-cog"></i> Setting</a>
+      </li>
+      <li class="divider"></li>
+      <li>
+        <a routerLink="/app-views/profile" class="padding-10 padding-top-0 padding-bottom-0"> <i
+          class="fa fa-user"></i>
+          <u>P</u>rofile</a>
+      </li>
+      <!-- <li class="divider"></li>
+      <li>
+        <a (click)="(null)" class="padding-10 padding-top-0 padding-bottom-0"
+           data-action="toggleShortcut"><i class="fa fa-arrow-down"></i> <u>S</u>hortcut</a>
+      </li>
+      <li class="divider"></li>
+      <li>
+        <a (click)="(null)" class="padding-10 padding-top-0 padding-bottom-0"
+           data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> Full <u>S</u>creen</a>
+      </li> -->
+      <li class="divider"></li>
+      <li>
+        <a (click)="showPopup()" routerLink="/auth/login" class="padding-10 padding-top-0 padding-bottom-0"><i
+          class="fa fa-sign-out fa-lg"></i> <strong><u>L</u>ogout</strong></a>
+      </li>
+    </ul>
+   </div>
+   
+</div>

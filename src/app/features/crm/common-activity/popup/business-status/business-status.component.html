@@ -1,0 +1,104 @@
+<form class="smart-form frm-detail" #frmDetail="ngForm" novalidate="novalidate" [saUiValidate]="validationOptions" (ngSubmit)="frmDetail.form.valid && onSubmit()">
+  <fieldset>
+    <div>
+      <section class="col col-6">
+          <section>
+              <label class="label">{{'sales-stage'|i18n}}</label>
+              <label class="input">
+                <select select2 class="select2" name="sales_status_gen_cd" required [(ngModel)]="businessActivity.sales_status_gen_cd"
+                [defaultVal]="businessActivity.sales_status_gen_cd" style="width:100%">
+                  <option *ngFor="let item of acitivityStatus" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                </select>
+              </label>
+          </section>
+          <section class="col-lg-12" style="height: 60px;">
+             <div class="col-lg-9" style="padding: 0 10px 0 0;">
+                <label class="label">{{'Possibility'|i18n}}</label>
+                <input type="text" class="slider slider-primary" id="possibility"
+                data-slider-min="0"
+                data-slider-max="100"
+                data-slider-step="1" 
+                data-slider-handle="round" 
+                [defaultVal]="SliderdefaultVal"
+                style="text-align:center" 
+                smartSlider  name="possibility" [(ngModel)]="businessActivity.possibility" />
+             </div>
+             <label class="input">
+                <input class="col-lg-2" name="possibility" [(ngModel)]="businessActivity.possibility" value="{{businessActivity.possibility}}" style="width: 56px; top: 30px; margin-left: 10px;" autocomplete="off" />
+            </label>
+          </section>
+          <section class="col-lg-12">
+              <label class="label">{{'Estimated revenue'|i18n}}</label>
+              <label class="input"> <i class="icon-append fa fa-won"></i>
+                <input type="text" required name="expect_amt" onclick="this.select()" currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" style="text-align:right" [(ngModel)]="businessActivity.expect_amt"
+                  autocomplete="off">
+              </label>
+          </section>
+      </section>
+      <section class="col col-6">
+          <section>
+              <label class="label">{{'Business day'|i18n}}</label>
+              <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                <input type="text" required name="activity_ymd" [(ngModel)]="businessActivity.activity_ymd" class="activity-ymd-datepicker"
+                  autocomplete="off">
+              </label>
+          </section>
+          <section>
+              <label class="label">{{'Expected end date'|i18n}}</label>
+              <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                <input type="text" required name="activity_fin_ymd" [(ngModel)]="businessActivity.activity_fin_ymd" class="fin-ymd-datepicker"
+                  autocomplete="off">
+              </label>
+          </section>
+          <section>
+              <label class="label">{{'Estimated purchase'|i18n}}</label>
+              <label class="input"> <i class="icon-append fa fa-won"></i>
+                <input type="text" required name="purch_amt" onclick="this.select()" currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" style="text-align:right" [(ngModel)]="businessActivity.purch_amt"
+                  autocomplete="off">
+
+              </label>
+          </section>
+      </section>
+      <section class="col col-lg-12">
+          <label class="label">{{'Issue'| i18n}}</label>
+          <!-- <label class="textarea">
+            <textarea rows="4" name="issue_text" [(ngModel)]="businessActivity.issue_text" class="custom-scroll"></textarea> 
+          </label>
+          <div class="note">
+          </div> -->
+          <label class="input col-lg-12 issueContent">
+              <!-- <input type="text"  summernote name="contents" required [(ngModel)]="emailActivity.contents" [defaultVal] ="defaultContent" (change)="changeContent($event)"  /> -->
+              <input type="text" summernote name="contents" id="issueContent" value="{{issueContent}}" required [defaultVal] ="issueContent" />
+            </label>
+      </section>
+      <section class="col col-lg-12">
+          <label class="label">{{'Memo'| i18n}}</label>
+          <!-- <label class="textarea">
+            <textarea rows="4" name="memo_text" [(ngModel)]="businessActivity.memo_text" class="custom-scroll"></textarea> 
+          </label>
+          <div class="note">
+          </div> -->
+          <label class="input col-lg-12 memoContent">
+              <!-- <input type="text"  summernote name="contents" required [(ngModel)]="emailActivity.contents" [defaultVal] ="defaultContent" (change)="changeContent($event)"  /> -->
+              <input type="text" summernote name="contents" id="memoContent" value="{{memoContent}}" required [defaultVal] ="memoContent" />
+            </label>
+      </section>
+    </div>
+  </fieldset>
+  <footer class="custom-footer" style="padding-right:28px">
+    <button type="button" name="close" (click)="onClose()" class="btn btn-close">
+      <i class="fa fa-remove"></i>
+      {{'button-close' | i18n}}
+    </button>
+<button class="btn btn-small btn-primary btn-save" type="submit"><i class="fa fa-save"></i> {{'BUTTON-SAVE'|
+  i18n}}</button>
+  <ng-container *ngIf="businessActivity.activity_id > 0; else reset">
+    <button class="btn btn-small btn-danger btn-delete" type="button" (click)="onDelete()"><i class="fa fa-delete"></i>
+      {{'BUTTON-DELETE'| i18n}}</button>
+  </ng-container>
+  <ng-template #reset>
+    <button class="btn btn-small btn-default btn-reset" type="button" (click)="onReset()"><i class="fa fa-refresh"></i>
+      {{'BUTTON-RESET'| i18n}}</button>
+  </ng-template>
+  </footer>
+</form>

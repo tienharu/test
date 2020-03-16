@@ -1,0 +1,469 @@
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-magic"></i>Customer Master</h1>
+      </div>
+    </div>
+  </div>
+  <!-- (ngSubmit)="frmDetail.form.valid && onSubmit()" -->
+  <div class="row">
+    <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+      class="smart-form atman-form-small no-header frm-detail" novalidate="novalidate" [saUiValidate]="validationOptions" style="margin-bottom: 0;">
+      <section class="col col-5" style="padding-bottom: 30px;">
+        <fieldset>
+          <input type="hidden" name="gen_cd" [(ngModel)]="detailInfo.gen_cd" />
+          <!-- Row 1 -->
+          <div class="row">
+            <section class="col col-7">
+              <label class="label">{{'CUSTOMER_NAME' | i18n}}</label>
+              <div class="input-group">
+                <label class="input">
+                  <input class="main" type="text" autocomplete="off" />
+                </label>
+                <div class="input-group-addon" style="padding: 0px;border-width: 0px;background-color: transparent">
+                  <label class="input state-disabled" style="width: 112px;">
+                    <input class="center" disabled type="text" autocomplete="off" />
+                  </label>
+                </div>
+              </div>
+            </section>
+            <section class="col col-5">
+              <label class="input">
+                  {{'ENGLISH_NAME' | i18n}}
+                <input type="text" name="text_value_1" [(ngModel)]="detailInfo.text_value_1" autocomplete="off" />
+              </label>
+            </section>
+          </div>
+          <!-- Row 2 -->
+          <div class="row">
+            <section class="col col-7">
+              <label class="label">{{'CUS_DISPLAY_NAME' | i18n}}</label>
+              <div class="input-group">
+                <label class="input">
+                  <input class="main" type="text" autocomplete="off"/>
+                </label>
+                <div class="input-group-addon" style="padding: 0px;border-width: 0px;background-color: transparent">
+                  <label class="input state-disabled" style="width: 112px;">
+                  </label>
+                </div>
+              </div>
+            </section>
+            <section class="col col-5">
+              <label class="input">
+                  {{'CUS_CATEGORY' | i18n}}
+                <select name="parent_cd" [(ngModel)]="detailInfo.parent_cd" [defaultVal]="detailInfo.parent_cd" select2
+                  style="width:100%;" class="select2 parent_cd" placeHolder="...">
+                  <!-- <option *ngFor="let parent of parents" value={{parent.parent_cd}}>{{parent.gen_nm}}</option> -->
+                </select>
+              </label>
+            </section>
+          </div>
+          <!-- Row 3 -->
+          <div class="row">
+            <section class="col col-7">
+              <label class="label">{{'CUS_TYPE' | i18n}}</label>
+              <div class="input-group">
+                <label class="input">
+                  <select name="parent_cd" [(ngModel)]="detailInfo.parent_cd" [defaultVal]="detailInfo.parent_cd" select2
+                  style="width:100%;" class="select2 parent_cd" placeHolder="...">
+                  <!-- <option *ngFor="let parent of parents" value={{parent.parent_cd}}>{{parent.gen_nm}}</option> -->
+                  </select>
+                </label>
+                <div class="input-group-addon" style="padding: 0px;border-width: 0px;background-color: transparent">
+                  <label class="input state-disabled" style="width: 112px">
+                  </label>
+                </div>
+              </div>
+            </section>
+            <section class="col col-5">
+              <label class="input">
+                {{'CUS_BUSINESS_CHANNEL' | i18n}}
+                <select name="parent_cd" [(ngModel)]="detailInfo.parent_cd" [defaultVal]="detailInfo.parent_cd" select2
+                  style="width:100%;" class="select2 parent_cd" placeHolder="...">
+                  <!-- <option *ngFor="let parent of parents" value={{parent.parent_cd}}>{{parent.gen_nm}}</option> -->
+                </select>
+              </label>
+            </section>
+          </div>
+          <!-- Row 4 -->
+          <div class="row">
+            <section class="col col-7">
+              <label class="label">{{'CUS_ADMINSTRATOR' | i18n}}</label>
+              <div class="input-group">
+                <label class="input">
+                  <select name="parent_cd" [(ngModel)]="detailInfo.parent_cd" [defaultVal]="detailInfo.parent_cd" select2
+                  style="width:100%;" class="select2 parent_cd" placeHolder="...">
+                  <!-- <option *ngFor="let parent of parents" value={{parent.parent_cd}}>{{parent.gen_nm}}</option> -->
+                  </select>
+                </label>
+                <div class="input-group-addon" style="padding: 0px;border-width: 0px;background-color: transparent">
+                  <label class="input state-disabled" style="width: 112px">
+                  </label>
+                </div>
+              </div>
+            </section>
+            <section class="col col-5">
+              <label class="input">
+                {{'CUS_COUNTRY' | i18n}}
+                <select name="parent_cd" [(ngModel)]="detailInfo.parent_cd" [defaultVal]="detailInfo.parent_cd" select2
+                  style="width:100%;" class="select2 parent_cd" placeHolder="...">
+                  <!-- <option *ngFor="let parent of parents" value={{parent.parent_cd}}>{{parent.gen_nm}}</option> -->
+                </select>
+              </label>
+            </section>
+          </div>
+          <!-- Row 5 -->
+          <div class="row">
+            <section class="col col-7">
+              <label class="label">{{'CUS_TAX_TYPE' | i18n}}</label>
+              <div class="input-group">
+                <label class="input">
+                  <select name="parent_cd" [(ngModel)]="detailInfo.parent_cd" [defaultVal]="detailInfo.parent_cd" select2
+                  style="width:100%;" class="select2 parent_cd" placeHolder="...">
+                  <!-- <option *ngFor="let parent of parents" value={{parent.parent_cd}}>{{parent.gen_nm}}</option> -->
+                  </select>
+                </label>
+                <div class="input-group-addon" style="padding: 0px;border-width: 0px;background-color: transparent">
+                  <label class="input state-disabled" style="width: 112px">
+                  </label>
+                </div>
+              </div>
+            </section>
+            <section class="col col-5">
+              <label class="input">
+                  {{'CUS_EMAIL_TO_SEND_ELECT' | i18n}}
+                <input type="text" name="text_value_1" [(ngModel)]="detailInfo.text_value_1" autocomplete="off" />
+              </label>
+            </section>
+          </div>
+          <!-- Row 6 -->
+          <div class="row">
+            <section class="col col-7">
+              <label class="label">{{'CUS_PREGIDENT_NAME' | i18n}}</label>
+              <div class="input-group">
+                <label class="input">
+                  <input class="main" type="text" autocomplete="off"/>
+                </label>
+                <div class="input-group-addon" style="padding: 0px;border-width: 0px;background-color: transparent">
+                  <label class="input state-disabled" style="width: 112px;">
+                  </label>
+                </div>
+              </div>
+            </section>
+            <section class="col col-5">
+              <label class="input">
+                  {{'CUS_EMAIL_ADDRESS' | i18n}}
+                <input type="text" name="text_value_1" [(ngModel)]="detailInfo.text_value_1" autocomplete="off" />
+              </label>
+            </section>
+          </div>
+          <!-- Row 7 -->
+          <div class="row">
+            <section class="col col-7">
+              <label class="label">{{'CUS_TEL_NO' | i18n}}</label>
+              <div class="input-group">
+                <label class="input">
+                  <input class="main" type="text" autocomplete="off"/>
+                </label>
+                <div class="input-group-addon" style="padding: 0px;border-width: 0px;background-color: transparent">
+                  <label class="input state-disabled" style="width: 112px;">
+                  </label>
+                </div>
+              </div>
+            </section>
+            <section class="col col-5">
+              <label class="input">
+                  {{'CUS_BUSINESS_LICENCE_NO' | i18n}}
+                <input type="text" name="text_value_1" [(ngModel)]="detailInfo.text_value_1" autocomplete="off" />
+              </label>
+            </section>
+          </div>
+          <!-- Row 8 -->
+          <div class="row">
+            <section class="col col-7">
+              <label class="label">{{'CUS_BUSINESS_CONDITION' | i18n}}</label>
+              <div class="input-group">
+                <label class="input">
+                  <input class="main" type="text" autocomplete="off" />
+                </label>
+                <div class="input-group-addon" style="padding: 0px;border-width: 0px;background-color: transparent">
+                  <label class="input state-disabled" style="width: 112px;">
+                  </label>
+                </div>
+              </div>
+            </section>
+            <section class="col col-5">
+              <label class="input">
+                {{'CUS_BUSINESS_TYPE' | i18n}}
+                <input type="text" name="text_value_1" [(ngModel)]="detailInfo.text_value_1" autocomplete="off" />
+              </label>
+            </section>
+          </div>
+          <!-- Row 9 -->
+          <div class="row">
+            <section class="col col-7">
+              <label class="label">{{'CUS_WEB_SITE_URL' | i18n}}</label>
+              <div class="input-group">
+                <label class="input">
+                  <input class="main" type="text" autocomplete="off" />
+                </label>
+                <div class="input-group-addon" style="padding: 0px;border-width: 0px;background-color: transparent">
+                  <label class="input state-disabled" style="width: 112px;">
+                  </label>
+                </div>
+              </div>
+            </section>
+            <section class="col col-5" style="margin: 0;">
+              <section class="col col-6" style="padding-left: 0;">
+                <label class="input">
+                  {{'CUS_WORKERS' | i18n}}
+                  <input type="text" name="text_value_1" [(ngModel)]="detailInfo.text_value_1" autocomplete="off" />
+                </label>
+              </section>
+              <section class="col col-6" style="padding-right: 0;">
+                <label class="input">
+                  {{'CUS_ZIP_CODE' | i18n}}
+                  <input type="text" name="text_value_1" [(ngModel)]="detailInfo.text_value_1" autocomplete="off" />
+                </label>
+              </section>
+            </section>
+          </div>
+          <!-- Row 10 -->
+          <div class="row">
+            <section class="col col-7">
+              <label class="label">{{'CUS_SALES_AMOUNT_PER_YEAR' | i18n}}</label>
+              <div class="input-group">
+                <label class="input">
+                  <input class="main" type="text" autocomplete="off" />
+                </label>
+                <div class="input-group-addon" style="padding: 0px;border-width: 0px;background-color: transparent">
+                  <label class="input state-disabled" style="width: 112px;">
+                  </label>
+                </div>
+              </div>
+            </section>
+            <section class="col col-5">
+              <label class="input">
+                {{'CUS_PAYMENT_BANK' | i18n}}
+                <select name="parent_cd" [(ngModel)]="detailInfo.parent_cd" [defaultVal]="detailInfo.parent_cd" select2
+                  style="width:100%;" class="select2 parent_cd" placeHolder="...">
+                  <!-- <option *ngFor="let parent of parents" value={{parent.parent_cd}}>{{parent.gen_nm}}</option> -->
+                </select>
+              </label>
+            </section>
+          </div>
+          <!-- Row 11 -->
+          <div class="row">
+            <section class="col col-7">
+              <label class="label">{{'CUS_BANK_BOOK_PERSON_NAME' | i18n}}</label>
+              <div class="input-group">
+                <label class="input">
+                  <input class="main" type="text" autocomplete="off" />
+                </label>
+                <div class="input-group-addon" style="padding: 0px;border-width: 0px;background-color: transparent">
+                  <label class="input state-disabled" style="width: 112px;">
+                  </label>
+                </div>
+              </div>
+            </section>
+            <section class="col col-5">
+              <label class="input">
+                {{'CUS_BANK_BOOK_NO' | i18n}}
+                <input type="text" name="text_value_1" [(ngModel)]="detailInfo.text_value_1" autocomplete="off" />
+              </label>
+            </section>
+          </div>
+          <!-- Row 12 -->
+          <div class="row">
+            <section class="col col-7">
+              <label class="label">{{'CUS_PAYMENT_TERM' | i18n}}</label>
+              <div class="input-group">
+                <label class="input">
+                  <select name="parent_cd" [(ngModel)]="detailInfo.parent_cd" [defaultVal]="detailInfo.parent_cd" select2
+                  style="width:100%;" class="select2 parent_cd" placeHolder="...">
+                  <!-- <option *ngFor="let parent of parents" value={{parent.parent_cd}}>{{parent.gen_nm}}</option> -->
+                  </select>
+                </label>
+                <div class="input-group-addon" style="padding: 0px;border-width: 0px;background-color: transparent">
+                  <label class="input state-disabled" style="width: 112px">
+                  </label>
+                </div>
+              </div>
+            </section>
+            <section class="col col-5" style="margin-bottom: 0;">
+              <section class="col col-6" style="padding: 0;">
+                <label class="input">
+                  <!-- {{'CUS_REGISTRANT' | i18n}} -->
+                  {{'REGISTER' | i18n}}
+                </label>
+                <label class="input state-disabled">
+                  <input type="text" name="text_value_1" [(ngModel)]="detailInfo.text_value_1" autocomplete="off" disabled />
+                </label>
+              </section>
+              <section class="col col-6" style="padding: 0;">
+                <label class="input" style="visibility: hidden;">
+                  .
+                </label>
+                <label class="input state-disabled">
+                  <input type="text" name="text_value_1" [(ngModel)]="detailInfo.text_value_1" autocomplete="off" disabled />
+                </label>
+              </section>              
+            </section>
+          </div>
+          <!-- Row 13 -->
+          <div class="row">
+            <section class="col col-10" style="width: 100%;">
+              <!-- <label class="label">{{'REMARK' | i18n}}</label> -->
+              <label class="input">
+                {{'CUS_ADDRESS' | i18n}}
+                <label class="textarea">
+                  <textarea autocomplete="off" rows="2"></textarea>
+                </label>
+              </label>
+            </section>
+          </div>
+          <!-- Row 14 -->
+          <div class="row">
+            <section class="col col-10" style="width: 100%;">
+              <!-- <label class="label">{{'REMARK' | i18n}}</label> -->
+              <label class="input">
+                {{'CUS_REMARKS' | i18n}}
+                <label class="textarea">
+                  <textarea autocomplete="off" rows="2"></textarea>
+                </label>
+              </label>
+            </section>
+          </div>
+          <!-- Row 15 -->
+          <div class="row">
+            <section class="col col-7" style="margin-top: 20px;">
+              <section class="col col-5" style="padding-left: 0;">
+                <label class="input" style="float: left;">
+                  <label class="checkbox" style="padding-left: 7px;">
+                    <label for="chbOutStk" class="checkbox-inline">CRM</label>
+                    <input id="chbOutStk" type="checkbox">
+                    <i style="left: 35px;"></i>
+                  </label>
+                </label>
+              </section>
+              <section class="col col-6" style="padding-left: 28px;">
+                <div class="input-group">
+                  <label class="input">
+                    <label class="checkbox">
+                      <label for="chbOutStk1" class="checkbox-inline">Active</label>
+                      <input id="chbOutStk1" type="checkbox">
+                      <i style="left: 60px;"></i>
+                    </label>
+                  </label>
+                  <div class="input-group-addon" style="padding: 0px;border-width: 0px;background-color: transparent">
+                    <label class="input state-disabled" style="width: 112px;">
+                    </label>
+                  </div>
+                </div>
+              </section>
+            </section>
+            <section class="col col-5">
+              <button style="margin-top: 17px; width: 100%;" type="button" name="btnContactor" class="btn btn-contactor">
+                {{'CUS_CONTACTOR' | i18n}}
+              </button>
+            </section>
+          </div>
+          <!-- Row 16 -->
+          <div class="row">
+            <section class="col col-sm-12">
+              <button type="button" name="btnCloseProgram" (click)="onCloseProgram()"
+                class="btn btn-cancel">
+                <i class="fa fa-times"></i>
+                {{'BUTTON-CLOSE' | i18n}}
+              </button>
+              <button type="button" (click)="onReset(frmDetail)" name="reset"
+                class="btn btn-reset-form">
+                <i class="fa fa-refresh"></i>
+                {{'BUTTON-RESET' | i18n}}
+              </button>
+              <button type="submit" [disabled]="!this.permission.canSave" name="submit"
+                class="btn btn-primary">
+                <i class="fa fa-save"></i>
+                {{'BUTTON-SAVE' | i18n}}
+              </button>
+            </section>
+          </div>
+        </fieldset>
+      </section>
+    </form>
+
+    <article class="col-sm-7">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <!-- <h2>{{'GENERAL MASTER' | i18n}}</h2> -->
+            <h2>Product Master</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                tableClass="table table-striped table-condensed table-hover table-bordered">
+                <thead>
+                  <tr class="heading">
+                    <th>ID</th>
+                    <th>{{'CUS_TYPE_2' | i18n}}</th>
+                    <th>{{'CUS_CUSTOMER_2' | i18n}}</th>
+                    <th>{{'CUS_BUSINESS_LICENCE_NO_2' | i18n}}</th>
+                    <th>{{'CUS_CATEGORY' | i18n}}</th>
+                    <th>{{'CUS_CONTACTOR_2' | i18n}}</th>
+                    <th>CRM</th>
+                    <th>Active</th>
+                    <th>{{'CUS_REMARKS' | i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter ID" />
+                    </th>
+                    <th class="hasinput">
+                      <!-- <select name="filter_cate_cd" class="form-control select-filter" placeHolder="Filter category">
+                        <option value="">All</option>
+                        <option *ngFor="let category of Categories" value={{category.cate_cd}}>{{category.cate_nm}}
+                        </option>
+                      </select> -->
+                      <input type="text" class="form-control" placeholder="Filter 유형" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter 거래처명" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter 사업자번호" />
+                    </th>
+                    <th class="hasinput">
+                      <!-- <select id="filerByStatus" class="form-control select-filter">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select> -->
+                      <input type="text" class="form-control" placeholder="Filter 카테고리" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter 담당자" />
+                    </th>
+
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter CRM" />
+                    </th>
+
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Active" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Remarks" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+  </div>
+</div>

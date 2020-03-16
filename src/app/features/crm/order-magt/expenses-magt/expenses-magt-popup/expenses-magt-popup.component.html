@@ -1,0 +1,208 @@
+<article class="col-sm-12 col-md-12 col-lg-12">
+  <div class="row">
+    <div class="no-padding">
+
+      <div>
+        <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" class="smart-form atman-form-small frm-detail"
+          novalidate="novalidate" [saUiValidate]="validationOptions">
+          <section class="col col-lg-12">
+            <fieldset class="pull-right">
+              <div class="row">
+                <section>
+                  <!-- <h5>{{'Created by ' | i18n}} + {{}} </h5> -->
+                  <!-- <h5>{{' ' | i18n}} + {{}} </h5> -->
+                  <h5>{{ 'CREATED-BY' | i18n }} {{inputModel.infoUser.user_name}}</h5>
+                </section>
+              </div>
+            </fieldset>
+          </section>
+
+          <section class="col col-6">
+            <fieldset>
+              <div class="row">
+                <section class="no-padding-left col col-6">
+                  <label class="label">{{'EXPENSES-ACCOUNT-DATE' | i18n}}</label>
+                  <!-- <label class="label">Account Date</label> -->
+                  <label class="input">
+                    <i class="icon-append fa fa-calendar"></i>
+                    <input type="text" name="account_date" class="datePicker required" [(ngModel)]="inputModel.model.account_ymd"
+                      autocomplete="off" placeholder="yyyy-mm-dd" [saUiDatepicker]="optionsDatePicker" />
+                  </label>
+                </section>
+
+                <section class="no-padding col col-6">
+                  <label class="label">{{'EXPENSES-TYPE' | i18n}}</label>
+                  <label class="input">
+                    <select name="expenses_gen_cd" select2 style="width:100%;" class="select2 required" placeHolder="Select Expenses Item"
+                      [(ngModel)]="inputModel.model.expenses_gen_cd" [defaultVal]="inputModel.model.expenses_gen_cd">
+                      <option value=""></option>
+                      <option *ngFor="let e of inputModel.expensesType" value={{e.gen_cd}}>{{e.gen_nm}}</option>
+                    </select>
+                  </label>
+                </section>
+
+                <section class="no-padding-left col col-6">
+                  <label class="label">{{'EXPENSES-PAYMENT-BY' | i18n}}</label>
+                  <!-- <label class="label">{{'Payment By' | i18n}}</label> -->
+                  <label class="input">
+                    <select name="pay_type_gen_cd" select2 style="width:100%;" class="select2 required" placeHolder="Select Payment"
+                      [(ngModel)]="inputModel.model.pay_type_gen_cd" [defaultVal]="inputModel.model.pay_type_gen_cd"
+                      (onSelectedChange)="onChangePayment()">
+                      <option *ngFor="let p of inputModel.paymentType" value={{p.gen_cd}}>{{p.gen_nm}}</option>
+                    </select>
+                  </label>
+                </section>
+
+                <section class="no-padding col col-6">
+                  <label class="label">{{'EXPENSES-CREDIT-CARD' | i18n}}</label>
+                  <!-- <label class="label">{{'Credit Card No' | i18n}}</label> -->
+
+                  <label class="input">
+                    <select name="credit_card_gen_cd" select2 style="width:100%;" class="select2 required" placeHolder="Select Credit"
+                      [(ngModel)]="inputModel.model.credit_card_gen_cd" [defaultVal]="inputModel.model.credit_card_gen_cd"
+                      [disabled]="isDisabledCredit">
+                      <option *ngFor="let c of inputModel.creditCard" value={{c.gen_cd}}>{{c.gen_nm}}</option>
+                    </select>
+                  </label>
+                </section>
+
+
+
+                <section class="no-padding-left col col-lg-6">
+                  <label class="label">{{'EXPENSES-AMOUNT' | i18n}}</label>
+
+                  <!-- <label class="label">{{'Amount' | i18n}}</label> -->
+                  <label class="input">
+                    <input type="text" name="expenses_amt" class="required" [(ngModel)]="inputModel.model.expenses_amt"
+                      currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" autocomplete="off"
+                      required />
+                  </label>
+                </section>
+
+
+
+                <section class="no-padding-left col col-lg-12">
+                  <!-- <label class="label">{{'OPPORTUNITY-LB-EDIT-CUSTOMER-CONTACTOR-PERSON' | i18n}}</label> -->
+                  <label class="label">{{'DESCRIPTION' | i18n}}</label>
+                  <label class="input">
+                    <textarea class="col col-lg-12" name="description" id="" rows="5" [(ngModel)]="inputModel.model.remark"></textarea>
+                  </label>
+                </section>
+
+              </div>
+            </fieldset>
+          </section>
+
+          <section class="col col-6">
+            <fieldset>
+              <div class="row">
+                  <!-- [(ngModel)]="crmMasServiceCategoyModel.sales_target_yn"
+                  checked="crmMasServiceCategoyModel.sales_target_yn"   -->
+                <section class="no-padding-left col col-lg-12">
+                  <div class="clearfix">
+                    <label class="label pull-left">{{'EXPENSES-SALE-OPPORTUNITY-PROJECT' | i18n}}</label>
+
+                    <label class="label pull-right clearComboboxes" (click)="clearAll()">{{'EXPENSES-NO-LINK' | i18n}}</label>
+                  </div>
+
+
+                  <label class="input">
+
+                    <!-- [(ngModel)]="inputModel.model.sales_opt_id != null ? inputModel.model.sales_opt_id:inputModel.model.project_id"  -->
+                    <!-- [defaultVal]="inputModel.model.project_id != null ? inputModel.model.project_id:inputModel.model.sales_opt_id" -->
+                    <div class="custom-expenses">
+                      <select id="expenses" name="sales_opt_id" select4 [options]="optionsSelect" style="width:100%;"
+                        class="select2 required selectExpenses" placeHolder="Selection" [(ngModel)]="inputModel.model.project_id != null ? inputModel.model.project_id:inputModel.model.sales_opt_id"
+                        (ngModelChange)="onOppOrProject($event)" allowClear="true">
+                        <!-- <optgroup label="Opportunity">
+  
+                        </optgroup> -->
+
+                        <!-- <option disabled>Opportunity</option> -->
+                        <option value=""></option>
+                        <option data-icon="fa fa-user" *ngFor="let s of inputModel.salesOpportunity" value='1-{{s.salesopt_id}}'>{{s.salesopt_nm}}</option>
+
+                        <!-- <optgroup label="Project">
+                        </optgroup> -->
+
+                        <!-- <option disabled>Project</option> -->
+                        <option *ngFor="let p of inputModel.projectOpportunity" value='2-{{p.project_id}}'>{{p.project_nm}}</option>
+                      </select>
+                    </div>
+
+                  </label>
+                </section>
+
+                <section class="no-padding-left col col-lg-12">
+                  <label class="label">{{'EXPENSES-CUSTOMER-CONTRACTOR-USER' | i18n}}</label>
+                  <!-- <label class="label">{{'Customer or Contactor or User'}}</label> -->
+                  <label class="input">
+                    <div class="custom-sharing">
+                      <select id="s2" name="customer_contactor_id" required select3 class="form-control select2 required selectExpenses"
+                        multiple [defaultVal]="test" (ngModelChange)="onChangeCusConUser($event)" placeHolder="Selection">
+                        <optgroup label="Customer">
+                          <option data-icon="fa fa-user-md" *ngFor="let c of inputModel.customer" value='1-{{c.trader_id}}'>{{c.trader_local_nm}}</option>
+                        </optgroup>
+                        <optgroup label="Contactor">
+                          <option data-icon="fa fa-phone-square" *ngFor="let p of inputModel.contactor" value='2-{{p.contactor_id}}'>{{p.contactor_nm}}</option>
+                        </optgroup>
+                        <optgroup label="User">
+                          <option data-icon="fa fa-user" *ngFor="let u of inputModel.user" value='3-{{u.user_id}}'>{{u.user_nm}}</option>
+                        </optgroup>
+                      </select>
+                    </div>
+                  </label>
+
+                </section>
+
+
+                <section class="no-padding-left col col-lg-12">
+                  <label class="label">{{'UPLOAD-FILE' | i18n}}</label>
+                  <!-- <label class="label">{{'Upload File' | i18n}}</label> -->
+                  <input type="file" name="asd" aria-label="abcs" class="upFile" (change)="onFileChange($event)" />
+                </section>
+
+                <section *ngIf="inputModel.model.bill_attach_file" class="no-padding-left col col-lg-12">
+                  <a href="{{inputModel.model.bill_attach_file}}" target="_blank" download="{{attacthedFileName}}">{{attacthedFileName}}</a>
+                </section>
+
+              </div>
+            </fieldset>
+          </section>
+
+          <section class="col-lg-12" style="margin-top: 5px;">
+
+            <section class="col col-4 pull-right" style="margin-right:-56px">
+              <button type="button" (click)="onReset()" name="reset" style="margin:0 5px 0 0" class="btn btn-default btn-xs btn-reset float-none">
+                <i class="fa fa-refresh"></i>
+                {{'button-reset' | i18n}}
+              </button>
+              <button type="submit" name="submit" style="margin:0 5px 0 0" class="btn btn-primary btn-xs btn-save float-none">
+                <i class="fa fa-save"></i>
+                {{'button-save' | i18n}}
+              </button>
+              <button type="button" name="delete" (click)="onDelete()" style="margin:0 5px 0 0" class="btn btn-danger btn-xs btn-delete">
+                <i class="fa fa-trash-o"></i>
+                {{'button-delete' | i18n}}
+              </button>
+              <button type="button" name="close" (click)="onClose()" class="btn btn-xs btn-close">
+                <i class="fa fa-remove"></i>
+                {{'button-close' | i18n}}
+              </button>
+            </section>
+
+
+          </section>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+<!-- <div class="row">
+    <select select2 id="sharingGroup" class="col-md-3"  (ngModelChange)="onChange($event)" multiple>
+    </select>
+    <button class="col-md-1 btn btn-primary clear">Clear Selected</button>
+  </div> -->

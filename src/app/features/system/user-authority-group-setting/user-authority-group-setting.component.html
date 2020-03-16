@@ -1,0 +1,175 @@
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5">
+            <sa-big-breadcrumbs [items]="[('USER-AUTHORITY-GROUP-TITLE'|i18n)]" icon="users"></sa-big-breadcrumbs>
+            <sa-widgets-grid>
+                <div class="row">
+                    <article class="col-sm-12">
+                        <div class="row group">
+                            <section class="col-lg-6 smart-form">
+                                <label class="input">
+                                    <select [disabled]="!is_system" name="company_id" [(ngModel)]="detailInfo.company_id"
+                                        [defaultVal]="detailInfo.company_id" (onSelectedChange)="onChangeCompany($event)"
+                                        autoEmitModel="false" select2 required style="width:250px;" class="select2 required"
+                                        placeHolder="Select company">
+                                        <option *ngFor="let s of companies" value={{s.company_id}}>{{s.company_eng_nm}}</option>
+                                    </select>
+                                </label>
+                            </section>
+                        </div>
+                        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman" style="margin-top: 15px;">
+                            <header>
+                                <span class="widget-icon">
+                                    <i class="fa fa-table"></i>
+                                </span>
+                                <h2>{{'USER-AUTHORITY-GROUP-USER-LIST'|i18n}}</h2>
+                            </header>
+                            <div>
+                                <div class="widget-body no-padding">
+                                    <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true"
+                                        filter="true" tableClass="table table-striped table-condensed table-hover table-bordered userAuthorGroup">
+                                        <thead>
+                                            <tr class="heading">
+                                                <!-- <th>Company ID</th> -->
+                                                <th>User ID</th>
+                                                <th>{{'USER-NAME' | i18n}}</th>
+                                                <th>{{'FULL-NAME' | i18n}}</th>
+                                                <!-- <th>Authority Group</th> -->
+                                                <th>{{'AUTHORITY GROUP' | i18n}}</th>
+                                            </tr>
+                                            <tr>
+                                                <!-- <th class="hasinput" [ngStyle]="{width:'15%'}">
+                                                    <input type="text" class="form-control" placeholder="Filter Company ID" />
+                                                </th> -->
+                                                <th class="hasinput" [ngStyle]="{width:'10%'}">
+                                                    <input type="text" class="form-control" placeholder="Filter User ID" />
+                                                </th>
+                                                <th class="hasinput" [ngStyle]="{width:'15%'}">
+                                                    <input type="text" class="form-control" placeholder="Filter User Name" />
+                                                </th>
+                                                <th class="hasinput" [ngStyle]="{width:'20%'}">
+                                                    <input type="text" class="form-control" placeholder="Filter Fullname" />
+                                                </th>
+                                                <!-- <th class="hasinput" [ngStyle]="{width:'15%'}">
+                                                    <input type="text" class="form-control" placeholder="Filter Author Group CD" />
+                                                </th> -->
+                                                <th class="hasinput" [ngStyle]="{width:'40%'}">
+                                                    <input type="text" class="form-control" placeholder="Filter Author Group" />
+                                                </th>
+
+                                            </tr>
+                                        </thead>
+                                    </sa-datatable>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </sa-widgets-grid>
+
+            <form #frmDetail="ngForm" (ngSubmit)="onSubmit()" class="smart-form frm-detail" novalidate="novalidate">
+                <footer>
+                    <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-cancel">
+                        <i class="fa fa-times"></i>
+                        {{'button-close' | i18n}}
+                    </button>
+                    <button type="submit" [disabled]="!this.permission.canSave" name="submit" id='btnSubmit' class="btn btn-primary btn-xs edit-program">
+                        <i class="fa fa-save"></i>
+                        {{'button-save' | i18n}}
+                    </button>
+                </footer>
+            </form>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-7">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <sa-big-breadcrumbs [items]="[('USER-AUTHORITY-GROUP-MENU-TITLE'|i18n)]" icon="list" class="col-md-12 col-lg-12 padding-left-0"></sa-big-breadcrumbs>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <sa-widgets-grid>
+                    <div class="row">
+                        <article class="col-sm-12">
+                            <div class="row group">
+                                <section class="col-lg-6 smart-form">
+                                    <label class="input">
+                                        <select id="selectAuthorGroupId" name="author_group_id" [(ngModel)]="detailInfo.author_group_id"
+                                            autoEmitModel="false" [defaultVal]="detailInfo.author_group_id"
+                                            (onSelectedChange)="onAuthorGroupChanged($event)" select2 required style="width:250px"
+                                            class="select2 required selectAuthorGroupId" placeHolder="Choose an authority group">
+                                            <option value=""></option>
+                                            <option *ngFor="let autogroup of authorityGroups" value={{autogroup.author_group_id}}>
+                                                {{autogroup.author_group_nm}} - {{autogroup.author_group_id}}
+                                            </option>
+                                        </select>
+                                    </label>
+                                </section>
+                            </div>
+                            <div sa-widget [editbutton]="false" id="vandd" [deletebutton]="false" color="atman" class="jarviswidget-atman" style="margin-top: 15px;">
+                                <header>
+                                    <span class="widget-icon">
+                                        <i class="fa fa-list"></i>
+                                    </span>
+                                    <h2>{{'USER-AUTHORITY-GROUP-PERMISSION' | i18n}}</h2>
+                                </header>
+                                <div>
+                                    <div class="widget-body no-padding">
+                                        <sa-datatable [options]="userMenuDS" paginationLength="true" filter="false"
+                                            tableClass="table table-striped table-condensed table-hover table-bordered userMenuDS">
+                                            <thead>
+                                                <tr class="heading">
+                                                    <th>No</th>
+                                                    <th>{{'MENU CODE' | i18n}}</th>
+                                                    <th>{{'MENU-NAME' | i18n}}</th>
+                                                    <!-- <th>
+                                                        <div>
+                                                            <div>
+                                                                <input class="_dspl_yn" style="height: 15px!important; padding: 0px!important"
+                                                                    type="checkbox" (click)="isOneCheck($event,'dspl_yn');" />
+                                                            </div>
+                                                            <div>
+                                                                DSPL
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                    -->
+                                                    <th>
+                                                        <label class="checkbox-inline">
+                                                            <input class="_search_yn checkbox style-0" type='checkbox'
+                                                                (click)="isOneCheck($event,'search_yn');" />
+                                                            <span><b>Search</b></span>
+                                                        </label>
+                                                    </th>
+                                                    <th>
+                                                        <label class="checkbox-inline">
+                                                            <input class="_save_yn checkbox style-0" type='checkbox'
+                                                                (click)="isOneCheck($event,'save_yn');" />
+                                                            <span><b>Save</b></span>
+                                                        </label>
+                                                    </th>
+                                                    <th>
+                                                        <label class="checkbox-inline">
+                                                            <input class="_delete_yn checkbox style-0" type='checkbox'
+                                                                (click)="isOneCheck($event,'delete_yn');" />
+                                                            <span><b>Delete</b></span>
+                                                        </label>
+                                                    </th>
+                                                    <th>
+                                                        <label class="checkbox-inline">
+                                                            <input class="_posting_yn checkbox style-0" type='checkbox'
+                                                                (click)="isOneCheck($event,'posting_yn');" />
+                                                            <span><b>Posting</b></span>
+                                                        </label>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                        </sa-datatable>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </sa-widgets-grid>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,252 @@
+﻿
+body.smart-style-3{
+    font: 13px "Open Sans",Verdana,Arial,sans-serif;
+}
+.smart-style-3 #header {
+    background-color: #2c3742;
+    background-image: -moz-linear-gradient(top,#2c3742,#2c3742);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#2c3742),to(#2c3742));
+    background-image: -webkit-linear-gradient(top,#2c3742,#2c3742);
+    background-image: -o-linear-gradient(top,#2c3742,#2c3742);
+    background-image: linear-gradient(to bottom,#2c3742,#2c3742);
+}
+.smart-style-3 .page-footer {
+    background-color: #2c3742;
+    background-image: -moz-linear-gradient(top,#2c3742,#2c3742);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#2c3742),to(#2c3742));
+    background-image: -webkit-linear-gradient(top,#2c3742,#2c3742);
+    background-image: -o-linear-gradient(top,#2c3742,#2c3742);
+    background-image: linear-gradient(to bottom,#2c3742,#2c3742);
+}
+.smart-style-3 .multi-tab-menu>li {
+    border-radius: 8px;
+    background: #3a4958;
+  }
+ 
+.smart-style-3 div#activity, 
+.smart-style-3 div#top-count-new, 
+.smart-style-3 div#top-todo-count,
+.smart-style-3 .btn-header>:first-child>a {
+    background-image: -moz-linear-gradient(top,#2c3742,#2c3742);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#2c3742),to(#2c3742));
+    background-image: -webkit-linear-gradient(top #2c3742,#2c3742);
+    background-image: -o-linear-gradient(top,2c3742,#2c3742);
+    background-image: linear-gradient(to bottom,#2c3742,#2c3742);
+    color: #fff!important;
+    border: 1px solid #3c4956;
+    text-shadow: #545454 0 -1px;
+}
+.smart-style-3 .btn-header  > :first-child  > a:hover,
+.smart-style-3 #logo-group span#activity:hover,
+.smart-style-3 .btn-header  > :first-child  > a:active,
+.smart-style-3 #logo-group span#activity:active {
+  -webkit-box-shadow: inset 1px 1px 0px #3d4a56, inset -1px -1px 0px #3d4a56;
+  -moz-box-shadow: inset 1px 1px 0px #3d4a56, inset -1px -1px 0px #3d4a56;
+  box-shadow: inset 1px 1px 0px #3d4a56, inset -1px -1px 0px #3d4a56;
+  background-color: #2c3742;
+  background-image: -moz-linear-gradient(top, #45525f, #3d4a56);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#45525f), to(#3d4a56));
+  background-image: -webkit-linear-gradient(top, #45525f, #3d4a56);
+  background-image: -o-linear-gradient(top, #45525f, #3d4a56);
+  background-image: linear-gradient(to bottom, #45525f, #3d4a56);
+}
+.smart-style-3 .btn-style-2{
+    background-image: linear-gradient(to bottom,#2c373c,#2c373c)!important;
+    border: 1px solid #2c373c!important;
+}
+
+.smart-style-3 .welcome-info p {
+    color: #0b739b;
+}
+/*.smart-style-3 .header-dropdown-list > li > .dropdown-toggle, .smart-style-3 .project-context > :first-child, .smart-style-3 .project-selector {
+    color: #fff;
+    text-shadow: #985813 0 -1px;
+}*/
+.smart-style-3 .header-dropdown-list > li > .dropdown-toggle {
+    background: none;
+    padding: inherit;
+}
+.smart-style-3 .header-dropdown-list > li {
+    padding-right: 0
+}
+
+
+.smart-style-3 .dropdown-menu {
+    background: #fff;
+    border-bottom: 2px solid #fff;
+}
+/*This class for frame heaer/footer default style*/
+.smart-style-3 .dropdown-menu-dark {
+    background: #2c3742 !important;
+    border-bottom: 2px solid #242d35 !important; 
+}
+    .smart-style-3 .dropdown-menu-dark > .active > a, 
+    .smart-style-3 .dropdown-menu-dark > .active > a:hover, 
+    .smart-style-3 .dropdown-menu-dark > li > a:focus, 
+    .smart-style-3 .dropdown-menu-dark > li > a:hover, 
+    .smart-style-3 .tt-suggestion.tt-is-under-cursor {
+        background-color: #242d35;
+        color: #fff;
+    }
+.smart-style-3 .dropdown-menu-dark>li>a {
+    color: #fff!important;
+}
+.smart-style-3 .dropdown-menu-dark .divider {
+    background-color: #242d35;
+}
+/*End of dropdown-menu-dark*/
+.smart-style-3 .language-select a.dropdown-toggle{
+    /* background: rgba(0,0,0,.2); */
+    padding: 3px 5px 3px;
+    border-radius: 3px;
+}
+.smart-style-3 #mobile-profile-img a.userdropdown img {
+    width: 31px;
+    border: none;
+    float: left;
+    /* border-radius:50%; */
+}
+.userdropdown span.user-top-info{
+    float: left;
+    display: block;
+    line-height: 12px;
+    margin-top: 7px;
+    margin-left: 5px;
+    font-size: 12px;
+}
+.userdropdown span.user-top-info i{
+    font-size: 11px;
+}
+.smart-style-3 .header-search > input[type=text] {
+    border-color: #3c4956;
+    background: #3a3939;
+    color: #fff;
+}
+.smart-style-3 .header-search > button {
+    color: #DF9B45;
+}
+.smart-style-3 input:not([type]), .smart-style-3 input[type=color], .smart-style-3 input[type=email], .smart-style-3 input[type=number], .smart-style-3 input[type=password], .smart-style-3 input[type=tel], .smart-style-3 input[type=text], .smart-style-3 input[type=url], .smart-style-3 textarea {
+    border-top-color: #ccc;
+    border-left-color: #ccc;
+    border-bottom-color: #ccc;
+    border-right-color: #ccc;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: #000;
+    border-radius:3px !important;
+}
+
+
+.smart-style-3 .minifyme{
+    border-bottom: 1px solid #222425;
+    background: #2c3742;
+    color: #fff;
+}
+.smart-style-3 .minifyme:hover{
+    background: #3e4042;
+    color: #fffdfd;
+}
+.smart-style-3 .minified .minifyme{
+    color: #fff;
+}
+
+.smart-style-3 .left-bottom-menu{
+    background-color: #2c3742;
+    background-image: -moz-linear-gradient(top,#2c3742,#2c3742);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#2c3742),to(#2c3742));
+    background-image: -webkit-linear-gradient(top,#2c3742,#2c3742);
+    background-image: -o-linear-gradient(top,#2c3742,#2c3742);
+    background-image: linear-gradient(to bottom,#2c3742,#2c3742);
+}
+.smart-style-3 .btn-opened-prog:hover{
+    background-color: #2c3742;
+    background-image: -moz-linear-gradient(top,#2c3742,#2c3742);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#2c3742),to(#2c3742));
+    background-image: -webkit-linear-gradient(top,#2c3742,#2c3742);
+    background-image: -o-linear-gradient(top,#2c3742,#2c3742);
+    background-image: linear-gradient(to bottom,#2c3742,#2c3742);
+}
+.smart-style-3 .header-clock {
+    color: #bfbfbf;
+    text-shadow: #064fa5 0 -1px;
+}
+.smart-style-1 .header-clock {
+    color: #B9B9B9;
+}
+.smart-style-3 .MessageBoxContainer {
+    background-color: #151b1db5;
+}
+.smart-style-1 .btn-style-2.btn-with-badge i,
+.smart-style-0 .btn-style-2.btn-with-badge i {
+    color: #6d6a69;
+}
+.smart-style-3 .btn-style-2.btn-with-badge i{
+    color: #e4f7ff;
+}
+
+.smart-style-3 nav > ul > li > a > i {
+    color: #2c3742;
+}
+.smart-style-3 nav > ul > li.open ul li > a.third-level-nav {
+    color: #0a7098!important;
+}
+
+.smart-style-1 .btn-with-badge,.smart-style-1 div#activity {
+    background-image: -webkit-linear-gradient(top, #2d2c2c, #0c0c0c)!important;
+    border: 1px solid #4a4a4a!important;
+    color: #ffffff!important;
+}
+
+.smart-style-1 .btn-style-2.btn-with-badge i {
+    color: #ffffff;
+}
+
+.smart-style-1 .header-clock .hour{
+    color: #ffffff!important;
+}
+.smart-style-1 .bg-color-red {
+    background-color: #1a79c7 !important;
+}
+.smart-style-3 .project-context > :first-child,.smart-style-3 .latest-news > :first-child {
+    color: #bfbfbf!important;
+    text-shadow: none;
+}
+.smart-style-1 .project-context > :first-child,.smart-style-1 .latest-news > :first-child {
+    color: #697B92!important;
+    font-weight: normal;
+}
+
+.smart-style-0 .project-context > :first-child,.smart-style-0 .latest-news > :first-child { 
+    color: #bfbfbf!important;
+    font-weight: normal;
+}
+.smart-style-3 nav > ul > li > a {
+    font-size: 13px;
+}
+.smart-style-3 nav ul ul li > a {
+    font-size: 13px;
+}
+.smart-style-3 .page-footer span.txt-color-white{
+    color: #fff!important;
+  }
+  .smart-style-3 aside {
+    background: #f2f2f2!important;
+}
+.smart-style-1 fieldset.hr-skin,.smart-style-0 fieldset.hr-skin {
+    background: transparent!important;
+}
+.smart-style-3 .project-selector, .smart-style-3 .project-context > :first-child, .smart-style-3 .latest-news > :first-child, .smart-style-3 .header-dropdown-list > li > .dropdown-toggle {
+    color: #bfbfbf!important;
+    text-shadow: none!important;
+}
+
+.smart-style-3 a.yellow-link{
+    color: #df9b45;
+  }
+  .smart-style-3 a.yellow-link:hover{
+    color: #ff8f02;
+  }
+  .smart-style-1 .open-progs-panel .close-prog {
+    color: #909090;
+}

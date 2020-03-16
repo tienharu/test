@@ -1,0 +1,387 @@
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-magic"></i>BOM Master</h1>
+      </div>
+    </div>
+  </div>
+  <form #frmDetail="ngForm" (ngSubmit)="onSearch()" class="smart-form atman-form-small no-header frm-search">
+    <fieldset>
+      <!-- Row 1-->
+      <div class="row">
+        <section class="col col-5 non-padding-right">
+          <section class="col col-6 non-padding-left set-padding-right">
+            <label class="label">{{'BOM_NAME' | i18n}}</label>
+            <label class="input">
+              <select name="bomName" select2 [defaultVal]="bomSearch.bomNo" [(ngModel)]="bomSearch.bomNo"
+                class="select2 parent_cd" style="width:100%;" allowClear="true">
+                <option *ngFor="let bomName of bomNames" value={{bomName.gen_cd}}>{{bomName.gen_nm}}</option>
+              </select>
+            </label>
+          </section>
+          <section class="col col-6 set-padding-right">
+            <label class="label">{{'GLOBAL_UNIT' | i18n}}</label>
+            <label class="input">
+              <select name="bizUnitId" [defaultVal]="bomSearch.bizUnitId" select2 [(ngModel)]="bomSearch.bizUnitId"
+                style="width:100%;" class="select2 parent_cd" allowClear="true">
+                <option *ngFor="let bizUnit of bizUnits" value={{bizUnit.global_unit_id}}>
+                  {{bizUnit.global_unit_nm}}</option>
+              </select>
+            </label>
+          </section>
+        </section>
+        <section class="col col-7 non-padding-left">
+          <section class="col col-7">
+            <section class="col col-7 set-padding-right">
+              <label class="label">{{'ITEMIZED' | i18n}}</label>
+              <label class="input">
+                <select name="itemizedGenCd" select2 [defaultVal]="bomSearch.itemizedGenCd" [(ngModel)]="bomSearch.itemizedGenCd"
+                  class="select2 parent_cd" style="width:100%;" allowClear="true">
+                  <option *ngFor="let itemized of itemizeds" value={{itemized.gen_cd}}>{{itemized.gen_nm}}</option>
+                </select>
+              </label>
+            </section>
+            <section class="col col-5 set-padding-right">
+              <label class="label">{{'BOM_STATUS' | i18n}}</label>
+              <label class="input">
+                <select name="bomStatus" [defaultVal]="bomSearch.bomStatus" select2 [(ngModel)]="bomSearch.bomStatus"
+                  style="width:100%;" class="select2 parent_cd" allowClear="true">
+                  <option *ngFor="let bomStatus of bomStatuses" value={{bomStatus.value}}>{{bomStatus.name}}</option>
+                </select>
+              </label>
+            </section>
+          </section>
+          <section class="col col-5 non-padding">
+            <section class="col col-9 non-padding set-padding-right">
+              <label class="label">{{'PARENT_ITEM_NAME' | i18n}}</label>
+              <label class="input">
+                <input type="text" class="main" name="parentItemName" [(ngModel)]="bomSearch.parentItemName"
+                  autocomplete="off" />
+              </label>
+            </section>
+            <section class="col col-3 non-padding-right">
+              <button type="submit" name="btnSearchProgram" class="btn btn-search btn-component">
+                {{'BUTTON_SEARCH' | i18n}}
+              </button>
+            </section>
+          </section>
+        </section>
+      </div>
+    </fieldset>
+  </form>
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-4" id="table-1">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <!-- <h2>{{'GENERAL MASTER' | i18n}}</h2> -->
+            <h2>BOM Master</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" (rowClick)="onRowClickBomAssy($event)" paginationLength="true" filter="true"
+                tableClass="table table-striped table-condensed table-hover table-bordered tableGetBomAssy">
+                <thead>
+                  <tr class="heading">
+                    <th class="center">No</th>
+                    <th class="center">{{'ITEMIZED_2' | i18n}}</th>
+                    <th class="center">{{'PARENT_ITEM' | i18n}}</th>
+                    <th class="center">{{'STATUS_DT' | i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <select name="filter_routing_class" class="form-control select-filter" style="width: 100%;">
+                        <option value="">All</option>
+                        <option *ngFor="let itemized of itemizeds" value={{itemized.gen_cd}}>{{itemized.gen_nm}} </option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <select name="filter_routing_class" class="form-control select-filter" style="width: 100%;">
+                        <option value="">All</option>
+                        <option *ngFor="let bomStatuse of bomStatuses" value={{bomStatuse.value}}>{{bomStatuse.name}} </option>
+                      </select>
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+      <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+        class="smart-form atman-form-small no-header frm-detail" novalidate="novalidate"
+        [saUiValidate]="validationOptions">
+        <section class="col col-8" id="form-2">
+          <fieldset>
+            <input type="hidden" name="bomAssyId" [(ngModel)]="bomAssyDetail.bomAssyId" />
+            <input type="hidden" name="bomAssySeq" [(ngModel)]="bomAssyDetail.bomAssySeq" />
+            <input type="hidden" name="assyItemCd" [(ngModel)]="bomAssyDetail.assyItemCd" />
+            <!-- Row 1-->
+            <div class="row" style="margin-top: 8px;">
+              <section class="col col-2">
+                <label class="input">
+                  {{'START_DATE' | i18n}}
+                  <i class="fa fa-calendar" id="start-date-calendar"></i>
+                  <!-- <input type="text" name="text_value_1" [(ngModel)]="detailInfo.text_value_1" autocomplete="off" /> -->
+                  <input id="date_created" type="text" class="form-control datepicker" placeholder="yyyy-MM-dd" name="setYmd" [(ngModel)]="bomAssyDetail.setYmd"
+                            [saUiDatepicker]="{}" autocomplete="off" />
+                </label>
+              </section>
+              <section class="col col-4">
+                <section class="col col-8 non-padding">
+                  <label class="label">{{'BOM_NAME' | i18n}}</label>
+                  <label class="input">
+                    <select name="bomName" id="bomNoDetail" select2 [defaultVal]="bomAssyDetail.bomNo" [(ngModel)]="bomAssyDetail.bomNo" (onSelectedChange)="onBomNoChange($event)"
+                      class="select2 parent_cd required" style="width:100%;" required>
+                      <option *ngFor="let bomName of bomNames" value={{bomName.gen_cd}}>{{bomName.gen_nm}}</option>
+                    </select>
+                  </label>
+                </section>
+                <section class="col col-4 non-padding-right">
+                  <label class="label" style="visibility: hidden">.</label>
+                  <label class="input state-disabled">
+                    <input type="text" class="center" id="bomNo-genCd" name="itemSeq" autocomplete="off" disabled />
+                  </label>
+                </section>
+              </section>
+              <section class="col col-3 padding-right-30">
+                <label class="input">
+                  {{'PROCESS_FLOW_NAME' | i18n}}
+                  <select name="processflowUkId" select2 [defaultVal]="bomAssyDetail.processflowUkId" [(ngModel)]="bomAssyDetail.processflowUkId"
+                      style="width:100%;" class="select2 parent_cd required" allowClear="true" (ngModelChange)="onProcessFlowUKIDChange($event)" required>
+                      <option *ngFor="let processFlowPathRoute of processFlowPathRoutes" value={{processFlowPathRoute.processPathRouteId}}>{{processFlowPathRoute.processflowUkId}}</option>
+                  </select>
+                </label>
+              </section>
+              <section class="col col-3 data-share non-padding-left">
+                <sa-sharing-info></sa-sharing-info>
+              </section>
+            </div>
+            <!-- Row 2 -->
+            <div class="row">
+                <section class="col col-2">
+                  <label class="label">{{'ITEMIZED' | i18n}}</label>
+                  <label class="input state-disabled">
+                    <input type="text" class="main" name="itemizedGenName" [value]="bomProcessFlowDetail.itemizedGenName"
+                      autocomplete="off" disabled />
+                  </label>
+                </section>
+                <section class="col col-4">
+                  <section class="col col-8 non-padding">
+                    <label class="label">{{'BOM_ROUTING' | i18n}}</label>
+                    <label class="input state-disabled">
+                      <input type="text" class="main" name="routeName" [value]="bomProcessFlowDetail.routeName"
+                        autocomplete="off" disabled />
+                    </label>
+                  </section>
+                  <section class="col col-4 non-padding-right">
+                    <label class="label" style="visibility: hidden">.</label>
+                    <label class="input state-disabled">
+                      <input type="text" class="center" name="routeSeq" [value]="bomProcessFlowDetail.routeSeq" autocomplete="off" disabled />
+                    </label>
+                  </section>
+                </section>
+                <section class="col col-3 padding-right-30">
+                  <section class="col col-4 non-padding">
+                    <label class="label">{{'BOM_UNIT_QTY' | i18n}}</label>
+                    <label class="input state-disabled">
+                      <input type="text" class="center" name="qty" value="1" disabled />
+                    </label>
+                  </section>
+                  <section class="col col-4 non-padding-left">
+                    <label class="label" style="visibility: hidden">.</label>
+                    <label class="input state-disabled">
+                      <input type="text" class="center" name="itemSeq" [value]="bomProcessFlowDetail.stockUnitGenName" disabled />
+                    </label>
+                  </section>
+                  <section class="col col-4 non-padding-right">
+                    <label class="label">{{'MIX_RATIO' | i18n}}</label>
+                    <div class="input-group">
+                      <label class="input">
+                        <input type="text" class="center" name="mixRatio" autocomplete="off"
+                          [(ngModel)]="bomAssyDetail.mixRatio" currencyMask [options]="{prefix:'', suffix:'', precision : 0, allowNegative : false }" />
+                      </label>
+                    </div>
+                  </section>
+                </section>
+            </div>
+            <!-- ROW 3 -->
+            <div class="row">
+              <section class="col col-6">
+                <section class="col col-6 non-padding" id="fix-widht-parent-1">
+                  <label class="label">{{'PARENT_ITEM_NAME' | i18n}}</label>
+                  <label class="input">
+                    <div (click)="onShowPopup()">
+                      <input type="text" class="main" name="itemNm" [(ngModel)]="bomItem.itemNm" disabled/>
+                      <i class="fa fa-search icon"></i>
+                    </div>
+                  </label>
+                </section>
+                <section class="col col-3 non-padding-right fix-widht-parent-2">
+                  <label class="label" style="visibility: hidden">.</label>
+                  <label class="input state-disabled">
+                    <input type="text" class="center" name="itemSeq" [(ngModel)]="bomItem.itemSeq" autocomplete="off" disabled />
+                  </label>
+                </section>
+                <section class="col col-3 non-padding-right fix-widht-parent-2">
+                  <label class="label" style="visibility: hidden">.</label>
+                  <label class="input state-disabled">
+                    <input type="text" class="center" name="stockUnitNm" [(ngModel)]="bomItem.stockUnitNm" autocomplete="off" disabled />
+                  </label>
+                </section>
+              </section>
+              <section class="col col-2 non-padding-right" style="width: 13.9%;">
+                <label class="label">{{'BOM_COPY' | i18n}}</label>
+                <label class="input">
+                  <select name="idBomItemCopy" id="selectItemCopy" select2
+                    style="width:100%;" class="select2 parent_cd" allowClear="true">
+                    <option value="" selected></option>
+                    <option *ngFor="let bomCopyItem of bomCopyItems" value={{bomCopyItem.bomAssyId}}>{{bomCopyItem.bomName}}</option>
+                  </select>
+                </label>
+              </section>
+              <section class="col col-1 non-padding" style="margin-top: 1px;">
+                <button type="button" name="btnCopy" class="btn btn-delete btn-component" (click)="onClickCopybtn()">
+                  Copy
+                </button>
+              </section>
+            </div>
+            <!-- ROW 4 -->
+            <div class="row">
+              <section class="col col-6">
+                <section class="col col-2 non-padding-left">
+                  <label class="label">Loss</label>
+                  <label class="input col-lg-7">
+                    <input type="number" class="center" name="lossRatio" [(ngModel)]="bomAssyDetail.lossRatio"
+                      autocomplete="off" />
+                  </label>
+                  <label class="label col-lg-4" style="padding-top: 6px;  text-align: left">
+                    <span id="stock-unit-selected-1" style="padding-left: 8px;">%</span>
+                  </label>
+                </section>
+                <section class="col col-2 non-padding-left">
+                  <label class="label">{{'LIMIT' | i18n}}</label>
+                  <label class="input col-lg-7">
+                    <input type="number" class="center" name="limitRatio" [(ngModel)]="bomAssyDetail.limitRatio"
+                      autocomplete="off" />
+                  </label>
+                  <label class="label col-lg-4" style="padding-top: 6px;  text-align: left">
+                    <span id="stock-unit-selected-1" style="padding-left: 8px;">%</span>
+                  </label>
+                </section>
+                <section class="col col-3" id="bom-status-padding">
+                  <label class="label">{{'BOM_STATUS_2' | i18n}}</label>
+                  <label class="input">
+                    <select name="bomStatus" select2 [(ngModel)]="bomAssyDetail.bomStatus" [defaultVal]="bomAssyDetail.bomStatus"
+                      style="width:100%;" class="select2 parent_cd">
+                      <option *ngFor="let bomStatus of bomStatuses" [value]=bomStatus.value [selected]="bomStatus.value == bomAssyDetail.bomStatus">{{bomStatus.name}}</option>
+                    </select>
+                  </label>
+                </section>
+                <section class="col col-5 non-padding-right">
+                  <label class="input">
+                    <label class="checkbox" style="margin-top: 21px;">
+                      <label for="chbOutStk" class="checkbox-inline">Active</label>
+                      <input id="chbOutStk" type="checkbox" name="useYn" [(ngModel)]="bomAssyDetail.useYn">
+                      <i style="left: unset"></i>
+                    </label>
+                  </label>
+                </section>
+              </section>
+              <section class="col col-3 padding-right-30">
+                <label class="label" id="label-hidden">.</label>
+                <label class="input state-disabled col col-6 non-padding">
+                  <input type="text" name="creator" class="center" [value]="bomAssyDetail.creator" autocomplete="off" disabled />
+                </label>
+                <span class="input-group-btn" style="width:0px;"></span>
+                <label class="input state-disabled col col-6 non-padding">
+                  <input type="text" name="entry_date" class="center" [value]="entryDate" autocomplete="off" disabled />
+                </label>
+              </section>
+            </div>
+            <!-- ROW 5 -->
+            <div class="row">
+              <section class="col col-10" style="width: 100%;">
+                <label class="input">
+                  {{'DESCRIPTION' | i18n}}
+                  <label class="textarea">
+                    <textarea autocomplete="off" rows="2" [(ngModel)]="bomAssyDetail.remark" name="remark"></textarea>
+                  </label>
+                </label>
+              </section>
+            </div>
+            <!-- ROW 6 -->
+            <div class="row">
+              <section class="col col-6" style="margin-top: 13px;">
+                <section class="col col-4" style="padding-left: 2px;">
+                  <label class="input" style="float: left;">
+                    <label class="checkbox">
+                      <label for="chbOutStk2" class="checkbox-inline" style="padding-left: 0;">WO Target</label>
+                      <input id="chbOutStk2" type="checkbox">
+                      <i style="left: unset;"></i>
+                    </label>
+                  </label>
+                </section>
+                <section class="col col-4">
+                  <label class="input" style="float: left;">
+                    <label class="checkbox">
+                      <label for="chbOutStk3" class="checkbox-inline" style="padding-left: 0">Control Point</label>
+                      <input id="chbOutStk3" type="checkbox">
+                      <i style="left: unset;"></i>
+                    </label>
+                  </label>
+                </section>
+              </section>
+              <section class="col col-6">
+                <button style="margin-top: 10px" type="button" name="btnCloseProgram" (click)="onCloseProgram()"
+                  class="btn btn-cancel">
+                  {{'BUTTON-CLOSE' | i18n}}
+                </button>
+                <button style="margin-top: 10px" type="button" (click)="onReset()" name="reset"
+                  class="btn btn-reset-form">
+                  {{'BUTTON-RESET' | i18n}}
+                </button>
+                <button style="margin-top: 10px" type="submit" [disabled]="!this.permission.canSave" name="submit"
+                  class="btn btn-primary">
+                  {{'BUTTON-SAVE' | i18n}}
+                </button>
+              </section>
+            </div>
+          </fieldset>
+        </section>
+      </form>
+      <article class="col-sm-8" id="table-2">
+        <sa-widgets-grid>
+          <div class="at-smart-table">
+            <section class="col-12 table-bordered">
+              <div class="section-bom-compoent-table">
+                <ng2-smart-table class="table table-striped table-condensed table-hover"
+                  (createConfirm)="createConfirm($event)" (editConfirm)="onUpdateConfirm($event)"
+                  (deleteConfirm)="onDeleteConfirm($event)" [source]="source"
+                  id="process-path-route-table" [settings]="settingsBomComponent" >
+                </ng2-smart-table>
+              </div>
+            </section>
+          </div>
+        </sa-widgets-grid>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>
+
+<ng-template #popupBomItem>
+  <sa-popup-modal headerTitle="Bom Item Search" width="40%" height="400" (onClose)="closePopup()">
+    <sa-bom-master-popup (childCall)="getBomItem($event)" itemCheck="1" itemizedAll="{{itemizeds|json}}" bomItemsBind="{{bomItems1|json}}">
+    </sa-bom-master-popup>
+  </sa-popup-modal>
+</ng-template>

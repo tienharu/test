@@ -1,0 +1,62 @@
+<form class="smart-form frmMaternity" #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+  novalidate="novalidate">
+  <fieldset class="right-content basic">
+    <div class="widget-body no-padding col-lg-4 field-1">
+      <section class="col-lg-12">
+        <label class="label col-lg-5">{{'pregnant_7th_month' | i18n}}</label>
+        <label class="input col-lg-7"> <i class="icon-append fa fa-calendar"></i>
+            <input type="text" class="" [saUiDatepicker] placeholder="yyyy-mm-dd" autocomplete="off" name="pregnant_7th_month" [(ngModel)]="maternityInfo.pregnant_7th_month">
+        </label>
+      </section>
+      <!-- <section class="col-lg-12">
+        <label class="label col-lg-5">{{'maternity_leave_by_doc' | i18n}}</label>
+        <label class="input col-lg-7"> <i class="icon-append fa fa-calendar"></i>
+            <input type="text" class="" [saUiDatepicker] placeholder="yyyy-mm-dd" autocomplete="off" name="meternity_leave_by_doc" [(ngModel)]="maternityInfo.meternity_leave_by_doc">
+        </label>
+      </section> -->
+      <section class="col-lg-12">
+        <label class="label col-lg-5">{{'maternity_leave_real' | i18n}}</label>
+        <label class="input col-lg-7"> <i class="icon-append fa fa-calendar"></i>
+            <input type="text" class="" [saUiDatepicker] placeholder="yyyy-mm-dd" autocomplete="off" name="maternity_leave_real" [(ngModel)]="maternityInfo.maternity_leave_real">     
+        </label>
+      </section>
+
+      <section class="col-lg-12">
+        <label class="label col-lg-5">{{'child_birthday' | i18n}}</label>
+        <label class="input col-lg-7"> <i class="icon-append fa fa-calendar"></i>
+          <input type="text" class="" [saUiDatepicker] placeholder="yyyy-mm-dd" autocomplete="off" name="child_birthday" 
+          [(ngModel)]="maternityInfo.child_birthday" (ngModelChange)="changBirthDay()">     
+        </label>
+      </section>
+      <section class="col-lg-12">
+        <label class="label col-lg-5">{{'child_7th_month' | i18n}}</label>
+        <label class="input col-lg-7"> <i class="icon-append fa fa-calendar"></i>
+            <input type="text" class="" [saUiDatepicker] placeholder="yyyy-mm-dd" autocomplete="off" name="child_7th_month" [(ngModel)]="maternityInfo.child_7th_month">
+        </label>
+      </section>
+      <section class="col-lg-12">
+        <label class="label col-lg-5">{{'day_off_after_born' | i18n}}</label>
+        <label class="input col-lg-7">
+          <input type="number" name="day_off_after_born" [(ngModel)]="maternityInfo.day_off_after_born" />
+        </label>
+      </section>
+      <section class="col-lg-12">
+        <label class="label col-lg-5">{{'back_to_work_date' | i18n}}</label>
+        <label class="input col-lg-7"> <i class="icon-append fa fa-calendar"></i>
+            <input type="text" class="" [saUiDatepicker] placeholder="yyyy-mm-dd" autocomplete="off" name="back_to_work_date" [(ngModel)]="maternityInfo.back_to_work_date">     
+        </label>
+      </section>
+      
+      <section class="col-lg-12">
+        <label class="label col-lg-5">{{'Remarks' | i18n}}</label>
+        <label class="textarea col-lg-7">
+          <textarea rows="3" name="remark" [(ngModel)]="maternityInfo.remark" class="custom-scroll"></textarea>
+        </label>
+      </section>
+      <section class="col-lg-12 btn-cmd" style="right: 9px;">
+        <button class="btn btn-small btn-primary" name="submit" type="submit" style="margin: 0 4px;"><i
+            class="fa fa-save"></i> {{'BUTTON-SAVE' | i18n}}</button>
+      </section>
+    </div>
+  </fieldset>
+</form>

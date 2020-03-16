@@ -1,0 +1,23 @@
+<!-- search mobile button (this is hidden till mobile view port) -->
+<!-- <div id="search-mobile" class="btn-header transparent pull-right">
+      <span> <a (click)="toggleSearchMobile()" title="Search"><i class="fa fa-search"></i></a> </span>
+    </div> -->
+<!-- end search mobile button -->
+
+<!-- input: search field -->
+<form #searchForm="ngForm" (ngSubmit)="onSubmit()" class="header-search pull-right hidden-sm hidden-md">
+  <input id="keyword" type="text" name="param" (input)="changeKeyword($event.target.value)" placeholder="Enter keyword here...">
+  <button type="submit">
+    <i class="fa fa-search"></i>
+  </button>
+  <a id="cancel-search-js" (click)="toggleSearchMobile()" title="Cancel Search"><i class="fa fa-times"></i></a>
+</form>
+<!-- end input: search field -->
+
+
+
+<ng-template #popupResultSearch>
+  <sa-popup-modal headerTitle="{{'Search Result' | i18n}}" width="1000" height="900" (onClose)="closePopup()">
+    <search-result [keyword]="keyword"></search-result>
+  </sa-popup-modal>
+</ng-template>

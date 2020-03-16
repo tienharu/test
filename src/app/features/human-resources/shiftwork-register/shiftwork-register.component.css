@@ -1,0 +1,24 @@
+table tr.heading{
+    background:linear-gradient(to bottom,#4c4f53c4,#2c3742bd);
+    color:#fff;
+}
+table tr.heading th{
+   font-weight: normal!important;
+}
+table td.cell-editable{
+    cursor: pointer;
+}
+table td.cell-editable:hover, td.cell-selected{
+    background: #ffddb1!important;
+    color: black!important;
+    border: solid 1px #ffddb1!important;
+}
+table td.cell-changed{
+    background: #bfdcc3;
+}
+.cell-selected > .input-edit{
+    border: none;width: 30px;text-align: center
+}
+.table-shiftwork.table>tbody>tr>td{
+    padding: 2px 5px !important;
+}

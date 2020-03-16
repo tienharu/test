@@ -1,0 +1,190 @@
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-magic"></i>Sales Order Board</h1>
+      </div>
+    </div>
+  </div>
+  <!-- (ngSubmit)="frmDetail.form.valid && onSubmit()" -->
+  <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+    class="smart-form atman-form-small no-header frm-detail" novalidate="novalidate" [saUiValidate]="validationOptions">
+    <fieldset>
+      <input type="hidden" name="gen_cd" [(ngModel)]="detailInfo.gen_cd" />
+      <!-- Row 1 -->
+      <div class="row">
+        <section class="col col-1">
+          <button type="button" (click)="onCloseProgram()" name="btnCloseProgram"
+            class="btn btn-new" style="float: left;">
+            <!-- <i class="fa fa-times"></i> -->
+            {{'NEW' | i18n}}
+          </button>
+        </section>
+        <section class="col col-6" style="margin-top: 5px;">
+          <section class="col col-9">
+            <label class="input">
+              <label class="checkbox" style="margin-top: 18px;">
+                <label for="chbOutStk" class="checkbox-inline">{{'SOB_INCLUDE_CANCEL' | i18n}}</label>
+                <input id="chbOutStk" type="checkbox">
+                <i class="checkbox-icon-right"></i>
+              </label>
+            </label>
+          </section>
+          <section class="col col-3">
+            <label class="input">
+              <label class="checkbox" style="margin-top: 18px;">
+                <label for="chbOutStk1" class="checkbox-inline">{{'SOB_NOT_INCLUDE_SELF_ORDER' | i18n}}</label>
+                <input id="chbOutStk1" type="checkbox">
+                <i class="checkbox-icon-right"></i>
+              </label>
+            </label>
+          </section>
+        </section>
+        <section class="col col-5">
+          <section class="col col-4" style="margin-top: 4px;">
+            <div class="inline-group">
+              <label class="radio left-radio" *ngFor="let type of currentTypes">
+                <input type="radio" name="currentTypes" [(ngModel)]="detailInfo.current_types" [value]="type.value"
+                  required>
+                {{type.name | i18n}}
+                <i class="radio-icon-right"></i>
+              </label>
+            </div>
+          </section>
+          <section class="col col-3">
+            <label class="input" style="visibility: hidden;">
+              .
+            </label>
+            <label class="input">
+              <span id="order-board-character-1">{{'SOB_SELECT' | i18n}}</span>
+              <input type="text" name="text_value_1" [(ngModel)]="detailInfo.text_value_1" autocomplete="off"/>
+            </label>
+          </section>
+          <section class="col col-3">
+            <label class="input" style="visibility: hidden;">
+              .
+            </label>
+            <label class="input">
+              <span id="order-board-character-2">~</span>
+              <input type="text" [(ngModel)]="detailInfo.text_value_1" autocomplete="off"/>
+            </label>
+          </section>
+          <section class="col col-2">
+            <button type="button" name="btnConfirmOrder" class="btn btn-confirm-order btn-component" style="width: 100%;">
+              {{'BUTTON-SEARCH' | i18n}}
+            </button>
+          </section>
+        </section>
+      </div>
+    </fieldset>
+  </form>
+  <!-- Data Table -->
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12">
+        <!-- <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>Sales Order Board</h2>
+          </header> -->
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" (rowClick)="onRowClick($event)" [paginationLength]="false" filter="true"
+                tableClass="table table-striped table-condensed table-hover table-bordered">
+                <thead>
+                  <tr class="heading">
+                    <th rowspan="2">No</th>
+                    <th colspan="9" class="center">{{'SOB_ORDER_INFORMATION' | i18n}}</th>
+                    <th colspan="2" class="center">{{'SOB_PRODUCTION' | i18n}}</th>
+                    <th colspan="3" class="center">{{'SOB_THROUGHPUT' | i18n}}</th>
+                    <th colspan="3" class="center">{{'SOB_SALES_MONEY_STATUS' | i18n}}</th>
+                    <th rowspan="2" class="center">{{'SOB_REMARKS' | i18n}}</th>
+                  </tr>
+                  <tr class="heading">
+                    <th class="col-border-top">{{'SOB_ORDER_NAME' | i18n}}</th>
+                    <th class="col-border-top">{{'SOB_CUSTOMER' | i18n}}</th>
+                    <th class="col-border-top">{{'SOB_PO_NO' | i18n}}</th>
+                    <th class="col-border-top">{{'SOB_DELIVERY' | i18n}}</th>
+                    <th class="col-border-top">{{'SOB_PO' | i18n}}</th>
+                    <th class="col-border-top">{{'SOB_STATUS' | i18n}}</th>
+                    <th class="col-border-top">{{'SOB_WARN' | i18n}}</th>
+                    <th class="col-border-top">{{'SOB_TERMS' | i18n}}</th>
+                    <th class="col-border-top">{{'SOB_ORDER_AMT' | i18n}}</th>
+                    <th class="col-border-top">{{'SOB_PROGRESS' | i18n}}</th>
+                    <th class="col-border-top">{{'SOB_ISSUE' | i18n}}</th>
+                    <th class="col-border-top">{{'SOB_PRE' | i18n}}</th>
+                    <th class="col-border-top">{{'SOB_PROD' | i18n}}</th>
+                    <th class="col-border-top">{{'SOB_SALES' | i18n}}</th>
+                    <th class="col-border-top">{{'SOB_SALES_MONEY' | i18n}}</th>
+                    <th class="col-border-top">{{'SOB_CASH_IN' | i18n}}</th>
+                    <th class="col-border-top" style="border-right: solid 1px #ddd !important;">{{'SOB_RECIEVABLE' | i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="No" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_ORDER_NAME' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_CUSTOMER' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_PO_NO' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_DELIVERY' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_PO' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_STATUS' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_WARN' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_TERMS' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_ORDER_AMT' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_PROGRESS' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_ISSUE' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_PRE' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_PROD' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_SALES' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_SALES_MONEY' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_CASH_IN' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_RECIEVABLE' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="{{'SOB_REMARKS' | i18n}}" />
+                    </th>
+                </thead>
+              </sa-datatable>
+            </div>
+          <!-- </div> -->
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

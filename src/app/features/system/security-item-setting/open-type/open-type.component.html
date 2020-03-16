@@ -1,0 +1,4 @@
+<!-- <app-sharing-type (filterSelect)='onFilterSelect($event)' class="ahihi" ></app-sharing-type> -->
+<select class="allValue" name="" id="" #openTypeSelect (change)="onChange($event.target.value)" style="width:100%;height: 29px;text-align: center">
+  <option *ngFor="let item of listOpenValueShowClone" value="{{item.value}}">{{item.title}}</option>
+</select>

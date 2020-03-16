@@ -1,0 +1,244 @@
+<div id="content">
+  <div class="well well-sm">
+    <div class="row">
+      <div class="col-lg-1">
+        <select select2 class="form-control select2" style="width:100%"
+          (ngModelChange)="getCalendar($event)" [(ngModel)]="calendar"
+          placeHolder="MM-YYYY">
+          <option value=""></option>
+          <option *ngFor="let m of payrollmonths"
+            value="{{m.year}}-{{m.month}}-1">{{m.year}}-{{m.month|number:'2.0'}}</option>
+        </select>
+      </div>
+      <div class="col-lg-2">
+        <select select2 class="form-control select2" [(ngModel)]="orgid"
+          style="width:100%" placeHolder="{{'PAYROLL_MASTER_LBL_DEPARTMENT'|i18n}}"
+          allowClear='true'>
+          <option *ngFor="let item of departments" value="{{item.org_cd}}">{{item.org_tree_nm}}</option>
+        </select>
+      </div>
+      <div class="col-lg-1">
+        <input type="text" class="form-control" [(ngModel)]="employeeNo"
+        [placeholder]="'PAYROLL_MASTER_LBL_EMP_NO'|i18n" />
+      </div>
+      <div class="col-lg-2">
+        <input type="text" class="form-control" [(ngModel)]="employeeName"
+        [placeholder]="'PAYROLL_MASTER_LBL_EMP_NAME'|i18n" />
+      </div>
+      <div class="col-lg-1">
+        <select class="form-control select2" name="statusId" [(ngModel)]="statusId"
+          style="width:100%">
+          <option value="0">All status</option>
+          <option value="1">Working now</option>
+          <option value="2">Retired(in month)</option>
+          <option value="3">New comer(in month)</option>
+        </select>
+      </div>
+      <div class="col-lg-4">
+        <button type="button" (click)="searchPayroll(false)" class="btn btn-sm btn-default margin-right-5">
+          <i class="fa fa-search"></i>
+          {{'SEARCH' | i18n}}
+        </button>
+        <button type="button" (click)="excelExport()" *ngIf="model.details.length> 0" class="btn btn-info margin-right-5">
+            <i class="fa fa-file-excel-o"></i>
+          {{'Excel' | i18n}}
+        </button>
+        <button type="button" (click)="showPayrollPopup()" class="btn btn-sm btn-primary margin-right-5">
+            <i class="fa fa-plus"></i>
+          {{'CREATE PAYROLL' | i18n}}
+        </button>
+        <!-- <button type="button" (click)="showCopyPayrollPopup()" class="btn btn-sm btn-info margin-right-5">
+            <i class="fa fa-copy"></i>
+          {{'COPY PAYROLL' | i18n}}
+        </button> -->
+        <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs">
+          <i class="fa fa-times"></i>
+          {{'button-close' | i18n}}
+        </button>
+      </div>
+      <div class="col-lg-1 right text-right" *ngIf="model.details.length> 0">
+        <button type="button" (click)="saveChange()" class="btn btn-success">
+            <i class="fa fa-save"></i>
+          {{'SAVE CHANGES' | i18n}}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <sa-widgets-grid>
+      <div class="row">
+        <section class="col-sm-12">
+          <div sa-widget [editbutton]="false" color="darken">
+            <header>
+              <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+              <h2>{{'PAYROLL MASTER'|i18n}}</h2>
+            </header>
+            <div class="at-smart-table">
+              <div class="widget-body no-padding payroll">
+                <table class="table table-striped table-condensed table-hover
+                  table-bordered cell-border table-grid" *ngIf="header.info">
+                  <thead>
+                    <tr class="heading">
+                      <th colspan="8">{{'PAYROLL-MAS-PERSONAL-INFO'|i18n}}</th>
+                      <th [attr.colspan]="header.paymentcol">{{'PAYROLL-MAS-SALARY-SUPPLY'|i18n}}</th>
+                      <th
+                        [attr.colspan]="header.deductcol + header.insurancecol+1">{{'PAYROLL-MAS-DEDUCTION'|i18n}}</th>
+                    </tr>
+                    <tr class="heading">
+                      <th class="center">{{'NO'|i18n}}</th>
+                      <th class="center">{{'EMPNO'|i18n}}</th>
+                      <th>{{'EMPNAME'|i18n}}</th>
+                      <th class="">{{'PAYROLL_MASTER_LBL_DEPARTMENT'|i18n}}</th>
+                      <th class="center">{{'STARTWORK'|i18n}}</th>
+                      <th class="center">{{'PAY_MAS_RETIRE'|i18n}}</th>
+                      <!-- <th class="center">{{'DUTYTYPE'|i18n}}</th> -->
+                      <th class="center">{{'SEX'|i18n}}</th>
+                      <th class="center">{{'JOB-TYPE'|i18n}}</th>
+                      <!-- <th class="center">{{'JOB-CLASS'|i18n}}</th> -->
+                      <th class="center" *ngFor="let h of header.info" style="min-width: 60px;">{{h.payrollitemnm}}</th>
+                      <th class="center">{{'PREGNANT'|i18n}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr role="row" *ngFor="let emp of employees |
+                      paginate: {
+                      itemsPerPage: pageSize,
+                      currentPage: page,
+                      totalItems: totalItems
+                      }; let i=index;"
+                      [ngClass]="{ 'row-odd':i%2!=0, 'row-even':i%2==0}">
+                      <td class="center" style="vertical-align:middle">{{pageSize*(page-1)+(i+1)}}</td>
+                      <td class="center" style="vertical-align:middle">{{emp.hr_id}}</td>
+                      <td style="vertical-align:middle">{{emp.empl_name|uppercase}}</td>
+                      <td>{{emp.department}}</td>
+                      <td class="center" style="vertical-align:middle">{{
+                        emp.start_work | date : "yyyy-MM-dd" }}</td>
+                      <td class="center" style="vertical-align:middle">
+                        {{emp.retire_yn? (emp.retired_ymd | date : "yyyy-MM-dd") :i18n.getTranslation("NO")}}
+                      </td>
+                      <!-- <td class="" style="vertical-align:middle">{{
+                        emp.duty_type }}</td> -->
+                      <td class="center" style="vertical-align:middle">{{
+                        emp.gender == 1? 'M':'F'}}</td>
+                      <td class="" style="vertical-align:middle">{{
+                        emp.job_type }}</td>
+                      <!-- <td class="" style="vertical-align:middle">{{
+                        emp.job_class }}</td> -->
+                      <td class="right detail" [style.verticalAlign]="model.details[i].payroll_items[col] != null
+                      && model.details[i].payroll_items[col].display_type ==
+                      1 ? 'middle' : 'none'"
+                        *ngFor="let h of header.info; let col=index;"
+                        (click)="editAmount($event,col,model.details[i].payroll_items)">
+                        <div *ngIf="model.details[i].payroll_items[col] != null
+                          && model.details[i].payroll_items[col].display_type ==
+                          1">{{model.details[i].payroll_items[col].amount
+                          | number }}</div>
+                        <!-- <div *ngIf="model.details[i].payroll_items[col] != null
+                          && model.details[i].payroll_items[col].display_type ==
+                          2" class="center">{{model.details[i].payroll_items[col].check_box?
+                          i18n.getTranslation("YES"):i18n.getTranslation("NO")
+                          }}</div> -->
+                          <label class="toggle"  *ngIf="model.details[i].payroll_items[col] != null
+                          && model.details[i].payroll_items[col].display_type ==
+                          2">
+                            <input [checked]="model.details[i].payroll_items[col].check_box" name="{{h.payrollitemnm}}"
+                              type="checkbox" [(ngModel)]="model.details[i].payroll_items[col].check_box"> 
+                            <i data-swchoff-text="No" data-swchon-text="Yes"></i></label>
+                      </td>
+                      <td>
+                        <label class="toggle">
+                          <input [checked]="emp.pregnant" name="pregnant"
+                            type="checkbox" [(ngModel)]="emp.pregnant">
+                          <i data-swchoff-text="No" data-swchon-text="Yes"></i></label>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div *ngIf="employees.length>0" class="widget-foot">
+                <div class="row">
+                  <div class="atman-paging dt-toolbar-footer">
+                    <div class="col-sm-6 col-xs-12 hidden-xs">
+                      <div class="dataTables_info" id="DataTables_Table_3_info"
+                        role="status" aria-live="polite">{{'COMMON_LBL_SHOW'|i18n}}
+                        {{ from_record }} {{'COMMON_LBL_SHOW_TO'|i18n}}
+                        {{to_record}} {{'COMMON_LBL_SHOW_OF'|i18n}}
+                        {{totalItems}} {{'COMMON_LBL_SHOW_ENTRIES'|i18n}}</div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12 hidden-xs">
+                      <pagination-controls class="my-pagination"
+                        (pageChange)="changePage($event)" [autoHide]="true"
+                        [previousLabel]="labels.previousLabel"
+                        [nextLabel]="labels.nextLabel">
+                      </pagination-controls>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </sa-widgets-grid>
+  </div>
+</div>
+
+<ng-template #popupPayroll>
+  <sa-popup-modal headerTitle="{{'CREATE PAYROLL' | i18n}}" width="400"
+    height="600" (onClose)="closeFactoryPopup()">
+    <div class="panel-body">
+      <!-- <div class="row">
+        <p>Note: This function will copy the latest payroll to this month(if not existed)
+          <br/>
+          From second times when you create payroll for same month, it just create payroll new employees that's not existed in currently payroll
+        </p>
+      </div> -->
+      <div class="row">
+        <div class="col-sm-5">
+          <select select2 class="form-control select2"
+            (ngModelChange)="getCalendar($event)" style="width:100%"
+            placeHolder="MM-YYYY">
+            <option value=""></option>
+            <option *ngFor="let m of monthsYear" value={{m.val}}>{{m.text}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer right">
+      <button type="button" (click)="createPayroll()" class="btn btn-primary">
+        {{'BUTTON-SAVE' | i18n}}
+      </button>
+    </div>
+  </sa-popup-modal>
+</ng-template>
+<ng-template #popupCopyPayroll>
+  <sa-popup-modal headerTitle="{{'COPY PAYROLL' | i18n}}" width="400"
+    height="600" (onClose)="closeFactoryPopup()">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-5">
+          <label>From</label>
+          <select select2 class="form-control select2"
+            [(ngModel)]="fromCalendar" style="width:100%" placeHolder="MM-YYYY">
+            <option value=""></option>
+            <option *ngFor="let m of payrollmonths"
+              value="{{m.year}}-{{m.month}}-1">{{m.year}}-{{m.month|number:'2.0'}}</option>
+          </select>
+        </div>
+        <div class="col-sm-5">
+          <label>To</label>
+          <select select2 class="form-control select2" [(ngModel)]="toCalendar"
+            style="width:100%" placeHolder="MM-YYYY">
+            <option value=""></option>
+            <option *ngFor="let m of monthsYear" value={{m.val}}>{{m.text}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer right">
+      <button type="button" (click)="copyPayroll()" class="btn btn-primary">
+        {{'BUTTON-SAVE' | i18n}}
+      </button>
+    </div>
+  </sa-popup-modal>
+</ng-template>

@@ -1,0 +1,1 @@
+export { LatestNewsComponent } from './latest-news.component';

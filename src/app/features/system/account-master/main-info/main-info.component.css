@@ -1,0 +1,8 @@
+.nav-tabs.bordered{
+    background: #57879b3d;
+}
+
+:host /deep/ #myTab1 > li.active > a{
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}

@@ -1,0 +1,59 @@
+<div id="content">
+    <div class="well well-sm">
+        <div class="row">
+            <div class="col-lg-2 smart-form">
+                <section>
+                <label class="input">
+                    <select
+                    select2
+                    class="form-control select2"
+                    [(ngModel)]="orgid"
+                    style="width:100%"
+                    placeHolder="Select Department"
+                    allowClear="true">
+                    <option
+                        *ngFor="let item of departments"
+                        value="{{ item.org_cd }}">{{ item.org_tree_nm }}</option>
+                    </select>
+                </label>
+                </section>
+            </div>
+        <div class="col-lg-2 smart-form">
+            <section>
+            <label class="input">
+                <select
+                select2
+                class="form-control select2"
+                [(ngModel)]="month"
+                (ngModelChange)="changeMonth($event)"
+                style="width:100%"
+                placeHolder="Select Month"
+                >
+                <option *ngFor="let m of monthsYear" value="{{ m.val }}">{{ m.text }}</option>
+                </select>
+            </label>
+            </section>
+        </div>
+        <div class="col-lg-3">
+            <!-- <button
+            type="button"
+            (click)="search(false)"
+            class="btn btn-default btn-sm margin-right-5">
+            <i class="fa fa-search"></i> {{ "SEARCH" | i18n }}
+            </button> -->
+            <button
+            type="button"
+            (click)="exportXLSX()"
+            class="btn btn-success btn-sm margin-right-5">
+            <i class="fa fa-file-excel-o"></i>
+            {{ "BUTTON-EXCEL" | i18n }}
+            </button>
+            <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs">
+            <i class="fa fa-times"></i>
+            {{'button-close' | i18n}}
+            </button>
+        </div>
+        </div>
+    </div>
+    
+</div>

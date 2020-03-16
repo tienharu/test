@@ -1,0 +1,103 @@
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-magic"></i>{{'STYLE_MASTER_LIST' | i18n}}</h1>
+      </div>
+    </div>
+  </div>
+  <!-- (ngSubmit)="frmDetail.form.valid && onSubmit()" -->
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>{{'STYLE_MASTER_LIST' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" (rowDbClick)="onRowClick($event)" [paginationLength]="true"
+                filter="true"
+                tableClass="table table-striped table-condensed table-hover table-bordered styleMasterList">
+                <thead>
+                  <tr class="heading">
+                    <th>No</th>
+                    <th>{{'STYLE_NO' | i18n}}</th>
+                    <th>{{'STYLE_NAME' | i18n}}</th>
+                    <th>{{'BUYER' | i18n}}</th>
+                    <th>{{'ORDER_RECV' | i18n}}</th>
+                    <th>{{'ORDER_QTY' | i18n}}</th>
+                    <th>{{'ORDER_PRICE' | i18n}}</th>
+                    <th>{{'ORDER_AMOUNT' | i18n}}</th>
+                    <th>{{'CATEGORY' | i18n}}</th>
+                    <th>{{'STYLE_TYPE' | i18n}}</th>
+                    <th>{{'CLOSED' | i18n}}</th>
+                    <th>{{'CANCELED' | i18n}}</th>
+                    <th>{{'DESCRIPTION' | i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="" />
+                    </th>
+                    <th class="hasinput">
+                      <select class="form-control select-filter" style="width: 100%">
+                        <option value="">All</option>
+                        <option *ngFor="let item of buyers" value={{item.trader_id}}>{{item.trader_local_nm | i18n}}
+                        </option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" [saUiDatepicker]="{}" placeholder="" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+
+                    <th class="hasinput">
+                      <select class="form-control select-filter" style="width: 100%">
+                        <option value="">All</option>
+                        <option *ngFor="let styleCategorie of styleCategories" value={{styleCategorie.gen_cd}}>
+                          {{styleCategorie.gen_nm}} </option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <select class="form-control select-filter" style="width: 100%">
+                        <option value="">All</option>
+                        <option *ngFor="let styleType of styleTypes" value={{styleType.gen_cd}}>{{styleType.gen_nm}}
+                        </option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" [saUiDatepicker]="{}" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" [saUiDatepicker]="{}" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

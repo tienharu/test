@@ -1,0 +1,66 @@
+<!-- <div id="content-popup" > -->
+<form #frmDetail="ngForm" class="smart-form atman-form-small no-header frm-detail" (ngSubmit)="onSearch()" novalidate="novalidate">
+  <fieldset>
+    <div class="row">
+      <section class="col col-3">
+        <label class="label">{{'ITEMIZED' | i18n}}</label>
+        <label class="input">
+          <select select2 style="width:100%;" name="itemized_cd" [defaultVal]="cri.itemized_cd" [(ngModel)]="cri.itemized_cd"
+            class="select2 parent_cd" placeholder="..." allowClear="true">
+            <option *ngFor="let itemized of itemizeds" value={{itemized.gen_cd}}>{{itemized.gen_nm}}</option>
+          </select>
+        </label>
+      </section>
+      <section class="col col-4">
+        <label class="label">Item Name</label>
+        <label class="input">
+          <input type="text" class="main" name="itemized_nm" [(ngModel)]="cri.itemized_nm" />
+        </label>
+      </section>
+      <section class="col col-2">
+        <button type="submit" name="btnSearchProgram" class="btn btn-search btn-component">
+          <!-- {{'BUTTON-SEARCH' | i18n}} -->
+          Search
+        </button>
+      </section>
+    </div>
+  </fieldset>
+</form>
+<sa-widgets-grid>
+  <div class="row">
+    <article class="col-sm-12">
+      <div>
+        <div class="widget-body no-padding" style="margin: 0px 15px 15px 15px">
+          <sa-datatable [options]="options" (rowClick)="onRowClick($event)" [paginationLength]="false" filter="true"
+            tableClass="table projects-table table-striped table-condensed table-hover table-bordered tableItem">
+            <thead>
+              <tr class="heading">
+                <th>No</th>
+                <th>Itemized</th>
+                <th>Item Name</th>
+                <th>code</th>
+                <th>Unit</th>
+              </tr>
+              <tr>
+                <th class="hasinput"></th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+              </tr>
+            </thead>
+          </sa-datatable>
+        </div>
+      </div>
+    </article>
+  </div>
+</sa-widgets-grid>
+<!-- </div> -->

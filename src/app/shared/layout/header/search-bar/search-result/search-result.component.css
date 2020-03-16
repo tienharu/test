@@ -1,0 +1,13 @@
+:host /deep/ .menu{
+  height:500px;
+  width: 200px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.keyword:hover {
+  color:#a90329;
+}
+.keyword > span {
+  color: #3276b1;
+}
+ 

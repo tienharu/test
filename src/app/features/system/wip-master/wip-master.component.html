@@ -1,0 +1,343 @@
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-magic"></i>{{'WIP_MASTER' | i18n}}</h1>
+      </div>
+    </div>
+  </div>
+  <!-- (ngSubmit)="frmDetail.form.valid && onSubmit()" -->
+  <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+    class="smart-form atman-form-small no-header frm-detail" novalidate="novalidate" [saUiValidate]="validationOptions">
+    <fieldset>
+      <div class="row">
+        <section class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <section class="col col-lg-12">
+            <label class="label">{{'ITEMIZED' | i18n}}</label>
+            <label class="input">
+              <select name="ItemizedGenCd" [(ngModel)]="detailInfo.itemizedGenCd" [defaultVal]="detailInfo.itemizedGenCd" select2
+                style="width:100%;" class="select2 parent_cd required" placeHolder="Select Itemized" required >
+                <option *ngFor="let itemize of itemizeds" value={{itemize.gen_cd}}>{{itemize.gen_nm}}</option>
+              </select>
+            </label>
+          </section>
+          <section class="col col-lg-12">
+            <label class="label">{{'MAS_ROUTING' | i18n}}</label> 
+            <label class="input ">
+              <select name="routeId" select2 style="width:100%;" [(ngModel)]="detailInfo.routeId" [defaultVal]="detailInfo.routeId"
+              class="select2 parent_cd required" placeHolder="Select Routing" required>
+                <option *ngFor="let routingInfo of routingInfoes" value={{routingInfo.routeId}}>{{routingInfo.routeName}}</option>
+              </select>
+            </label>
+          </section>
+          <section class="col col-lg-12">
+            <label class="label">{{'BIZ_UNIT' | i18n}}</label>
+            <label class="input">
+              <select name="bizUnitId" select2 [(ngModel)]="detailInfo.bizUnitId" [defaultVal]="detailInfo.bizUnitId"
+                style="width:100%;" class="select2 parent_cd required"  placeHolder="Select Biz Unit" required>
+                <option *ngFor="let bizUnit of bizUnits" value={{bizUnit.global_unit_id}} >{{bizUnit.global_unit_nm}}</option>
+              </select>
+            </label>
+          </section>
+        </section>
+
+        <section class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          
+            <section class="col col-lg-8">
+              <label class="label">{{'WIP_FULL_NAME' | i18n}}</label>
+              <label class="input">
+                <input type="text" name="wipFullNm" [(ngModel)]="detailInfo.wipFullNm" autocomplete="off" required />
+              </label>
+            </section>
+            <section class="col col-lg-4">
+              <label class="label" style="visibility: hidden">Code</label>
+              <label class="input state-disabled" >
+                <input type="text" name="wipSeq" class="center" [(ngModel)]="detailInfo.wipSeq" autocomplete="off" disabled />
+              </label>
+            </section>
+          
+          <section class="col col-lg-6" >
+            <label class="label">{{'DISPLAY_NAME' | i18n}}</label>
+            <label class="input">
+              <input type="text" class="main required_input required"  name="wipDsplNm" [(ngModel)]="detailInfo.wipDsplNm" placeHolder="Display Name" autocomplete="off" required/>
+            </label>
+          </section>
+          <section class="col col-lg-6" >
+            <label class="label">AS_IS Code</label>
+            <label class="input">
+              <input type="text"  name="asIsCd" [(ngModel)]="detailInfo.asIsCd"  autocomplete="off" required/>
+            </label>
+          </section>
+        
+          <section class="col col-lg-3">
+            <label class="label">{{'STOCK_UNIT' | i18n}}</label>
+            <label class="select">
+              <select name="stockUnitGenCd" [(ngModel)]="detailInfo.stockUnitGenCd" [defaultVal]="detailInfo.stockUnitGenCd" select2
+                style="width:100%;" class="select2 parent_cd required" placeHolder="Select Unit" required>
+                <option *ngFor="let stockUnit of stockUnits" value={{stockUnit.gen_cd}}>{{stockUnit.gen_nm}}</option>
+              </select>
+            </label>
+          </section>
+          <section class="col col-lg-3">
+           
+          </section>
+          
+          <section class="col col-lg-3">
+            <label class="label">{{'EXPIRY' | i18n}}</label>
+            <label class="input col-lg-6">
+              <input type="number" class="center" min=0 oninput="validity.valid||(value='');"  name="expiryDays" [(ngModel)]="detailInfo.expiryDays"  placeHolder="Expiry" autocomplete="off" autoSelectText/>
+            </label>
+            <label class="label col-lg-6" style="padding-top: 6px;  text-align: left">
+              <span style="padding-left: 8px;">days</span>
+            </label>
+          </section>
+          
+          <!-- <section class="col col-lg-12">
+            <label class="label">{{'SPEC' | i18n}}</label>
+            <label class="input">
+                <input type="text" name="specText" [(ngModel)]="detailInfo.specText"  autocomplete="off" />
+              </label>
+          </section> -->
+        </section>
+
+        <section class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+          <section class="col col-lg-4">
+            <label class="label" style="visibility: hidden">{{'OUT_PROCESS' | i18n}}</label>
+            <label class="checkbox" style="padding-left: 0px;">
+              <input type="checkbox" name="outsourcingYn" [(ngModel)]="detailInfo.outsourcingYn" />
+              <i class="checkbox-icon-right"></i>
+              <span>{{'OUT_PROCESS' | i18n}}</span>
+            </label>
+          </section>
+
+          <section class="col col-lg-4">
+            <label class="label" style="visibility: hidden">{{'PUBLIC (Multi)' | i18n}}</label>
+            <label class="checkbox" style="padding-left: 0px;">
+              <input type="checkbox" name="semiProdYn" [(ngModel)]="detailInfo.semiProdYn" />
+              <i class="checkbox-icon-right"></i>
+              <span>{{'SEMI_PROD' | i18n}}</span>
+            </label>
+          </section>
+          <section class="col col-lg-4" style="margin-bottom: 11px;">
+            <label class="label" style="visibility: hidden">{{'MIX(Bulk)' | i18n}}</label>
+            <label class="checkbox" style="padding-left: 0px;">
+              <input type="checkbox" name="mixYn" [(ngModel)]="detailInfo.mixYn" />
+              <i class="checkbox-icon-right"></i>
+              <span>{{'MIX_WIP' | i18n}}</span>
+            </label>
+          </section>
+          <section class="col col-lg-4" style="margin-bottom: 11px;">
+            <label class="label" style="visibility: hidden">{{'CHANGE_ORDER' | i18n}}</label>
+            <label class="checkbox" style="padding-left: 0px;">
+              <input type="checkbox" name="changeOrderYn" [(ngModel)]="detailInfo.changeOrderYn" />
+              <i class="checkbox-icon-right"></i>
+              <span>{{'CHANGE_ORDER' | i18n}}</span>
+            </label>
+          </section>
+          <section class="col col-lg-4">
+            <label class="label" style="visibility: hidden">{{'SALE' | i18n}}</label>
+            <label class="checkbox" style="padding-left: 0px;">
+              <input type="checkbox" name="salesYn" [(ngModel)]="detailInfo.salesYn" (change)="onCheckSale($event)"/>
+              <i class="checkbox-icon-right"></i>
+              <span>{{'SALES' | i18n}}</span>
+            </label>
+          </section>
+          <section class="col col-lg-4">
+            <label class="label" style="visibility: hidden">{{'PRICE' | i18n}}</label>
+            <label class="label col-lg-4" style="padding-top: 3px;"><span
+                style="padding-right: 8px;">{{'PRICE' | i18n}}</span></label>
+            <label class="input col-lg-8 state-disabled" id="background-price-disabled">
+              <input type="text" class="center"  currencyMask
+              [options]="{prefix:'', suffix:'', precision : 0, allowNegative : false }"
+               id="price"  name="salesPrice" [(ngModel)]="detailInfo.salesPrice" autocomplete="off" disabled/>
+            </label>
+          </section>
+          <section class="col col-lg-9">
+            <label class="label">{{'SPEC' | i18n}}</label>
+            <label class="input">
+                <input type="text" name="specText" [(ngModel)]="detailInfo.specText"  autocomplete="off" />
+              </label>
+          </section>
+          <section class="col col-lg-3 float-right" style="margin-top: 2px;">
+            <label class="label" style="visibility: hidden">Active</label>
+            <label class="checkbox checkbox-right">
+              <input type="checkbox" name="useYn" [(ngModel)]="detailInfo.useYn" />
+              <i class="checkbox-icon-right"></i>
+              <span style="float: right; padding-right: 30px;">Active</span>
+            </label>
+          </section>
+          <!-- <section class="col col-lg-12" style="margin-top: 16px;"> 
+            <label class="label">{{'DESCRIPTION' | i18n}}</label>
+            <label class="input">
+              <input placeholder="Description" name="remark"  [(ngModel)]="detailInfo.remark" value="" rows="1"/>
+            </label>
+          </section> -->
+        </section>
+
+        <section class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+          <section class="col col-lg-12">
+            <sa-sharing-info (outputData)="sharingToSelected($event)" [sharedData]="detailInfo.sharing_to"></sa-sharing-info>
+            <section class=" col-lg-12"  style="margin-top: -18px;">
+              <label class="label">{{'DESCRIPTION' | i18n}}</label>
+              <label class="input">
+                <input placeholder="Description" name="remark" [(ngModel)]="detailInfo.remark" value="" rows="1" />
+              </label>
+            </section>
+            <!-- <sa-sharing-info (outputData)="sharingToSelected($event)" [sharedData]="traderInfo.sharing_to"></sa-sharing-info> -->
+            <div class="smart-form" style="top: 5px;">
+              <footer style="background:none;border:none;padding: 0;float: right;">
+                <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-cancel">
+                  <i class="fa fa-times"></i>
+                {{'button-close' | i18n}}
+              </button>
+              <button type="button" (click)="onReset()" name="reset" class="btn btn-reset-form">
+                <i class="fa fa-refresh"></i>
+                {{'BUTTON-RESET' | i18n}}
+              </button>
+              <button type="submit" [disabled]="!this.permission.canSave" name="submit" class="btn btn-primary">
+                  <i class="fa fa-save"></i>
+                {{'BUTTON-SAVE' | i18n}}
+              </button>
+              </footer>
+            </div>
+          </section>
+        </section>
+      </div>
+      <!-- <input type="hidden" name="gen_cd" [(ngModel)]="detailInfo.gen_cd" /> -->
+    </fieldset>
+    <!-- <footer>
+      <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-cancel">
+          <i class="fa fa-times"></i>
+        {{'button-close' | i18n}}
+      </button>
+      <button type="button" (click)="onReset()" name="reset" class="btn btn-reset-form">
+        <i class="fa fa-refresh"></i>
+        {{'BUTTON-RESET' | i18n}}
+      </button>
+      <button type="submit" [disabled]="!this.permission.canSave" name="submit" class="btn btn-primary">
+          <i class="fa fa-save"></i>
+        {{'BUTTON-SAVE' | i18n}}
+      </button>
+    </footer> -->
+  </form>
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>{{'WIP_MASTER' | i18n}}</h2>
+          </header>
+          <div>
+          <div class="widget-body no-padding">
+            <sa-datatable [options]="options" (rowClick)="onRowClick($event)" [paginationLength]="true" filter="true"
+              tableClass="table table-striped table-condensed table-hover table-bordered tableGetWip">
+              <thead>
+                <tr class="heading">
+                  <th>No</th>
+                  <th>{{'BIZ_UNIT' | i18n}}</th>
+                  <th>{{'ITEMIZED' | i18n}}</th>
+                  <th>{{'MAS_ROUTING' | i18n}}</th>
+                  <th>{{'WIP_FULL_NAME' | i18n}}</th>
+                  <th>{{'TA_UNIT' | i18n}}</th>
+                  <th>{{'EXPIRY' | i18n}}</th>
+                  <th>{{'TA_OUT' | i18n}}</th>
+                  <th>{{'TA_SEMINAME' | i18n}}</th>
+                  <th>{{'TA_MIX' | i18n}}</th>
+                  <th>{{'SALES' | i18n}}</th>
+                  <th>{{'CHANGE' | i18n}}</th>
+                  <th>Active</th>
+                  <th>{{'DESCRIPTION' | i18n}}</th>
+                </tr>
+                <tr>
+                  <th class="hasinput" >
+                      <input type="text" class="form-control" placeholder="" />
+                  </th>
+                  <th class="hasinput" >
+                    <select name="filter_routing_class" class="form-control select-filter" style="width: 100%">
+                      <option value="">All</option>
+                      <option *ngFor="let bizUnit of bizUnits" value={{bizUnit.global_unit_id}}>{{bizUnit.global_unit_nm}} </option>
+                    </select>
+                  </th>
+                  <th class="hasinput" >
+                    <select name="filter_routing_class" class="form-control select-filter" style="width: 100%">
+                      <option value="">All</option>
+                      <option *ngFor="let itemized of itemizeds" value={{itemized.gen_cd}}>{{itemized.gen_nm}} </option>
+                    </select>
+                  </th>
+                  <th class="hasinput" >
+                    <select name="filter_routing_class" class="form-control select-filter" style="width: 100%">
+                      <option value="">All</option>
+                      <option *ngFor="let routingInfo of routingInfoes" value={{routingInfo.routeId}}>{{routingInfo.routeName}}</option>
+                    </select>
+                  </th>
+                  <th class="hasinput" >
+                    <input type="text" class="form-control" placeholder="Filter" />
+                  </th>
+                  <th class="hasinput" >
+                    <select name="filter_routing_class" class="form-control select-filter" style="width: 100%">
+                      <option value="">All</option>
+                      <option *ngFor="let stockUnit of stockUnits" value={{stockUnit.gen_cd}}>{{stockUnit.gen_nm}} </option>
+                    </select>
+                  </th>
+               
+                  <th class="hasinput" >
+                    <input type="number" class="form-control" placeholder="Filter Unit" />
+                  </th>
+                  <th class="hasinput" >
+                    <select id="filerByActiveYN" class="form-control select-filter" style="width: 100%;">
+                      <option value="">All</option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </th>
+                  <th class="hasinput" >
+                    <select id="filerByActiveYN" class="form-control select-filter" style="width: 100%;">
+                      <option value="">All</option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </th>
+                  <th class="hasinput" >
+                    <select id="filerByActiveYN" class="form-control select-filter" style="width: 100%;">
+                      <option value="">All</option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </th>
+                  <th class="hasinput" >
+                    <select id="filerByActiveYN" class="form-control select-filter" style="width: 100%;">
+                      <option value="">All</option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </th>
+                  <th class="hasinput" >
+                    <select id="filerByActiveYN" class="form-control select-filter" style="width: 100%;">
+                      <option value="">All</option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </th>
+                  <th class="hasinput" >
+                    <select id="filerByActiveYN" class="form-control select-filter" style="width: 100%;">
+                      <option value="">All</option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </th>
+                  <th class="hasinput" >
+                    <input type="text" class="form-control" placeholder="" />
+                  </th>
+                </tr>
+              </thead>
+            </sa-datatable>
+          </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

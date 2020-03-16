@@ -1,0 +1,69 @@
+<!-- <div id="content-popup" > -->
+<form #frmDetail="ngForm" class="smart-form atman-form-small no-header frm-search-work-order"
+  (ngSubmit)="frmDetail.form.valid && onSubmit()" novalidate="novalidate">
+  <fieldset>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10" style="margin-left: 8%;">
+        <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <section class="col col-xs-12 col-sm-4 col-md-5 col-lg-5">
+            <label class="label col-md-3">{{'UPLOAD_IMAGE' | i18n}}</label>
+            <div class="input input-file col-md-9">
+              <span class="button" style="top:2px; line-height: 20px; height: 18px;">
+              <input type="file" id="image" name="image"  accept="image/gif, image/jpeg, image/png" (change)="onChangeImages($event)">Browse</span>
+              <input type="text" name="attachImages" placeholder="Select an upload image" readonly="" [(ngModel)]="attachImages">
+            </div>
+          </section>
+          <section class="col col-xs-12 col-sm-4 col-md-5 col-lg-5">
+            <label class="label col-md-3">{{'SM_ATTACH_FILE' | i18n}}</label>
+            <div class="input input-file col-md-9">
+              <span class="button" style="top:2px; line-height: 20px; height: 18px;">
+              <input type="file" id="file" name="file" (change)="onChangeFiles($event)">Browse</span>
+              <input type="text" name="attachFiles" placeholder="Select an attach file" readonly="" [(ngModel)]="attachFiles">
+            </div>
+          </section>
+          <section class="col col-xs-12 col-sm-3 col-md-2 col-lg-2">
+            <button type="submit" name="save" [disabled]="!woNo && !stepSeq" class="btn btn-primary upload-btn">
+              {{'SAVE' | i18n}}
+            </button>
+          </section>
+        </section>
+      </div>
+    </div>
+  </fieldset>
+</form>
+<sa-widgets-grid>
+  <div class="row">
+    <article class="col-sm-12">
+      <article class="col col-sm-12">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" [paginationLength]="false"
+                tableClass="table projects-table table-striped table-condensed table-hover table-bordered work-order-upload-table">
+                <thead>
+                  <tr class="heading">
+                    <th>{{'SM_ATTACH_FILE' | i18n}}</th>
+                    <th>{{'SM_ATTACH_FILE_TYPE' | i18n}}</th>
+                    <th>{{'SM_ATTACH_FILE_TYPE' | i18n}}</th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+      <canvas id="canvas-img" #canvas style="display: none;"></canvas>
+      <!-- <article class="col col-sm-6">
+        <div class="" id="application-img" style="background-image:url();">
+          <canvas id="canvas-img" #canvas></canvas>
+      </div> -->
+      <!-- </article> -->
+    </article>
+  </div>
+</sa-widgets-grid>
+<!-- </div> -->

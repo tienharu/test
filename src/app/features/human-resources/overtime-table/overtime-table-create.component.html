@@ -1,0 +1,107 @@
+<article class="col-sm-12 col-md-12 col-lg-12 human-resources">
+  <div class="row">
+    <div class="no-padding ">
+      <section class="col-lg-12">
+        <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && insertOvertimeTable()" class="smart-form atman-form-small frm-detail"
+          novalidate="novalidate" [saUiValidate]="validationOptions">
+          <fieldset>
+            <!-- <div class="row">
+              <div class="col col-10">
+                <label class="label" style=" font-weight: 600">{{'TABLE-ID-MAX' | i18n}} : {{maxOverTableId}}</label>
+              </div>
+            </div> -->
+            <div class="row">
+              <section class="col col-2">
+                <label class="label">{{'Table-Id'| i18n}}</label>
+                <label class="input">
+                  <input type="number" name="ot_table_id" class="form-control required center disabled" disabled onclick="this.select()"
+                    [(ngModel)]="overtimeTableInfo.ot_table_id" autocomplete="off" required>
+                </label>
+              </section>
+              <section class="col col-6">
+                <label class="label">{{'Table-Name'| i18n}}</label>
+                <label class="input">
+                  <input name="ot_table_nm" class="form-control" required [(ngModel)]="overtimeTableInfo.ot_table_nm"
+                    autocomplete="off">
+                </label>
+              </section>
+              <section class="col col-4">
+                <label class="label">{{'DAYTYPE'| i18n}}</label>
+                <label class="select">
+                  <select select2 required [disabled]="isUpdate" class="required form-control select2" name="work_day_type_gen_cd" [(ngModel)]="overtimeTableInfo.work_day_type_gen_cd" >
+                  <option *ngFor="let g of workDayTypes" value="{{g.gen_cd}}">{{g.gen_nm}}</option>
+                </select>
+                </label>
+              </section>
+            </div>
+            <div class="row">
+              <section class="col col-4">
+                <label class="label">{{'OT-Copy-Free-From'|i18n}}</label>
+                <label class="input">
+                  <!-- saMaskedPlaceholder="hh:mm" saMaskedInput="99:99" -->
+                  <input type="time" class="form-control center" placeholder="HH:MM" required name="start_working_time"
+                    [(ngModel)]="overtimeTableInfo.start_working_time" autocomplete="off">
+                </label>
+              </section>
+              <section class="col col-4">
+                <label class="label">{{'OT-Copy-Free-To'|i18n}}</label>
+                <label class="input">
+                  <input type="time" class="form-control center" placeholder="HH:MM" required name="end_working_time"
+                    [(ngModel)]="overtimeTableInfo.end_working_time" autocomplete="off">
+                </label>
+              </section>
+              <section class="col col-4">
+                <label class="label">{{'OVERTIME_END_OVER_TIME'|i18n}}</label>
+                <label class="input">
+                  <input type="time" class="form-control center" placeholder="HH:MM" required name="end_ot_time"
+                    [(ngModel)]="overtimeTableInfo.end_ot_time" autocomplete="off">
+                </label>
+              </section>
+              <section class="col col-3">
+                <label class="label">{{'OVERTIME_INTERVAL_VALUE'|i18n}}</label>
+                <label class="input">
+                  <input type="text" class="form-control center" required name="interval_minute"
+                    [(ngModel)]="overtimeTableInfo.interval_minute" autocomplete="off">
+                </label>
+              </section>
+              <section class="col col-3">
+                <label class="label">{{'OVERTIME_BUFFER_MIN'|i18n}}</label>
+                <label class="input">
+                  <input type="text" class="form-control center" required name="buffer_minute"
+                    [(ngModel)]="overtimeTableInfo.buffer_minute" autocomplete="off">
+                </label>
+              </section>
+              <section class="col col-3">
+                <label class="label">{{'OVERTIME_BEGIN_FREE'|i18n}}</label>
+                <label class="input">
+                  <input type="time" class="form-control center" placeholder="HH:MM" name="begin_free_time"
+                    [(ngModel)]="overtimeTableInfo.begin_free_time" autocomplete="off">
+                </label>
+              </section>
+              <section class="col col-3">
+                <label class="label">{{'OVERTIME_END_FREE'|i18n}}</label>
+                <label class="input">
+                  <input type="time" class="form-control center" placeholder="HH:MM" name="end_free_time"
+                    [(ngModel)]="overtimeTableInfo.end_free_time" autocomplete="off">
+                </label>
+              </section>
+            </div>
+            
+            <section class="">
+              <label class="label">{{'DESCRIPTION'|i18n}}</label>
+              <label class="textarea">
+                <textarea class="form-control" name="remark" [(ngModel)]="overtimeTableInfo.remark"></textarea>
+              </label>
+            </section>
+          </fieldset>
+          <footer>
+            <button type="submit" class="btn btn-small btn-primary" [ngClass]="isLoading?'disabled':''">
+              <i class="fa fa-save"></i>
+              {{isLoading?'Saving...':'Save'}}
+              </button>
+          </footer>
+        </form>
+      </section>
+    </div>
+  </div>
+</article>

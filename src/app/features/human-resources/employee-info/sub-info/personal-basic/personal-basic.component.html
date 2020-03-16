@@ -1,0 +1,158 @@
+<form class="smart-form frmBasic" #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" novalidate="novalidate"
+[saUiValidate]="validationOptions">
+    <fieldset class="right-content basic">
+        <div class="widget-body no-padding col-lg-4 field-1">
+                        <!-- <section class="col-lg-12">
+                                <label class="label col-lg-5">{{'START-WORK' | i18n}}</label>
+                                <label class="input col-lg-6"> <i class="icon-append fa fa-calendar"></i>
+                                    <input type="text" name="start_work_ymd" [value]="basicInfo.start_work_ymd | date: 'yyyy-MM-dd'" class="basic-entry-datepicker disabled" disabled="disabled" autocomplete="off">
+                                </label>
+                        </section> -->
+                        
+                        <!-- <section class="col-lg-12">
+                            <label class="label col-lg-5">Company</label>
+                            <label class="input col-lg-6">
+                                <select select2 class="select2" name="company_id" [(ngModel)]="basicInfo.company_id" [defaultVal]="basicInfo.company_id"
+                                     style="width:100%" placeHolder="Company">
+                                    <option *ngFor="let item of company" value="{{item.company_id}}">{{item.company_eng_nm}}</option>
+                                </select>
+                            </label>
+                        </section> -->
+                        <section class="col-lg-12">
+                                <label class="label col-lg-5">{{'Department' | i18n}}</label>
+                                <label class="input col-lg-6">
+                                    <select select2 class="select2 required" name="org_id" required [(ngModel)]="basicInfo.org_id" [defaultVal]="basicInfo.org_id" style="width:100%">
+                                        <option *ngFor="let item of org" value="{{item.org_cd}}">{{item.org_tree_nm}}</option>
+                                    </select>
+                                </label>
+                        </section>
+                        <section class="col-lg-12">
+                            <label class="label col-lg-5">{{'Card-ID' | i18n}}</label>
+                            <label class="input col-lg-6">
+                                <input type="text" name="employee_card_id" required class="" [(ngModel)]="basicInfo.employee_card_id" />
+                            </label>
+                    </section>
+                        <section class="col-lg-12">
+                                <label class="label col-lg-5">{{'Salary-Code' | i18n}}</label>
+                                <label class="input col-lg-6">
+                                    <select select2 class="select2" name="job_type_gen_cd" [(ngModel)]="basicInfo.job_type_gen_cd" [defaultVal]="basicInfo.job_type_gen_cd" style="width:100%">
+                                        <option *ngFor="let item of salary" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                    </select>
+                                </label>
+                        </section>
+                        <section class="col-lg-12">
+                            <label class="label col-lg-5">{{'Class' | i18n}}</label>
+                            <label class="input col-lg-6">
+                                <select select2 class="select2" name="job_class_gen_cd" [(ngModel)]="basicInfo.job_class_gen_cd" [defaultVal]="basicInfo.job_class_gen_cd" style="width:100%">
+                                    <option *ngFor="let item of class" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                </select>
+                            </label>
+                    </section>
+                        <section class="col-lg-12">
+                                <label class="label col-lg-5">{{'Duty-Type' | i18n}}</label>
+                                <label class="input col-lg-6">
+                                    <select select2 class="select2" name="duty_type_id" [(ngModel)]="basicInfo.duty_type_id" [defaultVal]="basicInfo.duty_type_id" style="width:100%">
+                                        <option *ngFor="let item of dutyType" value="{{item.dutytypeid}}">{{item.dutytypenm}}</option>
+                                    </select>
+                                </label>
+                        </section>
+                        
+                        <section class="col-lg-12">
+                                <label class="label col-lg-5">{{'Duty-Kind' | i18n}}</label>
+                                <label class="input col-lg-6">
+                                    <select select2 class="select2" style="width:100%" name="duty_kind_gen_cd" [(ngModel)]="basicInfo.duty_kind_gen_cd" [defaultVal]="basicInfo.duty_kind_gen_cd">
+                                        <option *ngFor="let item of dutyKind" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                    </select>
+                                </label>
+                        </section>
+                        <section class="col-lg-12">
+                                <label class="label col-lg-5">{{'Work-Place' | i18n}}</label>
+                                <label class="input col-lg-6">
+                                    <select select2 class="select2" name="work_place_gen_cd" [(ngModel)]="basicInfo.work_place_gen_cd" [defaultVal]="basicInfo.work_place_gen_cd" style="width:100%">
+                                        <option *ngFor="let item of workPlace" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                    </select>
+                                </label>
+                        </section>
+                        <section class="col-lg-12">
+                                <label class="label col-lg-5">{{'Tax-Code' | i18n}}</label>
+                                <label class="input col-lg-6">
+                                    <select select2 class="select2" name="tax_code_gen_cd" [(ngModel)]="basicInfo.tax_code_gen_cd" [defaultVal]="basicInfo.tax_code_gen_cd" style="width:100%">
+                                        <option *ngFor="let item of taxCode" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                    </select>
+                                </label>
+                        </section>
+                        <section class="col-lg-12">
+                            <label class="label col-lg-5">{{'Family_Allowance_Person' | i18n}}</label>
+                            <label class="input col-lg-2">
+                                <input type="number" class="right" name="family_allowance_person" onclick="this.select()" [(ngModel)]="basicInfo.family_allowance_person" />
+                            </label>
+                    </section>
+                    <section class="col-lg-12">
+                        <label class="label col-lg-5">{{'Original_Annual_Leave' | i18n}}</label>
+                        <label class="input col-lg-2">
+                            <input type="number" class="right" name="original_annual_leave" onclick="this.select()" [(ngModel)]="basicInfo.original_annual_leave" />
+                        </label>
+                </section>
+                    <section class="col-lg-12">
+                        <label class="label col-lg-5">{{'Total_Annual_Leave' | i18n}}</label>
+                        <label class="input col-lg-2" title="System will auto calculate depend on {{'Original_Annual_Leave' | i18n}} & {{'Emp-Entrance-Date' | i18n}} by condition">
+                            <input type="number" class="right disabled" name="total_annual_leave" disabled [(ngModel)]="basicInfo.total_annual_leave" />
+                        </label>
+                </section>
+        </div>
+        <div class="widget-body no-padding col-lg-4 field-2">
+                <section class="col-lg-12">
+                        <label class="label col-lg-4">{{'Phone' | i18n}}</label>
+                        <label class="input col-lg-8">
+                            <input type="text" name="phone" [(ngModel)]="basicInfo.phone" />
+                        </label>
+                </section>
+                <section class="col-lg-12">
+                        <label class="label col-lg-4">{{'Email' | i18n}}</label>
+                        <label class="input col-lg-8">
+                            <input type="text" name="email" [(ngModel)]="basicInfo.email" />
+                        </label>
+                </section>
+                <section class="col-lg-12">
+                        <label class="label col-lg-4">{{'Duty-Status' | i18n}}</label>
+                        <label class="input col-lg-8">
+                            <select select2 class="select2" name="duty_status_gen_cd" [(ngModel)]="basicInfo.duty_status_gen_cd" (onSelectedChange)="onDutyStatusChange($event)" [defaultVal]="basicInfo.duty_status_gen_cd" style="width:100%">
+                                <option *ngFor="let item of dutyStatus" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                            </select>
+                        </label>
+                </section>
+                <section class="col-lg-12" *ngIf="isStopwork">
+                        <label class="label col-lg-4">{{'Stop-Work-Date' | i18n}}</label>
+                        <label class="input col-lg-8"> <i class="icon-append fa fa-calendar"></i>
+                            <input type="text" name="retired_ymd"  [saUiDatepicker] [(ngModel)]="basicInfo.retired_ymd" [disabled]="!basicInfo.duty_status_gen_cd" [ngClass]="{'disabled': !basicInfo.duty_status_gen_cd}" class="basic-retire-datepicker" autocomplete="off">
+                        </label>
+                </section>
+                <section class="col-lg-12" *ngIf="isStopwork">
+                    <label class="label col-lg-4">{{'Duty-Status-Detail' | i18n}}</label>
+                    <label class="input col-lg-8">
+                        <select select2 class="select2" name="duty_status_detail_gen_cd" allowClear="true" [disabled]="!basicInfo.duty_status_gen_cd" [(ngModel)]="basicInfo.duty_status_detail_gen_cd" [defaultVal]="basicInfo.duty_status_detail_gen_cd" style="width:100%">
+                            <option *ngFor="let item of dutyStatusDetail" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                        </select>
+                    </label>
+            </section>
+                <section class="col-lg-12" *ngIf="isStopwork">
+                    <label class="label col-lg-4">{{'health_card_return_valid' | i18n}}</label>
+                    <label class="checkbox col-lg-3">
+                        <input type="checkbox" name="return_health_card_yn" [(ngModel)]="basicInfo.return_health_card_yn">
+                        <i></i>
+                    </label>
+            </section>
+                <section class="col-lg-12">
+                        <label class="label col-lg-4">{{'Remarks' | i18n}}</label>
+                        <label class="textarea col-lg-8">
+                            <textarea rows="3" name="basic_remark" [(ngModel)]="basicInfo.basic_remark" class="custom-scroll"></textarea> </label>
+                        <div class="note">
+                        </div>
+                </section>
+                <section class="col-lg-12 btn-cmd">                   
+                    <button class="btn btn-small btn-primary" [disabled]="!permission.canSave" name="submit" type="submit" style="margin: 0 4px;"><i class="fa fa-save"></i> {{'BUTTON-SAVE' | i18n}}</button>
+                    <!-- <button class="btn btn-small btn-default" name="reset" type="button" (click)="onReset()" ><i class="fa fa-refresh"></i> {{'BUTTON-RESET' | i18n}}</button> -->
+                </section>
+        </div>
+    </fieldset>
+</form>

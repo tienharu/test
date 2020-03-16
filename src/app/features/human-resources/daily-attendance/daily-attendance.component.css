@@ -1,0 +1,17 @@
+
+.row-odd{
+    background-color: #fff !important;
+}
+
+.row-even{
+    background-color: #ffffff !important;
+}
+.well.well-sm{border:none;margin-bottom: 8px;}
+tr.edited-in-out td{
+    /* background: #eaeef3 */
+  }
+  tr.edited-working-time td{
+    /* background: #fbf3ea */
+  }
+  
+  

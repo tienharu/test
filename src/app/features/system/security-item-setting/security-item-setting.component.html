@@ -1,0 +1,23 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['Security Item']" icon="cog" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>
+
+
+  <div class="row">
+    <section class="col-md-12">
+      <ng2-smart-table [settings]="settings" class="table table-dark" style="font-size:15px" [source]="source"
+        (editConfirm)="onSaveConfirm($event)" (deleteConfirm)="onDeleteConfirm($event)" (createConfirm)="createConfirm($event)"
+        (rowSelect)="rowSelect($event)" (userRowSelect)="userRowSelect($event)"></ng2-smart-table>
+    </section>
+  </div>
+
+  <form #frmDetail="ngForm"  class="smart-form frm-detail" novalidate="novalidate">
+    <footer>
+      <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close">
+        <i class="fa fa-times"></i>
+        {{'button-close' | i18n}}
+      </button>
+    </footer>
+  </form>
+</div>

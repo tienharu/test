@@ -1,0 +1,83 @@
+<aside id="left-panel">
+
+  <!-- User info -->
+  <!-- <sa-login-info></sa-login-info> -->
+  <!-- end user info -->
+  <nav>
+    <!-- NOTE: Notice the gaps after each icon usage <i></i>..
+    Please note that these links work a bit different than
+    traditional href="" links. See documentation for details.
+    -->
+
+    <ul id='navLeftMenu' saSmartMenu>
+
+      <!-- Menu from html code -->
+      <!-- <li>
+        <a title="Dashboard">
+          <i class="fa fa-lg fa-fw fa-home"></i>
+          <span class="menu-item-parent">Home</span>
+        </a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/dashboard/analytics" title="Analytics Dashboard">Dashboard</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/dashboard/social" title="Social Wall">Social Wall</a>
+          </li>
+        </ul>
+      </li> -->
+
+      <!-- Menu from API routerLink="/{{thirdLevel.program_cd}}" -->
+      <li *ngFor="let firstLevel of (hierarchyMenu ? hierarchyMenu : []); let i = index">
+        <a class="first-level-nav" [title]="firstLevel.mega_menu_help_text">
+          <i class="fa fa-lg fa-fw fa-{{firstLevel.mega_menu_nm}}"></i>
+          <span class="menu-item-parent">          
+            {{ firstLevel.menu_name | i18n }}
+          </span>
+        </a>
+        <ul>
+          <li *ngFor="let secondLevel of (firstLevel.nodes ? firstLevel.nodes : []);">
+            <a class="second-level-nav" [title]="secondLevel.mega_menu_help_text">
+              {{ secondLevel.menu_name | i18n }}
+            </a>
+            <ul>
+              <li id="{{thirdLevel.menu_id}}" *ngFor="let thirdLevel of (secondLevel.nodes ? secondLevel.nodes : [])">
+                <a class="third-level-nav" (click)="progClicked(thirdLevel, $event)"
+                  [title]="thirdLevel.mega_menu_help_text">
+                  <i class="fa fa-folder-open"></i>&nbsp;
+                  {{ thirdLevel.menu_name | i18n }}
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <sa-minify-menu></sa-minify-menu>
+    </ul>
+  </nav>
+
+
+  <div *ngIf="!isMenuOnTop" class="dropup left-bottom-menu">
+    <a class="dropdown-toggle btn-opened-prog" data-toggle="dropdown">
+      <i class="fa fa-lg fa-fw fa-windows"></i>
+      <b class="badge bg-color-red">{{ menuFavorites.length }}</b>
+    </a>
+
+    <ul class=" dropdown-menu-dark dropdown-menu open-progs-panel" *ngIf="menuFavorites.length">
+      <li class="padding-5" *ngFor="let menuFavorite of menuFavorites">
+        <!-- <a routerLinkActive="active" (click)="openedProgClicked(menuFavorite, $event)" routerLink="/{{ menuFavorite.program_cd }}" title="{{ menuFavorite.menu_name }}">{{ menuFavorite.menu_name }}</a> -->
+        <a (click)="myMenuClicked(menuFavorite, $event)"
+          title="{{ menuFavorite.menu_name }}">{{ menuFavorite.menu_name | i18n }}</a>
+        <i class="fa fa-times-circle close-prog" (click)="RemoveFavoriteMenu(menuFavorite)"></i>
+      </li>
+      <!-- <li>
+        <div class="padding-5 pull-right padding-top-10">
+          <a class="yellow-link" (click)="RemoveAllFavoriteMenu()"><i class="fa fa-trash-o"></i> {{ 'REMOVE-ALL' | i18n }}</a>
+        </div>
+      </li> -->
+    </ul>
+
+
+  </div>
+</aside>

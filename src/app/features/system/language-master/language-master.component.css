@@ -1,0 +1,37 @@
+:host /deep/ table.datagrid_languages{
+    border-collapse: collapse;
+}
+:host /deep/ table.datagrid_languages tbody{
+    display: block; /* to enable vertical scrolling */
+    height: 372px; /* e.g. */
+    overflow-y: auto; /* keeps the scrollbar even if it doesn't need it; display purpose */
+}
+:host /deep/ table.datagrid_languages  tr {
+    display: inline-table; /* display purpose; th's border */
+    width: 100%;
+    box-sizing: border-box; /* because of the border (Chrome needs this line, but not FF) */
+}
+:host /deep/ table.datagrid_languages  td{
+    border-collapse: collapse;
+}
+:host /deep/ table.datagrid_languages  .lang-menu{
+    width: 15%;
+    white-space: normal;
+}
+:host /deep/ table.datagrid_languages  .lang-type{
+    width: 8%;
+}
+:host /deep/ table.datagrid_languages  .lang-cd{
+    width: 25%;
+}
+:host /deep/ table.datagrid_languages  .lang-cd p{
+    width: 265px;
+    white-space: nowrap !important; 
+    overflow: hidden !important;
+    text-overflow: ellipsis !important; 
+    padding: 0px;
+}
+:host /deep/ table.datagrid_languages .lang-value{
+    width: 10%;
+    white-space: normal;
+}

@@ -1,0 +1,228 @@
+<div id="content">
+    <div class="well well-sm">
+        <div class="row">
+        <div class="col-lg-2 smart-form">
+            <section>
+            <label class="input">
+                <select
+                select2
+                class="form-control select2"
+                [(ngModel)]="orgid"
+                style="width:100%"
+                placeHolder="Select Department"
+                allowClear="true">
+                <option
+                    *ngFor="let item of departments"
+                    value="{{ item.org_cd }}">{{ item.org_tree_nm }}</option>
+                </select>
+            </label>
+            </section>
+        </div>
+        <div class="col-lg-1 smart-form">
+            <section>
+            <label class="input">
+                <select
+                select2
+                class="form-control select2"
+                [(ngModel)]="month"
+                (ngModelChange)="changeMonth($event)"
+                style="width:100%"
+                placeHolder="Select Period"
+                allowClear="true">
+                <option value=""></option>
+                <option *ngFor="let y of years" value="{{ y.val }}">{{ y.text }}</option>
+                </select>
+            </label>
+            </section>
+        </div>
+        <div class="col-lg-3">
+            <button
+            type="button"
+            (click)="search(false)"
+            class="btn btn-default btn-sm margin-right-5">
+            <i class="fa fa-search"></i> {{ "SEARCH" | i18n }}
+            </button>
+            <button
+            type="button"
+            (click)="exportXLSX()"
+            class="btn btn-success btn-sm margin-right-5">
+            <i class="fa fa-file-excel-o"></i>
+            {{ "BUTTON-EXCEL" | i18n }}
+            </button>
+            <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs">
+            <i class="fa fa-times"></i>
+            {{'button-close' | i18n}}
+            </button>
+        </div>
+        </div>
+    </div>
+    <div>
+      <sa-widgets-grid>
+        <div class="row">
+          <section class="col-sm-12">
+            <div sa-widget [editbutton]="false" color="darken">
+              <header>
+                <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                <h2>{{ "ADIDAS_MONTHLY_OVERTIME_REPORT" | i18n }}</h2>
+              </header>
+              <div>
+                <div class="widget-body no-padding table-wrap">
+                  <table 
+                    class="table table-striped table-condensed table-hover
+                    table-bordered cell-border table-grid">
+                    <thead>
+                      <tr>
+                        <th class="center">{{ "ADIDAS_MONTHLY_OVERTIME_NO" | i18n }}</th>
+                        <th class="center">{{ "ADIDAS_MONTHLY_OVERTIME_EMP_NAME" | i18n }}</th>
+                        <th class="center">{{ "ADIDAS_MONTHLY_OVERTIME_DEPT" | i18n }}</th>
+                        <th class="left">{{ "ADIDAS_MONTHLY_OVERTIME_EMP_NO" | i18n }}</th>
+                        <th class="left">{{ "ADIDAS_MONTHLY_OVERTIME_JOIN_DATE" | i18n }}</th>
+                        <th class="center">{{ "ADIDAS_MONTHLY_OVERTIME_JAN" | i18n }}</th>
+                        <th class="center">{{ "ADIDAS_MONTHLY_OVERTIME_FEB" | i18n }}</th>
+                        <th class="center">{{ "ADIDAS_MONTHLY_OVERTIME_MAR" | i18n }}</th>
+                        <th class="center">{{ "ADIDAS_MONTHLY_OVERTIME_APR" | i18n }}</th>
+                        <th class="center">{{ "ADIDAS_MONTHLY_OVERTIME_MAY" | i18n }}</th>
+                        <th class="center">{{ "ADIDAS_MONTHLY_OVERTIME_JUN" | i18n }}</th>
+                        <th class="center">{{ "ADIDAS_MONTHLY_OVERTIME_JUL" | i18n }}</th>
+                        <th class="center">{{ "ADIDAS_MONTHLY_OVERTIME_AUG" | i18n }}</th>
+                        <th class="center">{{ "ADIDAS_MONTHLY_OVERTIME_SEP" | i18n }}</th>
+                        <th class="center">{{ "ADIDAS_MONTHLY_OVERTIME_OCT" | i18n }}</th>
+                        <th class="center">{{ "ADIDAS_MONTHLY_OVERTIME_NOV" | i18n }}</th>
+                        <th class="center">{{ "ADIDAS_MONTHLY_OVERTIME_DEC" | i18n }}</th>
+                        <th class="center">{{ "ADIDAS_MONTHLY_OVERTIME_TOTAL" | i18n }}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="let e of (employees
+                        | paginate
+                        : {
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: totalItems
+                        });
+                        let i= index">
+                        <td
+                          class="center"
+                          style="width:30px;vertical-align:middle;">
+                          {{ pageSize * (page - 1) + (i + 1) }}
+                        </td>
+                        <td
+                          class="left"
+                          style="width:100px;vertical-align:middle;">
+                          {{ e.empl_name | uppercase }}
+                        </td>
+                        <td
+                          class="center"
+                          style="width:100px;vertical-align:middle;">
+                          {{ e.department }}
+                        </td>
+                        <td t="s"
+                          class="center"
+                          style="width:50px;vertical-align:middle;">
+                          {{ e.hr_id }}
+                        </td>
+                        <td
+                          class="left"
+                          style="width:80px;vertical-align:middle;">
+                          {{ e.start_work | date: "mediumDate" }}
+                        </td>
+                        <td
+                          class="center"
+                          style="width:30px;vertical-align:middle;">
+                          {{ e.january }}
+                        </td>
+                        <td
+                          class="center"
+                          style="width:60px;vertical-align:middle;">
+                          {{ e.febuary }}
+                        </td>
+                        <td
+                          class="center"
+                          style="width:60px;vertical-align:middle;">
+                          {{ e.march }}
+                        </td>
+                        <td
+                          class="center"
+                          style="width:60px;vertical-align:middle;">
+                          {{ e.april }}
+                        </td>
+                        <td
+                          class="center"
+                          style="width:60px;vertical-align:middle;">
+                          {{ e.may }}
+                        </td>
+                        <td
+                          class="center"
+                          style="width:60px;vertical-align:middle;">
+                          {{ e.june }}
+                        </td>
+                        <td
+                          class="center"
+                          style="width:60px;vertical-align:middle;">
+                          {{ e.july }}
+                        </td>
+                        <td
+                          class="center"
+                          style="width:50px;vertical-align:middle;">
+                          {{ e.august }}
+                        </td>
+                        <td
+                          class="center"
+                          style="width:50px;vertical-align:middle;">
+                          {{ e.september }}
+                        </td>
+                        <td
+                          class="center"
+                          style="width:50px;vertical-align:middle;">
+                          {{ e.october }}
+                        </td>
+                        <td
+                          class="center"
+                          style="width:50px;vertical-align:middle;">
+                          {{ e.november }}
+                        </td>
+                        <td
+                          class="center"
+                          style="width:50px;vertical-align:middle;">
+                          {{ e.december }}
+                        </td>
+                        <td
+                          class="center"
+                          style="width:50px;vertical-align:middle;">
+                          {{ e.total }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="widget-foot">
+                  <div class="row">
+                    <div class="atman-paging dt-toolbar-footer">
+                      <div class="col-sm-6 col-xs-12 hidden-xs">
+                        <div class="dataTables_info">
+                          {{ "COMMON_LBL_SHOW" | i18n }} {{ from_record }}
+                          {{ "COMMON_LBL_SHOW_TO" | i18n }} {{ to_record }}
+                          {{ "COMMON_LBL_SHOW_OF" | i18n }} {{ totalItems }}
+                          {{ "COMMON_LBL_SHOW_ENTRIES" | i18n }}
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-xs-12 hidden-xs">
+                        <pagination-controls
+                          class="my-pagination"
+                          (pageChange)="changePage($event)"
+                          [autoHide]="true"
+                          [previousLabel]="labels.previousLabel"
+                          [nextLabel]="labels.nextLabel">
+                        </pagination-controls>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </sa-widgets-grid>
+    </div>
+</div>

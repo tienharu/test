@@ -1,0 +1,134 @@
+<div id="content">
+  <div class="well well-sm">
+    <div class="row">
+      <!-- <div class="col-sm-2">
+        <select id="cbxFactory" select2 [(ngModel)]="shiftworkInfo.factory_id" class="form-control select2" placeHolder="{{'Select factory'|i18n}}" allowClear="true">
+          <option></option>
+          <option *ngFor="let f of factories" value={{f.factory_id}}>{{f.factory_id}} - {{f.factory_nm_eng}}</option> [disabled]='d.has_child>0 && d.level < 1'
+        </select>
+      </div> -->
+      <div class="col-sm-3">
+          <div class="form-group">
+              <div class="col-md-9">
+                  <select id="cbxDepart" select2 [(ngModel)]="shiftworkInfo.depart_id" (onSelectedChange)="onDepartChanged($event)" class="form-control select2" placeHolder="{{'Select department'|i18n}}" allowClear="true">
+                      <option></option>
+                    <option *ngFor="let d of departs" value="{{d.org_cd}}">{{d.org_cd}}.{{d.org_tree_nm}}</option>
+                  </select>
+              </div>
+              <div class="col-md-3">
+                  <input name="hr_id" class="form-control center" [(ngModel)]="shiftworkInfo.hr_id" placeholder="HR ID" autocomplete="off">
+                </div>
+          </div>
+        
+      </div>
+      <div class="col-sm-1">
+          <select id="cbxMonth" select2 class="form-control select2" [(ngModel)]="shiftworkInfo.month_year" (onSelectedChange)="onMonthChanged($event)">
+            <option *ngFor="let i of monthsYear" value="{{i.val}}">{{i.text}}</option>
+          </select>
+        </div>
+      <div class="col-sm-3">
+        <button type="button" (click)="searchData()" class="btn btn-default margin-right-5">
+          <i class="fa fa-search"></i>
+          {{'Search'|i18n}}
+        </button>
+        <!-- <button type="button" *ngIf="shiftworkInfo.depart_id>0" (click)="createShiftwork()" class="btn btn-primary margin-right-5">
+          <i class="fa fa-plus"></i>
+          {{isCreated?'Update New Employees':'Create-Shiftwork-Table'|i18n}}
+        </button> -->
+        
+        
+          
+      </div>
+      <div class="col-sm-5">
+          <div class="col-sm-5" *ngIf="!isChangingDutyType"></div>
+          <div class="col-sm-5" *ngIf="isChangingDutyType">
+              <select select2 class="form-control select2" name="duty_type_id" allowClear="true" placeholder="Select duty type" (onSelectedChange)="onDutyTypeChanged($event)" >
+                  <option></option>
+                  <option *ngFor="let g of dutyTypes" value="{{g.duty_type_id}}">{{g.duty_type_id}}-{{g.duty_type_nm}} ({{g.start_work_time}}->{{g.end_work_time}})</option>
+                </select>
+          </div>
+          <div class="col-sm-7 right">
+              <button type="button" (click)="resetCellsChanged()" class="btn btn-default margin-right-5" *ngIf="hasChanged">
+                  <i class="fa fa-refresh"></i>
+                  {{'Clear Changes'|i18n}}
+              </button>
+              <button type="button" (click)="saveCellsChanged()" class="btn btn-success margin-right-5" *ngIf="hasChanged" [ngClass]="savingAllChanges?'disabled':''">
+                  <i class="fa fa-save"></i>
+                  {{savingAllChanges?'Saving All...':'Save Changes'}}
+              </button>
+              <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs">
+                  <i class="fa fa-times"></i>
+                  {{'button-close' | i18n}}
+              </button>
+          </div>
+      </div>
+      <!-- <div class="dropdown-toggle dropdown pull-right" style="padding: 5px 20px 0 0;">
+        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-angle-down"></i> Sort by</a>
+        <ul class="dropdown-menu">
+          <li>
+            <a><b>Last Modified</b></a>
+          </li>
+          <li>
+            <a>Trader Name</a>
+          </li>
+        </ul>
+      </div> -->
+    </div>
+  </div>
+  <div class="row">
+      <article class="col-sm-12">
+      <div *ngIf="shiftWorkTable!=undefined && this.shiftWorkTable.length>0" sa-widget color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>{{'Shiftwork-Table'|i18n}}
+              </h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding scroll-both-h500">
+              <table id="tblShiftwork" class="table table-striped table-hover table-bordered cell-border table-shiftwork">
+                <thead>
+                  <tr class="heading">
+                      <th class="center" style="width:50px">{{'NO' | i18n}}</th>
+                      <th class="center" style="width:70px">{{'EMPNO' | i18n}}</th>
+                      <th>{{'EMPNAME' | i18n}}</th>
+                      <!-- <th class="center" style="width:100px">Enter Date</th> -->
+                      <th style="width:150px">{{'Department' | i18n}}</th>
+                      <th class="center" style="width:50px">{{'SEX' | i18n}}</th>
+                      <th class="center" *ngFor="let d of shiftWorkTable[0].monthly_data">{{d.day}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let emp of shiftWorkTable; let i=index" data-id="{{i+1}}">
+                    <td class="center">{{i+1}}</td>
+                    <td class="center">{{emp.hr_id}}</td>
+                    <td>{{emp.full_name|uppercase}}</td>
+                    <!-- <td class="center">{{emp.start_work_ymd}}</td> -->
+                    <td class="">{{emp.department_name}}</td>
+                    <td class="center">{{emp.gender}}</td>
+                    <td class="center cell-editable noselect" *ngFor="let d of emp.monthly_data" [title]="d.duty_type_name" [attr.data-day]="d.day" (dblclick)="editADay($event,emp.hr_id,d.day,d.duty_type_id)">{{d.duty_type_id}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            </div>
+        <div class="widget-foot shiftwork">  
+          <div class="row">
+            <div class="atman-paging dt-toolbar-footer">
+              <div class="col-sm-6 col-xs-12 hidden-xs">
+                <div class="dataTables_info" id="DataTables_Table_3_info" role="status"
+                    aria-live="polite">Total {{totalRows}} entries
+                </div>
+              </div>
+              <div class="col-sm-6 col-xs-12 hidden-xs">
+                
+              </div>
+            </div>
+           </div>
+          </div> 
+        </div> 
+       
+        </article>
+  </div>
+</div>

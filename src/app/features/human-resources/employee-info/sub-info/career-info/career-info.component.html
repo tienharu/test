@@ -1,0 +1,28 @@
+<section class="col-lg-12" style="padding: 0;">
+    <div class="widget-body">
+        <ul id="myTab3" class="nav nav-tabs tabs-pull-left">
+            <li class="active" (click)="callChildCare('last')">
+                <a href="#career1" data-toggle="tab">{{'Last-Career-Data' | i18n}}</a>
+            </li>
+            <li class="pull-left" (click)="callChildCare('path')">
+                <a href="#career2" data-toggle="tab">{{'New-Career-Data' | i18n}}</a>
+            </li>
+            <li class="pull-left" (click)="callChildCare('certifi')">
+                <a href="#career3" data-toggle="tab">{{'Certificate-Data' | i18n}}</a>
+            </li>
+        </ul>
+
+        <div id="myTabContent3" class="tab-content padding-10" style="width:100%">
+            <div class="tab-pane fade in active" id="career1">
+                <sa-last-care></sa-last-care>
+            </div>
+            <section class="tab-pane fade" id="career2">
+                    <sa-path-care></sa-path-care>
+            </section>
+            <section class="tab-pane fade" id="career3">
+                    <sa-certificate></sa-certificate>
+            </section>
+        </div>
+
+    </div>
+</section>

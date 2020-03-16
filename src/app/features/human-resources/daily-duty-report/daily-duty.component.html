@@ -1,0 +1,190 @@
+<div id="content">
+        <div class="well well-sm">
+            <div class="row">
+            <div class="col-lg-2 smart-form">
+                <section>
+                <label class="input">
+                  <i class="icon-append fa fa-calendar"></i>
+                  <input
+                  type="text"
+                  autocomplete="off"
+                  [(ngModel)]="calendar"
+                  placeholder="Date"
+                  (ngModelChange)="changeDate($event)"
+                  [saUiDatepicker]="{}"/>
+                </label>
+                </section>
+            </div>
+            <div class="col-lg-3">
+                <button
+                type="button"
+                (click)="search(false)"
+                class="btn btn-default btn-sm margin-right-5">
+                <i class="fa fa-search"></i> {{ "SEARCH" | i18n }}
+                </button>
+                <button
+                type="button"
+                (click)="exportXLSX()"
+                class="btn btn-success btn-sm margin-right-5">
+                <i class="fa fa-file-excel-o"></i>
+                {{ "BUTTON-EXCEL" | i18n }}
+                </button>
+                <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs">
+                <i class="fa fa-times"></i>
+                {{'button-close' | i18n}}
+                </button>
+            </div>
+            </div>
+        </div>
+        <div>
+          <sa-widgets-grid>
+            <div class="row">
+              <section class="col-sm-12">
+                <div sa-widget [editbutton]="false" color="darken">
+                  <header>
+                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                    <h2>{{ "DAILY_DUTY_REPORT" | i18n }}</h2>
+                  </header>
+                  <div>
+                    <div class="widget-body no-padding table-wrap">
+                      <table 
+                        class="table table-striped table-condensed table-hover
+                        table-bordered cell-border table-grid">
+                        <thead>
+                          <tr>
+                            <th class="center">{{ "DAILY_DUTY_NO" | i18n }}</th>
+                            <th class="left">{{ "DAILY_DUTY_DEPT" | i18n }}</th>
+                            <th class="left">{{ "DAILY_DUTY_EMP_NO" | i18n }}</th>
+                            <th class="left">{{ "DAILY_DUTY_CARD_NO" | i18n }}</th>
+                            <th class="center">{{ "DAILY_DUTY_EMP_NAME" | i18n }}</th>
+                            <th class="center">{{ "DAILY_DUTY_ATT_TIME" | i18n }}</th>
+                            <th class="center">{{ "DAILY_DUTY_LEV_TIME" | i18n }}</th>
+                            <th class="center">{{ "DAILY_DUTY_START_ATTEND_LOG" | i18n }}</th>
+                            <th class="center">{{ "DAILY_DUTY_FINISH_ATTEND_LOG" | i18n }}</th>
+                            <th class="center">{{ "DAILY_DUTY_BASIC" | i18n }}</th>
+                            <th class="center">{{ "DAILY_DUTY_OT1" | i18n }}</th>
+                            <th class="center">{{ "DAILY_DUTY_OT2" | i18n }}</th>
+                            <th class="center">{{ "DAILY_DUTY_OT3" | i18n }}</th>
+                            <th class="center">{{ "DAILY_DUTY_OT4" | i18n }}</th>
+                            <th class="center">{{ "DAILY_DUTY_OT5" | i18n }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                            *ngFor="let e of (employees
+                            | paginate
+                            : {
+                            itemsPerPage: pageSize,
+                            currentPage: page,
+                            totalItems: totalItems
+                            });
+                            let i= index">
+                            <td
+                              class="center"
+                              style="width:30px;vertical-align:middle;">
+                              {{ pageSize * (page - 1) + (i + 1) }}
+                            </td>
+                            <td t="s"
+                              class="left"
+                              style="width:150px;vertical-align:middle;">
+                              {{ e.department }}
+                            </td>
+                            <td
+                              class="center"
+                              style="width: 80px;vertical-align:middle;">
+                              {{ e.hr_id }}
+                            </td>
+                            <td
+                              class="left"
+                              style="width:80px;vertical-align:middle;">
+                              {{ e.card_no }}
+                            </td>
+                            <td
+                              class="left"
+                              style="width:100px;vertical-align:middle;">
+                              {{ e.empl_name | uppercase }}
+                            </td>
+                            <td
+                              class="center"
+                              style="width:30px;vertical-align:middle;">
+                              {{ e.att_time }}
+                            </td>
+                            <td
+                              class="center"
+                              style="width:60px;vertical-align:middle;">
+                              {{ e.lev_time }}
+                            </td>
+                            <td
+                              class="center"
+                              style="width:60px;vertical-align:middle;">
+                              {{ e.start_attend_log }}
+                            </td>
+                            <td
+                              class="center"
+                              style="width:60px;vertical-align:middle;">
+                              {{ e.finish_attend_log }}
+                            </td>
+                            <td
+                              class="center"
+                              style="width:60px;vertical-align:middle;">
+                              {{ e.basic }}
+                            </td>
+                            <td
+                              class="center"
+                              style="width:60px;vertical-align:middle;">
+                              {{ e.ot1 }}
+                            </td>
+                            <td
+                              class="center"
+                              style="width:60px;vertical-align:middle;">
+                              {{ e.ot2 }}
+                            </td>
+                            <td
+                              class="center"
+                              style="width:60px;vertical-align:middle;">
+                              {{ e.ot3 }}
+                            </td>
+                            <td
+                              class="center"
+                              style="width:60px;vertical-align:middle;">
+                              {{ e.ot4 }}
+                            </td>
+                            <td
+                              class="center"
+                              style="width:50px;vertical-align:middle;">
+                              {{ e.ot5 }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="widget-foot">
+                      <div class="row">
+                        <div class="atman-paging dt-toolbar-footer">
+                          <div class="col-sm-6 col-xs-12 hidden-xs">
+                            <div class="dataTables_info">
+                              {{ "COMMON_LBL_SHOW" | i18n }} {{ from_record }}
+                              {{ "COMMON_LBL_SHOW_TO" | i18n }} {{ to_record }}
+                              {{ "COMMON_LBL_SHOW_OF" | i18n }} {{ totalItems }}
+                              {{ "COMMON_LBL_SHOW_ENTRIES" | i18n }}
+                            </div>
+                          </div>
+                          <div class="col-sm-6 col-xs-12 hidden-xs">
+                            <pagination-controls
+                              class="my-pagination"
+                              (pageChange)="changePage($event)"
+                              [autoHide]="true"
+                              [previousLabel]="labels.previousLabel"
+                              [nextLabel]="labels.nextLabel">
+                            </pagination-controls>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </sa-widgets-grid>
+        </div>
+    </div>

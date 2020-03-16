@@ -1,0 +1,246 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[('DATA-SHARING GROUP-TITLE'|i18n)]" icon="gear" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>
+  <!-- <sa-widgets-grid> -->
+    <div class="row">
+        <article class="col-sm-4">
+            <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+              <header>
+                <span class="widget-icon">
+                  <i class="fa fa-list"></i>
+                </span>
+                <h2>{{'GROUP-SHARING-SETTING-LIST' | i18n}}</h2>
+              </header>
+              <div>
+                <div class="widget-body no-padding">
+                  <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                    tableClass="table table-striped table-condensed table-hover table-bordered tbl-sharing-group">
+                    <thead>
+                      <tr class="heading">
+                        <th>ID</th>
+                        <th>{{"SHARING-GROUP-NAME" | i18n}}</th>
+                        <!-- <th>{{"PROGRAM-MENU" | i18n}}</th> -->
+                        <th>{{'Use' | i18n}}</th>
+                        <th>{{'CREATED-BY' | i18n}}</th>
+                        <th>{{'CREATED-DATE' | i18n}}</th>
+                      </tr>
+                      <tr>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="Filter Id" />
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="Filter Name" />
+                        </th>
+                        <!-- <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="Filter Name" />
+                        </th> -->
+                        <th class="hasinput">
+                          <select id="filerByStatus" class="form-control select-filter" style="width:100%">
+                            <option value="">All</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="Filter User" />
+                        </th>
+                        <th class="hasinput icon-addon">
+                          <i class="fa fa-calendar margin-top-5"></i>
+                          <input id="date_created" type="text" placeholder="Filter Date" class="form-control datepicker"
+                            [saUiDatepicker]="{}" />
+                        </th>
+                      </tr>
+                    </thead>
+                  </sa-datatable>
+                </div>
+              </div>
+            </div>
+          </article>
+
+      <article class="col-sm-4">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-edit"></i>
+            </span>
+            <h2>{{'GROUP-SHARING-SETTING-INFO' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" class="smart-form atman-form-small frm-detail"
+                novalidate="novalidate" [saUiValidate]="validationOptions">
+                <fieldset>
+                  <div class="row">
+                    <section class="col col-5">
+                      <label class="label">{{'COMPANY' | i18n}}</label>
+                      <label class="input">
+                        <select name="company_id" [(ngModel)]="detailInfo.company_id" select2 required style="width:100%;"
+                          class="select2 required">
+                          <option *ngFor="let s of company" value={{s.company_id}}>{{s.company_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+                    <section class="col col-5">
+                        <label class="label">{{"SHARING-GROUP-NAME" | i18n}}</label>
+                        <label class="input">
+                          <input type="text" name="sharing_group_nm" [(ngModel)]="detailInfo.sharing_group_nm"
+                            autocomplete="off" required class="required_input" />
+                        </label>
+                      </section>
+                      <section class="col col-2">
+                        <label class="label">{{'Use-YN' | i18n}}</label>
+                        <label class="input">
+                          <label class="checkbox">
+                            <input type="checkbox" name="use_yn" [(ngModel)]="detailInfo.use_yn" checked="detailInfo.use_yn">
+                            <i></i>Use
+                          </label>
+                        </label>
+                      </section>
+                  </div>
+                  <section>
+                    <label class="label">{{'Description' | i18n}}</label>
+                    <label class="textarea">
+                      <textarea name="remark" [(ngModel)]="detailInfo.remark" rows="3"></textarea>
+                    </label>
+                  </section>
+                </fieldset>
+
+                <fieldset *ngIf="addedGroup">
+                  <b>Menu in group</b>
+                  <div class="row" style="margin-top: 10px;">
+                    <section class="col col-6">
+                      <label class="input">
+                        <select name="menu_id" [(ngModel)]="detailInfo.menu_id" [defaultVal]="detailInfo.menu_id"
+                          select2 style="width:100%;" class="select2" placeHolder="Select menu"
+                          allowClear="true">
+                          <option value=""></option>
+                          <option *ngFor="let s of menus" value={{s.menu_id}} [disabled]="s.level!=2" >{{s.menu_name_tree}}</option>
+                        </select>
+                      </label>
+                    </section>
+
+                    <section class="col col-6 padding-left-0">
+                      <button type="button" (click)="addMenuToSharingGroup()" [disabled]="menus.length==0" title="Add Menu"
+                        class="btn btn-xs text-sm">
+                        <i class="fa fa-plus"></i> Add Menu
+                      </button>
+                      &nbsp;
+                    </section>
+                  </div>
+
+                  <section style="border: solid 1px #ccc;">
+                    <sa-datatable [options]="optionsOfMenuTable" (rowClick)="onRowMenuClick($event)" tableClass="tbl-list-menu table table-striped table-condensed table-hover table-bordered table-border-all table-footer-light">
+                      <thead>
+                        <tr class="heading">
+                          <th>ID</th>
+                          <th>{{'MENU-NAME' | i18n}}</th>
+                          <th>{{'CREATED-BY' | i18n}}</th>
+                          <th>{{'CREATED-DATE' | i18n}}</th>
+                        </tr>
+                        <tr>
+                          <th class="hasinput">
+                            <input type="text" class="form-control" placeholder="Filter Id" />
+                          </th>
+                          <th class="hasinput">
+                            <input type="text" class="form-control" placeholder="Filter Name" />
+                          </th>
+                          <th class="hasinput">
+                            <input type="text" class="form-control" placeholder="Filter User" />
+                          </th>
+                          <th class="hasinput icon-addon">
+                            <i class="fa fa-calendar margin-top-5"></i>
+                            <input id="date_created" type="text" placeholder="Filter Date" class="form-control datepicker"
+                              [saUiDatepicker]="{}" />
+                          </th>
+                        </tr>
+                      </thead>
+                    </sa-datatable>
+                  </section>
+                </fieldset>
+                <footer>
+                    <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-cancel">
+                        <i class="fa fa-times"></i>
+                        {{'button-close' | i18n}}
+                    </button>
+                  <button type="button" (click)="onReset()" name="reset" class="btn btn-reset-form">
+                    <i class="fa fa-refresh"></i>
+                    {{'button-reset' | i18n}}
+                  </button>
+                  <button type="submit" [disabled]="!this.permission.canSave" name="submit" class="btn btn-primary btn-xs edit-program">
+                    <i class="fa fa-save"></i>
+                    {{'button-save' | i18n}}
+                  </button>
+                </footer>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="col-sm-4">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-edit"></i>
+            </span>
+            <h2>{{'GROUP-SHARING-SETTING-USER' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <form #frmDetail2="ngForm" (ngSubmit)="frmDetail2.form.valid && onSubmit()" class="smart-form atman-form-small frm-detail"
+                novalidate="novalidate" [saUiValidate]="validationOptions">
+                <fieldset *ngIf="addedGroup">
+                  <b>Users in group</b>
+                  <div class="row" style="margin-top: 10px;">
+                    <section class="col col-5">
+                      <label class="input">
+                        <select name="org_id" select2 style="width:100%;" class="select2" (onSelectedChange)="filterUserByOrg($event)"
+                          placeHolder="All organization" allowClear="true">
+                          <option value=""></option>
+                          <option *ngFor="let s of orgs" value={{s.org_cd}}>{{s.org_tree_nm}} </option>
+                        </select>
+                      </label>
+                    </section>
+                    <section class="col col-5 padding-left-0">
+                      <label class="input">
+                        <select name="user_id" select2 style="width:100%;" class="select2" placeHolder="Select user"
+                          allowClear="true">
+                          <option value=""></option>
+                          <option *ngFor="let s of usersbyOrg" value={{s.user_id}}>{{s.user_nm}} ({{s.full_name}})</option>
+                        </select>
+                      </label>
+                    </section>
+                    <section class="col col-2 padding-left-0">
+                      <button type="button" (click)="addUserToSharingGroup()" [disabled]="usersbyOrg.length==0" title="Add User"
+                        class="btn btn-warning btn-xs text-sm">
+                        <i class="fa fa-plus"></i>
+                      </button>
+                      &nbsp;
+                      <button type="button" (click)="addAllUserToSharingGroup()" [disabled]="usersbyOrg.length==0"
+                        title="Add All User" class="btn btn-default btn-xs text-sm">
+                        ALL
+                      </button>
+                    </section>
+                  </div>
+                  <section style="border: solid 1px #ccc;">
+                    <sa-datatable [options]="optionsOfUsersTable" tableClass="tbl-list-users table table-striped table-condensed table-hover table-bordered table-border-all table-footer-light">
+                      <thead>
+                        <tr class="heading">
+                          <th>ID</th>
+                          <th>{{'FULL-NAME' | i18n}}</th>
+                          <th>{{"Organization" | i18n}}</th>
+                          <th>{{'CREATED-DATE' | i18n}}</th>
+                        </tr>
+                      </thead>
+                    </sa-datatable>
+                  </section>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  <!-- </sa-widgets-grid> -->
+</div>

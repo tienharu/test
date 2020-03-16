@@ -1,0 +1,211 @@
+<!-- <div id="content-popup" > -->
+  <form #frmDetail="ngForm" class="smart-form atman-form-small no-header frm-detail_popup" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+  novalidate="novalidate" [saUiValidate]="validationOptions" 
+   >
+    <fieldset>
+      <div class="row"  >
+        <section class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <section class="col col-lg-3">
+            <label class="label">Date</label>
+            <label class="input state-disabled">
+              <input type="text" class="center" name="entryDate" [value]="entryDate" autocomplete="off" disabled/>
+            </label>
+          </section>
+          <section class="col col-lg-9">
+            <label class="label">{{'MATERIAL_NAME' | i18n}}</label>
+            <label class="input state-disabled">
+              <input type="text" name="ck_value_1" [(ngModel)]="materialFullName" autocomplete="off" disabled />
+            </label>
+          </section>
+          <section class="col col-lg-12">
+            <section class="col-lg-8">
+              <label class="label">{{'SUPPLIER' | i18n}}</label>
+              <label class="input">
+                <select name="customerCd"  [defaultVal]="detailInfo.customerCd" [(ngModel)]="detailInfo.customerCd" (onSelectedChange)="onCustomerChange($event)"
+                  select2 style="width:100%;" class="select2 parent_cd required" placeHolder="Select" required>
+                  <option *ngFor="let supplier of suppliers" value={{supplier.customer_cd}}>{{supplier.trader_local_nm}}</option>
+                </select>
+              </label>
+            </section>
+            <section class="col-lg-4">
+              <label class="label" style="visibility: hidden">{{'MATERIAL_CODE' | i18n}}</label>
+              <label class="input state-disabled">
+                <input type="text" class="center" value={{customerSeq}} autocomplete="off" disabled />
+              </label>
+            </section>
+          </section>
+        </section>
+        <section class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <section class="col col-lg-12">
+            <label class="label" style="visibility: hidden;">.</label>
+            <label class="input col-lg-6 state-disabled">
+              <input type="text" name="entry_date" class="center" [value]="entryUser" autocomplete="off" disabled />
+            </label>
+            <label class="input col-lg-6 state-disabled">
+              <input type="text" name="entry_date" class="center" [value]="entryDate" autocomplete="off" disabled />
+            </label>
+          </section>
+          <section class="col col-lg-12">
+            <label class="label">{{'PROCURE_TYPE' | i18n}}</label>
+            <label class="select">
+              <select name="procureTypeGenCd" [(ngModel)]="detailInfo.procureTypeGenCd"  [defaultVal]="detailInfo.procureTypeGenCd"
+                select2 style="width:100%;" class="select2 parent_cd required" placeHolder="Select" required>
+                <option *ngFor="let procureType of procureTypes"   value={{procureType.gen_cd}} [selected]="detailInfo.procureTypeGenCd == procureType.gen_cd"> {{procureType.gen_nm}}</option>
+              </select>
+            </label>
+          </section>
+        </section>
+        <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <section class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <section class="col col-lg-4">
+              <label class="label">{{'PURCHASE_PRICE' | i18n}}</label>
+              <label class="input">
+                <input type="number" min=0 oninput="validity.valid ||(value='');" name="purchasePrice" [(ngModel)]="detailInfo.purchPrice" required autocomplete="off" style="text-align: right" />
+              </label>
+            </section>
+            <section class="col col-lg-4">
+              <label class="label">{{'PACKING_UNIT' | i18n}}</label>
+              <label class="input col-lg-9">
+                <input type="number" min=0 oninput="validity.valid||(value='');"  name="packUnitQty" [(ngModel)]="detailInfo.packingUnitQty"  required autocomplete="off" style="text-align: right"/>
+              </label>
+              <label class="label col-lg-3" style="padding-top: 6px;  text-align: left">
+                <span style="padding-left: 8px;">{{packingUnit}}</span>
+              </label>
+            </section>
+            <section class="col col-lg-4">
+              <label class="label">Loss</label>
+              <label class="input col-lg-9">
+                <input type="number" min=0 oninput="validity.valid||(value='');" name="lossRatio" [(ngModel)]="detailInfo.lossRatio" required autocomplete="off" style="text-align: right"/>
+              </label>
+              <label class="label col-lg-3" style="padding-top: 6px;  text-align: left">
+                <span style="padding-left: 8px;">%</span>
+              </label>
+            </section>
+          </section>
+          <section class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <section class="col col-lg-5">
+              <label class="label">{{'MIN_PO_QTY' | i18n}}</label>
+              <label class="input col-lg-9">
+                <input type="number" min=0 oninput="validity.valid||(value='');" name="minPoQty" [(ngModel)]="detailInfo.minPoQty" required  autocomplete="off" style="text-align: right"/>
+              </label>
+              <label class="label col-lg-3" style="padding-top: 6px;  text-align: left">
+                <span style="padding-left: 8px;">{{packingUnit}}</span>
+              </label>
+            </section>
+            <section class="col col-lg-5">
+              <label class="label">{{'LEAD_TIME' | i18n}}</label>
+              <label class="input col-lg-9">
+                <input type="number" min=0 oninput="validity.valid||(value='');" required name="leadTimeDays" [(ngModel)]="detailInfo.leadTimeDays" autocomplete="off" style="text-align: right"/>
+              </label>
+              <label class="label col-lg-3" style="padding-top: 6px;  text-align: left">
+                <span style="padding-left: 8px;">days</span>
+              </label>
+            </section>
+            <section class="col col-lg-2 checkbox-field">
+              <label class="checkbox">
+                <input type="checkbox" name="useYn" [(ngModel)]="detailInfo.useYn" />
+                <i></i>
+                <span>Active</span>
+              </label>
+            </section>
+          </section>
+          <!-- <section class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+            <section class="col col-lg-12 checkbox-field">
+              <label class="checkbox">
+                <input type="checkbox" name="useYn" [(ngModel)]="detailInfo.useYn" />
+                <i></i>
+                <span>Active</span>
+              </label>
+            </section>
+          </section> -->
+        </section>
+        <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <section class="col col-lg-12">
+            <label class="label">{{'DESCRIPTION' | i18n}}</label>
+            <label class="textarea">
+              <textarea placeholder="Description"  [(ngModel)]="detailInfo.remark" name="remark" value="" rows="1"></textarea>
+            </label>
+          </section>
+          <section class="col col-lg-12" style="margin-top: 7px;">
+            <button type="button" name="btnCloseProgram" (click)="onClose()" class="btn btn-cancel">
+              <i class="fa fa-times"></i>
+              {{'button-close' | i18n}}
+            </button>
+            <button type="button" (click)="onReset()" name="reset" class="btn btn-reset-form"> <i
+              class="fa fa-refresh"></i>
+            {{'BUTTON-RESET' | i18n}}
+          </button>
+            <button type="submit" name="submit" class="btn btn-primary" [disabled] = "isDisable">
+                <i class="fa fa-save"></i>
+                {{'BUTTON-SAVE' | i18n}}
+              </button>
+          </section>
+        </section>
+      </div>
+    </fieldset>
+  </form>
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12">
+        <div>
+          <div class="widget-body no-padding" style="margin: 0px 15px 15px 15px">
+            <sa-datatable [options]="options_popup" (rowClick)="onRowClick($event)" [paginationLength]="false"
+              filter="true" tableClass="table projects-table table-striped table-condensed table-hover table-bordered table_popup">
+              <thead>
+                <tr class="heading">
+                  <th>No</th>
+                  <th>Date</th>
+                  <th>{{'SUPPLIER' | i18n}}</th>
+                  <th>{{'TYPE' | i18n}}</th>
+                  <th>{{'POPUP_PRICE' | i18n}}</th>
+                  <th>Loss</th>
+                  <th>{{'PO_QTY' | i18n}}</th>
+                  <th>{{'LEAD_TIME' | i18n}}</th>
+                  <th>{{'DESCRIPTION' | i18n}}</th>
+                </tr>
+                <tr>
+                  <th class="hasinput" >
+                    <input type="text" class="form-control" placeholder="" name="No"/>
+                  </th>
+                  <th class="hasinput" >
+                    <label style="width: 100%;">
+                      <input type="text" name="set_date"  autocomplete="off" style="margin-top: 5px;"
+                        placeholder="yyyy-MM-dd" [saUiDatepicker]="{dateFormat: 'yyyy/mm/dd'}" />
+                    </label>
+                  </th>
+                  <th class="hasinput" >
+                    <select name="filter_location" class="form-control select-filter" placeHolder="Filter" style="width: 100%;">
+                      <option value="">All</option>
+                      <option *ngFor="let supplier of suppliers" value={{supplier.customer_cd}}>{{supplier.trader_local_nm}} </option>
+                    </select>
+                  </th>
+                  <th class="hasinput">
+                    <select name="filter_location" class="form-control select-filter" placeHolder="Filter" style="width: 100%;">
+                      <option value="">All</option>
+                      <option *ngFor="let procureType of procureTypes" value={{procureType.gen_cd}}>{{procureType.gen_nm}} </option>
+                    </select>
+                  </th>
+                  <th class="hasinput" >
+                      <input type="text" class="form-control" name = "price" placeholder="Filter" />
+                  </th>
+                  <th class="hasinput" >
+                    <input type="number" class="form-control" name = "loss_ratio" placeholder="Filter" />
+                  </th>
+                  <th class="hasinput">
+                      <input type="number" class="form-control" name = "poqty" placeholder="filter" />
+                  </th>
+                  <th class="hasinput">
+                      <input type="number" class="form-control" name = "lead_time"  placeholder="Filter" />
+                  </th>
+                  <th class="hasinput">
+                    <input type="text" class="form-control" name = "re_mark" placeholder="Filter" />
+                  </th>
+                </tr>
+              </thead>
+            </sa-datatable>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+<!-- </div> -->

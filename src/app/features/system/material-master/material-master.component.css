@@ -1,0 +1,39 @@
+.heading th{
+    height: 24px;
+}
+.checkbox-field .checkbox{
+    margin-top: 22px;
+    }
+.checkbox-field .checkbox i{
+    right: 0px;
+    left: auto;
+}
+.checkbox-field .checkbox span{
+    position: absolute;
+    right: 25px;
+    top: -2px;
+}
+.non-padding {
+    padding: 0;
+}
+.non-padding-left {
+    padding-left: 0;
+}
+.non-padding-right {
+    padding-right: 0;
+}
+.padding-right-col {
+    padding-right: 30px;
+}
+.padding-left-col {
+    padding-left: 30px;
+}
+.txtarea-height {
+    height: 62px;
+}
+.btn.popup-supp {
+    background-color: #a0804e;
+    float: left;
+    color: #FFFFFF;
+    margin-left: 0;
+}

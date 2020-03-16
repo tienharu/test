@@ -1,0 +1,129 @@
+<div class="col-lg-12 right-content">
+    <section class="widget-body no-padding col-lg-4 field-1">
+        <form class="smart-form frmAcademic" #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" novalidate="novalidate"
+        [saUiValidate]="validationOptions">
+                <fieldset>
+                            <section class="col-lg-12">
+                                <label class="label col-lg-5">{{'School-Class' | i18n}}</label>
+                                <label class="input col-lg-6">
+                                    <select select2 class="select2 required" required name="school_type_gen_cd" [(ngModel)]="academicInfo.school_type_gen_cd" [defaultVal]="academicInfo.school_type_gen_cd" style="width:100%" placeHolder="School Class">
+                                        <option *ngFor="let item of school" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                    </select>
+                                </label>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'School-Name' | i18n}}</label>
+                                    <label class="input col-lg-6">
+                                        <input type="text"  name="school_nm" [(ngModel)]="academicInfo.school_nm" />
+                                    </label>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Entrance-date' | i18n}}</label>
+                                    <label class="input col-lg-6"> <i class="icon-append fa fa-calendar"></i>
+                                        <input type="text"  name="start_ymd" [(ngModel)]="academicInfo.start_ymd" [saUiDatepicker] placeholder="yyyy-mm-dd" autocomplete="off">
+                                    </label>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Graduation-date' | i18n}}</label>
+                                    <label class="input col-lg-6"> <i class="icon-append fa fa-calendar"></i>
+                                        <input type="text" name="graduated_ymd" [(ngModel)]="academicInfo.graduated_ymd" [saUiDatepicker] placeholder="yyyy-mm-dd" autocomplete="off">
+                                    </label>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Graduate-Type' | i18n}}</label>
+                                    <label class="input col-lg-6">
+                                        <select select2 class="select2" name="graduated_type_cd" [(ngModel)]="academicInfo.graduated_type_cd" [defaultVal]="academicInfo.graduated_type_cd" style="width:100%" placeHolder="">
+                                            <option *ngFor="let item of graduateType" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                        </select>
+                                    </label>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Major' | i18n}}</label>
+                                    <label class="input col-lg-6">
+                                        <input type="text" name="major_nm" [(ngModel)]="academicInfo.major_nm" />
+                                    </label>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Grade' | i18n}}</label>
+                                    <label class="input col-lg-6">
+                                        <select select2 class="select2" name="diploma_level_gen_cd" [(ngModel)]="academicInfo.diploma_level_gen_cd" [defaultVal]="academicInfo.diploma_level_gen_cd" style="width:100%" placeHolder="select">
+                                          <option *ngFor="let item of diplomaLevel" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                        </select>
+                                    </label>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Doctorate' | i18n}}</label>
+                                    <label class="input col-lg-6">
+                                        <input type="text" name="doctorate_nm" [(ngModel)]="academicInfo.doctorate_nm" />
+                                    </label>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Remarks' | i18n}}</label>
+                                    <label class="textarea col-lg-6">
+                                        <textarea rows="3" name="remark" [(ngModel)]="academicInfo.remark" class="custom-scroll"></textarea> </label>
+                                    <div class="note">
+                                    </div>
+                            </section>  
+                            <section class="col-lg-11 btn-cmd">
+                              <button class="btn btn-small btn-primary" [disabled]="!permission.canSave" type="submit"><i class="fa fa-save"></i> {{'BUTTON-SAVE' | i18n}}</button>
+                              <button class="btn btn-small btn-default" type="button" (click)="onReset()"><i class="fa fa-refresh"></i> {{'BUTTON-RESET' | i18n}}</button>
+                          </section>
+                </fieldset>
+            </form>
+      
+      </section>
+      <section class="col-lg-8 field-2">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+                <div>
+                    <div class="widget-body no-padding">
+                        <sa-datatable  [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                        tableClass="eplAcademicInfoList table table-striped table-condensed table-hover table-bordered">
+                            <thead>
+                                <tr class="heading">
+                                    <th>{{'Academic-Name' | i18n}}</th>
+                                    <th>{{'Grade' | i18n}}</th>
+                                    <th>{{'GRADUATION-DATE' | i18n}}</th>
+                                    <th>{{'Type' | i18n}}</th>
+                                    <th>{{'Major' | i18n}}</th>
+                                    <th>{{'Doctorate' | i18n}}</th>
+                                    <th>{{'Remarks' | i18n}}</th>
+                                </tr>
+                                <tr>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Filter Name" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <select class="form-control select-filter" name="filter_relate"
+                                            style="width:100%">
+                                            <option value="">{{'All' | i18n}}</option>
+                                            <option *ngFor="let item of diplomaLevel" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                        </select>
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Graduation Date" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <select class="form-control select-filter" name="Type"
+                                            style="width:100%">
+                                            <option value="">{{'All' | i18n}}</option>
+                                            <option value="1">{{'Drop' | i18n}}</option>
+                                            <option value="2">{{'Out' | i18n}}</option>
+                                        </select>
+                                    </th>
+                                    <th class="hasinput">
+                                                <input type="text" class="form-control" placeholder="Major" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Doctorate" />
+                                    </th>
+                                    <th class="hasinput">
+                                      <input type="text" class="form-control" placeholder="Remarks" />
+                                      </th>
+                                </tr>
+                            </thead>
+                        </sa-datatable>
+                    </div>
+                </div>
+            </div>   
+      </section>
+</div>

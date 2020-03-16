@@ -1,0 +1,51 @@
+.checkbox-field-left .checkbox,
+.checkbox-field-right .checkbox {
+    margin-top: 45px;
+    }
+.checkbox-field-right .checkbox i{
+    right: 0px;
+    left: auto;
+}
+.checkbox-field-right .checkbox span{
+    position: absolute;
+    right: 40px;
+    top: -2px;
+}
+.checkbox-field-left .checkbox i{
+    right: 15px;
+    left: auto;
+}
+.checkbox-field-left .checkbox span{
+    position: absolute;
+    left: 0;
+    top: -2px;
+}
+.heading th{
+    width: 100%;
+    height: 24px;
+}
+footer{
+    background-color: #F3F3F3;
+    border: none;
+}
+.non-padding {
+    padding: 0;
+}
+.non-padding-right {
+    padding-right: unset;
+}
+.non-padding-left {
+    padding-left: unset;
+}
+#label-hidden {
+    visibility: hidden;
+}
+.padding-right-col {
+    padding-right: 30px;
+}
+.padding-left-col {
+    padding-left: 30px;
+}
+.col.col-checkbox {
+    width: 12.5%;
+}

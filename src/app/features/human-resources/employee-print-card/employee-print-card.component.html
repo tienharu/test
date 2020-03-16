@@ -1,0 +1,64 @@
+<div id="content">
+  <div class="well well-sm">
+      <div class="row">
+          <div class="col-lg-2 smart-form">
+              <section>
+              <label class="input">
+                  <select
+                  select2
+                  class="form-control select2"
+                  [(ngModel)]="orgid"
+                  style="width:100%"
+                  placeHolder="Department"
+                  allowClear="true">
+                  <option
+                      *ngFor="let item of departments"
+                      value="{{ item.org_cd }}">{{ item.org_tree_nm }}</option>
+                  </select>
+              </label>
+              </section>
+          </div>
+      <div class="col-lg-2 smart-form">
+        <label class="input">
+          <input type="text" [(ngModel)]="hrId" class="form-control center" placeHolder="HR ID" title="Can search by multi HR ID by comma separate(xxxx,yyyy,zzzz)">
+        </label>
+      </div>
+      <div class="col-lg-1 smart-form">
+        <label class="input">
+          <input type="text" [(ngModel)]="hiredFrom" [saUiDatepicker]="{}" class="form-control center" autocomplete="off" title="Start work from" placeHolder="From YYYY-MM-DD">
+        </label>
+      </div>
+      <div class="col-lg-1 smart-form">
+        <label class="input">
+          <input type="text" [(ngModel)]="hiredTo" [saUiDatepicker]="{}" class="form-control center" autocomplete="off" title="Start work to" placeHolder="To YYYY-MM-DD">
+        </label>
+      </div>
+      <div class="col-lg-3">
+          <button
+          type="button"
+          (click)="onSearch()"
+          class="btn btn-default btn-sm margin-right-5">
+          <i class="fa fa-search"></i> {{ "SEARCH" | i18n }}
+          </button>
+          <button type="button" (click)="print()" class="btn btn-sm btn-info margin-right-5"
+          *ngIf="data.length">
+          <i class="fa fa-print"></i>
+          {{'Print'|i18n}}
+        </button>
+          <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs">
+          <i class="fa fa-times"></i>
+          {{'button-close' | i18n}}
+          </button>
+      </div>
+      </div>
+  </div>
+  <div class="row">
+    <p class="margin-bottom-10 " style="padding-left: 15px">{{data.length}} employee(s) found</p>
+    <div id="printTable" class="hr-card" style="width:1100px;margin:auto">
+        <div class="hr-card-print" *ngFor="let d of data" style="width:229px;margin:0px 0px 2px 0px;float:left">
+            <img *ngIf="d.card_image" src="{{d.card_image}}"/>
+          </div>
+    </div>
+    
+  </div>
+</div>

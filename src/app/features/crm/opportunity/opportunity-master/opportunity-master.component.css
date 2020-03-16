@@ -1,0 +1,119 @@
+.no-padding-left{padding-left: 0}
+.border-right{border-right: 1px solid #e5e5e5;}
+.sharing .select2-container{width: 100% !important}
+:host /deep/ .sharing .clearSelected{padding: 4px 9px}
+:host /deep/ .sharing .select2-selection{height: 26px !important; line-height: 24px !important;}
+:host /deep/ .sharing .select2-selection--multiple{position: relative; overflow: auto;}
+:host /deep/ .sharing .select2-selection--multiple .select2-selection__choice{margin: 2px 0 3px 5px !important;}
+.saleOpt span.label{font-size: 11px;font-weight: normal;}
+.opportunity-master td span.label{margin:0 5px}
+
+:host /deep/ .customProgress { 
+  height: 20px;  /* Can be anything */
+  padding: 1px;
+	position: relative;
+	background: #e5e5e5;
+	-moz-border-radius: 25px;
+	-webkit-border-radius: 25px;
+	border-radius: 25px;
+	box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+}
+:host /deep/ .customProgress > span {
+    display: block;
+    height: 100%;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    /* background-color: rgb(43,194,83);
+    background-image: linear-gradient(
+      center bottom,
+      rgb(43,194,83) 37%,
+      rgb(84,240,84) 69%
+    ); */
+    background-color: #f42323;
+    /* background-image: linear-gradient(to bottom, #f0a3a3, #f42323); */
+    box-shadow: 
+      inset 0 2px 9px  rgba(255,255,255,0.3),
+      inset 0 -2px 6px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+    transition: 1s linear;
+  }
+
+  :host /deep/ .customProgress > span:after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background-image: linear-gradient(
+      -45deg, 
+      rgba(255, 255, 255, .2) 25%, 
+      transparent 25%, 
+      transparent 50%, 
+      rgba(255, 255, 255, .2) 50%, 
+      rgba(255, 255, 255, .2) 75%, 
+      transparent 75%, 
+      transparent
+    );
+    z-index: 1;
+    background-size: 50px 50px;
+    animation: move 2s linear infinite;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    overflow: hidden;
+  }
+  :host /deep/ .customProgress .twenty{background-color: #f6860f;}
+  :host /deep/ .customProgress .fourty{background-color: #f6c70f;}
+  :host /deep/ .customProgress .sixty{background-color: #f2f60f;}
+  :host /deep/ .customProgress .eighty{background-color: #d3f60f;}
+  :host /deep/ .customProgress .ninety{background-color: #d3f60f;}
+  :host /deep/ .customProgress .hundred{background-color: #acf60f;}
+
+  :host /deep/ .customProgress > span:after, .animate > span > span {
+    animation: move 2s linear infinite;
+  }
+  :host /deep/ .animate > span:after {
+    display: none;
+  }
+  @keyframes move {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 50px 50px;
+    }
+  }
+
+.well.well-sm{border:none;margin-bottom: 8px;}
+:host /deep/ .sharing h2{font-size: 17px;margin-bottom: 15px;}
+:host /deep/ h5{margin-bottom: 10px}
+/* .progressbar-td{padding-bottom: 0px} */
+.progressbar-td p{text-align: center;margin: 0}
+
+:host /deep/ .smart-tbl-progress .customProgress span{text-align: center;color: #3e3a3a;line-height: 18px;}
+:host /deep/ .smart-tbl-progress p{text-align: center;margin: 0;}
+:host /deep/ .smart-tbl .label-span{margin: 4px 0;}
+:host /deep/ .smart-tbl .label-span span.label{font-size: 100%;font-weight: 300;}
+:host /deep/ .smart-tbl th,.smart-tbl td{vertical-align: inherit;}
+:host /deep/ .smart-tbl tr th{text-align:center}
+:host /deep/ .smart-tbl .dataTables_scrollBody{height: calc(100vh - 350px) !important;}
+:host /deep/ .smart-tbl tr td:first-child{padding: 0 10px !important;}
+:host /deep/ .smart-tbl tr td .lost-holding{text-align: center;color: red;}
+/* :host /deep/ .smart-tbl tr td:nth-child(7),:host /deep/ .smart-tbl tr td:nth-child(8){width: 123px;} */
+:host /deep/ .smart-tbl tr td .label-span span.label{font-size: 80%;}
+:host /deep/ .smart-tbl tr td:nth-child(3),:host /deep/ .smart-tbl tr td:nth-child(4){padding: 0 5px !important}
+/* :host /deep/ table.dataTable{margin-top:0 !important} */
+:host /deep/ .smart-tbl tr th{font-size: 12px;}
+:host /deep/ .smart-tbl thead tr{background-color: #d8d8d885;}
+:host /deep/ .smart-tbl thead tr th{border-right: 1px solid #cacacac9;}
+:host /deep/ .smart-tbl .dataTable.no-footer,:host /deep/ .smart-tbl .dataTables_scrollHeadInner{width: 100% !important}
+
+/* .saleOpt .label-span{height: 25px;}
+.saleOpt th,.saleOpt td{vertical-align: inherit;}
+.saleOpt tr th{text-align:center}
+.saleOpt tr td:nth-child(2),.saleOpt tr td:nth-child(10){width:100px;text-align: center;}
+.saleOpt tr td:nth-child(3),.saleOpt tr td:nth-child(4){width:165px}
+.saleOpt tr td:nth-child(5),.saleOpt tr td:nth-child(6),.saleOpt tr td:nth-child(9){width: 115px;text-align: center;}
+.saleOpt tr td:nth-child(7),.saleOpt tr td:nth-child(8){width: 150px;} */

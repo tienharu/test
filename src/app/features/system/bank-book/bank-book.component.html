@@ -1,0 +1,340 @@
+<div id="content">
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-magic"></i>{{'BANK_BOOK-MASTER' | i18n}}</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <section class="col-md-4 col-lg-4">
+      <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+        class="smart-form atman-form-small no-header frm-detail" novalidate="novalidate"
+        [saUiValidate]="validationOptions">
+        <fieldset style="padding-bottom: 15px;">
+          <div class="row">
+            <section class="col-md-12 col-lg-12">
+              <!-- entry date and member -->
+              <section class="col col-lg-4">
+                <label class="label">{{'AR_ENTRYDAY' | i18n}}</label>
+                <label class="input  state-disabled">
+                  <input type="text" class="center" autocomplete="off" value={{this.dateTimeNow}} disabled />
+                </label>
+              </section>
+              <section class="col col-lg-4">
+                <label class="label">{{'AR_ENTRYMEMBER' | i18n}}</label>
+                <label class="input state-disabled">
+                  <input type="text" class="center" value={{this.userName.user_name}} autocomplete="off" disabled />
+                </label>
+              </section>
+              <!-- place of biz and currency-->
+              <!-- <section class="col col-lg-6">
+                <label class="label">{{'PLACE_OF_BIZ' | i18n}}</label>
+                <label class="input">
+                    <select name="bankcd" select2 [(ngModel)]="detailInfo.bankcd" [defaultVal]="detailInfo.bankcd"
+                    style="width:100%;" class="select2 parent_cd required" placeHolder="Select " required>
+                    <option *ngFor="let bankList of bankLists" value={{bankList.gen_cd}}>
+                      {{bankList.gen_nm}}</option>
+                  </select>
+                </label>
+              </section> -->
+              <section class="col col-lg-2">
+                <label class="input">
+                  <label class="label">{{'SO_CURRENCY' | i18n}}</label>
+                  <select name="currencygin" select2 [(ngModel)]="detailInfo.currencygin"
+                  [defaultVal]="detailInfo.currencygin" style="width:100%;" class="select2 parent_cd required"
+                  placeHolder="Select " required>
+                  <option *ngFor="let currency of currencys" value={{currency.gen_cd}}>
+                    {{currency.gen_nm}}</option>
+                </select>
+                </label>
+              </section>
+              <!-- Bank Name -->
+              <section class="col col-lg-6">
+                <label class="label">{{'BANK_NAME' | i18n}}</label>
+                <label class="input">
+                  <select name="bankcd" select2 [(ngModel)]="detailInfo.bankcd" [defaultVal]="detailInfo.bankcd"
+                    style="width:100%;" class="select2 parent_cd required" placeHolder="Select " required>
+                    <option *ngFor="let bankList of bankLists" value={{bankList.gen_cd}}>
+                      {{bankList.gen_nm}}</option>
+                  </select>
+                </label>
+              </section>
+              <section class="col col-lg-6">
+                <label class="label">&nbsp;</label>
+                <label class="input">
+                  <input type="text" name="branchnm" [(ngModel)]="detailInfo.branchnm"
+                    value="detailInfo.branchnm" placeHolder="Branch Name " autocomplete="off" required/>
+                </label>
+              </section>
+              <!-- BankBook Name -->
+              <section class="col col-lg-12">
+                <label class="label">{{'BANKBOOK_NAME' | i18n}}</label>
+                <label class="input">
+                  <input type="text" name="bankbooknm" [(ngModel)]="detailInfo.bankbooknm"
+                    value="detailInfo.bankbooknm" autocomplete="off" />
+                </label>
+              </section>
+              <!-- BankBook Type -->
+              <section class="col col-lg-6">
+                <label class="label">{{'BANKBOOK_TYPE' | i18n}}</label>
+                <label class="input">
+                  <select name="bankbooktypegin" select2 [(ngModel)]="detailInfo.bankbooktypegin"
+                    [defaultVal]="detailInfo.bankbooktypegin" style="width:100%;" class="select2 parent_cd required"
+                    placeHolder="Select " required>
+                    <option *ngFor="let bankBookTypeList of bankBookTypeLists" value={{bankBookTypeList.gen_cd}}>
+                      {{bankBookTypeList.gen_nm}}</option>
+                  </select>
+                </label>
+              </section>
+              <section class="col col-lg-6">
+                <label class="label">{{'OVERDRAFT' | i18n}}</label>
+                <label class="input">
+                  <input type="text" class="center" name="overdraftamount" [(ngModel)]="detailInfo.overdraftamount"
+                    value="detailInfo.overdraftamount" autocomplete="off" />
+                </label>
+              </section>
+              <!-- Account -->
+              <section class="col col-lg-6">
+                <label class="label">{{'ACCOUNT' | i18n}}</label>
+                <label class="input">
+                    <select name="bankbookacctcd" select2 [(ngModel)]="detailInfo.bankbookacctcd"
+                    [defaultVal]="detailInfo.bankbookacctcd" style="width:100%;" class="select2 parent_cd required"
+                    placeHolder="Select " required>
+                    <option *ngFor="let account of accounts" value={{account.standardacctcd}}>
+                      {{account.acctkoreanm}}</option>
+                  </select>
+                </label>
+              </section>
+              <!-- BankBook No -->
+              <section class="col col-lg-4">
+                <label class="label">{{'BANK-BOOK-NO' | i18n}}</label>
+                <label class="input">
+                  <input type="text" name="bankbookno" class="center" [(ngModel)]="detailInfo.bankbookno" autocomplete="off" required />
+                </label>
+              </section>
+              <section class="col col-lg-2">
+                <label class="label" style="visibility: hidden">Code</label>
+                <label class="input state-disabled">
+                  <input type="text" name="bankbookcd" class="center" value={{this.detailInfo.bankbookcd}} autocomplete="off" disabled />
+                </label>
+              </section>
+              <!-- Period -->
+              <section class="col-lg-12">
+                <section class="col col-3">
+                  <label class="input">
+                    {{'PERIOD' | i18n}}
+                    <input type="text" name="fromymd" [(ngModel)]="detailInfo.fromymd" [saUiDatepicker]=""
+                      placeholder="Select from" autocomplete="off" />
+                  </label>
+                </section>
+                <section class="col col-3">
+                  <label class="input" style="visibility: hidden;">
+                    .
+                  </label>
+                  <label class="input">
+                    <span id="order-character-1">~</span>
+                    <input type="text" name="toymd" [(ngModel)]="detailInfo.toymd" [saUiDatepicker]=""
+                      placeholder="Select to" autocomplete="off" />
+                  </label>
+                </section>
+              </section>
+              <!-- Interest Rate	 -->
+              <section class="col col-lg-4">
+                <label class="label">{{'INTEREST_RATE' | i18n}}</label>
+                <label class="input">
+                  <!-- <input type="text" class="center" value={{this.detailInfo.interestrate}} autocomplete="off" /> -->
+                  <input type="text" class="center"  autocomplete="off" />
+                </label>
+              </section>
+              <section class="col col-lg-4">
+                <label class="label" style="visibility: hidden">Code</label>
+                <label class="input">
+                    <select name="interestcalcgin" select2 [(ngModel)]="detailInfo.interestcalcgin"
+                    [defaultVal]="detailInfo.interestcalcgin" style="width:100%;" class="select2 parent_cd "
+                    placeHolder="Select " >
+                    <option *ngFor="let interestCalc of interestCalcs" value={{interestCalc.gen_cd}}>
+                      {{interestCalc.gen_nm}}</option>
+                  </select>
+                </label>
+              </section>
+              <section class="col col-lg-4">
+                <label class="label" style="visibility: hidden">Use Yn</label>
+                <label class="checkbox">
+                  <input type="checkbox" name="useyn" [(ngModel)]="detailInfo.useyn" />
+                  <i class="checkbox-icon-right"></i>
+                  <span style="margin-left: 20px;">Use Yn</span>
+                </label>
+              </section>
+              <section class="col col-lg-12">
+                <label class="label">{{'REMARK' | i18n}}</label>
+                <label class="input">
+                  <input type="text" name="remark" class="center" [(ngModel)]="detailInfo.remark"  autocomplete="off" />
+                </label>
+              </section>
+              <section class="col-lg-12">
+                <section class="col col-lg-4">
+                  <label class="label">{{'FIRST_PAY_IN' | i18n}}</label>
+                  <label class="input">
+                      <input type="text" name="firstpayinymd" [(ngModel)]="detailInfo.firstpayinymd" [saUiDatepicker]=""
+                      placeholder="Select" autocomplete="off"  />
+                  </label>
+                </section>
+                <section class="col col-lg-4" style="float: right;">
+                  <label class="label">{{'INTERVAL_OF_MONTHLY' | i18n}}</label>
+                  <label class="input">
+                    <input type="text" name="interval" class="center" [(ngModel)]="detailInfo.interval" autocomplete="off" />
+                  </label>
+                </section>
+              </section>
+              <section class="col-lg-12">
+                <section class="col col-lg-4">
+                  <label class="label">{{'AMOUNT_PAY_IN' | i18n}}</label>
+                  <label class="input">
+                    <span id="order-character-2">* per month</span>
+                    <input type="text" name="monthlyamount" class="center" [(ngModel)]="detailInfo.monthlyamount" autocomplete="off" />
+                  </label>
+                </section>
+                <section class="col col-lg-4" style="float: right;">
+                  <label class="label">{{'TOTAL_PAY_IN_TIMES' | i18n}}</label>
+                  <label class="input">
+                    <input type="text" name="suminterval" class="center" [(ngModel)]="detailInfo.suminterval" autocomplete="off" />
+                  </label>
+                </section>
+              </section>
+              <section class="col-lg-12">
+                <section class="col col-lg-4">
+                  <label class="label">{{'TOTAL_PAY_IN_AMOUNT' | i18n}}</label>
+                  <label class="input">
+                    <input type="text" name="sumpayinamount" class="center" [(ngModel)]="detailInfo.sumpayinamount" autocomplete="off" />
+                  </label>
+                </section>
+                <section class="col col-lg-4" style="float: right;">
+                  <label class="label">{{'MATURITY_AMOUNT' | i18n}}</label>
+                  <label class="input">
+                    <input type="text" name="maturityamount" class="center" [(ngModel)]="detailInfo.maturityamount" autocomplete="off" />
+                  </label>
+                </section>
+              </section>
+              <section class="col col-lg-4">
+                <label class="label">{{'CANCLE_DATE' | i18n}}</label>
+                <label class="input">
+                  <input type="text" name="cancelymd" [(ngModel)]="detailInfo.cancelymd" [saUiDatepicker]=""
+                  placeholder="Select" autocomplete="off"  />
+                </label>
+              </section>
+              <section class="col col-lg-12">
+                <label class="label">{{'REASONs' | i18n}}</label>
+                <label class="input">
+                  <input type="text" name="cancelreason" [(ngModel)]="detailInfo.cancelreason" placeHolder=""
+                    autocomplete="off" />
+                </label>
+              </section>
+            </section>
+            <section class="col col-lg-12">
+              <div class="smart-form" style="top: 5px;">
+                <footer style="background:none;border:none;padding: 0;float: right;">
+                  <button type="button"  (click)="onCloseProgram()" name="btnCloseProgram" class="btn btn-cancel">
+                    <i class="fa fa-times"></i>
+                    {{'button-close' | i18n}}
+                  </button>
+                  <button type="button" (click)="onReset()" name="reset" class="btn btn-reset-form">
+                    <i class="fa fa-refresh"></i>
+                    {{'BUTTON-RESET' | i18n}}
+                  </button>
+                  <button type="submit" [disabled]="!this.permission.canSave" name="submit" class="btn btn-primary">
+                    <i class="fa fa-save"></i>
+                    {{'BUTTON-SAVE' | i18n}}
+                  </button>
+                </footer>
+              </div>
+            </section>
+          </div>
+        </fieldset>
+      </form>
+    </section>
+
+    <section class="col-md-8 col-lg-8">
+      <sa-widgets-grid>
+        <div class="row">
+          <article class="col-sm-12">
+            <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+              <header>
+                <span class="widget-icon">
+                  <i class="fa fa-list"></i>
+                </span>
+                <h2>{{'BANKBOOK_LIST' | i18n}}</h2>
+              </header>
+              <div>
+                <div class="widget-body no-padding">
+                  <sa-datatable [options]="options" (rowClick)="onRowClick($event)" [paginationLength]="true"
+                    filter="true"
+                    tableClass="table table-striped table-condensed table-hover table-bordered tableBankBook">
+                    <thead>
+                      <tr class="heading">
+                        <th>{{'BANK-BOOK-NO' | i18n}}</th>
+                        <th>{{'SO_CURRENCY' | i18n}}</th>
+                        <!-- <th>{{'PLACE' | i18n}}</th> -->
+                        <th>{{'TYPE' | i18n}}</th>
+                        <th>{{'BANK' | i18n}}</th>
+                        <th>{{'NAME' | i18n}}</th>
+                        <th>{{'CANCLE' | i18n}}</th>
+                        <th>{{'use-yn' | i18n}}</th>
+                        <th>{{'REMARK' | i18n}}</th>
+                      </tr>
+                      <tr>
+                        <th class="hasinput" [ngStyle]="{width:'50px'}">
+                          <input type="text" class="form-control" placeholder="" />
+                        </th>
+                        <th class="hasinput">
+                          <select class="form-control select-filter" style="width: 100%;">
+                            <option value="">All</option>
+                            <option *ngFor="let currency of currencys" value={{currency.gen_cd}}>{{currency.gen_nm}}</option>
+                          </select>
+                        </th>
+                        <!-- <th class="hasinput">
+                          <select class="form-control select-filter" style="width: 100%;">
+                            <option value="">All</option>
+                            <option *ngFor="let currency of currencys" value={{currency.gen_cd}}>{{currency.gen_nm}}</option>
+                          </select>
+                        </th> -->
+                        <th class="hasinput">
+                          <select class="form-control select-filter" style="width: 100%;">
+                            <option value="">All</option>
+                            <option *ngFor="let bankBookTypeList of bankBookTypeLists" value={{bankBookTypeList.gen_cd}}>{{bankBookTypeList.gen_nm}}</option>
+                          </select>
+                        </th>
+                        <th class="hasinput">
+                          <select class="form-control select-filter" style="width: 100%;">
+                            <option value="">All</option>
+                            <option *ngFor="let bankList of bankLists" value={{bankList.gen_cd}}>{{bankList.gen_nm}}</option>
+                          </select>
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="" />
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="" />
+                        </th>
+                        <th class="hasinput" [ngStyle]="{width:'60px'}">
+                          <select id="filerByActiveYN" class="form-control select-filter" style="width: 100%;">
+                            <option value="">All</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </th>
+                        <th class="hasinput" [ngStyle]="{width:'60px'}">
+                          <input type="text" class="form-control" placeholder="" />
+                        </th>
+                      </tr>
+                    </thead>
+                  </sa-datatable>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </sa-widgets-grid>
+    </section>
+  </div>
+</div>

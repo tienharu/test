@@ -1,0 +1,425 @@
+<div id="content">
+  <sa-widgets-grid>
+    <div class="row">
+
+      <article class="col-sm-3">
+        <!-- form 1  -->
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2> {{'SV_ITEM_PANEL_HEADER_EDIT_CATE' | i18n}}</h2>
+
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <form #formCategory="ngForm" (ngSubmit)="formCategory.form.valid && onSubmitCategoryForm()" class="smart-form atman-form-small frm-detail"
+                novalidate="novalidate" [saUiValidate]="validationOptionsCategory">
+                <fieldset>
+                  <div class="row">
+                    <section class="col col-8">
+                      <label class="label">{{'SV_ITEM_CATE_NAME'|i18n}}</label>
+
+                      <label class="input">
+                        <input type="text" name="crm_service_cate_nm" required value="crmMasServiceCategoyModel.crm_service_cate_nm"
+                          [(ngModel)]="crmMasServiceCategoyModel.crm_service_cate_nm">
+                      </label>
+                    </section>
+
+                    <section class="col col-3">
+                      <label class="label">{{'LEVEL' | i18n}}</label>
+
+                      <label class="input">
+                        <select select2 style="width:100%;" placeHolder="level" [disabled]="isSelecting" [defaultVal]="crmMasServiceCategoyModel.level"
+                          [(ngModel)]="crmMasServiceCategoyModel.level" name="level" required class=" required"
+                          (onSelectedChange)="onChangeLevel($event)">
+                          <option *ngFor="let d of level" value="{{d}}">{{d}}</option>
+                        </select>
+                      </label>
+                    </section>
+                  </div>
+
+                  <div class="row">
+                    <section class="col col-8">
+                      <label class="label">{{"SV_ITEM_PARENT_CATE" | i18n}}</label>
+                      <!-- <label class="label">Parent Category</label> -->
+                      <label class="input">
+                        <select select2 style="width:100%;" name="parent_cate_id" [disabled]="isSelecting" [(ngModel)]="crmMasServiceCategoyModel.parent_cate_id"
+                          [defaultVal]="crmMasServiceCategoyModel.parent_cate_id" placeholder='Root category'
+                          allowClear="true">
+                          <option value=""></option>
+                          <option *ngFor="let e of listParentCategoryShow" value='{{e.crm_service_cate_id}}'>
+                            <!-- {{e.level  == 2 ? '&nbsp;&nbsp;&nbsp;'+e.crm_service_cate_nm :e.crm_service_cate_nm }} -->
+                            <!-- {{e.parent_cate_id}} -->
+                            <!-- {{e.crm_service_cate_nm}} -->
+
+                            {{e.crm_service_cate_nm}}
+
+                          </option>
+                        </select>
+
+                      </label>
+                    </section>
+                  </div>
+
+                  <div class="row">
+                    <section class="col col-4">
+                      <label class="label">{{"SV_ITEM_SALES_TARGET_YN" | i18n}}</label>
+                      <!-- <label class="label">Sales Target Y/N</label> -->
+
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="sales_target_yn" [(ngModel)]="crmMasServiceCategoyModel.sales_target_yn"
+                            checked="crmMasServiceCategoyModel.sales_target_yn">
+                          <i></i>
+                        </label>
+                      </label>
+                    </section>
+
+                    <section class="col col-4">
+                      <label class="label">{{"SV_ITEM_FINAL_LEVEL_YN" | i18n}}</label>
+                      <!-- <label class="label">Final Level Y/N </label> -->
+
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="final_level_yn" [checked]="crmMasServiceCategoyModel.level==3"
+                            [(ngModel)]="crmMasServiceCategoyModel.final_level_yn" disabled checked="crmMasServiceCategoyModel.final_level_yn">
+                          <i></i>
+                        </label>
+                      </label>
+                    </section>
+
+                    <section class="col col-4">
+                      <label class="label">{{"USE-YN" | i18n}}</label>
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="use_ynCategory" [(ngModel)]="crmMasServiceCategoyModel.use_yn"
+                            [disabled]="isDisabled_Use_YN_Category" checked="crmMasServiceCategoyModel.use_yn">
+                          <i></i>
+                        </label>
+                      </label>
+                    </section>
+                  </div>
+
+                  <div class="row" style="margin-top:12px">
+                    <section class="col col-md-12">
+                      <label class="label">{{"DESCRIPTION" | i18n}}</label>
+                      <label class="textarea">
+                        <textarea name="remarkCategory" rows="3" [(ngModel)]="crmMasServiceCategoyModel.remark"></textarea>
+                      </label>
+                    </section>
+                  </div>
+                </fieldset>
+                <footer>
+                  <button type="button" name="delete-btn" (click)="onDeleteCategory()" class="btn btn-danger btn-xs edit-program pull-left"
+                    [style.visibility]="isDeleteCatgory ? 'visible' : 'hidden'">
+                    <i class="fa fa-trash"></i>
+                    {{'button-delete' | i18n}}
+                  </button>
+                  <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close">
+                    <i class="fa fa-times"></i>
+                    {{'button-close' | i18n}}
+                  </button>
+                  <button type="button" (click)="onResetFormCategory()" name="resetFormCategory" class="btn btn-default btn-xs edit-program">
+                    <i class="fa fa-refresh"></i>
+                    {{'button-reset' | i18n}}
+                  </button>
+
+                  <button type="submit" name="submit" class="btn btn-primary btn-xs edit-program">
+                    <i class="fa fa-save"></i>
+                    {{'button-save' | i18n}}
+                  </button>
+
+                </footer>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- <hr style="background-color:black;height:1px"> -->
+        <!-- form 2  -->
+        <div sa-widget [editbutton]="false" *ngIf="crmMasServiceCategoyModel.final_level_yn" [deletebutton]="false"
+          color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>{{'SV_ITEM_PANEL_HEADER_EDIT_CATE_ITEM'|i18n}}</h2>
+            <!-- <h2>Service Item by Category</h2> -->
+
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <form #formItem="ngForm" (ngSubmit)="formItem.form.valid && onSubmitItemForm()" class="smart-form atman-form-small frm-detail"
+                novalidate="novalidate" [saUiValidate]="validationOptionsItem">
+                <fieldset>
+                  <div class="row">
+                    <!-- <section class="col col-8">
+                      <label class="label">Category Name</label>
+
+                      <label class="input">
+                        <select select2 style="width:100%;" disabled placeHolder="Select" name="company_id" [(ngModel)]="crmMasServiceCategoyModel.crm_service_cate_id"
+                          required class=" required" [defaultVal]="crmMasServiceCategoyModel.crm_service_cate_id">
+                          <option *ngFor="let c of listCrmMasServiceCategoyModel" value={{c.crm_service_cate_id}}>{{c.crm_service_cate_nm}}</option>
+                        </select>
+                      </label>
+                    </section> -->
+
+                    <!-- <section class="col col-4">
+                      <label class="label">{{'LEVEL' | i18n}}</label>
+
+                      <label class="input">
+                        <select select2 style="width:100%;" placeHolder="level" [disabled]="isUpdating" [defaultVal]="crmMasServiceCategoyModel.level"
+                          [(ngModel)]="crmMasServiceCategoyModel.level" name="level" required class=" required">
+                          <option *ngFor="let d of level" value="{{d}}">{{d}}</option>
+                        </select>
+                      </label>
+                    </section> -->
+                  </div>
+
+                  <div class="row">
+                    <section class="col col-8">
+                      <label class="label">{{"SV_ITEM_BY_CATE_ITEM_NAME" | i18n}}</label>
+                      <!-- <label class="label">Item Name</label> -->
+
+                      <label class="input">
+                        <input type="text" name="crm_item_nm" required value="crmMasServiceItemModel.crm_item_nm"
+                          [(ngModel)]="crmMasServiceItemModel.crm_item_nm">
+                      </label>
+                    </section>
+                    <section class="col col-4">
+                      <label class="label">{{"USE-YN" | i18n}}</label>
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="use_ynItem" [(ngModel)]="crmMasServiceItemModel.use_yn"
+                            [disabled]="!crmMasServiceCategoyModel.use_yn" [checked]="crmMasServiceItemModel.use_yn && crmMasServiceCategoyModel.use_yn">
+
+                          <i></i>
+                        </label>
+                      </label>
+                    </section>
+                  </div>
+
+                  <div class="row">
+                    <section class="col col-8">
+                      <label class="label">{{"SV_ITEM_BY_CATE_VENDOR_NAME" | i18n}}</label>
+                      <!-- <label class="label">Vendor Name</label> -->
+
+                      <label class="input">
+                        <label class="input">
+                          <input type="text" name="vender_text" value="crmMasServiceItemModel.vender_text" [(ngModel)]="crmMasServiceItemModel.vender_text">
+                        </label>
+                      </label>
+                    </section>
+                  </div>
+
+
+
+                  <div class="row">
+                    <section class="col col-5">
+                      <label class="label">{{"SV_ITEM_LIST_ITEM_PRICE" | i18n}}</label>
+                      <!-- <label class="label">Standard Price </label> -->
+
+                      <label class="input">
+                        <label class="input">
+                          <input type="text" name="price" currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }"
+                            value="crmMasServiceItemModel.price" [(ngModel)]="crmMasServiceItemModel.price">
+                        </label>
+                      </label>
+                    </section>
+                    <section class="col col-3">
+                      <label class="label">{{"SV_ITEM_BY_CATE_CURRENCY" | i18n}}</label>
+
+                      <label class="input">
+                        <select select2 style="width:100%;" placeHolder="..." [defaultVal]="crmMasServiceItemModel.currency_gen_cd"
+                          [(ngModel)]="crmMasServiceItemModel.currency_gen_cd" name="currency_gen_cd" required class=" required">
+                          <option *ngFor="let c of currency" value="{{c.gen_cd}}">{{c.gen_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+                    <section class="col col-4">
+                      <label class="label">{{"SV_ITEM_LIST_ITEM_UNIT" | i18n}}</label>
+                      <!-- <label class="label">Unit of count</label> -->
+
+                      <label class="input">
+                        <select select2 style="width:100%;" placeHolder="..." [defaultVal]="crmMasServiceItemModel.item_unit_gen_cd"
+                          [(ngModel)]="crmMasServiceItemModel.item_unit_gen_cd" name="item_unit_gen_cd" required class=" required">
+                          <option *ngFor="let u of unitOfCount" value="{{u.gen_cd}}">{{u.gen_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+                  </div>
+
+                  <div class="row">
+                    <section class="col col-md-12">
+                      <label class="label">{{"SV_ITEM_KEYWORD" | i18n}}</label>
+                      <!-- <label class="label">Keyword</label> -->
+                      <label class="input">
+                        <label class="input">
+                          <input type="text" name="keyword_text" value="crmMasServiceItemModel.keyword_text"
+                            [(ngModel)]="crmMasServiceItemModel.keyword_text">
+                        </label>
+                      </label>
+                    </section>
+                  </div>
+
+                  <div class="row">
+                    <section class="col col-md-12">
+                      <label class="label">{{"DESCRIPTION" | i18n}}</label>
+                      <label class="textarea">
+                        <textarea name="remarkItem" rows="3" [(ngModel)]="crmMasServiceItemModel.remark"></textarea>
+                      </label>
+                    </section>
+                  </div>
+
+                </fieldset>
+                <footer>
+                  <button type="button" name="delete-btn" (click)="onDeleteItem()" class="btn btn-danger btn-xs edit-program pull-left"
+                    [style.visibility]="isDeleteItem ? 'visible' : 'hidden'">
+                    <i class="fa fa-trash"></i>
+                    {{'button-delete' | i18n}}
+                  </button>
+
+
+                  <button type="button" (click)="onResetFormItem()" name="resetFormItem" class="btn btn-default btn-xs edit-program">
+                    <i class="fa fa-refresh"></i>
+                    {{'button-reset' | i18n}}
+                  </button>
+
+                  <button type="submit" name="submit" class="btn btn-primary btn-xs edit-program">
+                    <i class="fa fa-save"></i>
+                    {{'button-save' | i18n}}
+                  </button>
+
+                </footer>
+              </form>
+            </div>
+
+
+
+
+          </div>
+        </div>
+      </article>
+
+      <article class="col-sm-9">
+        <div class="row">
+          <!-- table 1 -->
+          <article class="col-sm-3">
+            <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman ">
+              <header>
+                <span class="widget-icon">
+                  <i class="fa fa-list"></i>
+                </span>
+                <!-- <h2> {{'CRM_SERVICE_ITEM_TBL_HEADER_SERVICE_CATEGORY' | i18n}}</h2> -->
+                <h2> {{'SV_ITEM_PANEL_HEADER_LIST_CATE_NAME' | i18n}}</h2>
+
+              </header>
+              <div>
+                <div class="widget-body no-padding">
+                  <sa-datatable [options]="optionsCategory" (rowClick)="onRowClickCategory($event)" paginationLength="true"
+                    filter="false" tableClass="table table-striped table-condensed table-hover table-bordered tableCategory reduce_width_column">
+                    <thead>
+                      <tr class="heading">
+                        <th>{{"SV_ITEM_CATE_NAME" | i18n}}</th>
+                        <th>{{"LEVEL" | i18n}}</th>
+                        <th>{{"SV_ITEM_COUNT_ITEM" | i18n}}</th>
+                        <th class="center">{{"USE_YN" | i18n}}</th>
+                      </tr>
+
+                      <tr>
+                        <th class="hasinput">
+                          <input type="text" class="form-control testInput123" />
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" />
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" />
+                        </th>
+                        <th class="hasinput center">
+                          <select id="filerByCategoy" class="form-control categorySelect">
+                            <option value="">All</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                          </select>
+                        </th>
+                      </tr>
+
+                    </thead>
+                  </sa-datatable>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- table 2  -->
+          <article class="col-sm-9">
+            <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman ">
+              <header>
+                <span class="widget-icon">
+                  <i class="fa fa-list"></i>
+                </span>
+                <h2> {{'SV_ITEM_PANEL_HEADER_LIST_ITEM_NAME' | i18n}}</h2>
+
+
+              </header>
+              <div>
+                <div class="widget-body no-padding">
+                  <sa-datatable [options]="optionsItem" (rowClick)="onRowClickItem($event)" paginationLength="true"
+                    filter="false" tableClass="table table-striped table-condensed table-hover table-bordered tableItem reduce_width_column">
+                    <thead>
+                      <tr class="heading">
+                        <th>{{"SV_ITEM_LIST_TABLE_INDEX" | i18n}}</th>
+                        <th>{{"SV_ITEM_BY_CATE_ITEM_NAME" | i18n}}</th>
+                        <th>{{"SV_ITEM_LIST_ITEM_PRICE" | i18n}}</th>
+                        <th>{{"SV_ITEM_BY_CATE_CURRENCY" | i18n}}</th>
+                        <th>{{"SV_ITEM_LIST_ITEM_UNIT" | i18n}}</th>
+                        <th>{{"SV_ITEM_BY_CATE_VENDOR_NAME" | i18n}}</th>
+                        <th>{{"USE_YN" | i18n}}</th>
+                        <th>{{"DESCRIPTION" | i18n}}</th>
+                      </tr>
+                      <tr>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" />
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" />
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" />
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" />
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" />
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" />
+                        </th>
+                        <th class="hasinput">
+                          <select id="filerByItem" class="form-control itemSelect">
+                            <option value="">All</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                          </select>
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" />
+                        </th>
+                      </tr>
+                    </thead>
+                  </sa-datatable>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </article>
+
+    </div>
+  </sa-widgets-grid>
+</div>

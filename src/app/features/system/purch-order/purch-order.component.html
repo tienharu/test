@@ -1,0 +1,149 @@
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-magic"></i> {{'PURCH_ORDER' | i18n}}</h1>
+      </div>
+    </div>
+  </div>
+  <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+    class="smart-form atman-form-small no-header frm-detail frm-due-out-material-detail" novalidate="novalidate" [saUiValidate]="validationOptions">
+    <!-- <input type="hidden" value="{{myFriend}}" name="myFriend" [(ngModel)]="myFriend" (ngModelChange)="changeTest($event)" /> -->
+    <fieldset>
+      <div class="row row-margin">
+        <section class="col col-1 firs-label">
+          <div class="row">
+            <section class="col col-md-12" style="padding-right: unset;">
+              <label class="label col-md-12 new-label-txt-custom">{{'PO_SHEET_NO' | i18n}}</label>
+            </section>
+          </div>
+        </section>
+        <section class="col col-9" style="width: 72.67%;">
+          <div class="row">
+            <section class="col col-2 margin-bottom-20" style="width: 12.66%; padding-right: 25px;">
+              <label class="input col-md-12">
+                <div (click)="onShowPopupPurchOrder()">
+                  <input type="text" class="main" name="poSheetNo" [(ngModel)]="purchOrderHeader.poSheetNo" disabled/>
+                  <i class="fa fa-search icon"></i>
+                </div>
+              </label>
+            </section>
+            <section class="col col-2 margin-bottom-20">
+              <label class="label col-md-5 new-label-txt-custom">{{'WO_DATE' | i18n}}</label>
+              <label class="input col-md-7">
+                <i class="fa fa-calendar" id="start-date-calendar"></i>
+                <input id="date_created" type="text" class="form-control datepicker" placeholder="yyyy-MM-dd" name="poSheetYmd" [(ngModel)]="purchOrderHeader.poSheetYmd"
+                          [saUiDatepicker]="{}" autocomplete="off" required />
+              </label>
+            </section>
+            <section class="col col-3 margin-bottom-20" style="width: 19.66%; padding-right: unset;">
+              <label class="label col-md-8 new-label-txt-custom">{{'SELECT_WORK_ORDER' | i18n}}</label>
+              <label class="input col-md-4">
+                <div (click)="onShowPopupWorkOrder()">
+                  <input type="text" class="main text-center" name="totalWoNo" [(ngModel)]="purchOrderHeader.totalWoNo" disabled>
+                  <i class="fa fa-search icon"></i>
+                </div>
+              </label>
+            </section>
+            <section class="col col-2 margin-bottom-20" style="width: 14.66%; padding-right: unset;">
+              <label class="label col-md-7 new-label-txt-custom">{{'PURCH_ORDER' | i18n}}</label>
+              <label class="input col-md-4 state-disabled">
+                <input class="extra text-center" disabled type="text" name="totalSupplier" [(ngModel)]="purchOrderHeader.totalSupplier"
+                  autocomplete="off" />
+              </label>
+            </section>
+            <section class="col col-2 margin-bottom-20" style="width: 12.66%; padding-right: unset;">
+              <label class="label col-md-6 new-label-txt-custom">{{'MATERIAL' | i18n}}</label>
+              <label class="input col-md-5 state-disabled">
+                <input class="extra text-center" disabled type="text" name="totalMaterials" [(ngModel)]="purchOrderHeader.totalMaterials"
+                  autocomplete="off" />
+              </label>
+            </section>
+            <section class="col col-3 margin-bottom-20" style="width: 23.66%;">
+              <label class="label col-md-6 new-label-txt-custom">{{'TOTAL_AMOUNT' | i18n}}</label>
+              <label class="input col-md-6 state-disabled" style="width: 62%;">
+                <input class="extra text-center" name="totalAmount" [(ngModel)]="totalAmount" disabled type="text"
+                  currencyMask [options]="{prefix:'', suffix:'', precision : 0, allowNegative : false }" autocomplete="off" />
+              </label>
+            </section>
+          </div>
+        </section>
+        <section class="col col-2" style="width: 21.66%;">
+          <div class="row">
+            <section class="col col-6 fix-user-field-1">
+              <label class="input state-disabled">
+                <input type="text" name="creator" class="center" [value]="purchOrderHeader.creator" autocomplete="off" disabled />
+              </label>
+            </section>
+            <section class="col col-6 fix-user-field-2">
+              <label class="input state-disabled">
+                <input type="text" name="createdTime" class="center" [value]="purchOrderHeader.createdTime" autocomplete="off" disabled />
+              </label>
+            </section>
+          </div>
+        </section>
+      </div>
+      <div class="row row-margin">
+        <section class="col col-1 firs-label">
+          <div class="row">
+            <section class="col col-md-12">
+              <label class="label col-md-6 new-label-txtarea-custom">{{'DESCRIPTION' | i18n}}</label>
+            </section>
+          </div>
+        </section>
+        <section class="col col-8" style="width: 72.67%;">
+          <div class="row">
+            <section class="col col-md-12">
+              <label class="textarea col-md-12">
+                <textarea placeholder="Description" name="remark" rows="1" [(ngModel)]="purchOrderHeader.remark"
+                  class="txtarea-height-purchase-order"></textarea>
+              </label>
+            </section>
+          </div>
+        </section>
+        <section class="col col-2" style="width: 21%;">
+          <div class="row">
+            <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-cancel fix-btn-po">
+              {{'BUTTON-CLOSE' | i18n}}
+            </button>
+            <button type="button" (click)="onReset()" name="reset" class="btn btn-reset-form fix-btn-po">
+              {{'BUTTON-RESET' | i18n}}
+            </button>
+            <button type="button" (click)="onDeletePo()" [disabled]="!purchOrderHeader.poSheetNo" name="delete" class="btn btn-delete fix-btn-po">
+              {{'BUTTON-DELETE' | i18n}}
+            </button>
+            <button type="submit" [disabled]="!this.permission.canSave" name="submit" class="btn btn-primary fix-btn-po">
+              {{'BUTTON-SAVE' | i18n}}
+            </button>
+          </div>
+        </section>
+      </div>
+    </fieldset>
+  </form>
+  <article>
+    <sa-widgets-grid>
+      <div class="at-smart-table">
+        <section class="col-12 table-bordered">
+          <div class="section-purch-order-detail-table">
+            <ng2-smart-table class="table table-striped table-condensed table-hover"(editConfirm)="onUpdateConfirm($event)" [source]="source"
+              id="poTable" [settings]="settingsPurchOrderDetail" >
+            </ng2-smart-table>
+          </div>
+        </section>
+      </div>
+    </sa-widgets-grid>
+  </article>
+</div>
+
+<ng-template #popupWorkOrder>
+  <sa-popup-modal headerTitle="Work Order No Search" width="70%" height="400" (onClose)="closePopup()">
+    <sa-work-order-no-popup (childCallWo)="getWorkOrderNoSelected($event)">
+    </sa-work-order-no-popup>
+  </sa-popup-modal>
+</ng-template>
+<ng-template #popupPurchOrder>
+  <sa-popup-modal headerTitle="Puch Order Search" width="65%" height="400" (onClose)="closePopup()">
+    <sa-purch-order-popup (childCallPo)="getPurchOrderSelected($event)">
+    </sa-purch-order-popup>
+  </sa-popup-modal>
+</ng-template>

@@ -1,0 +1,139 @@
+<!-- <div id="content-popup" > -->
+<form #frmDetail="ngForm" class="smart-form atman-form-small no-header frm-detail_popup"
+  (ngSubmit)="frmDetail.form.valid" novalidate="novalidate" >
+  <fieldset>
+    <div class="row" style="margin-left: 0%; margin-right: 0%;">
+      <section class="col col-7">
+        <label class="label col-md-3">{{'PO_DATE' | i18n}}</label>
+        <label class="input col-md-4" style="margin-top: -14px;margin-bottom: 10px;">
+          <i class="fa fa-calendar" id="start-date"></i>
+          <input type="text" name="from_date" class="datePicker" placeholder="yyyy-mm-dd" [(ngModel)]="searchPoInfo.fromPoDate"
+          [saUiDatepicker]="" autocomplete="off" />
+        </label>
+        <label class="label col-md-1 letter-spacing">~</label>
+        <label class="input col-md-4" style="margin-top: -14px;margin-bottom: 10px;">
+          <i class="fa fa-calendar" id="from-date"></i>
+          <input type="text" name="to_date" class="datePicker" placeholder="yyyy-mm-dd" [(ngModel)]="searchPoInfo.toPoDate"
+          [saUiDatepicker]="" autocomplete="off" />
+        </label>
+
+      </section>
+      <section class="col col-5">
+        <label class="label col-md-7" style="text-align: right;">{{'STATUS' | i18n}}</label>
+        <label class="label col-md-1"></label>
+        <label class="input col-md-4" style="margin-top:-2px;">
+          <select name="statusCd" [(ngModel)]="searchPoInfo.statusCd" [defaultVal]="searchPoInfo.statusCd" select2
+            style="width:100%;" class="select2">
+            <option *ngFor="let item of orderTypes" value={{item.value}}>{{item.text | i18n}}</option>
+          </select>
+        </label>
+      </section>
+    </div>
+    <div class="row" style="margin-left: 0%; margin-right: 0%;">
+      <section class="col col-7">
+        <label class="label col-md-3" style="padding-top: 3px;">{{'PO_SHEET_NO' | i18n}}</label>
+        <label class="input col-md-9">
+          <input type="text" name="poSheetNo" [(ngModel)]="searchPoInfo.poSheetNo" autocomplete="off" />
+        </label>
+
+      </section>
+      <section class="col col-5">
+        <button type="button" name="submit" class="btn btn-primary search-style-btn"
+          style="float:left;margin-left:206px;margin-top: 1px;" (click)="searchData()">
+          {{'SEARCH' | i18n}}
+        </button>
+        <button type="button" name="button" class="btn btn-cancel search-style-btn" style="margin-top: 1px;"
+        >
+          {{'BUTTON-CLOSE' | i18n}}
+        </button>
+        <button type="button" (click)="onSelect()" class="btn btn-danger search-style-btn" style="margin-top: 1px !important;">
+          {{'Select' | i18n}}
+        </button>
+      </section>
+    </div>
+
+  </fieldset>
+</form>
+<sa-widgets-grid>
+  <div class="row" style="margin-bottom: 10px;">
+    <article class="col-sm-12">
+      <article class="col col-sm-12">
+        <div sa-widget color="atman" class="jarviswidget-atman">
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options_popup" [paginationLength]="false"
+                filter="true"
+                tableClass="table projects-table table-striped table-condensed table-hover table-bordered tablePoSheet">
+                <thead>
+                  <tr class="heading">
+                    <th>No</th>
+                    <th></th>
+                    <th>{{'itemizedGenCd' | i18n}}</th>
+                    <th>{{'itemizedGenNm' | i18n}}</th>
+                    <th>{{'materialDsplNm' | i18n}}</th>
+                    <th>{{'materialCd' | i18n}}</th>
+                    <th>{{'unit' | i18n}}</th>
+                    <th>{{'colorName' | i18n}}</th>
+                    <th>{{'poQty' | i18n}}</th>
+                    <th>{{'price' | i18n}}</th>
+                    <th>{{'amount' | i18n}}</th>
+                    <th>{{'poUniqueNo' | i18n}}</th>
+                    <th>{{'inedQty' | i18n}}</th>
+                    <th>{{'pricePurch' | i18n}}</th>
+                    <th>{{'poNoStatus' | i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" disabled />
+                    </th>
+                    <th class="hasinput"></th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </article>
+  </div>
+</sa-widgets-grid>
+<!-- </div> -->

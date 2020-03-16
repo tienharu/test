@@ -1,0 +1,118 @@
+<div id="content">
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-5">
+        <div sa-widget color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-edit"></i>
+            </span>
+            <h2>{{'EDIT-NEWS'|i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+                class="smart-form atman-form-small frm-detail" novalidate="novalidate"
+                [saUiValidate]="validationOptions">
+                <fieldset>
+                  <input type="hidden" name="id" [(ngModel)]="NewsInfo.id" />
+                  <div class="row">
+                    <section class="col col-xs-12">
+                      <label class="label">{{'TITLE-NEWS' | i18n}}</label>
+                      <label class="input">
+                        <i class="icon-append fa fa-book"></i>
+                        <input type="text" name="title" [(ngModel)]="NewsInfo.title" autocomplete="off" required />
+                      </label>
+                    </section>
+                  </div>
+                  <div class="row">
+                    <section class="col col-xs-12">
+                      <label class="label">{{'DESCRIPTION-NEWS' | i18n}}</label>
+                      <label class="textarea">
+                        <textarea type="text" name="description" [(ngModel)]="NewsInfo.description" autocomplete="off"
+                          rows="2"></textarea>
+                      </label>
+                    </section>
+                  </div>
+                  <div class="row">
+                    <section class="col col-xs-12">
+                      <label class="label">{{'CONTENT-NEWS'| i18n}}</label>
+                      <label class="input col-lg-12">
+                        <input type="text" summernote name="content" id="content" class="news-content" required
+                          [defaultVal]="defaultContent"/>
+                      </label>
+                    </section>
+                  </div>
+
+                </fieldset>
+                <footer>
+                  <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close">
+                    <i class="fa fa-times"></i>
+                    {{'button-close' | i18n}}
+                  </button>
+                  <button type="button" (click)="onReset()" name="reset" class="btn btn-reset-form">
+                    <i class="fa fa-refresh"></i>
+                    {{'button-reset' | i18n}}
+                  </button>
+                  <button type="submit" name="submit" class="btn btn-primary btn-xs edit-program">
+                    <i class="fa fa-save"></i>
+                    {{'button-save' | i18n}}
+                  </button>
+                </footer>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="col-sm-7">
+        <div sa-widget color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-table"></i>
+            </span>
+            <h2>{{'LIST-NEWS'|i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" id="example" (rowClick)="onRowClick($event)" paginationLength="true"
+                filter="true"
+                tableClass="newsListInfo table table-striped table-condensed table-hover table-bordered datagrid_languages">
+                <thead>
+                  <tr class="heading">
+                    <th>ID</th>
+                    <th>{{'TITLE-NEWS' | i18n}}</th>
+                    <th>{{'Use' | i18n}}</th>
+                    <th>{{'CREATED-BY' | i18n}}</th>
+                    <th>{{'CREATED-DATE' | i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter ID" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter title" />
+                    </th>
+                    <th class="hasinput">
+                      <select id="filerByStatus" class="form-control select-filter" style="width: 100%">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Creator" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Date" class="form-control datepicker"
+                        [saUiDatepicker]="{}" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

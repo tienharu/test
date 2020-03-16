@@ -1,0 +1,127 @@
+<!-- <div id="content-popup" > -->
+<form #frmDetail="ngForm" class="smart-form atman-form-small no-header frm-detail_popup"
+  (ngSubmit)="frmDetail.form.valid && onSubmit()" novalidate="novalidate" [saUiValidate]="validationOptions">
+  <fieldset>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10" style="margin-left: 8%;">
+        <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <section class="col col-lg-8">
+            <section class="col-lg-8">
+              <label class="label">{{'SM_COLOR' | i18n}}</label>
+              <label class="input ">
+                <input type="text" class="center" name="colorName" [(ngModel)]="detailInfo.colorName" autocomplete="off"
+                  required />
+              </label>
+            </section>
+            <section class="col-lg-4">
+              <label class="label" style="visibility: hidden">{{'SM_COLOR_CODE' | i18n}}</label>
+              <label class="input state-disabled">
+                <input type="text" class="center" name="colorId" [(ngModel)]="detailInfo.colorId" autocomplete="off"
+                  disabled />
+              </label>
+            </section>
+          </section>
+          <section class="col col-lg-4 checkbox-field-right" style="top: 16px;">
+            <label class="checkbox" style="float: right;">
+              <input type="checkbox" name="useYn" [(ngModel)]="detailInfo.useYn" checked="detailInfo.useYn" />
+              <i></i>
+              <span>{{'ACTIVE' | i18n}}</span>
+            </label>
+          </section>
+
+          <section class=" col-lg-12">
+            <section class="col col-2">
+              <label class="label">{{'SM_COLOR_TYPE' | i18n}}</label>
+              <div class="inline-group">
+                <label class="radio">
+                  <input type="radio" name="colorType" [value]="true" [(ngModel)]="detailInfo.colorType">
+                  <i></i>{{'SM_COLOR_TYPE_STYLE' | i18n}}
+                </label>
+              </div>
+            </section>
+            <section class="col col-2">
+              <label class="label" style="visibility: hidden">k</label>
+              <div class="inline-group">
+                <label class="radio">
+                  <input type="radio" name="colorType" [value]="false" [(ngModel)]="detailInfo.colorType">
+                  <i></i>{{'SM_COLOR_TYPE_CONSTRUCT' | i18n}}
+                </label>
+              </div>
+            </section>
+          </section>
+        </section>
+        <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <section class="col col-lg-12">
+            <label class="label">{{'DESCRIPTION' | i18n}}</label>
+            <label class="textarea">
+              <textarea placeholder="Description" [(ngModel)]="detailInfo.remark" name="remark" value=""
+                rows="1"></textarea>
+            </label>
+          </section>
+          <section class=" col col-lg-12" style="margin-top: 7px;">
+            <button type="button" name="btnCloseProgram" (click)="onClose()" class="btn btn-cancel">
+              <i class="fa fa-times"></i>
+              {{'button-close' | i18n}}
+            </button>
+            <button type="submit" name="submit" class="btn btn-primary" [disabled]="isDisable">
+              <i class="fa fa-save"></i>
+              {{'BUTTON-SAVE' | i18n}}
+            </button>
+          </section>
+
+        </section>
+      </div>
+    </div>
+  </fieldset>
+</form>
+<sa-widgets-grid>
+  <div class="row">
+    <article class="col-sm-12">
+      <article class="col col-sm-12">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>{{'SM_COLOR_HEADER' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options_popup" (rowClick)="onRowClick($event)" [paginationLength]="false"
+                filter="true"
+                tableClass="table projects-table table-striped table-condensed table-hover table-bordered color_table">
+                <thead>
+                  <tr class="heading">
+                    <th>No</th>
+                    <th>{{'SM_COLOR_TYPE' | i18n}}</th>
+                    <th>{{'SM_COLOR_NAME' | i18n}}</th>
+                    <th>{{'SM_COLOR_CODE' | i18n}}</th>
+                    <th>{{'DESCRIPTION' | i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="number" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="number" class="form-control" placeholder="filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="number" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </article>
+  </div>
+</sa-widgets-grid>
+<!-- </div> -->

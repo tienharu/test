@@ -1,0 +1,131 @@
+:host /deep/ .section-work-type{
+  padding: 0;
+  height: 285px; 
+}
+
+:host /deep/ .work-type-table  tr td[colspan="5"] {
+  width: 100% !important;
+}
+
+:host /deep/ .work-type-table  tr:last-child td a.ng2-smart-action-delete-delete{
+  display: inherit !important;
+}
+
+:host /deep/ .work-type-table  tr td:nth-child(1) {
+  width: 5%;
+}
+:host /deep/ .work-type-table  tr td:nth-child(2){
+  width: 20%;
+}
+:host /deep/ .work-type-table  tr td:nth-child(3){
+  width: 47%;
+}
+:host /deep/ .work-type-table  tr td:nth-child(4){
+  width: 15%;
+}
+:host /deep/ .work-type-table  tr td:nth-child(5){
+  width: 13%;
+}
+
+:host /deep/ .work-type-table  tr th:nth-child(1) {
+  width: 5%;
+}
+:host /deep/ .work-type-table  tr th:nth-child(2){
+  width: 20%;
+}
+:host /deep/ .work-type-table  tr th:nth-child(3){
+  width: 47%;
+}
+:host /deep/ .work-type-table  tr th:nth-child(4){
+  width: 15%;
+}
+:host /deep/ .work-type-table  tr th:nth-child(5){
+  width: 13%;
+}
+
+.jarviswidget-atman {
+    border: solid 0.5px #dddddd;
+}
+
+:host /deep/ .at-smart-table td{text-align: center; vertical-align: middle; padding: 4px;}
+:host /deep/ ng2-smart-table thead>tr.ng2-smart-titles{
+  background:#6d6c6e !important;
+  color:#fff;
+}
+:host /deep/ ng2-smart-table thead>tr.ng2-smart-titles>th>ng2-st-column-title .ng2-smart-title>ng2-smart-table-title>a{
+  color: #fff!important;
+  font-weight: normal !important;
+}
+:host /deep/ ng2-smart-table thead>tr.ng2-smart-titles>th{
+  vertical-align: middle;
+}
+:host /deep/ ng2-smart-table thead>tr.ng2-smart-filters{
+  background:#e3e3e3 !important; 
+}
+:host /deep/ ng2-smart-table thead>tr.ng2-smart-filters>th{
+  border:none;
+}
+:host /deep/ ng2-smart-table thead>tr.ng2-smart-filters>th.ng2-smart-th>ng2-smart-table-filter .ng2-smart-filter>select-filter>select{
+  border-color:#52494487;
+  border-radius: 3px!important;
+}
+:host /deep/ ng2-smart-table thead>tr.ng2-smart-filters>th.ng2-smart-th>ng2-smart-table-filter .ng2-smart-filter>input-filter>input{
+  border-color:#989898;
+}
+:host /deep/ ng2-smart-table thead>tr.ng2-smart-filters>th.ng2-smart-actions-title{
+  padding: 10px;
+}
+
+:host /deep/ ng2-smart-table thead>tr.ng2-smart-filters>th.ng2-smart-actions-title a.ng2-smart-action-add-add{
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 32px;
+  text-align: center;
+}
+
+:host /deep/ .fixed_header{
+  width: 100%;
+  display: inline-table;
+  border-collapse: collapse;
+}
+
+:host /deep/ .fixed_header thead{
+  display: inherit;
+  width: 100%;
+}
+
+:host /deep/ .fixed_header tbody{
+  display: block;
+  width: 100%;
+  overflow: overlay;
+  max-height: 200px;
+}
+
+:host /deep/ .fixed_header thead tr {
+ width: 100%;
+}
+
+:host /deep/ .fixed_header tbody tr {
+  display: flex;
+  width: 100%;
+ }
+
+/* ====================================================================== */
+:host /deep/ table.fixed_header ::-webkit-scrollbar {
+  width: 8px;
+}
+/* Track */
+:host /deep/ table.fixed_header ::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+:host /deep/ table.fixed_header ::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+:host /deep/ table.fixed_header ::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

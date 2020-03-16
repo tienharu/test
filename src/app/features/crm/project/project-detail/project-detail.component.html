@@ -1,0 +1,235 @@
+<div id="content" class="customer-detail">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[('PROJECT-LB-Detail'|i18n)]" icon="bar-chart-o" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>
+  <div class="well well-sm project">
+    <span class="label label-info" style="background-color: #00b5ad;color: white;">{{projectDetail.project_type_nm}}</span>
+    <h3 class="project-name">{{projectDetail.project_nm}}</h3>
+    <span class="label label-default" style="color: #333;background-color: #e5e5e5;"><i class="fa fa-pencil"></i> by {{projectDetail.creator}}</span>
+    <div class="btn-actions">
+      <a href="javascript:void(0);" class="btn btn-default btn-sm"><i class="fa fa-edit"></i></a>
+      <a [routerLink]="['/crm-project']" class="btn btn-default btn-sm"><i class="fa fa-mail-reply"></i></a>
+    </div>
+  </div>
+  <article class="smart-form project">
+    <div class="jarviswidget" data-widget-editbutton="false" data-widget-deletebutton="false">
+      <!-- widget div-->
+      <div class="col col-lg-12 content">
+        <div class="col col-lg-6 left-column">
+          <section class="title">
+            <p>{{'PROJECT-LB-PROJECT-INFORMATION' | i18n}}</p>
+          </section>
+          <section class="col-lg-12">
+            <label class="label col-lg-3">{{'PROJECT-LB-TERM' | i18n}}</label>
+            <label class="label col-lg-9 ">
+                {{projectDetail.start_ymd}} ~ {{projectDetail.end_ymd}}
+            </label>
+          </section>
+          <section class="col-lg-12">
+            <label class="label col-lg-3">{{'PROJECT-LB-TOTAL-SUPPORT-TIME' | i18n}}</label>
+            <label class="label col-lg-9 ">
+                {{projectDetail.work_hours}}
+            </label>
+          </section>
+          <section class="col-lg-12">
+              <label class="label col-lg-3">{{'PROJECT-LB-MEMO' | i18n}}</label>
+              <label class="label col-lg-9 " style="height: 100%;">
+                  {{projectDetail.memo_text}}
+              </label>
+            </section>
+        </div>
+        <div class="col col-lg-6 right-column">
+          <section class="title">
+            <p>{{'PROJECT-LB-SALES-INFORMATION' | i18n}}</p>
+          </section>
+          <section class="col-lg-12" class="sale-name">
+            <p class="col col-lg-8">
+                {{projectDetail.salesopt_nm}}
+            </p>
+          </section>
+          <section class="col-lg-12">
+            <label class="label col-lg-3" style="width: 138px;">{{'PROJECT-LB-AM-IN-CHARGE' | i18n}}</label>
+            <label class="label col-lg-8 ">
+                <!-- {{projectDetail.admin_nm}} -->
+            </label>
+          </section>
+          <section class="col-lg-12">
+              <label class="label col-lg-3" style="width: 138px;">{{'PROJECT-LB-CUSTOMER' | i18n}}</label>
+              <label class="label col-lg-8 ">
+                  {{projectDetail.customer_nm}}
+              </label>
+            </section>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article style="margin-top: 30px;">
+    <div class="jarviswidget" data-widget-editbutton="false" data-widget-fullscreenbutton="false"
+      data-widget-custombutton="false" data-widget-sortable="false">
+      <header>
+        <ul class="nav nav-tabs pull-left in new-activity">
+          <li style="height: 32px;">
+            <div style="top: -6px; position: relative;">
+              <button type="button" [ngClass]="{'disabledTab': !showTab}" class="btn btn-success dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+                <i class="fa fa-plus"></i>&nbsp;&nbsp;{{'TAB-NEW-ACTIVITY' | i18n}}
+              </button>
+              <ul class="dropdown-menu running-task" role="menu">
+                <li><a href="javascript:void(0);" (click)="openPopup('support')"><i class="fa fa-suitcase"></i>{{'TAB-SUPPORT'
+                  | i18n}}</a></li>
+                    <li><a href="javascript:void(0);" (click)="openPopup('email')"><i class="fa fa-envelope-o"></i>{{'TAB-EMAIL'
+                      | i18n}}</a></li>
+                  <li><a href="javascript:void(0);" (click)="openPopup('tel')"><i class="fa fa-phone"></i>{{'TAB-TELEPHONE'
+                      | i18n}}</a></li>
+                  <li><a href="javascript:void(0);" (click)="openPopup('meeting')"><i class="fa fa-comments-o"></i>{{'TAB-CONFERENCE'
+                      | i18n}}</a></li>
+                  <li><a href="javascript:void(0);" (click)="openPopup('issue')"><i class="fa fa-info-circle"></i>{{'TAB-ISSUE'
+                      | i18n}}</a></li>
+              </ul>
+
+            </div>
+          </li>
+          <li class="active">
+            <a data-toggle="tab" [ngClass]="{'disabledTab': !showTab}" href="#total"> <i class="fa fa-clock-o"></i> <span class="hidden-mobile hidden-tablet"></span>
+              {{'TAB-TOTAL-ACTIVITY' | i18n}}</a>
+          </li>
+          <li (click)="loadInfo('business')">
+            <a data-toggle="tab" [ngClass]="{'disabledTab': !showTab}" href="#business"> <i class="fa fa-suitcase"></i> <span class="hidden-mobile hidden-tablet"></span>
+              {{'TAB-SUPPORT-ACTIVITY' | i18n}}</a>
+          </li>
+          <li (click)="loadInfo('email')">
+            <a data-toggle="tab" [ngClass]="{'disabledTab': !showTab}" href="#email"> <i class="fa fa-envelope-o"></i> <span class="hidden-mobile hidden-tablet"></span>
+              {{'TAB-EMAIL-ACTIVITY' | i18n}}</a>
+          </li>
+          <li (click)="loadInfo('tel')">
+            <a data-toggle="tab" [ngClass]="{'disabledTab': !showTab}" href="#telephone"> <i class="fa fa-phone"></i> <span class="hidden-mobile hidden-tablet"></span>
+              {{'TAB-TELEPHONE-ACTIVITY' | i18n}}</a>
+          </li>
+          <li (click)="loadInfo('meeting')">
+            <a data-toggle="tab" [ngClass]="{'disabledTab': !showTab}" href="#conference"> <i class="fa fa-comments-o"></i> <span class="hidden-mobile hidden-tablet"></span>
+              {{'TAB-CONFERENCE-ACTIVITY' | i18n}}</a>
+          </li>
+          <li (click)="loadInfo('issue')">
+            <a data-toggle="tab" [ngClass]="{'disabledTab': !showTab}" href="#issue"> <i class="fa fa-info-circle"></i> <span class="hidden-mobile hidden-tablet"></span>
+              {{'TAB-ISSUE-ACTIVITY' | i18n}}</a>
+          </li>
+        </ul>
+      </header>
+      <div>
+        <div class="widget-body">
+          <div class="tab-content">
+            <div class="tab-pane active" id="total">
+              <section>
+                <h3>Total</h3>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+              </section>
+            </div>
+            <div class="tab-pane" id="support">
+                <sa-business-status-detail></sa-business-status-detail>
+            </div>
+            <div class="tab-pane" id="email">
+              <sa-email-detail></sa-email-detail>
+            </div>
+            <div class="tab-pane" id="telephone">
+              <sa-telephone-detail></sa-telephone-detail>
+            </div>
+            <div class="tab-pane" id="conference">
+              <sa-conference-detail></sa-conference-detail>
+            </div>
+            <div class="tab-pane" id="issue">
+              <sa-issue-detail></sa-issue-detail>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+<!-- <ng-template #popupBusiness>
+  <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-BUSINESS-STATUS' | i18n}}" width="780" height="600" (onClose)="closePopup()">
+    <sa-business-status companyId="{{projectDetail.company_id}}" opportunityId="{{opportunityId}}" Id={{Id}}
+      projectDetailJson="{{projectDetail|json}}" (childCall)="reloadList($event)"></sa-business-status>
+  </sa-popup-modal>
+</ng-template>
+<ng-template #popupEmail>
+  <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-EMAIL' | i18n}}" width="750" height="600" (onClose)="closePopup()">
+    <sa-email companyId="{{projectDetail.company_id}}" inputFuncId="{{inputFuncId}}" funcRefCd="{{funcRefCd}}" Id={{Id}}
+      (childCall)="reloadList($event)" customer="{{customer|json}}"  contactor="{{contactor|json}}"  user="{{user|json}}" ></sa-email>
+  </sa-popup-modal>
+</ng-template>
+<ng-template #popupTelephone>
+  <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-TELEPHONE' | i18n}}" width="750" height="600" (onClose)="closePopup()">
+    <sa-telephone companyId="{{projectDetail.company_id}}" inputFuncId="{{inputFuncId}}" funcRefCd="{{funcRefCd}}"
+      Id={{Id}} (childCall)="reloadList($event)" customer="{{customer|json}}"  contactor="{{contactor|json}}"  user="{{user|json}}"></sa-telephone>
+  </sa-popup-modal>
+</ng-template>
+<ng-template #popupConference>
+  <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-CONFERENCE' | i18n}}" width="750" height="600" (onClose)="closePopup()">
+    <sa-conference companyId="{{projectDetail.company_id}}" inputFuncId="{{inputFuncId}}" funcRefCd="{{funcRefCd}}"
+      Id={{Id}} (childCall)="reloadList($event)" customer="{{customer|json}}"  contactor="{{contactor|json}}"  user="{{user|json}}"></sa-conference>
+  </sa-popup-modal>
+</ng-template>
+
+<ng-template #popupIssue>
+  <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-ISSUE' | i18n}}" width="750" height="600" (onClose)="closePopup()">
+    <sa-issue companyId="{{projectDetail.company_id}}" inputFuncId="{{inputFuncId}}" funcRefCd="{{funcRefCd}}" Id={{Id}}
+      (childCall)="reloadList($event)" customer="{{customer|json}}"  contactor="{{contactor|json}}"  user="{{user|json}}"></sa-issue>
+  </sa-popup-modal>
+</ng-template>
+
+<ng-template #popupEditDetail>
+    <sa-popup-modal headerTitle="{{'OPPORTUNITY-HEADER-EDIT-SALES-OPPORTUNITY-DATA-MANAGEMENT' | i18n}}" width="800" height="900" (onClose)="closeEditDetailPopup()">
+      <sa-opportunity-popup (childCall)="reloadData($event)" EditDetailJson="{{projectDetail|json}}"
+      customer="{{customer|json}}"  contactor="{{contactor|json}}"  user="{{user|json}}" saleType={{saleType|json}}></sa-opportunity-popup>
+    </sa-popup-modal>
+  </ng-template> -->
+
+  <ng-template #popupSupport>
+      <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-TECHNICAL-SUPPORT' | i18n}}" width="780" height="600" (onClose)="closePopup()">
+        <sa-support companyId="{{projectDetail.company_id}}" projectId="{{projectId}}" Id={{Id}}
+        Jscontactor="{{contactor|json}}"  Jsuser="{{user|json}}" (childCall)="reloadList($event)"></sa-support>
+      </sa-popup-modal>
+    </ng-template>
+  <ng-template #popupEmail>
+      <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-EMAIL' | i18n}}" width="750" height="600" (onClose)="closePopup()">
+        <sa-email companyId="{{projectDetail.company_id}}" inputFuncId="{{inputFuncId}}" funcRefCd="{{funcRefCd}}" Id={{Id}}
+          (childCall)="reloadList($event)" customer="{{customer|json}}"  contactor="{{contactor|json}}"  user="{{user|json}}" ></sa-email>
+      </sa-popup-modal>
+    </ng-template>
+    <ng-template #popupTelephone>
+      <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-TELEPHONE' | i18n}}" width="750" height="600" (onClose)="closePopup()">
+        <sa-telephone companyId="{{projectDetail.company_id}}" inputFuncId="{{inputFuncId}}" funcRefCd="{{funcRefCd}}"
+          Id={{Id}} (childCall)="reloadList($event)" customer="{{customer|json}}"  contactor="{{contactor|json}}"  user="{{user|json}}"></sa-telephone>
+      </sa-popup-modal>
+    </ng-template>
+    <ng-template #popupConference>
+      <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-CONFERENCE' | i18n}}" width="750" height="600" (onClose)="closePopup()">
+        <sa-conference companyId="{{projectDetail.company_id}}" inputFuncId="{{inputFuncId}}" funcRefCd="{{funcRefCd}}"
+          Id={{Id}} (childCall)="reloadList($event)" customer="{{customer|json}}"  contactor="{{contactor|json}}"  user="{{user|json}}"></sa-conference>
+      </sa-popup-modal>
+    </ng-template>
+    
+    <ng-template #popupIssue>
+      <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-ISSUE' | i18n}}" width="750" height="600" (onClose)="closePopup()">
+        <sa-issue companyId="{{projectDetail.company_id}}" inputFuncId="{{inputFuncId}}" funcRefCd="{{funcRefCd}}" Id={{Id}}
+          (childCall)="reloadList($event)" customer="{{customer|json}}"  contactor="{{contactor|json}}"  user="{{user|json}}"></sa-issue>
+      </sa-popup-modal>
+    </ng-template>

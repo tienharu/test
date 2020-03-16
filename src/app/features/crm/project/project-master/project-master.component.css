@@ -1,0 +1,56 @@
+:host /deep/.sharing h2{top: 20px;}
+:host /deep/.sharing .custom-sharing{top: -18px;}
+.find-opp-content {padding: 20px}
+.find-opp-header{margin-bottom: 10px;}
+.find-opp-bottom{
+    text-align: right;
+    padding: 10px 0 0;
+}
+
+table.custom thead{
+    background-color: #eeeeee;
+    background-image: -webkit-linear-gradient(top, #f2f2f2 0, #fafafa 100%);
+    border-bottom: 1px solid #ddd;
+}
+table.custom th,
+table.custom td,
+table.custom tr,
+table.custom thead,
+table.custom tbody { display: block; }
+
+table.custom thead tr {
+    width:calc(100% - 16px);
+}
+
+table.custom tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+table.custom tbody {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 200px;
+}
+table.custom tbody tr {
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+}
+
+table.custom th:first-child,
+table.custom td:first-child{width:335px !important}
+table.custom tbody td,
+table.custom thead th {
+    /* width: 19%; */
+    width: 200px;
+    float: left;
+    border: none;
+    border-right: 1px solid #ddd;
+}
+tbody td:last-child, thead th:last-child {
+    border-right: none !important;
+}
+tbody h5{text-align: center}

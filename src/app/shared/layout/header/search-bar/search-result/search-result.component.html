@@ -1,0 +1,83 @@
+<div id="content" style="padding-top:20px !important;height: 500px !important; overflow-y: hidden">
+  <sa-widgets-grid>
+  </sa-widgets-grid>
+  <!-- widget options:
+usage: <div sa-widget [editbutton]="false">
+
+[colorbutton]="false"
+[editbutton]="false"
+[togglebutton]="false"
+[deletebutton]="false"
+[fullscreenbutton]="false"
+[custombutton]="false"
+[collapsed]="true"
+[sortable]="false"
+-->
+  <!-- style="height:500px" -->
+  <div style="height:500px" id="containerSearchResult">
+    <div class="widget-body">
+      <div class="tabs-left " *ngIf="searchResultGroupByConverted && searchResultGroupByConverted.length > 0">
+        <ul class="nav nav-tabs tabs-left" style="height:500px;width: 200px;overflow-y:scroll;overflow-x:hidden"
+          id="demo-pill-nav">
+
+          <li [class.active]="item.isActiveTab" *ngFor="let item of searchResultGroupByConverted">
+            <a (click)="loadSearchResultOfMenu(item)">
+              {{item.menu_name}}
+              <span class="badge bg-color-greenLight txt-color-white">{{item.count_result}} </span>
+            </a>
+          </li>
+
+        </ul>
+
+        <tabset>
+          <tab style="overflow-y:scroll;height:500px">
+            <div class="" *ngFor="let item of searchResultOfMenu">
+              <!-- <h4><a (click)="openPage(item)" class="data_content">{{item.data_content}}</a></h4> -->
+
+              <h4>
+                <span *ngFor="let item2 of item.data_content_splited">
+                  <a (click)="openPage(item,item2)" class="data_content keyword">{{item2}} <span class="span"> | </span> </a>
+                </span>
+              </h4>
+
+              <p class="description created">
+                Created by: {{item.created_by }} - {{item.created_time}}
+              </p>
+            </div>
+            <br><br>
+
+            <!-- <div class="text-center">
+              <hr>
+              <ul class="pagination no-margin">
+                <li class="prev disabled">
+                  <a (click)="(null)">Previous</a>
+                </li>
+                <li>
+                  <a (click)="(null)">1</a>
+                </li>
+                <li class="active">
+                  <a (click)="(null)">2</a>
+                </li>
+                <li>
+                  <a (click)="(null)">3</a>
+                </li>
+                <li class="next">
+                  <a (click)="(null)">Next</a>
+                </li>
+              </ul>
+              <br>
+              <br>
+              <br>
+            </div> -->
+
+          </tab>
+        </tabset>
+
+      </div>
+      <div class="tabs-left text-center" *ngIf="searchResults && searchResults.length == 0">
+        <h2>Data not found !</h2>
+      </div>
+
+    </div>
+  </div>
+</div>

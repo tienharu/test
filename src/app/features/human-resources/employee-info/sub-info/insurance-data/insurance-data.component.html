@@ -1,0 +1,115 @@
+<article class="col-sm-12 col-md-12 col-lg-12 human-resources">
+  <div class="row">
+    <div class="no-padding ">
+      <section class="col-lg-4" style="padding-top: 10px">
+        <form class="smart-form frm-detail atman-form-small frmInsurance" #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+          novalidate="novalidate" [saUiValidate]="validationOptions">
+          <fieldset>
+            <section class="col-lg-12">
+              <label class="label col-lg-5">{{'INSURANCE-TYPE'|i18n}}</label>
+              <label class="input col-lg-7">
+                <select select2 class="select2" name="insurance_gen_cd" [(ngModel)]="insuranceInfo.insurance_gen_cd"
+                  [defaultVal]="insuranceInfo.insurance_gen_cd" placeHolder="Insurance" style="width:100%">
+                  <option *ngFor="let item of insurance" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                </select>
+              </label>
+            </section>
+            <section class="col-lg-12">
+              <label class="label col-lg-5">{{'INSURANCE-NO'|i18n}}</label>
+              <label class="input col-lg-7">
+                <input type="text" name="insurance_no" [(ngModel)]="insuranceInfo.insurance_no" />
+              </label>
+            </section>
+            <section class="col-lg-12">
+              <label class="label col-lg-5">{{'INSURANCE-RATE'|i18n}}</label>
+              <label class="input col-lg-7">
+                <input type="number" name="insurance_rate" class="right" autoSelectText [(ngModel)]="insuranceInfo.insurance_rate" />
+              </label>
+            </section>
+            <section class="col-lg-12">
+              <label class="label col-lg-5">{{'INSURANCE-MONEY'|i18n}}</label>
+              <label class="input col-lg-7">
+                <input type="number" name="insurance_money" class="right" autoSelectText [(ngModel)]="insuranceInfo.insurance_money" />
+              </label>
+            </section>
+            <section class="col-lg-12">
+              <label class="label col-lg-5">{{'APPLY-Y/N'|i18n}}</label>
+              <label class="input col-lg-5">
+                <label class="checkbox">
+                  <input type="checkbox" name="use_yn" [(ngModel)]="insuranceInfo.apply_yn" checked="insuranceInfo.apply_yn">
+                  <i></i>Yes
+                </label>
+              </label>
+            </section>
+            <section class="col-lg-12">
+              <label class="label col-lg-5">{{'APPLY YMD'|i18n}}</label>
+              <label class="input col-lg-7">
+                <i class="icon-append fa fa-calendar"></i>
+                <input type="text" class="family-ymd-datepicker" [ngClass]="{'disabled' : !insuranceInfo.apply_yn}" [disabled]="!insuranceInfo.apply_yn" autocomplete="off" name="apply_ymd" [(ngModel)]="insuranceInfo.apply_ymd"
+                  autocomplete="off" placeholder="yyyy-mm-dd" [saUiDatepicker]>
+              </label>
+            </section>
+            <section class="col-lg-12">
+              <label class="label col-lg-5">{{'REMARK'|i18n}}</label>
+              <label class="textarea col-lg-7">
+                <textarea rows="3" class="custom-scroll" name="remark" [(ngModel)]="insuranceInfo.remark">{{insuranceInfo.remark}}</textarea></label>
+              <div class="note">
+              </div>
+            </section>
+            <div class="btn-cmd">
+              <button type="submit" [disabled]="!permission.canSave" name="submit" class="btn btn-small btn-primary" style="margin:0 4px">
+                <i class="fa fa-save"></i>
+                {{'BUTTON-SAVE'|i18n}}
+              </button>
+              <button type="button" (click)="onReset()" name="reset" class="btn btn-default btn-xs edit-program">
+                <i class="fa fa-refresh"></i>
+                {{'BUTTON-RESET'|i18n}}
+              </button>
+            </div>
+          </fieldset>
+        </form>
+      </section>
+      <section class="col-xs-12 col-sm-7 col-md-7 col-lg-8" style="padding-top:20px">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                tableClass="eplInsuranceInfoList table table-striped table-condensed table-hover table-bordered">
+                <thead>
+                  <tr class="heading">
+                    <th>{{'INSURANCE-TYPE'|i18n}}</th>
+                    <th> {{'INSURANCE-NO'|i18n}}</th>
+                    <th> {{'INSURANCE-RATE'|i18n}}</th>
+                    <th> {{'INSURANCE-MONEY'|i18n}}</th>
+                    <th>{{'APPLY-Y/N'|i18n}}</th>
+                    <th>{{'APPLY YMD'|i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Type" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter No" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Rate" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Money" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="apply Y/N" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="apply YMD" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</article>

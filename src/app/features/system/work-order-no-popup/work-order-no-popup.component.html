@@ -1,0 +1,162 @@
+<!-- <div id="content-popup" > -->
+<form #frmDetail="ngForm" class="smart-form atman-form-small no-header frm-detail"
+  (ngSubmit)="frmDetail.form.valid && onSearch()" novalidate="novalidate" [saUiValidate]="validationOptions">
+  <fieldset>
+    <div class="row">
+      <section class="col col-2 margin-top-10 fix-width-field">
+        <label class="label col-md-4 new-label-txt-custom margin-top-1">{{'BUYER' | i18n}}</label>
+        <label class="input col-md-8">
+          <!-- <input class="extra" type="text" name="supplier" [(ngModel)]="supplier"
+            autocomplete="off" /> -->
+          <select name="workPlacevalue "  select2 style="width:100%;" class="select2" [(ngModel)]="supplier">
+            <option *ngFor="let item of traderList" [value]="item.trader_id">{{item.trader_local_nm | i18n}}</option>
+          </select>
+        </label>
+      </section>
+      <section class="col col-1 fix-width-blank"></section>
+      <section class="col col-2 margin-top-10 fix-width-field">
+        <label class="label col-md-4 new-label-txt-custom margin-top-1">{{'STYLE_NO' | i18n}}</label>
+        <label class="input col-md-8">
+          <input class="extra" type="text" name="styleNo" [(ngModel)]="styleNo"
+            autocomplete="off" />
+        </label>
+      </section>
+      <section class="col col-1 fix-width-blank"></section>
+      <section class="col col-2 margin-top-10 fix-width-field">
+        <label class="label col-md-4 new-label-txt-custom margin-top-1">{{'WO_NO' | i18n}}</label>
+        <label class="input col-md-8">
+          <input class="extra" type="number" name="woNo" [(ngModel)]="woNo"
+            autocomplete="off" />
+        </label>
+      </section>
+      <section class="col col-1 fix-width-blank"></section>
+      <section class="col col-3 margin-top-10" id="non-padding-right">
+          <section class="col col-4" *ngIf="checkTypePopup"></section>
+          <section class="col col-4">
+            <button type="submit" name="btnSearchProgram" class="btn btn-search btn-popup" style="margin-top: 1px !important;">
+              {{'BUTTON_SEARCH' | i18n}}
+            </button>
+          </section>
+          <section class="col col-4" *ngIf="!checkTypePopup">
+            <button type="button" (click)="onSelect()" class="btn btn-select btn-popup" style="margin-top: 1px !important;">
+              {{'Select' | i18n}}
+            </button>
+          </section>
+          <section class="col col-4">
+            <button type="button" (click)="onClose()" class="btn btn-cancel btn-popup" style="margin-top: 1px !important;">
+              {{'BUTTON-CLOSE' | i18n}}
+            </button>
+          </section> 
+      </section>
+    </div>
+  </fieldset>
+</form>
+<sa-widgets-grid *ngIf="!checkTypePopup">
+  <div class="row" style="margin-bottom: 15px;">
+    <article class="col-sm-12">
+      <div>
+        <div class="widget-body no-padding" style="margin: 0px 15px 15px 15px">
+          <sa-datatable [options]="options" [paginationLength]="false" filter="true"
+            tableClass="table projects-table table-striped table-condensed table-hover table-bordered tableWorkOrderNo">
+            <thead>
+              <tr class="heading">
+                <th>No</th>
+                <th></th>
+                <th>{{'BUYER' | i18n}}</th>
+                <th>{{'STYLE_NO' | i18n}}</th>
+                <th>{{'WO_NO' | i18n}}</th>
+                <th>{{'WO_DATE' | i18n}}</th>
+                <th>{{'ORDER_TYPE' | i18n}}</th>
+                <th>{{'INNING' | i18n}}</th>
+                <th>{{'SAMPLE_STATUS' | i18n}}</th>
+                <th>{{'DESCRIPTION' | i18n}}</th>
+              </tr>
+              <tr>
+                <th class="hasinput"></th>
+                <th class="hasinput"></th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+              </tr>
+            </thead>
+          </sa-datatable>
+        </div>
+      </div>
+    </article>
+  </div>
+</sa-widgets-grid>
+<sa-widgets-grid *ngIf="checkTypePopup">
+  <div class="row" style="margin-bottom: 15px;">
+    <article class="col-sm-12">
+      <div>
+        <div class="widget-body no-padding" style="margin: 0px 15px 15px 15px">
+          <sa-datatable [options]="options" [paginationLength]="false" filter="true" (rowClick)="onRowClick($event)"
+            tableClass="table projects-table table-striped table-condensed table-hover table-bordered tableWorkOrderNo">
+            <thead>
+              <tr class="heading">
+                <th>No</th>
+                <th>{{'BUYER' | i18n}}</th>
+                <th>{{'STYLE_NO' | i18n}}</th>
+                <th>{{'WO_NO' | i18n}}</th>
+                <th>{{'WO_DATE' | i18n}}</th>
+                <th>{{'ORDER_TYPE' | i18n}}</th>
+                <th>{{'INNING' | i18n}}</th>
+                <th>{{'SAMPLE_STATUS' | i18n}}</th>
+                <th>{{'DESCRIPTION' | i18n}}</th>
+              </tr>
+              <tr>
+                <th class="hasinput"></th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+              </tr>
+            </thead>
+          </sa-datatable>
+        </div>
+      </div>
+    </article>
+  </div>
+</sa-widgets-grid>
+<!-- </div> -->

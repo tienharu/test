@@ -1,0 +1,146 @@
+<div id="content">
+  <sa-widgets-grid>
+    <div class="row">
+      <section class="col-sm-12">
+        <div sa-widget [editbutton]="false" color="darken">
+          <header>
+            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+            <h2>{{ "WORK-CALENDAR-HEADER" | i18n }}</h2>
+          </header>
+          <div class="row">
+            <section class="col-lg-2 form-group">
+              <label class="text-dark padding-left-0">{{
+                "WORK PLACE" | i18n
+                }}</label>
+              <select
+                name="factory"
+                (ngModelChange)="getFactory($event)"
+                [(ngModel)]="factoryId"
+                select2
+                required
+                style="width:100%;"
+                class="select2 required"
+                placeHolder="Select factory">
+                <option *ngFor="let f of factorys" value="{{ f.factory_id }}">{{
+                  f.factory_id }} - {{ f.factory_nm_eng }}</option>
+              </select>
+            </section>
+            <section class="col-lg-2 form-group">
+              <label class="text-dark padding-left-0">{{
+                "MONTH" | i18n
+                }}</label>
+              <div class="col-sm-6 input-group">
+                <select
+                  name="month"
+                  (ngModelChange)="getCalendar($event)"
+                  select2
+                  required
+                  style="width:100%;"
+                  class="select2 required"
+                  placeHolder="Select month">
+                  <option value=""></option>
+                  <option *ngFor="let m of monthsYear" value="{{ m.val }}">{{
+                    m.text
+                    }}</option>
+                </select>
+              </div>
+            </section>
+            <section class="col-lg-1">
+              <label>&nbsp;</label>
+              <div class="smart-form">
+                <label class="checkbox checkbox_saturday">
+                  <input type="checkbox" [(ngModel)]="isSaturdayHoliday" />
+                  <i></i>{{ "SATURDAY HOLIDAY" | i18n }}
+                </label>
+              </div>
+            </section>
+            <section class="col-lg-3 padding-top-15">
+              <button
+                type="button"
+                class="btn btn-sm btn-primary calendar_create margin-right-5"
+                [disabled]="isDisable"
+                (click)="createCalendar()">
+                {{ "CALENDAR CREATE" | i18n }}
+              </button>
+              <button
+                *ngIf="isShow"
+                type="button"
+                class="btn btn-sm btn-info margin-right-5"
+                (click)="showFactoryPopup()">
+                {{ "COPY CALENDAR" | i18n }}
+              </button>
+              <button type="button" name="btnCloseProgram"
+                (click)="onCloseProgram()" class="btn btn-close btn-xs">
+                <i class="fa fa-times"></i>
+                {{'button-close' | i18n}}
+              </button>
+            </section>
+          </div>
+          <div class="at-smart-table">
+            <div class="widget-body no-padding">
+              <ng2-smart-table
+                class="table table-dark"
+                [settings]="settings"
+                [source]="this.model.days"
+                (editConfirm)="onSaveConfirm($event)"></ng2-smart-table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </sa-widgets-grid>
+</div>
+
+<ng-template #popupFactory>
+  <sa-popup-modal
+    headerTitle="{{ 'WORK PLACE' | i18n }}"
+    width="400"
+    height="600"
+    (onClose)="closeFactoryPopup()">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="heading" role="row">
+          <th></th>
+          <th>{{ "Id" | i18n }}</th>
+          <th>{{ "Name" | i18n }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let f of factorys; let even= even; let odd= odd"
+          [ngClass]="{ odd: odd, even: even, hide: f.factory_id == factoryId }"
+          role="row">
+          <td class="inbox-table-icon">
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  class="checkbox"
+                  [(ngModel)]="f.selected"
+                  />
+                <span></span>
+              </label>
+            </div>
+          </td>
+          <td class="col-6">
+            <div>{{ f.factory_id }}</div>
+          </td>
+          <td class="col-6">
+            <div>{{ f.factory_nm_eng }}</div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" class="right">
+            <button
+              type="button"
+              [disabled]="!permission.canSave"
+              class="btn btn-small btn-primary"
+              (click)="copyWorkCalendar()">
+              {{ "BUTTON-SAVE" | i18n }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </sa-popup-modal>
+</ng-template>

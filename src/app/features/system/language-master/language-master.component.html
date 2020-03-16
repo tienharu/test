@@ -1,0 +1,149 @@
+<div id="content">
+  <!-- <div class="row">
+    <sa-big-breadcrumbs [items]="[('language-title'))]" icon="user-plus" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div> -->
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-4">
+        <div sa-widget color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-edit"></i>
+            </span>
+            <h2>{{'Language-Edit' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+                class="smart-form atman-form-small frm-detail" novalidate="novalidate"
+                [saUiValidate]="validationOptions">
+                <fieldset>
+                  <input type="hidden" name="lang_id" [(ngModel)]="detailInfo.lang_id" />
+                  <div class="row">
+                    <section class="col col-8">
+                      <label class="label">{{'program-cd' | i18n}}</label>
+                      <label class="input">
+                        <select name="program_cd" [(ngModel)]="detailInfo.program_cd"
+                          [defaultVal]="detailInfo.program_cd" select2 required style="width:100%;"
+                          class="select2 required program" placeHolder="Select program">
+                          <option value='0'>Common Label</option>
+                          <option *ngFor="let s of Programs" value={{s.menu_id}} [disabled]="s.level!=2">
+                            {{s.menu_name_tree}}</option>
+                        </select>
+                      </label>
+                    </section>
+
+                    <section class="col col-4">
+                      <label class="label">{{'type' | i18n}}</label>
+                      <label class="input">
+                        <select name="type" [(ngModel)]="detailInfo.type" select2 [defaultVal]="detailInfo.type"
+                          style="width:100%;" class="select2 type">
+                          <option *ngFor="let l of langType" value={{l.key}}>
+                            {{l.text}}
+                          </option>
+                        </select>
+                      </label>
+                    </section>
+                  </div>
+                  <div class="row">
+                    <section class="col col-8">
+                      <label class="label">{{'language-key-word' | i18n}}</label>
+                      <label class="input">
+                        <ng-template [ngIf]="detailInfo.lang_id === 0 ">
+                          <input type="text" name="lang_cd" class="required_input" [(ngModel)]="detailInfo.lang_cd"
+                            required autocomplete="off" />
+                        </ng-template>
+                        <ng-template [ngIf]="detailInfo.lang_id !== 0  ">
+                          <input type="text" name="lang_cd" class="disabled" [(ngModel)]="detailInfo.lang_cd" disabled
+                            autocomplete="off" />
+                        </ng-template>
+                      </label>
+                    </section>
+
+
+                  </div>
+                  <section *ngFor="let language of otherLanguages">
+                    <label class="label">{{language.description}}</label>
+                    <label class="input">
+                      <input name="{{language.lang_cd}}" [required]="language.lang_cd=='ENGLISH'" autocomplete="off"/>
+                    </label>
+                  </section>
+
+
+                  <!-- <section class="">
+                    <label class="label">{{'description' | i18n}}</label>
+                    <label class="input">
+                      <input type="text" name="description" [(ngModel)]="detailInfo.description" autocomplete="off" />
+                    </label>
+                  </section> -->
+                </fieldset>
+                <footer>
+                  <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close">
+                    <i class="fa fa-times"></i>
+                    {{'button-close' | i18n}}
+                  </button>
+                  <button type="button" (click)="onReset(frmDetail)" name="reset" class="btn btn-reset-form">
+                    <i class="fa fa-refresh"></i>
+                    {{'button-reset' | i18n}}
+                  </button>
+                  <button type="submit" [disabled]="!this.permission.canSave" name="submit"
+                    class="btn btn-primary btn-xs edit-program">
+                    <i class="fa fa-save"></i>
+                    {{'button-save' | i18n}}
+                  </button>
+                </footer>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="col-sm-8">
+        <div sa-widget color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>{{'language-title' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" id="example" (rowClick)="onRowClick($event)" paginationLength="true" filter="true" delayRender="100"
+                tableClass="table table-striped table-condensed table-hover table-bordered datagrid_languages">
+                <thead>
+                  <tr class="heading">
+                    <th *ngFor="let col of tableCol">{{col.description|titlecase}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput" style="width: 15%;">
+                      <select name="filter_by_prg" class="form-control" style="width: 100%">
+                        <option value=''>All</option>
+                        <option value='0'>Common Label</option>
+                        <option *ngFor="let s of program2" value={{s.menu_id}} >{{s.menu_name}}</option>
+                      </select>
+                    </th>
+                    <th class="hasinput" style="width: 8%;">
+                      <select name="filter_by_type" class="form-control">
+                        <option value=''>All</option>
+                        <option *ngFor="let l of langType" value={{l.key}}>
+                          {{l.text}}
+                        </option>
+                      </select>
+                    </th> 
+                   <th class="hasinput" style="width: 25%;">
+                      <input type="text" class="form-control" placeholder="Filter Keyword" />
+                    </th>
+                    <th *ngFor="let c of otherLanguages" class="hasinput" style="width: 10%;">
+                      <input type="text" name='{{c.description}}' class="form-control" placeholder="Filter" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+
+
+</div>

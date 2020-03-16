@@ -1,0 +1,228 @@
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-sm-4">
+                <div sa-widget color="atman" class="jarviswidget-atman">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-edit"></i>
+                        </span>
+                        <h2>{{'EDIT-PAYROLL-ITEM' | i18n}}</h2>
+                    </header>
+                    <div>
+                        <div class="widget-body no-padding">
+                            <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" class="smart-form atman-form-small frm-detail"
+                                novalidate="novalidate" [saUiValidate]="validationOptions">
+                                <fieldset>
+                                    <div class="row">
+                                        <section class="col col-6">
+                                            <label class="label">{{'PAYROLL-ITEM-NAME' | i18n}}</label>
+                                            <label class="input">
+                                                <input class="required_input" type="text" autocomplete="off" name="payroll_item_name" [(ngModel)]="payrollitem.payroll_item_name" required />
+                                            </label>
+                                        </section>
+                                        <section class="col col-2">
+                                            <label class="label">{{'SBT-YN' | i18n}}</label>
+                                            <label class="input">
+                                                <label class="checkbox">
+                                                    <input type="checkbox" name="sbt_yn" [(ngModel)]="payrollitem.sbt_yn" (ngModelChange)="useSBT()" [disabled]="true">
+                                                    <i></i>Yes
+                                                </label>
+                                            </label>
+                                        </section>
+                                        <section class="col col-4">
+                                            <label class="label">{{'SBT_COLUMN_SEQ' | i18n}}</label>
+                                            <label class="input">
+                                              <select [(ngModel)]="payrollitem.sbt_column_seq" name="sbt_column_seq" [defaultVal]="payrollitem.sbt_column_seq" [disabled]="isSBTDisable" 
+                                                select2 style="width:100%;" class="select2" placeHolder="SBT column" allowClear='true'>
+                                                <option *ngFor="let s of sbtCol" [value]="s.id">{{s.text}}</option>
+                                              </select>
+                                            </label>
+                                          </section>
+                                    </div>
+                                    <div class="row">
+                                        <section class="col col-2" title="Insurance Calc. Y/N">
+                                            <label class="label">{{'INSURANCE-CALC-YN' | i18n}}</label>
+                                            <label class="input">
+                                                <label class="checkbox">
+                                                    <input type="checkbox" name="insurance_yn" [(ngModel)]="payrollitem.insurance_yn">
+                                                    <i></i>Yes
+                                                </label>
+                                            </label>
+                                        </section>
+                                        <section class="col col-2">
+                                                <label class="label">{{'DEDUCT' | i18n}}</label>
+                                                <label class="input">
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" name="add_deduct_type" [(ngModel)]="payrollitem.add_deduct_type">
+                                                        <i></i>Yes
+                                                    </label>
+                                                </label>
+                                            </section>
+                                        <section class="col col-2">
+                                            <label class="label">{{'TAX-YN' | i18n}}</label>
+                                            <label class="input">
+                                                <label class="checkbox">
+                                                    <input type="checkbox" name="tax_yn" [(ngModel)]="payrollitem.tax_yn" >
+                                                    <i></i>Yes
+                                                </label>
+                                            </label>
+                                        </section>
+                                        <section class="col col-2">
+                                            <label class="label">{{'USE-YN' | i18n}}</label>
+                                            <label class="input">
+                                                <label class="checkbox">
+                                                    <input type="checkbox" name="use_yn" [(ngModel)]="payrollitem.use_yn">
+                                                    <i></i>Yes
+                                                </label>
+                                            </label>
+                                        </section>
+                                        <section class="col col-2">
+                                            <label class="label">{{'DISPLAY-ORDER' | i18n}}</label>
+                                            <label class="input">
+                                                <input class="required_input center" type="text" autocomplete="off" name="order_seq" [(ngModel)]="payrollitem.order_seq" required />
+                                            </label>
+                                        </section>
+                                    </div>
+                                    <div class="row">
+                                        <section class="col col-6">
+                                            <label class="label">{{'PAYROLL_ITEM_MAPPING' | i18n}}</label>
+                                            <label class="input">
+                                              <select [(ngModel)]="payrollitem.mapping_item_id" name="mapping_item_id" [defaultVal]="payrollitem.mapping_item_id"
+                                                select2 style="width:100%;" class="select2" allowClear='true' required>
+                                                <option *ngFor="let m of mappingItems" [value]="m.id">{{m.text}}</option>
+                                              </select>
+                                            </label>
+                                          </section>
+                                    </div>
+                                    <div class="row">
+                                        <section class=" col col-xs-12">
+                                            <label class="label">{{'REMARK' | i18n}}</label>
+                                            <label class="textarea">
+                                                <textarea type="text" name="remark"  [(ngModel)]="payrollitem.remark" autocomplete="off" rows="2"></textarea>
+                                            </label>
+                                        </section>
+                                    </div>
+                                </fieldset>
+                                <footer>
+                                    <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs">
+                                        <i class="fa fa-times"></i>
+                                        {{'button-close' | i18n}}
+                                    </button>
+                                    <button type="button" (click)="onReset()" name="reset" class="btn btn-default btn-xs edit-program">
+                                        <i class="fa fa-refresh"></i>
+                                        {{'button-reset' | i18n}}
+                                    </button>
+                                    <button type="submit" [disabled]="!permission.canSave" name="submit" class="btn btn-primary btn-xs edit-program">
+                                        <i class="fa fa-save"></i>
+                                        {{'button-save' | i18n}}
+                                    </button>
+                                </footer>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="col-sm-8">
+                <div sa-widget color="atman" class="jarviswidget-atman">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-table"></i>
+                        </span>
+                        <h2>{{'LIST-PAYROLL-ITEM' | i18n}}</h2>
+                    </header>
+                    <div>
+                        <div class="widget-body no-padding">
+                            <sa-datatable [options]="options" (rowClick)="onRowClick($event)"
+                                paginationLength="true" filter="true" tableClass="traderListInfo table table-striped table-condensed table-hover table-bordered datagrid_languages">
+                                <thead>
+                                    <tr class="heading datatable_title">
+                                        <th>ID</th>
+                                        <th id="payroll-item-name">{{'PAYROLL-ITEM-NAME' | i18n}}</th>
+                                        <th>{{'DISPLAY-ORDER' | i18n}}</th>
+                                        <th>{{'INSURANCE-CALC-YN' | i18n}}</th>
+                                        <th>{{'TAX-YN' | i18n}}</th>
+                                        <th>{{'DEDUCT' | i18n}}</th>
+                                        <th>{{'SBT-YN' | i18n}}</th>
+                                        <th>{{'SBT-COL-SEQ' | i18n}}</th>
+                                        <th>{{'USE-YN' | i18n}}</th>
+                                        <th>{{'REMARK' | i18n}}</th>
+                                        <th>{{'CREATED-BY' | i18n}}</th>
+                                        <th>{{'CREATED-DATE' | i18n}}</th>
+                                    </tr>
+                                    <tr class="table_filter">
+                                        <th class="hasinput table_border_filter">
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </th>
+                                        <th class="hasinput table_border_filter">
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </th>
+                                        <th class="hasinput table_border_filter">
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </th>
+                                        
+                                        <th class="hasinput table_border_filter">
+                                                <select id="FilterDropdownPayroll" class="form-control select-filter" style="width:47px !important">
+                                                    <option value="">All</option>
+                                                    <option value="yes">Yes</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </th>
+                                        <th class="hasinput table_border_filter">
+                                            <select id="FilterDropdownPayroll" class="form-control select-filter" style="width:47px !important">
+                                                <option value="">All</option>
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </th>
+                                        <th class="hasinput table_border_filter">
+                                                <select id="FilterDropdownPayroll" class="form-control select-filter">
+                                                    <option value="">All</option>
+                                                    <option value="yes">Yes</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </th>
+                                            <th class="hasinput table_border_filter">
+                                                    <select id="FilterDropdownPayroll" class="form-control select-filter" style="width:47px !important">
+                                                        <option value="">All</option>
+                                                        <option value="yes">Yes</option>
+                                                        <option value="no">No</option>
+                                                    </select>
+                                                </th>
+                                                <th class="hasinput table_border_filter">
+                                                    <select  id="FilterDropdownNoAlign" class="form-control select-filter">
+                                                        <option value="">All</option>
+                                                        <option *ngFor="let s of sbtCol" value={{s.id}}>{{s.text}}</option>
+                                                    </select>
+                                                </th>
+                                        <th class="hasinput table_border_filter">
+                                            <select id="FilterDropdownPayroll" class="form-control select-filter">
+                                                <option value="">All</option>
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </th>
+                                        
+                                        <th class="hasinput table_border_filter">
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </th>
+                                        <th class="hasinput icon-addon table_border_filter">
+                                                <div class="">
+                                                  <i class="fa fa-calendar margin-top-5"></i>
+                                                  <input type="text" class="form-control" placeholder="YYYY-MM-DD" class="form-control datepicker"
+                                                    [saUiDatepicker]="{}" />
+                                                </div>
+                                              </th>
+                                              <th class="hasinput table_border_filter">
+                                                    <input type="text" class="form-control" placeholder="" />
+                                                </th>
+                                    </tr>
+                                </thead>
+                            </sa-datatable>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </sa-widgets-grid>
+</div>

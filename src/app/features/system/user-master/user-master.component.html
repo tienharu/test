@@ -1,0 +1,317 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[('SYSTEM-USER-TITLE'|i18n)]" icon="user-plus" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>
+
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12">
+        <div sa-widget color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-edit"></i>
+            </span>
+            <h2>{{'SYSTEM-USER-LIST'|i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+                <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" class="smart-form atman-form-small frm-detail" novalidate="novalidate" [saUiValidate]="validationOptions">
+                <fieldset>
+                  <input type="hidden" name="user_id" [(ngModel)]="detailInfo.user_id" />
+                  <div class="row">
+                    <section class="col col-1">
+                      <label class="label">{{'ENTRY-DATE' | i18n}}</label>
+                      <label class="input state-disabled">
+                        <input type="text" name="entry_date" class="center" [value]="entryDate" autocomplete="off" disabled />
+                      </label>
+                    </section>
+                    <section class="col col-1">
+                      <label class="label">{{'ENTRY-MEMBER' | i18n}}</label>
+                      <label class="input state-disabled">
+                        <input type="text" name="entry_member" class="center" [value]="detailInfo.creator" autocomplete="off" disabled />
+                      </label>
+                    </section>
+                    <section class="col col-1">
+                      <label class="label">{{'USER-SYSTEM-ID' | i18n}}</label>
+                      <label class="input state-disabled">
+                        <input type="text" name="user_id" [value]="detailInfo.user_id === 0 ? '' : detailInfo.user_id" autocomplete="off"
+                          placeholder="---" class="center" disabled />
+                      </label>
+                    </section>
+                    <section class="col col-2">
+                      <label class="label">{{'COMPANY' | i18n}}</label>
+                      <label class="input">
+                        <select name="company_id" [(ngModel)]="detailInfo.company_id" [defaultVal]="detailInfo.company_id" select2
+                          required style="width:100%;" class="select2 required" placeHolder="Select company" [disabled]="!userService.isSystemCompany()" (onSelectedChange)="onChangeCompany($event)">
+                          <option></option>
+                          <option *ngFor="let company of companies" value={{company.company_id}}>{{company.company_eng_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+                    <!-- <section class="col col-1">
+                      <label class="label">&nbsp;</label>
+                      <label class="input state-disabled">
+                        <input class="center" type="number" name="company_id_text" [value]="detailInfo.company_id === 0 ? '...' : detailInfo.company_id"
+                          placeholder="..." autocomplete="off" disabled />
+                      </label>
+                    </section> -->
+                    <section class="col col-2">
+                      <label class="label">{{'ORGANIZATION'}}</label>
+                      <label class="input">
+                        <select name="org_id" [(ngModel)]="detailInfo.org_id" [defaultVal]="detailInfo.org_id" select2
+                          required style="width:100%;" class="select2 required" placeHolder="Select organization">
+                          <option></option>
+                          <option *ngFor="let org of organizations" value={{org.org_cd}}>{{org.org_tree_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+                    <!-- <section class="col col-1">
+                      <label class="label">&nbsp;</label>
+                      <label class="input state-disabled">
+                        <input class="center" type="text" name="org_gen_cd" [value]="detailInfo.org_gen_cd" autocomplete="off"
+                          placeholder="..." disabled />
+                      </label>
+                    </section> -->
+                    <section class="col col-2">
+                      <label class="label">{{'POSITION' | i18n}}</label>
+                      <label class="input">
+                        <select name="position_gen_cd" [(ngModel)]="detailInfo.position_gen_cd" [defaultVal]="detailInfo.position_gen_cd"
+                          select2 required style="width:100%;" class="select2 required" placeHolder="Select position">
+                          <option></option>
+                          <option *ngFor="let pos of positions" value={{pos.gen_cd}}>{{pos.gen_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+                    <section class="col col-1">
+                      <label class="label">{{'SUPER-Y/N' | i18n}}</label>
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="super_yn" [(ngModel)]="detailInfo.super_yn" checked="detailInfo.super_yn">
+                          <i></i>
+                        </label>
+                      </label>
+                    </section>
+                    <section class="col col-1">
+                      <label class="label">{{'USE-YN' | i18n}}</label>
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="use_yn" [(ngModel)]="detailInfo.use_yn" checked="detailInfo.use_yn">
+                          <i></i>
+                        </label>
+                      </label>
+                    </section>
+                    <!-- <section class="col col-1">
+                      <label class="label">&nbsp;</label>
+                      <label class="input state-disabled">
+                        <input class="center" type="text" name="position_gen_cd" [value]="detailInfo.position_gen_cd" autocomplete="off"
+                          placeholder="..." disabled />
+                      </label>
+                    </section> -->
+                  </div>
+            
+                  <div class="row">
+                    <!-- <section class="col col-2">
+                      <label class="label">Use System</label>
+                      <section>
+                        <div class="inline-group">
+                          <label class="radio" *ngFor="let type of systemTypes">
+                            <input type="radio" name="use_sys" [(ngModel)]="detailInfo.use_sys" [value]="type.value" required>
+                            <i></i>{{type.name | i18n}}
+                          </label>
+                        </div>
+                      </section>
+                    </section> -->
+                    
+            
+                    <section class="col col-2">
+                      <label class="label">{{'FULL-NAME' | i18n}}</label>
+                      <label class="input">
+                        <input class="required_input" type="text" name="full_name" [(ngModel)]="detailInfo.full_name" autocomplete="off" required />
+                      </label>
+                    </section>
+                    <section class="col col-1">
+                      <label class="label">{{'USER-ID' | i18n}}</label>
+                      <label class="input" [ngClass]="{'state-disabled':updating}">
+                        <input class="required_input" type="text" name="user_nm" [(ngModel)]="detailInfo.user_nm" (ngModelChange)="generateTempPass()"
+                          maxlength="20" autocomplete="off" required />
+                      </label>
+                    </section>
+                    <section class="col col-1">
+                      <label class="label">{{'PASSWORD' | i18n}}</label>
+                      <!-- <label class="input" [ngClass]="{'state-disabled':updating}">
+                        <input type="text" name="password" [(ngModel)]="detailInfo.password" autocomplete="off" placeholder="Default: Username + 1234"
+                          class="required" />
+                      </label> -->
+                      <label class="input" *ngIf="!updating">
+                          <input type="text" name="password" [(ngModel)]="detailInfo.password" autocomplete="off" placeholder="UserID+1234"
+                            class="required" />
+                        </label>
+                        <div *ngIf="updating">
+                            <button type="button" class="btn btn-info btn-xs edit-program" (click)="openResetPassPopup()">
+                              <i class="fa fa-refresh"></i>
+                              {{'RESET-PASSWORD' | i18n}}  
+                            </button>
+                        </div>
+                    </section>
+                    <section class="col col-2">
+                      <label class="label">{{'EMAIL' | i18n}}</label>
+                      <label class="input">
+                        <input class="required_input" type="text" name="email" [(ngModel)]="detailInfo.email" required autocomplete="off" [readonly]="idReadOnly" />
+                      </label>
+                    </section>
+                    <section class="col col-4">
+                      <label class="label">{{'DESCRIPTION' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="remark" [(ngModel)]="detailInfo.remark" autocomplete="off" />
+                      </label>
+                    </section>
+                  </div>
+            
+                </fieldset>
+            
+                <footer>
+                    <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close">
+                        <i class="fa fa-times"></i>
+                        {{'button-close' | i18n}}
+                    </button>
+                  <button type="button" (click)="onReset()" name="reset" class="btn btn-reset-form">
+                    <i class="fa fa-refresh"></i>
+                    {{'button-reset' | i18n}}
+                  </button>
+                  <button type="submit" [disabled]="!this.permission.canSave" name="submit" class="btn btn-primary btn-xs edit-program">
+                    <i class="fa fa-save"></i>
+                    {{'button-save' | i18n}}
+                  </button>
+            
+                </footer>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <div class="row">
+      <article class="col-sm-12">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>{{'SYSTEM-USER-LIST'|i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                tableClass="table table-striped table-condensed table-hover table-bordered">
+                <thead>
+                  <tr class="heading datatable_title">
+                    <!-- <th>Code</th> -->
+                    <th>ID</th>
+                    <th>{{'USER-NAME' | i18n}}</th>
+                    <th>{{'FULL-NAME' | i18n}}</th>
+                    <th>{{'EMAIL' | i18n}}</th>
+                    <th>{{'COMPANY' | i18n}}</th>
+                    <th>{{'POSITION' | i18n}}</th>
+                    <th>{{'ORGANIZATION' | i18n}}</th>
+                    <!-- <th>Use.Sys</th>
+                    <th>R-PW</th> -->
+                    <th>{{'SUPER-Y/N' | i18n}}</th>
+                    <th>{{'Use' | i18n}}</th>
+                    <!-- <th>Desc.</th> -->
+                    <th>{{'CREATED-BY' | i18n}}</th>
+                    <th>{{'CREATED-DATE' | i18n}}</th>
+                    <th>{{'UPDATED-BY' | i18n}}</th>
+                    <th>{{'UPDATED-DATE' | i18n}}</th>
+                  </tr>
+                  <tr class="table_filter">
+                    <!-- <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Code" />
+                    </th> -->
+                    <th class="hasinput table_border_filter">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput table_border_filter">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput table_border_filter">
+                        <input type="text" class="form-control" placeholder="Filter" />
+                      </th>
+                    <th class="hasinput table_border_filter">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput table_border_filter">
+                      <select id="FilterDropdownNoAlign" class="form-control select-filter">
+                        <option value="">All</option>
+                        <option *ngFor="let company of companies" value={{company.company_id}}>{{company.company_eng_nm}}</option>
+                      </select>
+                    </th>
+                    <th class="hasinput table_border_filter">
+                      <select id="FilterDropdownNoAlign" class="form-control select-filter">
+                        <option value="">All</option>
+                        <option *ngFor="let pos of positions" value={{pos.gen_cd}}>{{pos.gen_nm}}</option>
+                      </select>
+                    </th>
+                    <th class="hasinput table_border_filter">
+                      <select id="FilterDropdownNoAlign" class="form-control select-filter" style="width: 100%">
+                        <option value="">All</option>
+                        <option *ngFor="let org of organizations" value={{org.gen_cd}}>{{org.gen_nm}}</option>
+                      </select>
+                    </th>
+                    <!-- <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Use Sys" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter R-PW" />
+                    </th> -->
+                    <th class="hasinput table_border_filter">
+                      <select id="FilterBySuperYN" class="form-control select-filter" style="width: 100%">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    <th class="hasinput table_border_filter">
+                      <select id="FilterByUseYN" class="form-control select-filter" style="width: 100%">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    <!-- <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Description" />
+                    </th> -->
+                    <th class="hasinput table_border_filter">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput icon-addon table_border_filter">
+                      <i class="fa fa-calendar margin-top-5"></i>
+                      <input id="date_created" type="text" placeholder="Filter" class="form-control datepicker"
+                        [saUiDatepicker]="{}" />
+                    </th>
+                    <th class="hasinput table_border_filter">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput icon-addon table_border_filter">
+                      <div class="">
+                        <i class="fa fa-calendar margin-top-5"></i>
+                        <input id="date_updated" type="text" placeholder="Filter" class="form-control datepicker"
+                          [saUiDatepicker]="{}" />
+                      </div>
+                    </th>
+                  </tr>
+
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>
+<ng-template #tplResetPass>
+    <sa-popup-modal headerTitle="Reset User's Password" width="500" height="300" (onClose)="closePopupModal()">
+      <sa-reset-pass userId={{detailInfo.user_id}} userName={{detailInfo.user_nm}}></sa-reset-pass>
+    </sa-popup-modal>
+  </ng-template>

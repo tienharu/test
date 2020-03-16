@@ -1,0 +1,137 @@
+<div class="col-lg-12 right-content">
+    <section class="widget-body no-padding col-lg-4 field-1">
+        <form class="smart-form frmTraining" #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" novalidate="novalidate"
+        [saUiValidate]="validationOptions">
+                <fieldset>
+                        <section class="col-lg-12">
+                                <label class="label col-lg-5">{{'Date' | i18n}}</label>
+                                <label class="input col-lg-6"> <i class="icon-append fa fa-calendar"></i>
+                                    <input type="text" name="from_ymd" [(ngModel)]="traningInfo.from_ymd" required class="training-ymd-datepicker" autocomplete="off">
+                                </label>
+                        </section>
+                            <section class="col-lg-12">
+                                <label class="label col-lg-5">{{'Type' | i18n}}</label>
+                                <label class="input col-lg-6">
+                                    <select select2 name="training_type_gen_cd" required [(ngModel)]="traningInfo.training_type_gen_cd" [defaultVal]="traningInfo.training_type_gen_cd" class="select2 required" style="width:100%" placeHolder="">
+                                        <option *ngFor="let item of trainingType" value={{item.gen_cd}}>{{item.gen_nm}}</option>
+                                    </select>
+                                </label>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Total' | i18n}}</label>
+                                    <label class="input col-lg-3">
+                                        <input type="text" name="training_sum_hour" [(ngModel)]="traningInfo.training_sum_hour" />
+                                    </label><label style="padding-left:10px">{{'hours' | i18n}}</label>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Organizer' | i18n}}</label>
+                                    <label class="input col-lg-6">
+                                        <select select2 name="organizer_gen_cd" [(ngModel)]="traningInfo.organizer_gen_cd" [defaultVal]="traningInfo.organizer_gen_cd" class="select2" 
+                                        style="width:100%" placeHolder="Organizer">
+                                            <option *ngFor="let item of organizer" value={{item.gen_cd}}>{{item.gen_nm}}</option>
+                                        </select>
+                                    </label>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Score-before' | i18n}}</label>
+                                    <label class="input col-lg-3">
+                                        <input type="text" name="last_score" [(ngModel)]="traningInfo.last_score" />
+                                    </label>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Score-after' | i18n}}</label>
+                                    <label class="input col-lg-3">
+                                        <input type="text" name="after_score" [(ngModel)]="traningInfo.after_score" />
+                                    </label>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Score-PTE' | i18n}}</label>
+                                    <label class="input col-lg-3">
+                                        <input type="text" name="final_score" [(ngModel)]="traningInfo.final_score" />
+                                    </label>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Certificate' | i18n}}</label>
+                                    <label class="checkbox col-lg-3">
+                                        <input type="checkbox" name="cetificate_yn" [(ngModel)]="traningInfo.cetificate_yn">
+                                        <i></i>
+                                    </label>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Remarks' | i18n}}</label>
+                                    <label class="textarea col-lg-6">
+                                        <textarea rows="3" name="remark" [(ngModel)]="traningInfo.remark" class="custom-scroll"></textarea> </label>
+                                    <div class="note">
+                                    </div>
+                            </section>  
+                            <section class="col-lg-11 btn-cmd">
+                              <button class="btn btn-small btn-primary" name="submit" [disabled]="!permission.canSave" type="submit" style="margin: 0 4px;"><i class="fa fa-save"></i> {{'BUTTON-SAVE' | i18n}}</button>
+                              <button class="btn btn-small btn-default" name="reset" type="button" (click)="onReset()" ><i class="fa fa-refresh"></i> {{'BUTTON-RESET' | i18n}}</button>
+                          </section>
+                </fieldset>
+            </form>
+      
+      </section>
+      <section class="col-lg-8 field-2 traning-list">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+                <div>
+                    <div class="widget-body no-padding">                  
+                          <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                          tableClass="epltraningInfoList table table-striped table-condensed table-hover table-bordered">                  
+                            <thead>
+                                <tr class="heading">
+                                    <th>{{'Type' | i18n}}</th>
+                                    <th>{{'Date' | i18n}}</th>
+                                    <th>{{'Total' | i18n}}</th>
+                                    <th>{{'Organizer' | i18n}}</th>
+                                    <th>{{'SCORE-BEFORE' | i18n}}</th>
+                                    <th>{{'SCORE-AFTER' | i18n}}</th>
+                                    <th>{{'SCORE-PTE' | i18n}}</th>
+                                    <th>{{'Certificate' | i18n}}</th>
+                                    <th>{{'Remarks' | i18n}}</th>
+                                </tr>
+                                <tr>
+                                    <th class="hasinput">
+                                        <select class="form-control select-filter" name="filter_Type"
+                                        style="width:100%">
+                                        <option value="">{{'All' | i18n}}</option>
+                                        <option value="1">{{'Reward' | i18n}}</option>
+                                        <option value="2">{{'Punish' | i18n}}</option>
+                                    </select>
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Date" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Total" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <select class="form-control select-filter" name="filter_organizer"
+                                        style="width:100%">
+                                        <option value="">{{'All' | i18n}}</option>
+                                        <option *ngFor="let item of organizer" value={{item.org_cd}}>{{item.org_nm_eng}}</option>
+                                    </select>
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Before" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="After" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Score" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Certificate" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Remarks" />
+                                    </th>
+                                </tr>
+                            </thead>
+                        </sa-datatable>
+                    </div>
+                </div>
+            </div>   
+      </section>
+</div>

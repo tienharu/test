@@ -1,0 +1,72 @@
+<article class="col-sm-12 col-md-12 col-lg-12">
+    <div>
+        <header>
+            <h2>Company Contract History</h2>
+        </header>
+        <div class="row">
+            <div class="no-padding">
+                <sa-datatable [options]="options" (rowDbClick)="onContractRowClick($event)" paginationLength="true"
+                    filter="true" tableClass="tbl-company-contract table table-striped table-condensed table-hover table-bordered">
+                    <thead>
+                        <tr class="heading">
+                            <th>Contract No</th>
+                            <th>Contract Name</th>
+                            <th>Contract Date</th>
+                            <th>Package</th>
+                            <th>Payment Date</th>
+                            <th>{{'MONEY' | i18n}}</th>
+                            <th>{{'Use' | i18n}}</th>
+                            <th>{{'Created-By' | i18n}}</th>
+                            <th>{{'Created-Date' | i18n}}</th>
+                        </tr>
+                        <!-- <tr>
+                            <th class="hasinput">
+                                <input type="text" class="form-control" placeholder="Filter ID" />
+                            </th>
+                            <th class="hasinput">
+                                <input type="text" class="form-control" placeholder="Filter Name" />
+                            </th>
+                            <th class="hasinput icon-addon">
+                                <i class="fa fa-calendar margin-top-5"></i>
+                                <input type="text" placeholder="Filter Date" class="form-control datepicker"
+                                    [saUiDatepicker] />
+                            </th>
+                            <th class="hasinput icon-addon">
+                                <i class="fa fa-calendar margin-top-5"></i>
+                                <input type="text" placeholder="Filter Date" class="form-control datepicker"
+                                    [saUiDatepicker] />
+                            </th>
+                            <th class="hasinput">
+                                <input type="text" class="form-control" placeholder="Filter Money" />
+                            </th>
+                           
+                            <th class="hasinput">
+                                <select class="form-control select-filter">
+                                    <option value="">All</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </th>
+                            <th class="hasinput" [ngStyle]="{width:'10%'}">
+                                <input type="text" class="form-control" placeholder="Filter User" />
+                            </th>
+                            <th class="hasinput icon-addon">
+                                <i class="fa fa-calendar margin-top-5"></i>
+                                <input type="text" placeholder="Filter Date" class="form-control datepicker"
+                                    [saUiDatepicker] />
+                            </th>
+
+                        </tr> -->
+
+                    </thead>
+                </sa-datatable>
+            </div>
+        </div>
+    </div>
+</article>
+
+<ng-template #tplContractEdit>
+        <sa-popup-modal headerTitle="Company Contract Register" width="600" height="600" (onClose)="closeEditContract()">
+          <sa-edit-contract companyId="{{companyId}}" packId="{{packId}}" detailInfoJson={{contractDetail|json}} ></sa-edit-contract>
+        </sa-popup-modal>
+      </ng-template>

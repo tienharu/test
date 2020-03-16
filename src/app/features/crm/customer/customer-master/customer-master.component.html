@@ -1,0 +1,110 @@
+<div id="content">
+  <!-- <div class="row">
+    <sa-big-breadcrumbs [items]="['Trader List']" icon="users" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div> -->
+  <div class="well well-sm">
+    <div class="row">
+      <div class="col-sm-2" style="padding-right: 0;">
+        <div class="input-group">
+            <span class="input-group-addon" style="padding: 0; top: 0px; position: relative; border: none;">
+                <button type="button" [disabled]="!permission.canSearch" (click)="searchFavourite()" class="customer-star">
+                    <i class="fav-style fa fa-star-o"></i>
+                  </button>
+            </span>
+          <input id="txtKeyword" [disabled]="!permission.canSearch" (keypress)="checkKeycode($event)" class="form-control input-sm col col-lg-7" onclick="this.select()"
+            placeholder="Search anything values...">
+          <span class="input-group-addon" style="padding: 0; top: 0px; position: relative; left: -4px; border: none;">
+            <button type="button" [disabled]="!permission.canSearch" class="col col-lg-3" style="padding-bottom: 4px;" (click)="search()" class="btn btn-default">
+              <i class="fa fa-search"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+      <div class="col-sm-3" style="padding-left: 0;">
+        <button type="button" (click)="openPopup(null)" style="padding-bottom: 4px;" class="btn btn-success">
+          <i class="fa fa-plus"></i>
+          {{'OPPORTUNITY-New' | i18n}}
+        </button>
+      </div>
+      <div class="dropdown-toggle dropdown pull-right" style="padding: 5px 20px 0 0;">
+        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-angle-down"></i> Sort by</a>
+        <ul class="dropdown-menu">
+          <li>
+            <a><b>Last Modified</b></a>
+          </li>
+          <li>
+            <a>Trader Name</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngFor="let item of traders" class="col-sm-2">
+      <div class="panel panel-default">
+        <div class="panel-body status traderListInfo">
+          <div class="who clearfix">
+            <div class="name"><a [routerLink]="['/customer-detail', item.trader_id]"><b>{{item.trader_local_nm}}</b></a>
+              <a class="pull-right text-warning" *ngIf="item.favourite_yn">
+                <i class="fa fa-star"></i>
+              </a>&nbsp;
+              <a class="text-warning" *ngIf="!item.favourite_yn">
+                <i class="fa fa-star-o"></i>
+              </a>&nbsp;
+            </div>
+            <span class="from">{{item.trader_cate_name}}</span>
+          </div>
+
+          <div class="text">
+            <div>
+              <i class="fa fa-user"></i> {{item.ceo_nm}}
+            </div>
+            <div>
+              <i class="fa fa-globe"></i> <a href="{{item.home_page}}" target="_blank"> {{item.home_page}}</a>
+            </div>
+          </div>
+          <ul class="links">
+            <li>
+              <i class="fa fa-phone"></i>{{item.phone}}
+            </li>
+            <li class="dropdown-toggle dropdown pull-right">
+              <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-angle-down"></i></a>
+              <ul class="dropdown-menu">
+                <li>
+                  &nbsp;- Incharge: {{getInchargeName(item.incharge_id)}}
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row center">
+    <!-- <span class=" pull-right">Total {{pager.totalItems}} record(s)</span> -->
+    <ul *ngIf="pager.pages && pager.pages.length" id="pagination-customer" class="pagination pagination-md">
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="loadPage(1)">First</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="loadPage(pager.currentPage - 1)"><i class="fa fa-angle-left"></i></a>
+      </li>
+      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+        <a (click)="loadPage(page)">{{page}}</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="loadPage(pager.currentPage + 1)"><i class="fa fa-angle-right"></i></a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="loadPage(pager.totalPages)">Last</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ng-template #popupTraderEditData>
+  <sa-popup-modal class="hide-border-bottom-popup" headerTitle="Customer data management" width="1000" height="900"
+    (onClose)="closeTraderPopup()">
+    <sa-customer-edit traderId="{{traderInfo.trader_id}}" traderJson="{{traderInfo|json}}" (childCall)="reloadListTrader($event)"></sa-customer-edit>
+  </sa-popup-modal>
+</ng-template>

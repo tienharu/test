@@ -1,0 +1,9 @@
+.select2-selection {
+    height: 32px;
+}
+.icon-2 {
+    position: relative;
+    bottom: 1px;
+    right: 16px;
+    color: #707070;
+}

@@ -1,0 +1,301 @@
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+      <div><h1 class="page-title"><i class="fa-fw fa fa-gears"></i>General Master</h1></div>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-4">
+          <div class="pull-right">
+              <button type="button" (click)="onCopy()" class="btn btn-info btn-sm">
+                  <i class="fa fa-copy"></i>
+                  Copy From Sys-Master
+                </button> 
+          </div>
+      </div>
+  </div>
+  <!-- (ngSubmit)="frmDetail.form.valid && onSubmit()" -->
+  <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" class="smart-form atman-form-small no-header frm-detail" novalidate="novalidate"
+    [saUiValidate]="validationOptions">
+    <fieldset>
+      <input type="hidden" name="gen_cd" [(ngModel)]="detailInfo.gen_cd" />
+      <div class="row">
+        <section class="col col-2">
+          <label class="label">{{'CATEGORY' | i18n}}</label>
+          <label class="input">
+            <select name="cate_cd" [(ngModel)]="detailInfo.cate_cd" [defaultVal]="detailInfo.cate_cd"  (onSelectedChange)="onCateChange($event)"
+              select2 required style="width:100%;" class="select2 required cate_cd" placeHolder="Select category type">
+              <option *ngFor="let category of Categories" value={{category.cate_cd}}>{{category.cate_nm}} </option>
+            </select>
+          </label>
+        </section>
+        <section class="col col-1">
+            <label class="label">{{'GENERAL-CODE' | i18n}}</label>
+            <label class="input">
+              <input type="text" name="gen_cd" [(ngModel)]="detailInfo.gen_cd" disabled class="text-center disabled" placeholder="Auto-gen" />
+            </label>
+          </section>
+        <section class="col col-2">
+          <label class="label">{{'GENERAL-NAME' | i18n}}</label>
+          <label class="input">
+            <input type="text" name="gen_nm" [(ngModel)]="detailInfo.gen_nm" autocomplete="off" required />
+          </label>
+        </section>
+
+        <section class="col col-2">
+          <label class="label">{{'PARENT-ID' | i18n}}</label>
+          <label class="input">
+            <select name="parent_cd" [(ngModel)]="detailInfo.parent_cd" [defaultVal]="detailInfo.parent_cd" select2
+              style="width:100%;" class="select2 parent_cd" placeHolder="Select parent type">
+              <option *ngFor="let parent of parents" value={{parent.parent_cd}}>{{parent.gen_nm}}</option>
+            </select>
+          </label>
+        </section>
+        <section class="col col-1">
+          <label class="label">{{'SYS-YN' | i18n}}</label>
+          <label class="input">
+            <label class="checkbox">
+              <input type="checkbox" name="sys_cd_yn" [(ngModel)]="detailInfo.sys_cd_yn" checked="detailInfo.sys_cd_yn">
+              <i></i>
+            </label>
+          </label>
+        </section>
+                
+        <section class="col col-1">
+          <label class="label">{{'USE-YN' | i18n}}</label>
+          <label class="input">
+            <label class="checkbox">
+              <input type="checkbox" name="use_yn" [(ngModel)]="detailInfo.use_yn" checked="detailInfo.use_yn">
+              <i></i>
+            </label>
+          </label>
+        </section>
+        <section class="col col-3">
+          <!-- <button type="button" (click)="onReset(frmDetail)" name="reset" class="btn btn-default btn-xs edit-program">
+            <i class="fa fa-refresh"></i>
+            Reset
+          </button>
+          <button type="submit" name="submit" class="btn btn-primary btn-xs edit-program">
+            <i class="fa fa-save"></i>
+            Save
+          </button> -->
+        </section>
+
+      </div>
+
+      <div class="row">
+        <section class="col col-1">
+          <label class="label">{{'CK-VAL-1' | i18n}}</label>
+          <label class="input">
+            <input type="text" name="ck_value_1" [(ngModel)]="detailInfo.ck_value_1" autocomplete="off" />
+          </label>
+        </section>
+        <section class="col col-1">
+          <label class="label">{{'CK-VAL-2' | i18n}}</label>
+          <label class="input">
+            <input type="text" name="ck_value_2" [(ngModel)]="detailInfo.ck_value_2" autocomplete="off" />
+          </label>
+        </section>
+        <section class="col col-1">
+          <label class="label">{{'CK-VAL-3' | i18n}}</label>
+          <label class="input">
+            <input type="text" name="ck_value_3" [(ngModel)]="detailInfo.ck_value_3" autocomplete="off" />
+          </label>
+        </section>
+        <section class="col col-1">
+          <label class="label">{{'SEQ-VAL-1' | i18n}}</label>
+          <label class="input">
+            <input type="text" name="seq_value_1" [(ngModel)]="detailInfo.seq_value_1" autocomplete="off" />
+          </label>
+        </section>
+        <section class="col col-1">
+          <label class="label">{{'SEQ-VAL-2' | i18n}}</label>
+          <label class="input">
+            <input type="text" name="seq_value_2" [(ngModel)]="detailInfo.seq_value_2" autocomplete="off" />
+          </label>
+        </section>
+        <section class="col col-1">
+          <label class="label">{{'SEQ-VAL-3' | i18n}}</label>
+          <label class="input">
+            <input type="text" name="seq_value_3" [(ngModel)]="detailInfo.seq_value_3" autocomplete="off" />
+          </label>
+        </section>
+        <section class="col col-2">
+          <label class="label">{{'NUMBER-VAL-1' | i18n}}</label>
+          <label class="input">
+            <input type="number" name="number_value_1" [(ngModel)]="detailInfo.number_value_1" autocomplete="off" />
+          </label>
+        </section>
+        <section class="col col-2">
+          <label class="label">{{'NUMBER-VAL-2' | i18n}}</label>
+          <label class="input">
+            <input type="number" name="number_value_2" [(ngModel)]="detailInfo.number_value_2" autocomplete="off" />
+          </label>
+        </section>
+        <section class="col col-2">
+          <label class="label">{{'NUMBER-VAL-3' | i18n}}</label>
+          <label class="input">
+            <input type="number" name="number_value_3" [(ngModel)]="detailInfo.number_value_3" autocomplete="off" />
+          </label>
+        </section>
+      </div>
+
+
+      <div class="row">
+          <section class="col col-6">
+              <label class="label">{{'REMARK' | i18n}}</label>
+              <label class="textarea">
+                <textarea name="remark" [(ngModel)]="detailInfo.remark" autocomplete="off" rows="3"></textarea>
+              </label>
+            </section>
+        <section class="col col-2">
+          <label class="label">{{'TEXT-VALUE-1' | i18n}}</label>
+          <label class="input">
+            <input type="text" name="text_value_1" [(ngModel)]="detailInfo.text_value_1" autocomplete="off" />
+          </label>
+        </section>
+        <section class="col col-2">
+          <label class="label">{{'TEXT-VALUE-2' | i18n}}</label>
+          <label class="input">
+            <input type="text" name="text_value_2" [(ngModel)]="detailInfo.text_value_2" autocomplete="off" />
+          </label>
+        </section>
+        <section class="col col-2">
+          <label class="label">{{'TEXT-VALUE-3' | i18n}}</label>
+          <label class="input">
+            <input type="text" name="text_value_3" [(ngModel)]="detailInfo.text_value_3" autocomplete="off" />
+          </label>
+        </section>
+        
+      </div>
+
+    </fieldset>
+    <footer>
+        <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close">
+            <i class="fa fa-times"></i>
+            {{'button-close' | i18n}}
+          </button>
+      <button type="button" (click)="onReset(frmDetail)" name="reset" class="btn btn-reset-form">
+        <i class="fa fa-refresh"></i>
+        {{'BUTTON-RESET' | i18n}}
+      </button>
+      <button type="submit" [disabled]="!this.permission.canSave" name="submit" class="btn btn-primary">
+        <i class="fa fa-save"></i>
+        {{'BUTTON-SAVE' | i18n}}
+      </button>
+    </footer>
+  </form>
+
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>{{'GENERAL MASTER' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                tableClass="table table-striped table-condensed table-hover table-bordered">
+                <thead>
+                  <tr class="heading">
+                    <th>{{'GENERAL-CODE' | i18n}}</th>
+                    <th>{{'CATEGORY' | i18n}}</th>
+                    <th>{{'GENERAL-NAME' | i18n}}</th>
+                    <th>{{'PARENT-CODE' | i18n}}</th>
+                    <th>Use</th>
+                    <th>Num1</th>
+                    <th>Num2</th>
+                    <th>Num3</th>
+                    <th>Seq1</th>
+                    <th>Seq2</th>
+                    <th>Seq3</th>
+                    <th>CK1</th>
+                    <th>CK2</th>
+                    <th>CK3</th>
+                    <th>Text1</th>
+                    <th>Text2</th>
+                    <th>Text3</th>
+                    <th>Description</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter GenCD" />
+                    </th>
+                    <th class="hasinput">
+                      <select name="filter_cate_cd" class="form-control select-filter" placeHolder="Filter category">
+                      <option value="">All</option>
+                      <option *ngFor="let category of Categories" value={{category.cate_cd}}>{{category.cate_nm}} </option>
+                    </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter GenNM" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter ParentCD" />
+                    </th>
+                    <th class="hasinput">
+                      <select id="filerByStatus" class="form-control select-filter">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Num1" />
+                    </th>
+
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Num2" />
+                    </th>
+
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Num3" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Seq1" />
+                    </th>
+
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Seq2" />
+                    </th>
+
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Seq3" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="CK1" />
+                    </th>
+
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="CK2" />
+                    </th>
+
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="CK3" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Text1" />
+                    </th>
+
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Text2" />
+                    </th>
+
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Text3" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Description" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

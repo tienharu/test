@@ -1,0 +1,342 @@
+<div id="content pt-0">
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-3">
+        <div sa-widget color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-edit"></i>
+            </span>
+            <h2>{{'Company-Cf-Information-Setting'|i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" class="smart-form atman-form-small frm-detail" novalidate="novalidate"
+                [saUiValidate]="validationOptions">
+                <fieldset>
+                  <input type="hidden" name="companyid" [(ngModel)]="detailInfo.companyid" />
+                  <div class="row">
+                    <section class="col col-3" style="padding-right: 0px;">
+                      <label class="label">{{'ACCOUNT_CODE' | i18n}}</label>
+                      <label class="input" style="display: flex;">
+                        <input type="number" name="standardacctcd" [(ngModel)]="detailInfo.standardacctcd" disabled
+                          autocomplete="off" placeholder="Acc code" />
+                          <span style="padding: 0px 5px;">-</span>
+                      </label>
+                    </section>
+                    <section class="col col-3" style="padding-left: 0px;padding-right: 0px;  margin-top: 2px;">
+                      <label class="input">
+                        <label class="input">&nbsp;</label>
+                        <input name="companyscfcd" type="number" maxlength=10 [(ngModel)]="detailInfo.companyscfcd" style="width: 85%"
+                          [disabled]="!detailInfo.is_system || isDisabled" autocomplete="off" placeholder="CF code"
+                          required class="required_input" />
+                      </label>
+                    </section>
+                    <div class="col col-6" style="text-align: -webkit-right;">
+                      <div class="form-group" id="form-spinner">
+                        <label style="padding-bottom: 5px;">{{'SORT_ORDER_ON_FS' | i18n}}</label>
+                        <label class="input" style="width: 50%;">
+                        <input class="form-control" type="number" value="1000" min="1000" aria-valuenow="1000" id="spinner-companycf" name="sortorder" [(ngModel)]="detailInfo.sortorder" style="height: 19px !important">
+                      </label>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="row">
+                    <section class="col col-6">
+                      <label class="label">{{'ACC_KOR_NAME' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="acctkoreanm" [(ngModel)]="detailInfo.acctkoreanm" autocomplete="off"
+                          required class="required_input" />
+                      </label>
+                    </section>
+                    <section class="col col-6">
+                      <label class="label">{{'ACC_ENG_NAME' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="acctengnm" [(ngModel)]="detailInfo.acctengnm" autocomplete="off"
+                           />
+                      </label>
+                    </section>
+                  </div>
+
+                  <section>
+                    <label class="label">{{'Parent-Code' | i18n}}</label>
+                    <label class="input">
+                      <select select2 style="width:100%;" name="parentscfcd" [(ngModel)]="detailInfo.parentscfcd"
+                        [defaultVal]="detailInfo.parentscfcd" class="select2 ">
+                        <option *ngFor="let parent of parentCode" value={{parent.companyscfcd}}>{{parent.acctengnm}}</option>
+                      </select>
+                    </label>
+                  </section>
+
+                  <div class="row">
+                    <section class="col col-12">
+                      <label class="label">{{'PARENT_CALC_TYPE' | i18n}}</label>
+                      <div class="inline-group">
+                        <label class="radio" *ngFor="let type of ParentType">
+                          <input type="radio" name="parentsumtype" [(ngModel)]="detailInfo.parentsumtype"
+                            [value]="type.value">
+                          <i></i>{{type.name | i18n}}
+                        </label>
+                      </div>
+                    </section>
+                  </div>
+
+                  <section>
+                    <label class="label">{{'Property' | i18n}}</label>
+                    <label class="input">
+                      <select select2 style="width:100%;" name="scfpropergid" [(ngModel)]="detailInfo.scfpropergid"
+                        [defaultVal]="detailInfo.scfpropergid" class="select2">
+                        <option *ngFor="let pro of propertyCf" value={{pro.gen_cd}}>{{pro.gen_nm}}</option>
+                      </select>
+                    </label>
+                  </section>
+
+                  <div class="row">
+                    <section class="col col-3">
+                      <label class="label">{{'Level' | i18n}}</label>
+                      <label class="input">
+                        <select select2 style="width:100%;" name="acctlevel" [(ngModel)]="detailInfo.acctlevel"
+                          [defaultVal]="detailInfo.acctlevel" class="select2">
+                          <option *ngFor="let level of row5" value={{level}}>{{level}}</option>
+                        </select>
+                      </label>
+                    </section>
+                    <section class="col col-3">
+                      <label class="label">{{'Space' | i18n}}</label>
+                      <label class="input">
+                        <select select2 style="width:100%;" name="dsplspace" [(ngModel)]="detailInfo.dsplspace"
+                          [defaultVal]="detailInfo.dsplspace" class="select2">
+                          <option *ngFor="let space of row7" value={{space}}>{{space}}</option>
+                        </select>
+                      </label>
+                    </section>
+                    <section class="col col-3">
+                      <label class="label">{{'FINAL_YN' | i18n}}</label>
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="finalyn" [(ngModel)]="detailInfo.finalyn" checked="detailInfo.finalyn">
+                          <i></i>Active
+                        </label>
+                      </label>
+                    </section>
+                    <section class="col col-3">
+                      <label class="label">{{'use-YN' | i18n}}</label>
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="useyn" [(ngModel)]="detailInfo.useyn" checked="detailInfo.useyn">
+                          <i></i>Active
+                        </label>
+                      </label>
+                    </section>
+                  </div>
+
+                  
+                  
+                  <section>
+                    <label class="label">{{'Remark' | i18n}}</label>
+                    <label class="textarea">
+                      <textarea name="remark" [(ngModel)]="detailInfo.remark"  rows="2"></textarea>
+                    </label>
+                  </section>
+                </fieldset>
+
+                <footer>
+                  <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-cancel">
+                    <i class="fa fa-times"></i>
+                    {{'button-close' | i18n}}
+                  </button>
+                  <button type="button" (click)="onReset(frmDetail)" name="reset" class="btn btn-reset-form">
+                    <i class="fa fa-refresh"></i>
+                    {{'button-reset' | i18n}}
+                  </button>
+                  <button type="submit" [disabled]="!this.permission.canSave" name="submit"
+                    class="btn btn-primary btn-xs edit-program">
+                    <i class="fa fa-save"></i>
+                    {{'button-save' | i18n}}
+                  </button>
+                </footer>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="col-sm-9">
+        <div class="well well-sm overtime-tool" style="margin-bottom: 10px">
+          <div class="row">
+            <div class="col-lg-3">
+              <label class="col-lg-3 title">{{'COMPANY'|i18n}}</label>
+              <label class="input col-lg-9" style="padding:0">
+                <select select2 class="form-control select2" style="width:90%" placeHolder="Select company">
+                  <option *ngFor="let com of companies" value={{com.company_id}}>{{com.company_nm}}</option>
+                </select>
+              </label>
+            </div>
+            <div class="col-lg-3">
+              <label class="col-lg-3 title">{{'FS_Type'|i18n}}</label>
+              <label class="input col-lg-6" style="padding:0">
+                <select select2 class="form-control select2"  name="fstype" [(ngModel)]="detailUpdateCfInfo.fstype" style="width:61%" placeHolder="Select"  readonly disabled>
+                  <option *ngFor="let sub of FSTypes" value={{sub.value}}>{{sub.name}}</option>
+                </select>
+              </label>
+              <label class="col-lg-2 title"><button class="btn btn-small btn-info copy-btn pull-right margin-right-5" disabled>
+                  <i class="fa fa-gear fa-lg"></i>
+                  {{'BUTTON-SETTING' | i18n}}</button></label>
+            </div>
+
+            <div class="col-lg-3">
+              <label class="col-lg-3 title">{{'Space'|i18n}}</label>
+              <label class="input col-lg-6" style="padding:0">
+                <select select2 class="form-control select2" name="dsplspace"  [(ngModel)]="detailUpdateCfInfo.dsplspace" style="width:62%" placeHolder="Select">
+                  <option *ngFor="let space of rowSpace" value={{space}}>{{space}}</option>
+                </select>
+              </label>
+              <label class="col-lg-2 title"><button (click)="openCompanyCfUpdatePopup()" class="btn btn-small btn-info copy-btn pull-right margin-right-5">
+                  <i class="fa fa-refresh"></i>
+                  {{'BUTTON-UPDATE' | i18n}}</button></label>
+            </div>
+
+            <div class="col-lg-3">
+              <label class="col-lg-3 title">{{'Copy-to'|i18n}}</label>
+              <label class="input col-lg-7" style="padding:0">
+                <select select2 class="form-control select2" name="tocompanycd" [(ngModel)]="detailCopyCfInfo.tocompanycd" style="width:75%" placeHolder="Select company">
+                  <option *ngFor="let com of companies" value={{com.company_id}}>{{com.company_nm}}</option>
+                </select>
+              </label>
+              <label class="col-lg-2 title"><button (click)="copyCompanyCfInfo()" class="btn btn-small btn-info copy-btn pull-right margin-right-5">
+                  <i class="fa fa-copy"></i>
+                  {{'BUTTON-COPY' | i18n}}</button></label>
+            </div>
+
+          </div>
+        </div>
+        <div sa-widget color="atman" [editbutton]="false" [deletebutton]="false" color="atman"
+          class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>{{'List-Company-SCF'|i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                tableClass="table table-striped table-condensed table-hover table-bordered">
+                <thead>
+                  <tr class="heading">
+                    <th>{{'NO' | i18n}}</th>
+                    <th>{{'Type_AC' | i18n}}</th>
+                    <th>{{'Sort_AC' | i18n}}</th>
+                    <th>{{'Global-Cd' | i18n}}</th>
+                    <th>{{'Comp-CF-Cd' | i18n}}</th>
+                    <th>{{'Kor_Name' | i18n}}</th>
+                    <th>{{'Eng_Name' | i18n}}</th>
+                    <th>{{'Level' | i18n}}</th>
+                    <th>{{'Space' | i18n}}</th>
+                    <th>{{'Property_Ac' | i18n}}</th>
+                    <th>{{'FINAL_YN' | i18n}}</th>
+                    <th>{{'use-yn' | i18n}}</th>
+                    <th>{{'Remark' | i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput" [ngStyle]="{width:'60px'}">
+                      <input type="text" class="form-control"/>
+                    </th>
+                    <th class="hasinput">
+                      <select name="filter_routing_class" class="form-control select-filter" placeholder="Filter Type"
+                        style="width: 100%;">
+                        <option value="">All</option>
+                        <option *ngFor="let fstype of FSTypes" value={{fstype.value}}>{{fstype.name}} </option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control text-center" placeholder="Filter Sort" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control text-center" placeholder="Filter Global" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control text-center" placeholder="Filter Com Acc" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Name" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Name" />
+                    </th>
+
+                    <th class="hasinput">
+                      <input type="text" class="form-control text-center" placeholder="Level" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control text-center" placeholder="Space" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Property" />
+                    </th>
+                    <th class="hasinput">
+                      <select id="filerByStatus" class="form-control select-filter">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <select id="filerByStatus" class="form-control select-filter">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Remark" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>
+
+
+<ng-template #popupCfSetting>
+  <sa-popup-modal headerTitle="Confirmation" width="370" height="350" (onClose)="closeCompanyCfSettingPopup()">
+    <article class="col-sm-12 col-md-12 col-lg-12 human-resources">
+      <div class="row">
+          <div class="no-padding ">
+              <section class="col-lg-12">
+                  <p style="margin: 15px 0px">Will be update company account-code from global account-code
+                      Which one do you want to update?</p>
+                 <div class="text-center">
+                  <button (click)="settingAllCompanyCfInfo()" class="btn btn-small btn-info copy-btn margin-right-5" style="padding: 3px 12px;">Update all code info</button>
+                  <button (click)="settingNameCompanyCfInfo()" class="btn btn-small btn-info copy-btn" style="padding: 3px 12px;">Update without name</button>
+                 </div>
+              </section>
+          </div>
+      </div>
+  </article>
+  </sa-popup-modal>
+</ng-template>
+
+<ng-template #popupCfUpdate>
+  <sa-popup-modal headerTitle="Confirmation" width="370" height="300" (onClose)="closeCompanyCfUpdatePopup()">
+    <article id="article-update" class="col-sm-12 col-md-12 col-lg-12 human-resources">
+      <div class="row">
+          <div class="no-padding ">
+              <section class="col-lg-12">
+                  <p style="margin: 15px 0px">Do you want to update all standard accounts display space?</p>
+                 <div class="text-center">
+                  <button (click)="updateSpace()" class="btn btn-small btn-info copy-btn margin-right-5" style="padding: 3px 12px;">Ok</button>
+                  <button (click)="cacelSpace()" class="btn btn-small btn-info copy-btn" style="padding: 3px 12px;">Cancel</button>
+                 </div>
+              </section>
+          </div>
+      </div>
+  </article>
+  </sa-popup-modal>
+</ng-template>

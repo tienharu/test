@@ -1,0 +1,420 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[('REGISTER-COMPANY-TITLE'|i18n)]" icon="building" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>
+  <!-- widget edit -->
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12 col-md-12 col-lg-12">
+        <div sa-widget color="atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-edit"></i>
+            </span>
+            <h2>{{'Company-Information-Setting'|i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" class="smart-form atman-form-small frm-detail"
+                novalidate="novalidate" [saUiValidate]="validationOptions">
+                <fieldset>
+                  <input type="hidden" name="company_id" [(ngModel)]="detailInfo.company_id" />
+                  <div class="row">
+                    <section class="col col-2">
+                      <label class="label">{{'Company-Type' | i18n}}</label>
+                      <section>
+                        <div class="inline-group">
+                          <label class="radio" *ngFor="let type of companyTypes">
+                            <input type="radio" name="company_type" [(ngModel)]="detailInfo.company_type" [value]="type.value"
+                              required>
+                            <i></i>{{type.name | i18n}}
+                          </label>
+                        </div>
+                      </section>
+                    </section>
+                    <section class="col col-2">
+                      <label class="label">{{'Local-Name' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="company_local_nm" [(ngModel)]="detailInfo.company_local_nm"
+                          autocomplete="off" required class="required_input"/>
+                      </label>
+                    </section>
+                    <section class="col col-2">
+                      <label class="label">{{'English-Name' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="company_eng_nm" [(ngModel)]="detailInfo.company_eng_nm" autocomplete="off"
+                          required class="required_input"/>
+                      </label>
+                    </section>
+                    <section class="col col-2">
+                      <label class="label">{{'Simple-Name' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="company_sim_nm" [(ngModel)]="detailInfo.company_sim_nm" autocomplete="off"
+                          required class="required_input"/>
+                      </label>
+                    </section>
+
+                    <section class="col col-2">
+                      <label class="label">{{'Country' | i18n}}</label>
+                      <label class="input">
+                        <select name="country_gen_cd" [(ngModel)]="detailInfo.country_gen_cd" [defaultVal]="detailInfo.country_gen_cd"
+                          select2 required style="width:100%;" class="select2 required" placeHolder="Select country">
+                          <option *ngFor="let country of countries" value={{country.gen_cd}}>{{country.gen_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+                    <section class="col col-2">
+                      <label class="label">{{'Currency' | i18n}}</label>
+                      <label class="input">
+                        <select name="currency_gen_cd" [(ngModel)]="detailInfo.currency_gen_cd" [defaultVal]="detailInfo.currency_gen_cd"
+                          select2 required style="width:100%;" class="select2 required" placeHolder="Select currency">
+                          <option *ngFor="let currency of currencies" value={{currency.gen_cd}}>{{currency.gen_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+                    <!-- <section class="col col-2">
+                      <label class="label">{{'Package' | i18n}}</label>
+                      <label class="input">
+                        <select name="pack_id" [(ngModel)]="detailInfo.pack_id" [defaultVal]="detailInfo.pack_id"
+                          select2 required style="width:100%;" class="select2 required" placeHolder="Select package">
+                          <option *ngFor="let p of packages" value={{p.pack_id}}>{{p.pack_nm}}</option>
+                        </select>
+                      </label>
+                    </section> -->
+                  </div>
+
+                  <!-- <div class="row">
+                     <section class="col col-1">
+                    <label class="label">Fiscal</label>
+                    <label class="input">
+                      <input type="number" name="fiscal" [(ngModel)]="detailInfo.fiscal" />
+                    </label>
+                  </section> -->
+                  <!-- <section class="col col-1">
+                    <label class="label">From</label>
+                    <label class="input">
+                      <input type="text" name="from_ymd" [(ngModel)]="detailInfo.from_ymd" placeholder="YYYYMMDD" autocomplete="off" />
+                    </label>
+                  </section> -->
+                  <!-- <section class="col col-1">
+                    <label class="label">To</label>
+                    <label class="input">
+                      <input type="text" name="to_ymd" [(ngModel)]="detailInfo.to_ymd" placeholder="YYYYMMDD" autocomplete="off" />
+                    </label>
+                  </section> -->
+
+                  <!-- <section class="col col-2">
+                    <label class="label">Relationship Type</label>
+                    <label class="input">
+                      <select name="relationship_type_gid" [(ngModel)]="detailInfo.relationship_type_gid" [defaultVal]="detailInfo.relationship_type_gid"
+                        select2 required style="width:100%;" class="select2 required" placeHolder="Select relationship type">
+                        <option *ngFor="let relationship of relationshipTypes" value={{relationship.general_id}}>{{relationship.general_nm}}</option>
+                      </select>
+                    </label>
+                  </section>
+                  <section class="col col-3">
+                    <label class="label">Company Regist Number</label>
+                    <label class="input">
+                      <input type="text" [(ngModel)]="detailInfo.company_regist_num" name="company_regist_num" autocomplete="off" />
+                    </label>
+                  </section> 
+                  </div>-->
+
+                  <div class="row">
+                    <section class="col col-2">
+                      <label class="label">{{'Use-YN' | i18n}}</label>
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="use_yn" [(ngModel)]="detailInfo.use_yn" checked="detailInfo.use_yn">
+                          <i></i>Active
+                        </label>
+                      </label>
+                    </section>
+                    <section class="col col-2">
+                      <label class="label">{{'Com-Regist-Number' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="com_regist_num" [(ngModel)]="detailInfo.com_regist_num" autocomplete="off"
+                          required class="required_input"/>
+                      </label>
+                    </section>
+                    <section class="col col-2">
+                      <label class="label">{{'Biz-Regist-Number' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="biz_regist_num" [(ngModel)]="detailInfo.biz_regist_num" autocomplete="off"
+                          required class="required_input"/>
+                      </label>
+                    </section>
+
+                    <section class="col col-2">
+                      <label class="label">{{'Biz-Conditions' | i18n}}</label>
+                      <label class="input">
+                        <select name="biz_conditions_gen_cd" [(ngModel)]="detailInfo.biz_conditions_gen_cd"
+                          [defaultVal]="detailInfo.biz_conditions_gen_cd" select2 required style="width:100%;" class="select2 required"
+                          placeHolder="Select biz condition">
+                          <option *ngFor="let s of bizCondition" value={{s.gen_cd}}>{{s.gen_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+
+                    <section class="col col-2">
+                      <label class="label">{{'Biz-Type' | i18n}}</label>
+                      <label class="input">
+                        <select name="biz_type_gen_cd" [(ngModel)]="detailInfo.biz_type_gen_cd" [defaultVal]="detailInfo.biz_type_gen_cd"
+                          select2 required style="width:100%;" class="select2 required" placeHolder="Select biz condition">
+                          <option *ngFor="let s of bizType" value={{s.gen_cd}}>{{s.gen_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+                    <section class="col col-2">
+                      <label class="label">{{'Director-Local-Name' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="ceo_local_nm" [(ngModel)]="detailInfo.ceo_local_nm" autocomplete="off"
+                          required class="required_input" />
+                      </label>
+                    </section>
+                  </div>
+
+                  <div class="row">
+                    <section class="col col-1">
+                      <label class="label">{{'Zip-code' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="zip_code" [(ngModel)]="detailInfo.zip_code" required autocomplete="off" class="required_input" />
+                      </label>
+                    </section>
+                    <section class="col col-3">
+                      <label class="label">{{'Address' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="address" [(ngModel)]="detailInfo.address" autocomplete="off" required class="required_input" />
+                      </label>
+                    </section>
+                    <section class="col col-2">
+                      <label class="label">{{'Tel-No' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="tel_no" [(ngModel)]="detailInfo.tel_no" autocomplete="off" required class="required_input" />
+                      </label>
+                    </section>
+
+                    <section class="col col-2">
+                      <label class="label">{{'Fax-No' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="fax_no" [(ngModel)]="detailInfo.fax_no" autocomplete="off" />
+                      </label>
+                    </section>
+                    <section class="col col-2">
+                      <label class="label">{{'Home-Page' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="homepage" [(ngModel)]="detailInfo.homepage" autocomplete="off" />
+                      </label>
+                    </section>
+                    <section class="col col-2">
+                      <label class="label">{{'Email' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="email" [(ngModel)]="detailInfo.email" required autocomplete="off" class="required_input" />
+                      </label>
+                    </section>
+
+                  </div>
+
+
+
+
+
+                  <!-- <div class="row">
+                  <section class="col col-3">
+                    <label class="label">Address</label>
+                    <label class="input">
+                      <input type="text" name="address" [(ngModel)]="detailInfo.address" autocomplete="off" />
+                    </label>
+                  </section>
+                  <section class="col col-3">
+                    <label class="label">Address road</label>
+                    <label class="input">
+                      <input type="text" name="address_road" [(ngModel)]="detailInfo.address_road" autocomplete="off" />
+                    </label>
+                  </section>
+                  <section class="col col-3">
+                    <label class="label">Director Name</label>
+                    <label class="input">
+                      <input type="text" name="ceo_eng_nm" [(ngModel)]="detailInfo.ceo_eng_nm" autocomplete="off" />
+                    </label>
+                  </section>
+                  <section class="col col-3">
+                    <label class="label">Director Local Name</label>
+                    <label class="input">
+                      <input type="text" name="ceo_local_nm" [(ngModel)]="detailInfo.ceo_local_nm" autocomplete="off" />
+                    </label>
+                  </section>
+                </div> -->
+
+                  <!-- <div class="row">
+                  <section class="col col-3">
+                    <label class="label">Director ID Card</label>
+                    <label class="input">
+                      <input type="text" name="ceo_id_num" [(ngModel)]="detailInfo.ceo_id_num" autocomplete="off" />
+                    </label>
+                  </section>
+                  <section class="col col-3">
+                    <label class="label">Whole Pay Num</label>
+                    <label class="input">
+                      <input type="text" name="whole_biz_num" [(ngModel)]="detailInfo.whole_biz_num" autocomplete="off" />
+                    </label>
+                  </section>
+                  <section class="col col-3">
+                    <label class="label">Foreign Y/N</label>
+                    <label class="input">
+                      <label class="checkbox">
+                        <input type="checkbox" [(ngModel)]="detailInfo.foreign_yn" checked="detailInfo.foreign_yn" name="foreign_yn">
+                        <i></i>
+                      </label>
+                    </label>
+                  </section>
+                </div> -->
+
+                  <!-- <div class="row">
+                  <section class="col col-6">
+                    <label class="label">Description</label>
+                    <label class="input">
+                      <i class="icon-append fa fa-comment"></i>
+                      <input type="text" name="remark" [(ngModel)]="detailInfo.remark" autocomplete="off" />
+                    </label>
+                  </section>
+                  <section class="col col-1">
+                    <label class="label">Use Y/N</label>
+                    <label class="input">
+                      <label class="checkbox">
+                        <input type="checkbox" name="use_yn" [(ngModel)]="detailInfo.use_yn" checked="detailInfo.use_yn">
+                        <i></i>
+                      </label>
+                    </label>
+                  </section>
+                </div> -->
+
+                  <!-- <div class="row">
+                  <div class="form-group">
+                    <label class="col col-1 control-label">Fiscal</label>
+                    <div class="col col-1">
+                      <input class="form-control" type="number" name="fiscal" [(ngModel)]="detailInfo.fiscal" />
+                    </div>
+                  </div>
+                </div> -->
+                </fieldset>
+
+                <footer>
+
+                  <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-cancel">
+                    <i class="fa fa-times"></i>
+                    {{'button-close' | i18n}}
+                  </button>
+                  <button type="button" (click)="onReset(frmDetail)" name="reset" class="btn btn-reset-form">
+                    <i class="fa fa-refresh"></i>
+                    {{'button-reset' | i18n}}
+                  </button>
+                  <button type="submit" [disabled]="!this.permission.canSave" name="submit" class="btn btn-primary btn-xs edit-program">
+                    <i class="fa fa-save"></i>
+                    {{'button-save' | i18n}}
+                  </button>
+
+                </footer>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+  <!-- widget grid -->
+
+
+
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>{{'Company-Management' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                tableClass="tbl-company-list table table-striped table-condensed table-hover table-bordered">
+                <thead>
+                  <tr class="heading">
+                    <th>#</th>
+                    <th>{{'Company-Id' | i18n}}</th>
+                    <th>{{'Local-Name' | i18n}}</th>
+                    <th>{{'English-Name' | i18n}}</th>
+                    <th>{{'Simple-Name' | i18n}}</th>
+                    <th>{{'Package' | i18n}}</th>
+                    <th>{{'Reg-Num' | i18n}}</th>
+                    <th>{{'CEO' | i18n}}</th>
+                    <th>{{'Use' | i18n}}</th>
+                    <th>{{'Created-By' | i18n}}</th>
+                    <th>{{'Created-Date' | i18n}}</th>
+                    <th>{{'Updated-By' | i18n}}</th>
+                    <th>{{'Updated-Date' | i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th class="hasinput" [ngStyle]="{width:'100px'}">
+                      <input type="text" class="form-control" placeholder="Filter ID" />
+                    </th>
+                    <th class="hasinput" [ngStyle]="{width:'300px'}">
+                      <input type="text" class="form-control" placeholder="Filter Name" />
+                    </th>
+                    <th class="hasinput" [ngStyle]="{width:'300px'}">
+                      <input type="text" class="form-control" placeholder="Filter Name" />
+                    </th>
+                    <th class="hasinput" [ngStyle]="{width:'150px'}">
+                      <input type="text" class="form-control" placeholder="Filter Name" />
+                    </th>
+                    <th class="hasinput" [ngStyle]="{width:'150px'}">
+                      <input type="text" class="form-control" placeholder="Filter Package" />
+                    </th>
+                    <th class="hasinput" [ngStyle]="{width:'150px'}">
+                      <input type="text" class="form-control" placeholder="Filter Reg Num" />
+                    </th>
+                    <th class="hasinput" [ngStyle]="{width:'150px'}">
+                      <input type="text" class="form-control" placeholder="Filter CEO" />
+                    </th>
+                    <th class="hasinput" [ngStyle]="{width:'5%'}" >
+                      <select id="filerByStatus" class="form-control select-filter" style="width: 100%">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    <th class="hasinput" [ngStyle]="{width:'100px'}">
+                      <input type="text" class="form-control" placeholder="Filter User" />
+                    </th>
+                    <th class="hasinput icon-addon">
+                      <i class="fa fa-calendar margin-top-5"></i>
+                      <input id="date_created" type="text" placeholder="Filter Date" class="form-control datepicker"
+                        [saUiDatepicker] />
+                    </th>
+                    <th class="hasinput" [ngStyle]="{width:'100px'}">
+                      <input type="text" class="form-control" placeholder="Filter User" />
+                    </th>
+                    <th class="hasinput icon-addon">
+                      <i class="fa fa-calendar margin-top-5"></i>
+                      <input id="date_updated" type="text" placeholder="Filter Date" class="form-control datepicker"
+                        [saUiDatepicker] />
+                    </th>
+                  </tr>
+
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>
+<ng-template #tplContractHistory>
+  <sa-popup-modal headerTitle="Company Contract History" width="1000" height="600" (onClose)="closePopupContract()">
+    <sa-company-contract companyId="{{companyId}}"></sa-company-contract>
+  </sa-popup-modal>
+</ng-template>

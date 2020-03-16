@@ -1,0 +1,122 @@
+/* input {
+    height: 28px !important;
+    border-radius: 2px;
+    border: solid 1px #979797;
+    background-color: #ffffff;
+}
+
+.input.state-disabled input {
+    background-color: #e2e2e2
+}
+
+label.input, label.input-group {
+    height: auto;
+    font-family: SegoeUI;
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: var(--black);
+}
+
+.select2-container {
+    height: 28px;
+}
+
+.select2-container .select2-choice, .select2-selection {
+    height: 28px;
+}
+
+.select2-container .select2-choice .select2-arrow, .select2-selection__arrow {
+    background-image: none !important;
+}
+
+.select2-container .select2-choice .select2-arrow, .select2-selection__arrow {
+    border-left: none !important;
+    background: none !important;
+}
+
+.select2-selection__arrow:hover {
+    background: none !important;
+}
+
+.btn-danger, .btn-submit, .btn-file, .btn-cancel, .btn-reset-form, .btn-warning, .btn-primary, .btn-default {
+    min-width: 80px;
+    border-radius: 2px;
+    margin: 0px 2px;
+    color: #ffffff;
+}
+
+.btn-primary {
+    background-color: #0078d4;
+    border-color: #0078d4;
+}
+
+.btn-primary:hover {
+    background-color: #106ebe;
+    color: #ffffff !important;
+    border-color: #0078d4;
+}
+
+.btn-primary:active {
+    background-color: #005a9e;
+    border-color: #005a9e;
+}
+
+.btn-primary .active {
+    background-color: #005a9e;
+    border-color: #005a9e;
+}
+
+.btn-submit {
+    background-color: #0078d4;
+}
+
+.btn-file {
+    background-color: #a0804e;
+    border-color: #a0804e;
+}
+
+.btn-cancel.focus, .btn-cancel:focus, .btn-cancel:hover {
+    color: #C4C3C3;
+}
+
+.btn-cancel {
+    background-color: #3a3633;
+    border-color: #3a3633;
+}
+
+.btn-reset-form {
+    background-color: #ffffff;
+    color: #8a8886;
+    border: solid 1px #8a8886;
+} */
+
+/* label.input>span {
+    height: 32px !important;
+    border-radius: 2px;
+    border: solid 1px #a19f9d;
+    background-color: #ffffff;
+}
+
+.row {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.ng-select .ng-select-container {
+    min-height: 50px;
+}
+
+.ng-select.ng-select-single .ng-select-container {
+    height: 50px;
+} */
+
+/* select.select2 {
+    height: 32px;
+    border-radius: 2px;
+    border: solid 1px #a19f9d;
+    background-color: #ffffff;
+} */

@@ -1,0 +1,128 @@
+<!-- <div id="content-popup" > -->
+<form #frmDetail="ngForm" class="smart-form atman-form-small no-header frm-detail"
+  (ngSubmit)="frmDetail.form.valid && onSearch()" novalidate="novalidate" [saUiValidate]="validationOptions">
+  <fieldset>
+    <div class="row">
+      <section class="col col-3 margin-top-10">
+        <label class="label col-md-3">{{'INBOUND_YMD' | i18n}}</label>
+        <label class="input col-md-4" style="margin-top: -14px;margin-bottom: 10px;">
+          <i class="fa fa-calendar" id="start-date"></i>
+          <input type="text" id="from_date" name="fromDate" class="datePicker fix-input-date" placeholder="yyyy-mm-dd"
+            [(ngModel)]="fromDate" [saUiDatepicker]="{minRestrict:'#to_date'}" autocomplete="off" />
+        </label>
+        <label class="label col-md-1 letter-spacing">~</label>
+        <label class="input col-md-4" style="margin-top: -14px;margin-bottom: 10px;">
+          <i class="fa fa-calendar" id="from-date"></i>
+          <input type="text" id="to_date" name="toDate" class="datePicker fix-input-date" placeholder="yyyy-mm-dd"
+            [(ngModel)]="toDate" [saUiDatepicker]="{maxRestrict:'#from_date'}" autocomplete="off" />
+        </label>
+      </section>
+      <section class="col col-7">
+        <section class="col col-2 fix-width-blank"></section>
+        <section class="col col-4 margin-top-10" style="width: 40%;">
+          <label class="label col-md-4 new-label-txt-custom margin-top-1">{{'STYLE_INBOUND_NO' | i18n}}</label>
+          <label class="input col-md-8">
+            <input class="extra" type="number" name="styleInboundNo" [(ngModel)]="styleInboundNo" />
+          </label>
+        </section>
+        <section class="col col-2 fix-width-blank"></section>
+        <section class="col col-4 margin-top-10" style="width: 40%;">
+          <label class="label col-md-4 new-label-txt-custom margin-top-1">{{'WO_NO' | i18n}}</label>
+          <label class="input col-md-8">
+            <input class="extra" type="number" name="woNo" [(ngModel)]="woNo" />
+          </label>
+        </section>
+      </section>
+      <section class="col col-2 margin-top-10" id="non-padding-right">
+          <section class="col col-6">
+            <button type="submit" name="btnSearchProgram" class="btn btn-search btn-popup" style="margin-top: 1px !important;">
+              {{'BUTTON_SEARCH' | i18n}}
+            </button>
+          </section>
+          <section class="col col-6">
+            <button type="button" (click)="onClose()" class="btn btn-cancel btn-popup" style="margin-top: 1px !important;">
+              {{'BUTTON-CLOSE' | i18n}}
+            </button>
+          </section> 
+      </section>
+    </div>
+  </fieldset>
+</form>
+<sa-widgets-grid>
+  <div class="row" style="margin-bottom: 15px;">
+    <article class="col-sm-12">
+      <div>
+        <div class="widget-body no-padding" style="margin: 8px 15px 0 15px">
+          <sa-datatable [options]="options" [paginationLength]="false" filter="true" (rowClick)="onRowClick($event)"
+            tableClass="table projects-table table-striped table-condensed table-hover table-bordered tableSearchInboundStyleHeader">
+            <thead>
+              <tr class="heading">
+                <th>No</th>
+                <th>{{'INBOUND_YMD' | i18n}}</th>
+                <th>{{'STYLE_INBOUND_NO' | i18n}}</th>
+                <th>{{'WONO' | i18n}}</th>
+                <th>{{'SUPPLIER' | i18n}}</th>
+                <th>{{'LOCATION' | i18n}}</th>
+                <th>{{'PROCESS' | i18n}}</th>
+                <th>{{'PONO' | i18n}}</th>
+                <th>{{'INBOUND_QTY' | i18n}}</th>
+                <th>{{'PRICE' | i18n}}</th>
+                <th>{{'AMOUNT' | i18n}}</th>
+                <th>{{'DESCRIPTION' | i18n}}</th>
+              </tr>
+              <tr>
+                <th class="hasinput"></th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <select name="filter_routing_class" class="form-control select-filter" style="width: 100%;">
+                    <option value="">All</option>
+                    <option *ngFor="let supplier of suppliers" value={{supplier.traderid}}>{{supplier.traderlocalnm}}
+                    </option>
+                  </select>
+                </th>
+                <th class="hasinput">
+                  <select name="filter_routing_class" class="form-control select-filter" style="width: 100%;">
+                    <option value="">All</option>
+                    <option *ngFor="let location of locations" value={{location.gen_cd}}>{{location.gen_nm}}
+                    </option>
+                  </select>
+                </th>
+                <th class="hasinput">
+                  <select name="filter_routing_class" class="form-control select-filter" style="width: 100%;">
+                    <option value="">All</option>
+                    <option *ngFor="let processe of processes" value={{processe.gen_cd}}>{{processe.gen_nm}}
+                    </option>
+                  </select>
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+              </tr>
+            </thead>
+          </sa-datatable>
+        </div>
+      </div>
+    </article>
+  </div>
+</sa-widgets-grid>
+<!-- </div> -->

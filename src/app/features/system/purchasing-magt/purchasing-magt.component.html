@@ -1,0 +1,121 @@
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-magic"></i>{{'PURCHASING' | i18n}}</h1>
+      </div>
+    </div>
+  </div>
+  <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+    class="smart-form atman-form-small no-header frm-detail" novalidate="novalidate"  [saUiValidate]="validationOptions">
+    <fieldset>
+      <div class="row" style="margin-bottom: 20px;">
+        <section class="col col-lg-12">
+          <div class="inline-group">
+            <label class="radio">
+              <input type="radio" name="radio-inline" checked="checked" (change)="show1()">
+              <i></i>By WO</label>
+            <label class="radio">
+              <input type="radio" name="radio-inline" (change)="show2()">
+              <i></i>Others</label>
+          </div>
+        </section>
+      </div>
+      <div class="row">
+        <section class="col col-lg-3">
+          <label class="col-md-4 control-label">{{'PURCHASING_DATE' | i18n}}</label>
+          <div class="col-md-8 input" style="display: flex;">
+            <input id="date_created" type="text" class="form-control datepicker" name="purchYmd"
+              [(ngModel)]="purchasingHeaderInfo.purchYmd" placeholder="YYYY.MM.DD" [saUiDatepicker]="{dateFormat: 'yy.mm.dd'}"
+              autocomplete="off" style="width: 50%" />
+            <input class="form-control" style="background-color: #d4d1d1b0; width: 50%;" name="puchNo"
+              [(ngModel)]="purchasingHeaderInfo.puchNo" disabled="disabled" type="text" />
+            <!-- <button class="btn btn-default" type="button" style="height: 22px; margin: 0px;" (click)="onShowPopupPurchasingHeader()"><i class="icon-append fa fa-search" style="top:0px"></i></button> -->
+          </div>
+        </section>
+        <section class="col col-lg-3">
+          <label class="col-md-3 control-label">{{'PO_SHEET_NO' | i18n}}</label>
+          <label class="input input-group col-md-9" style="display: table !important;">
+            <input type="text" class="main" name="poSheetNo" readonly [(ngModel)]="purchasingHeaderInfo.poSheetNo" />
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" (click)="showPoSheetSearchPopup()"><i
+                  class="icon-append fa fa-search"></i></button>
+            </span>
+          </label>
+        </section>
+        <section class="col col-lg-3">
+          <label class="col-md-3 control-label" style="width: 20%;">{{'SUPPLIER' | i18n}}</label>
+          <div class="col-md-9 input" style="margin-left: 18px;">
+            <select select2 style="width:100%" id="selectSupplier" class="select2" name="supplierCd" placeholder="Select a supplier" 
+              (ngModelChange)="onSupplierChange($event)" [(ngModel)]="purchasingHeaderInfo.supplierCd" required>
+              <option *ngFor="let sup of suppliers" value={{sup.tradeid}}>{{sup.traderlocalnm}}</option>
+            </select>
+          </div>
+        </section>
+        <section class="col col-lg-3">
+          <label class="col-md-4 label">{{'TOTAL_AMOUNT' | i18n}}</label>
+          <div class="col-md-8 input state-disabled">
+            <input class="form-control text-right" name="totalAmount" currencyMask
+              [options]="{prefix:'', suffix:'', precision : 0, allowNegative : false }"
+              [(ngModel)]="purchasingHeaderInfo.totalAmount" disabled="disabled" type="text">
+          </div>
+        </section>
+      </div>
+      <div class="row">
+        <section class="col col-lg-9" style="margin-top: 20px;">
+          <label class="col-md-2 label" style="font-size: 13px; width: 10.5%;">{{'DESCRIPTION' | i18n}}</label>
+          <label class="col-md-10 textarea" style="width: 89.5%;">
+            <textarea name="remark" [(ngModel)]="purchasingHeaderInfo.remark" style="height: 30px;"></textarea>
+          </label>
+        </section>
+        <section class="col col-lg-3" style="margin-top: 10px;">
+          <div class="smart-form">
+            <footer style="background:none;border:none;padding: 0;float: right;">
+              <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-cancel btn-xs">
+                {{'BUTTON-CLOSE' | i18n}}
+              </button>
+              <button type="button" (click)="onReset()" name="reset" class="btn btn-reset-form btn-xs">
+                {{'BUTTON-RESET' | i18n}}
+              </button>
+              <button type="button" name="button" (click)="onDeletePurchasingHeader()" [disabled]="!isEdit" class="btn btn-danger btn-xs">
+                {{'BUTTON-DELETE' | i18n}}
+              </button>
+              <button type="submit" name="submit" class="btn btn-primary btn-xs">
+                {{'BUTTON-SAVE' | i18n}}
+              </button>
+            </footer>
+          </div>
+        </section>
+      </div>
+    </fieldset>
+  </form>
+
+  <article class="col-sm-12" style="padding-left: 0px;padding-right: 0px;">
+    <sa-widgets-grid>
+      <div class="at-smart-table atman-form-small smart-form">
+        <section class="col-12 table-bordered">
+          <div class="section-bom-compoent-table">
+            <ng2-smart-table class="table table-striped table-condensed table-hover"
+              (editConfirm)="onUpdateConfirm($event)"  [source]="source"
+              id="process-path-route-table" [settings]="settingsPurchasingComponent">
+            </ng2-smart-table>
+          </div>
+        </section>
+      </div>
+    </sa-widgets-grid>
+  </article>
+</div>
+
+<ng-template #popupPOSheetSearch>
+  <sa-popup-modal headerTitle="PO Sheet No Search" width="60%" height="400" (onClose)="closePoSheetSearchPopup()">
+    <sa-search-po-sheet-popup (childCall)="selectPoSheet($event)">
+    </sa-search-po-sheet-popup>
+  </sa-popup-modal>
+</ng-template>
+
+<!-- <ng-template #popupSearchPurchasingHeader>
+  <sa-popup-modal headerTitle="Purchasing Header" width="1200" height="400" (onClose)="closePopup()">
+    <sa-purchasing-search-popup (childCallPo)="getPurchasingSelected($event)">
+    </sa-purchasing-search-popup>
+  </sa-popup-modal>
+</ng-template> -->

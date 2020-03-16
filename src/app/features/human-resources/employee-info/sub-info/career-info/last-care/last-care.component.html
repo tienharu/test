@@ -1,0 +1,82 @@
+<div class="row">
+    <section class="col-lg-12 right-content">
+            <div class="col-lg-4 field-1" style="padding-left: 0">
+                    <form class="smart-form frmLastCare" #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" novalidate="novalidate"
+                    [saUiValidate]="validLastCareOptions">
+                            <fieldset>
+                                    <section class="col-lg-12">
+                                            <label class="label col-lg-5">{{'Company-Name' | i18n}}</label>
+                                            <label class="input col-lg-6">
+                                                <input type="text" required name="last_company_nm" [(ngModel)]="lastCareInfo.last_company_nm" />
+                                            </label>
+                                    </section>
+                                    <section class="col-lg-12">
+                                            <label class="label col-lg-5">{{'Work-Name' | i18n}}</label>
+                                            <label class="input col-lg-6">
+                                                <input type="text" name="last_work_nm" [(ngModel)]="lastCareInfo.last_work_nm" />
+                                            </label>
+                                    </section>
+                                    <section class="col-lg-12">
+                                            <label class="label col-lg-5">{{'Position' | i18n}}</label>
+                                            <label class="input col-lg-6">
+                                                <input type="text" name="last_position" [(ngModel)]="lastCareInfo.last_position" />
+                                            </label>
+                                    </section>
+                                        <section class="col-lg-12">
+                                                <label class="label col-lg-5">{{'Joined' | i18n}}</label>
+                                                <label class="input col-lg-6"> <i class="icon-append fa fa-calendar"></i>
+                                                    <input type="text" name="last_joined_ymd" [(ngModel)]="lastCareInfo.last_joined_ymd" class="joined-lastcare-datepicker" autocomplete="off">
+                                                </label>
+                                        </section>
+                                        <section class="col-lg-12">
+                                                <label class="label col-lg-5">{{'Retired' | i18n}}</label>
+                                                <label class="input col-lg-6"> <i class="icon-append fa fa-calendar"></i>
+                                                    <input type="text" name="last_retired_ymd" [(ngModel)]="lastCareInfo.last_retired_ymd" class="retired-lastcare-datepicker" autocomplete="off">
+                                                </label>
+                                        </section>
+                                        <section class="col-lg-11 btn-cmd">
+                                          <button class="btn btn-small btn-primary" [disabled]="!permission.canSave" type="submit"><i class="fa fa-save"></i> {{'BUTTON-SAVE' | i18n}}</button>
+                                          <button class="btn btn-small btn-default" type="button" (click)="onReset()"><i class="fa fa-refresh"></i> {{'BUTTON-RESET' | i18n}}</button>
+                                      </section>
+                            </fieldset>
+                        </form>
+                </div>
+                <div class="col-lg-8" style="padding: 0;width: 66%">
+                    <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+                            <div>
+                                <div class="widget-body no-padding">
+                                    <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                                    tableClass="eplLastCareList table table-striped table-condensed table-hover table-bordered">
+                                        <thead>
+                                            <tr class="heading">
+                                                <th>{{'COMPANY-NAME' | i18n}}</th>
+                                                <th>{{'WORK-NAME' | i18n}}</th>
+                                                <th>{{'Position' | i18n}}</th>
+                                                <th>{{'Joined' | i18n}}</th>
+                                                <th>{{'Retired' | i18n}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="hasinput">
+                                                        <input type="text" class="form-control" placeholder="Company Name" />
+                                                </th>
+                                                <th class="hasinput">
+                                                    <input type="text" class="form-control" placeholder="Work Name" />
+                                                </th>
+                                                <th class="hasinput">
+                                                            <input type="text" class="form-control" placeholder="Position" />
+                                                </th>
+                                                <th class="hasinput">
+                                                        <input type="text" class="form-control" placeholder="Joined" />
+                                            </th>
+                                            <th class="hasinput">
+                                                    <input type="text" class="form-control" placeholder="Retired" />
+                                        </th>
+                                            </tr>
+                                        </thead>
+                                    </sa-datatable>
+                                </div>
+                            </div>
+                        </div> 
+                </div>  
+    </section>
+</div>

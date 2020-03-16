@@ -1,0 +1,45 @@
+<ng-container *ngIf="meetingInfo.length; else noneMeeting">
+    <div class="well well-sm" style="overflow: auto; max-height: 400px;">
+        <div class="smart-timeline">
+          <ul class="smart-timeline-list">
+            <li *ngFor="let item of meetingInfo;let idx = index">
+              <div class="smart-timeline-icon">
+                <div class="index" (click)="openPopup(item)">
+                    <span><i class="fa fa-comments-o"></i></span>
+                </div>
+              </div>
+              <div class="smart-timeline-time">
+                <small>{{item.meeting_ymd}}</small>
+              </div>
+              <div class="smart-timeline-content">
+                <span class="custom-tooltip" tooltip="{{item.created_time | moment:'YYYY-MM-DD HH:mm'}}"
+                  placement="left">{{item.created_time| amTimeAgo}}</span>
+                <p>
+                  <a href="javascript:void(0);" style="padding: 0 15px 0 0"><strong>{{item.creator}}</strong></a>
+                  <span><strong>{{item.title_nm}}</strong></span>
+                  <div style="cursor:pointer">
+                      <div  *ngIf="idx !== indexExpand" (click)="Expand(idx)" data-maxlength="100" class="content-title" innerHtml="{{item.contents}}"></div>
+                      <div *ngIf="idx == indexExpand" (click)="collapse()" [innerHtml]="item.contents">
+                    </div>
+                    </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- END Timeline Content -->
+
+      </div>
+</ng-container>
+<ng-template #noneMeeting>
+    <h2 style="text-align: center;">
+        <i class="fa fa-exclamation"></i>
+        <p>{{'ACTIVITY-WARNING-NO-ACTIVITY' | i18n}}!</p>
+      </h2>
+</ng-template>
+
+<ng-template #popupConference>
+    <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-CONFERENCE' | i18n}}" width="750" height="600" (onClose)="closePopup()">
+      <sa-conference companyId="{{companyId}}" inputFuncId="{{inputFuncId}}" funcRefCd="{{funcRefCd}}"
+        Id={{Id}} (childCall)="reloadData($event)" meetingJson="{{meetingJson|json}}" customer="{{customer|json}}"  contactor="{{contactor|json}}"  user="{{user|json}}"></sa-conference>
+    </sa-popup-modal>
+  </ng-template>

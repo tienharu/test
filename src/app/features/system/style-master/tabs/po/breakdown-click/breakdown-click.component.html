@@ -1,0 +1,13 @@
+<label class="input popup-select" style="width: 100%; margin: 0px;" >
+  <div (click)="onShowPopupInitTable()">
+    <input type="text" [ngClass]="inputClass" id="inputItemBom" [name]="name" [(ngModel)]="cell.newValue" disabled required style="width: 100%; background-color: white; padding: 0 5px;" />
+    <i class="fa fa-search icon-2"></i>
+  </div>
+</label>
+
+<ng-template #popupBreakdownClick>
+  <sa-popup-modal headerTitle="Color / Size Breal Down" width="50%" height="400" (onClose)="closePopup()">
+    <sa-style-master-breakdown-popup (childCall)="onChange($event)" [styleColorsList]="styleColors" [addNew]="isAdded" [poId]="poId" [styleSysId]="styleSysId" [sizeGroupCd]="sizeGroupGenCd">
+    </sa-style-master-breakdown-popup>
+  </sa-popup-modal>
+</ng-template>

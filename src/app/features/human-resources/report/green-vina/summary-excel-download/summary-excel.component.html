@@ -1,0 +1,117 @@
+<div id="content">
+    <div class="col col-md-6">
+        <div class="well well-sm">
+            <h4 class="padding-bottom-10">Monthly Attendance Report</h4>
+            <div class="row">
+                <div class="col-lg-5 smart-form">
+                    <section>
+                        <label class="input">
+                            <select select2 class="form-control select2" [(ngModel)]="orgid" style="width:100%"
+                                placeHolder="Select Department" allowClear="true">
+                                <option *ngFor="let item of departments" value="{{ item.org_cd }}">
+                                    {{ item.org_tree_nm }}</option>
+                            </select>
+                        </label>
+                    </section>
+                </div>
+                <div class="col-lg-3 smart-form">
+                    <section>
+                        <label class="input">
+                            <select select2 class="form-control select2" [(ngModel)]="month"
+                                (ngModelChange)="changeMonth($event)" style="width:100%" placeHolder="Select Month">
+                                <option *ngFor="let m of monthsYear" value="{{ m.val }}">{{ m.text }}</option>
+                            </select>
+                        </label>
+                    </section>
+                </div>
+                <div class="col-lg-4">
+                    <button type="button" (click)="downloadMonthlyOT()" class="btn btn-success btn-sm margin-right-5">
+                        <i class="fa fa-file-excel-o"></i>
+                        Download Excel
+                    </button>
+                    <!-- <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs">
+            <i class="fa fa-times"></i>
+            {{'button-close' | i18n}}{{ "BUTTON-EXCEL" | i18n }}
+            </button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-6">
+            <div class="well well-sm">
+                <h4 class="padding-bottom-10">Adidas Monthly Overtime Breakdown Report</h4>
+                <div class="row">
+                        <div class="col-lg-5 smart-form">
+                                <section>
+                                    <label class="input">
+                                        <select select2 class="form-control select2" [(ngModel)]="adidasOrgId" style="width:100%"
+                                            placeHolder="Select Department" allowClear="true">
+                                            <option *ngFor="let item of departments" value="{{ item.org_cd }}">
+                                                {{ item.org_tree_nm }}</option>
+                                        </select>
+                                    </label>
+                                </section>
+                            </div>
+                    <div class="col-lg-2 smart-form">
+                        <section>
+                            <label class="input">
+                                <select select2 class="form-control select2" [(ngModel)]="adidasOTYear" style="width:100%">
+                                    <option *ngFor="let y of years" value="{{ y.val }}">{{ y.text }}</option>
+                                </select>
+                            </label>
+                        </section>
+                    </div>
+                    <div class="col-lg-4">
+                        <button type="button" (click)="adidasMOnthlyOT()" class="btn btn-success btn-sm margin-right-5">
+                            <i class="fa fa-file-excel-o"></i>
+                            Download Excel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-6">
+                <div class="well well-sm">
+                    <h4 class="padding-bottom-10">Adidas Monthly TurnOver Rate Tracking Report</h4>
+                    <div class="row">
+                        <div class="col-lg-2 smart-form">
+                            <section>
+                                <label class="input">
+                                    <select select2 class="form-control select2" [(ngModel)]="adidasOverTurnYear" style="width:100%">
+                                        <option *ngFor="let y of years" value="{{ y.val }}">{{ y.text }}</option>
+                                    </select>
+                                </label>
+                            </section>
+                        </div>
+                        <div class="col-lg-4">
+                            <button type="button" (click)="adidasMOnthlyTurnOver()" class="btn btn-success btn-sm margin-right-5">
+                                <i class="fa fa-file-excel-o"></i>
+                                Download Excel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-6">
+                    <div class="well well-sm">
+                        <h4 class="padding-bottom-10">Adidas Weekly Working Hour Report</h4>
+                        <div class="row">
+                            <div class="col-lg-2 smart-form">
+                                <section>
+                                    <label class="input">
+                                        <select select2 class="form-control select2" [(ngModel)]="adidasWeekWHYear" style="width:100%">
+                                            <option *ngFor="let y of years" value="{{ y.val }}">{{ y.text }}</option>
+                                        </select>
+                                    </label>
+                                </section>
+                            </div>
+                            <div class="col-lg-4">
+                                <button type="button" (click)="adidasWeeklyWH()" class="btn btn-success btn-sm margin-right-5">
+                                    <i class="fa fa-file-excel-o"></i>
+                                    Download Excel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</div>

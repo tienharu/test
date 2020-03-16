@@ -1,0 +1,20 @@
+
+.margin-top-10 {
+    margin-top: 10px;
+}
+.btn-popup {
+    height: 22px !important;
+    line-height: 1 !important;
+}
+#non-padding-right{
+    padding-right: 0;
+}
+.fix-width-blank {
+    width: 5.33%;
+}
+.fix-width-field {
+    width: 19.66%;
+}
+.margin-top-1 {
+    margin-top: 1px;
+}

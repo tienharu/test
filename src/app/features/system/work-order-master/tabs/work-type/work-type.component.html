@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="at-smart-table atman-form-small smart-form">
+      <section class="table-bordered">
+        <div class="section-work-type">
+          <ng2-smart-table class="table table-striped table-condensed table-hover"
+            [settings]="wSettings" [source]="wSource"
+            (deleteConfirm)="onDeleteConfirm($event)"
+            (editConfirm)="onSaveConfirm($event)"
+            (createConfirm)="onCreateConfirm($event)">
+          </ng2-smart-table>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

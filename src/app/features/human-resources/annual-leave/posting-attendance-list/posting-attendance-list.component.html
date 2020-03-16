@@ -1,0 +1,114 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[('POSTING ATTENDANCE-LIST'|i18n)]" icon="file" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>
+  <div class="well well-sm">
+    <div class="row">
+
+
+      <div class="col-sm-2">
+        <select id="cbxDepart" class="form-control select2" placeHolder="{{'Select department'|i18n}}" select2
+          [(ngModel)]="shiftworkInfo.depart_id" defaultVal="0" allowClear="true">
+          <option value="0">All</option>
+          <option *ngFor="let d of departs;let i=index" value={{d.org_cd}} [disabled]='d.has_child>0'>[{{d.org_cd | number:'3.0'}}] {{d.org_tree_nm}}</option>
+        </select>
+      </div>
+      <button type="button" (click)="searchData()" class="btn btn-sm btn-default margin-right-5">
+        <i class="fa fa-search"></i>
+        {{'Search'|i18n}}
+      </button>
+      <button type="button" (click)="headPostAll()" class="btn btn-sm btn-default margin-right-5">
+        <i class="fa fa-upload"></i>
+        {{'BUTTON-APPRL-ALL'|i18n}}
+      </button>
+      <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs">
+        <i class="fa fa-times"></i>
+        {{'button-close' | i18n}}
+      </button>
+    </div>
+  </div>
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-md-12">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2> {{'ANNUAL-LEAVE-LIST-HEADER' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                tableClass="table table-striped table-condensed table-hover table-bordered">
+                <thead>
+                  <tr class="heading">
+                    <th></th>
+                    <th>{{"HR-ID" | i18n}}</th>
+                    <th>{{"EMPLOYEE" | i18n}}</th>
+                    <th>{{"ANNUAL-LEAVE-TYPE" | i18n}}</th>
+                    <th>{{"FROM-DATE" | i18n}}</th>
+                    <th>{{"TO-DATE" | i18n}}</th>
+                    <th>{{'TOTAL-DAY' | i18n}}</th>
+                    <th>{{'APPRL-YN' | i18n}}</th>
+                    <th>{{'APPRL-BY' | i18n}}</th>
+                    <th>{{'APPRL-DATE' | i18n}}</th>
+                    <th>{{'REASON' | i18n}}</th>
+                  </tr>
+
+                  <tr>
+                    <th class="hasinput">
+                      <!-- <input type="checkbox" class="checkAll form-control" /> -->
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" />
+                    </th>
+
+                    <th class="hasinput">
+                      <select class="form-control select-filter">
+                        <option value="">All</option>
+                        <option *ngFor="let annualLeaveType of annualLeaveTypes" value={{annualLeaveType.gen_cd}}>{{annualLeaveType.gen_nm}}</option>
+                      </select>
+                    </th>
+                    <th class="hasinput ">
+                      <!-- <i class="fa fa-calendar margin-top-5"></i> -->
+                      <input id="date_created" type="text" class="form-control datepicker" saUiDatepicker />
+                    </th>
+                    <th class="hasinput ">
+                      <!-- <i class="fa fa-calendar margin-top-5"></i> -->
+                      <input id="date_created" type="text" class="form-control datepicker" saUiDatepicker />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" />
+                    </th>
+                    <th class="hasinput">
+                      <select id="filerByStatus" class="form-control select-filter">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" />
+                    </th>
+
+                    <th class="hasinput icon-addon">
+                      <input type="text" class="form-control" saUiDatepicker />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" />
+                    </th>
+                  </tr>
+
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

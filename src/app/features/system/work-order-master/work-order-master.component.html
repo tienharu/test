@@ -1,0 +1,290 @@
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-magic"></i>Work Order Master</h1>
+      </div>
+    </div>
+  </div>
+  <form #workOrderForm="ngForm" (ngSubmit)="workOrderForm.form.valid && onSubmit()"
+    class="smart-form atman-form-small no-header frm-work-order-detail" novalidate="novalidate"
+    [saUiValidate]="validationOptions">
+    <fieldset>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11" style="margin-left: 5%;">
+          <section class="col-md-6">
+            <section class="col col-6 margin-bottom-20" style="display: inline-flex !important;">
+              <label class="label col-md-3" style="width:30%">{{'WORK_ORDER_NO' | i18n}}</label>
+              <div style="display: inline-flex !important; width:70%">
+                <label class="input input-group state-disabled col-md-6" style="display: table !important;">
+                  <input type="text" id="woNo" name="woNo" [(ngModel)]="workOrderHeader.woNo" disabled
+                    style="width: 100%" />
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" (click)="showSearchWorkOrderPopup()"><i
+                        class="icon-append fa fa-search"></i></button>
+                  </span>
+                </label>
+                <!-- <label class="input state-disabled col-md-5">
+                <i class="icon-append fa fa-search"></i>
+                <input type="text" id="woNo" name="woNo" [(ngModel)]="workOrderHeader.woNo" disabled
+                  style="width: 100%" />
+              </label> -->
+                <label class="label col-md-3 text-center">{{'INNING' | i18n}}</label>
+                <label class="input col-md-3" [ngClass]="{'state-disabled' : disabledInning, '': !disabledInning}">
+                  <select name="inning" [(ngModel)]="workOrderHeader.inning" [disabled]="disabledInning" placeHolder="Inning"
+                    style="width:100%;" class="select2">
+                    <option *ngFor="let item of inningList" [value]="item.value"
+                      [disabled]="item.disabled">{{item.text | i18n}}</option>
+                  </select>
+                </label>
+                <!-- <input class="form-control" placeholder="SEQ" name="stepSeq" type="text" disabled [(ngModel)]="workOrderHeader.stepSeq">
+                  <span class="input-group-addon">
+                    <span class="onoffswitch">
+                      <input class="onoffswitch-checkbox" id="inning" name="inning" type="checkbox" [(ngModel)]="workOrderHeader.inning">
+                      <label class="onoffswitch-label" for="inning">
+                        <span class="onoffswitch-inner" data-swchoff-text="NO" data-swchon-text="YES"></span>
+                        <span class="onoffswitch-switch"></span>
+                      </label>
+                    </span>
+                  </span> -->
+              </div>
+            </section>
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3" style="width:30%">{{'STYLE_NO' | i18n}}</label>
+              <div class="col-md-9" style="width:70%">
+                <label class="input input-group state-disabled" style="display: table !important;">
+                  <input type="text" id="styleNo" name="styleNo" readonly [(ngModel)]="selectedStyle.styleNo"
+                    style="width: 100%" />
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" (click)="showSearchStylePopup()"><i
+                        class="icon-append fa fa-search"></i></button>
+                  </span>
+                </label>
+                <!-- <label class="input state-disabled">
+                  <i class="icon-append fa fa-search"></i>
+                  <input type="text" id="styleNo" name="styleNo" [(ngModel)]="workOrderHeader.styleNo" disabled
+                    style="width: 100%" />
+                </label> -->
+              </div>
+            </section>
+            <div class="clearfix"></div>
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3" style="width:30%">{{'ORDER_TYPE' | i18n}}</label>
+              <div class="inline-group col-md-9 state-disabled" style="display: inline-flex !important; width:70%">
+                <label class="radio order-main">
+                  <input name="radio-inline" type="radio" disabled [value]="true" [(ngModel)]="selectedStyle.orderType"
+                    [checked]="selectedStyle.orderType === true"><i></i>{{'MAIN' | i18n}}
+                </label>
+                <label class="radio order-sample">
+                  <input name="radio-inline" type="radio" disabled [value]="false" [(ngModel)]="selectedStyle.orderType"
+                    [checked]="selectedStyle.orderType === false"><i></i>{{'SAMPLE' | i18n}}
+                </label>
+              </div>
+            </section>
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3" style="width:30%">{{'SAMP_STEP' | i18n}}</label>
+              <label class="input col-md-9" style="width:70%">
+                <select name="sampleStepGenCd" [(ngModel)]="workOrderHeader.sampleStepGenCd"
+                  [defaultVal]="workOrderHeader.sampleStepGenCd" [disabled]="selectedStyle.orderType === true" select2
+                  style="width:100%;" class="select2">
+                  <option *ngFor="let item of sampleSteps" [value]="item.gen_cd">{{item.gen_nm | i18n}}</option>
+                </select>
+              </label>
+            </section>
+            <div class="clearfix"></div>
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3" style="width:30%">{{'BUYER' | i18n}}</label>
+              <label class="input col-md-9" style="width:70%">
+                <select name="buyerCd" [(ngModel)]="selectedStyle.buyerCd" select2 disabled
+                  [defaultVal]="selectedStyle.buyerCd" style="width:100%;" class="select2">
+                  <option *ngFor="let item of buyers" [value]="item.trader_id">{{item.trader_local_nm | i18n}}</option>
+                </select>
+              </label>
+            </section>
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3" style="width:30%">{{'BRAND' | i18n}}</label>
+              <label class="input col-md-9" style="width:70%">
+                <select name="brandGenCd" [(ngModel)]="selectedStyle.brandGenCd" disabled select2
+                  [defaultVal]="selectedStyle.brandGenCd" style="width:100%;" class="select2">
+                  <option *ngFor="let item of brands" [value]="item.gen_cd">{{item.gen_nm | i18n}}</option>
+                </select>
+              </label>
+            </section>
+            <div class="clearfix"></div>
+            <section class="col col-md-12 margin-bottom-20">
+              <label class="label col-md-3" style="width:14.5%">{{'DESCRIPTION' | i18n}}</label>
+              <label class="input col-md-9" style="width:85.5%">
+                <label class="textarea">
+                  <textarea autocomplete="off" rows="2" name="desc" [(ngModel)]="workOrderHeader.remark"></textarea>
+                </label>
+              </label>
+            </section>
+          </section>
+          <section class="col-md-6">
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3">{{'ENTRY_DATE' | i18n}}</label>
+              <label class="input col-md-9 state-disabled">
+                <input class="extra text-center" name="entry_date" disabled type="text" value="{{entryData.date}}"
+                  autocomplete="off" />
+              </label>
+            </section>
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3">{{'ENTRY_USER' | i18n}}</label>
+              <label class="input col-md-9 state-disabled">
+                <input class="extra text-center" name="entry_user" disabled type="text" value="{{entryData.user}}"
+                  autocomplete="off" />
+              </label>
+            </section>
+            <div class="clearfix"></div>
+            <section class="col col-6 margin-bottom-10">
+              <label class="label col-md-3">{{'PO NO' | i18n}}</label>
+              <label class="input col-md-9">
+                <select name="poId" id="poId" [(ngModel)]="poId" [disabled]="!styleSysId" (ngModelChange)="onChangePO($event)"
+                  select2 style="width:100%;" class="select2">
+                  <!-- <option value="All">All</option> -->
+                  <option *ngFor="let item of allPOData" value="{{item.poId}}">{{item.poNo | i18n}}</option>
+                </select>
+              </label>
+            </section>
+            <section class="col col-6 margin-bottom-10">
+            </section>
+            <div class="clearfix"></div>
+            <section class="col col-sm-12 margin-bottom-10">
+              <sa-widgets-grid>
+                <div class="row">
+                  <section class="col-sm-12">
+                    <div sa-widget [editbutton]="false" color="darken">
+                      <div>
+                        <div class="widget-body no-padding">
+                          <table
+                            class="table table-striped table-condensed table-hover table-bordered cell-border table-grid">
+                            <thead>
+                              <tr class="heading">
+                                <th class="center" style="width: 10% !important">{{'CS_QTY' |i18n}}</th>
+                                <th style="width: 8% !important" *ngFor="let row of rows">
+                                  {{row.name | i18n}}
+                                </th>
+                                <th class="center" style="width: 10% !important">{{'CS_TOTAL'|i18n}}</th>
+                              </tr>
+                            </thead>
+                            <tbody *ngIf="colors === null">
+                              <tr>
+                                <td colspan="2" class="text-center">
+                                  {{'sEmptyTable'|i18n}}
+                                </td>
+                              </tr>
+                            </tbody>
+                            <tbody *ngIf="colors !== null">
+                              <tr role="row" *ngFor="let item of colors | keyvalue; let idx = index">
+                                <td class="center" style="width: 10% !important">
+                                  {{item.value.colorName}}
+                                </td>
+                                <td style="width: 8% !important" class="smart-form atman-form-small"
+                                  *ngFor="let c of item.value.columns; let i = index;">
+                                  <label class="input" *ngIf="!item.value.totalRow">
+                                    <input type="text" class="price-format" name="qty{{c.id}}" currencyMask
+                                      (blur)="caculateTotalSizeRow(item.value)"
+                                      [options]="{prefix:'', suffix:'', precision : 0, allowNegative : false }"
+                                      [(ngModel)]="c.qty" autocomplete="off" />
+                                  </label>
+                                  <label class="input text-right" style="margin-right: 5px;"
+                                    *ngIf="item.value.totalRow">
+                                    {{caculateTotalSizeColumn(c.sizeId)}}
+                                  </label>
+                                </td>
+                                <td class="center" style="width: 10% !important">
+                                  <label class="input" *ngIf="!item.value.totalRow">
+                                    {{item.value.total}}
+                                  </label>
+                                  <label class="input" *ngIf="item.value.totalRow">
+                                    {{caculateTotalSizeColumn('', true)}}
+                                  </label>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </sa-widgets-grid>
+            </section>
+          </section>
+          <section class="col-md-12">
+
+          </section>
+          <section class="col-md-12">
+            <section class="col col-md-12 margin-bottom-20">
+              <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-cancel">
+                {{'BUTTON-CLOSE' | i18n}}
+              </button>
+              <button type="button" name=" reset" (click)="onReset()" class="btn btn-reset-form">
+                {{'BUTTON-RESET' | i18n}}
+              </button>
+              <button type="submit" name="submit" class="btn btn-primary">
+                {{'BUTTON-SAVE' | i18n}}
+              </button>
+            </section>
+          </section>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+  <div class="widget-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <ul id="materialTabs" class="nav nav-tabs">
+          <li [ngClass]="{'active': tab === 1}">
+            <a (click)="tab = 1">{{'Work-Type' | i18n}}</a>
+          </li>
+          <li [ngClass]="{'active': tab === 2}">
+            <a (click)="tab = 2; activeTab();">{{'Row-Material' | i18n}}</a>
+          </li>
+          <li [ngClass]="{'active': tab === 3}">
+            <a (click)="tab = 3; activeTab();">{{'Sub-Material' | i18n}}</a>
+          </li>
+          <li [ngClass]="{'active': tab === 4}">
+            <a (click)="tab = 4">{{'IMAGE' | i18n}}</a>
+          </li>
+        </ul>
+        <div id="myTabContent1" class="tab-content padding-10">
+          <div class="tab-pane" id="s1" [ngClass]="{ 'active in': tab === 1 }">
+            <sa-work-type [woNo]="woNo" #workOrderTypeTab [stepSeq]="stepSeq" (childCall)="loadWorkType($event)"
+              [styleSysId]="styleSysId" [customers]="traderList">
+            </sa-work-type>
+          </div>
+          <div class="tab-pane" id="s2" [ngClass]="{ 'active in': tab === 2 }">
+            <sa-work-order-row-material #rowMaterialTab [woNo]="woNo" [stepSeq]="stepSeq" [styleSysId]="styleSysId"
+              [colors]="colors" [styleColorsList]="styleColorsList" [yields]="yields" [constructions]="constructions"
+              [stockUnits]="stockUnits" [specMasters]="specMasters"></sa-work-order-row-material>
+          </div>
+          <div class="tab-pane" id="s3" [ngClass]="{ 'active in': tab === 3 }">
+            <sa-work-order-sub-material #subMaterialTab [woNo]="woNo" [stepSeq]="stepSeq" [styleSysId]="styleSysId"
+              [colors]="colors" [styleColorsList]="styleColorsList" [yields]="yields" [constructions]="constructions"
+              [stockUnits]="stockUnits" [specMasters]="specMasters"></sa-work-order-sub-material>
+          </div>
+          <div class="tab-pane" id="s4" [ngClass]="{ 'active in': tab === 4 }">
+            <sa-work-order-image #workOrderImageTab [woNo]="woNo" [stepSeq]="stepSeq" [styleSysId]="styleSysId">
+            </sa-work-order-image>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #popupSearchStyle>
+  <sa-popup-modal headerTitle="Search Style" width="50%" height="400" (onClose)="closeSearchStylePopup()">
+    <sa-search-style-master-popup (childCall)="selectStyle($event)" [buyers]="buyers" [brands]="brands">
+    </sa-search-style-master-popup>
+  </sa-popup-modal>
+</ng-template>
+
+<ng-template #popupSearchWorkOrder>
+  <sa-popup-modal headerTitle="Search Work Order" width="70%" height="400" (onClose)="closeSearchWorkOrderPopup()">
+    <sa-search-work-order-master-popup (childCall)="selectWorkOrder($event)" [buyers]="buyers" [brands]="brands"
+      [sampSteps]="sampleSteps">
+    </sa-search-work-order-master-popup>
+  </sa-popup-modal>
+</ng-template>

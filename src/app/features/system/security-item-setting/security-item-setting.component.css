@@ -1,0 +1,60 @@
+:host /deep/ .at-smart-table .ng2-smart-title{text-align: left !important}
+:host /deep/ .at-smart-table tbody td:last-child,.at-smart-table th:last-child{width: 115px;text-align: left !important}
+:host /deep/ .at-smart-table tbody td:nth-child(2n+2),.at-smart-table tbody td:nth-child(n+3){text-align: left !important}
+:host /deep/ .at-smart-table tbody td:last-child{text-align: left !important}
+:host /deep/ .ng2-smart-action-delete-delete{
+  margin-left: 5px
+}
+:host /deep/ .ng2-smart-action-add-cancel{
+  margin-left: 5px;
+  
+}
+:host /deep/ .ng2-smart-action-add-cancel{
+  font-size: 13px
+}
+:host /deep/ .ng2-smart-action-edit-cancel{
+  margin-left: 5px;
+}
+:host /deep/ .ng2-smart-action-add-create{
+  font-size: 13px
+} 
+:host /deep/ .ng2-smart-actions-title{
+  text-align: center
+}
+:host /deep/ .ng2-smart-actions {
+width: 5%;
+text-align: center
+}
+:host /deep/ .table-bordered>thead>tr:last-child>td:nth-last-child(2){
+text-align: center
+}
+:host /deep/ .table-bordered>tbody>tr>td:nth-last-child(2){
+  text-align: center
+}
+:host /deep/ .creator{
+  text-align: center
+}
+:host /deep/ .created_time {
+  text-align: center
+}
+:host /deep/ .table-bordered>tbody>tr>td:nth-last-child(3) input{
+  text-align: center
+}
+:host /deep/ .table-bordered>tbody>tr>td:nth-last-child(4) input{
+  text-align: center
+}
+
+:host /deep/ .table-bordered>tbody>tr>td:nth-last-child(3){
+  text-align: center
+}
+:host /deep/ .table-bordered>tbody>tr>td:nth-last-child(4){
+  text-align: center
+}
+
+
+:host /deep/ .table-bordered>thead>tr>td:nth-last-child(3) input{
+  text-align: center
+}
+:host /deep/ .table-bordered>thead>tr>td:nth-last-child(4) input{
+  text-align: center
+}

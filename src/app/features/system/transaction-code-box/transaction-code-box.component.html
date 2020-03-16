@@ -1,0 +1,262 @@
+<div id="content">
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-magic"></i>{{'TRANSACTION-CODE BOX' | i18n}}</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <section class="col-md-7 col-lg-7">
+      <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+        class="smart-form atman-form-small no-header frm-detail" novalidate="novalidate"
+        [saUiValidate]="validationOptions">
+        <fieldset style="padding-bottom: 15px;">
+          <div class="row">
+            <section class="col-md-5 col-lg-5">
+              <section class="col col-lg-6">
+                <label class="label">{{'AR_ENTRYDAY' | i18n}}</label>
+                <label class="input  state-disabled">
+                  <input type="text" class="center" autocomplete="off" value={{this.dateTimeNow}} disabled />
+                </label>
+              </section>
+              <section class="col col-lg-6">
+                <label class="label">{{'AR_ENTRYMEMBER' | i18n}}</label>
+                <label class="input state-disabled">
+                  <input type="text" class="center" value={{this.userName.user_name}} autocomplete="off" disabled />
+                </label>
+              </section>
+
+              <section class="col col-lg-7">
+                <label class="label">{{'TRANS_GROUP' | i18n}}</label>
+                <label class="input">
+                  <select select2 required style="width:100%;" id="selectTrans" name="transgroupgid"
+                    [(ngModel)]="detailInfo.transgroupgid" [defaultVal]="detailInfo.transgroupgid"
+                    (onSelectedChange)="onChangeTransGroup()" required class="required_input">
+                    <option *ngFor="let group of transGroup" value={{group.gen_cd}}>{{group.gen_nm}}({{group.gen_local_nm}})</option>
+                  </select>
+                </label>
+              </section>
+              <section class="col col-lg-5">
+                <label class="label">&nbsp;</label>
+                <label class="input state-disabled">
+                  <input type="text" class="center" value={{this.valueTransGroup}} autocomplete="off" disabled />
+                </label>
+              </section>
+
+              <section class="col col-lg-9">
+                <label class="label">{{'TRANS_KOR_NAME' | i18n}}</label>
+                <label class="input">
+                  <input type="text" name="transkoreanm" [(ngModel)]="detailInfo.transkoreanm" placeHolder=""
+                    autocomplete="off" required class="required_input" />
+                </label>
+              </section>
+              <section class="col col-lg-3">
+                <label class="label">&nbsp;</label>
+                <label class="input state-disabled">
+                  <input type="text" class="center" name="transid" [(ngModel)]="detailInfo.transid" autocomplete="off"
+                    disabled />
+                </label>
+              </section>
+
+              <section class="col col-lg-12">
+                <label class="label">{{'TRANS_ENG_NAME' | i18n}}</label>
+                <label class="input">
+                  <input type="text" name="transengnm" [(ngModel)]="detailInfo.transengnm" placeHolder=""
+                    autocomplete="off" />
+                </label>
+              </section>
+
+              <section class="col col-lg-9">
+                <label class="label">{{'ELECT_APPROVAL_LINE' | i18n}}</label>
+                <label class="input">
+                  <select select2 style="width:100%" class="select2" id="selectApproval" name="aprvllinecd"
+                    [(ngModel)]="detailInfo.aprvllinecd" [defaultVal]="detailInfo.aprvllinecd"
+                    (onSelectedChange)="onChangeApproval()">
+                    <option *ngFor="let approval of approvalType" value={{approval.aprvllinecd}}>{{approval.aprvllinekoreanm}}</option>
+                  </select>
+                </label>
+              </section>
+              <section class="col col-lg-3">
+                <label class="label">&nbsp;</label>
+                <label class="input state-disabled">
+                  <input type="text" class="center" value={{this.valueApproval}} autocomplete="off" disabled />
+                </label>
+              </section>
+            </section>
+
+            <section class="col-md-7 col-lg-7">
+              <section class="col col-12">
+                <label class="label">{{'LEDGER_TYPE' | i18n}}</label>
+                <div class="inline-group">
+                  <label class="radio" style="margin-right: 16px" *ngFor="let type of acFsTypes">
+                    <input type="radio" name="lptype" [(ngModel)]="detailInfo.lptype" [value]="type.value">
+                    <i></i>{{type.name | i18n}}
+                  </label>
+                </div>
+              </section>
+              <section class="col col-lg-6" style="margin-top: 4px;">
+                <label class="label">{{'FIELD_SYSTEM_NAME' | i18n}}</label>
+                <label class="input">
+                  <select select2 style="width:100%;" class="select2" name="programid" [(ngModel)]="detailInfo.programid" [defaultVal]="detailInfo.programid">
+                    <option *ngFor="let field of fieldSystem" value={{field.menu_id}}>{{field.menu_name}}</option>
+                  </select>
+                </label>
+              </section>
+              <section class="col col-lg-6" style="margin-top: 4px;">
+                <label class="label">&nbsp;</label>
+                <label class="input state-disabled">
+                  <input type="text" class="main" placeHolder="" autocomplete="off" disabled />
+                </label>
+              </section>
+
+              <section class="col col-3">
+                <label class="label">{{'use-yn' | i18n}}</label>
+                <label class="input">
+                  <label class="checkbox">
+                    <input type="checkbox" name="useyn" [(ngModel)]="detailInfo.useyn" checked="detailInfo.useyn">
+                    <i></i>Active
+                  </label>
+                </label>
+              </section>
+              <section class="col col-lg-3" style="text-align: -webkit-right;">
+                <div class="form-group" id="form-spinner">
+                  <label style="font-size: 12px;">{{'SORT_ORDER' | i18n}}</label>
+                  <label class="input" style="width: 60%;">
+                    <input class="form-control spinner-right ui-spinner-input" type="number" min="1000"
+                      aria-valuenow="1000" id="spinner-sort" name="sortorder" [(ngModel)]="detailInfo.sortorder"
+                      style="height: 19px !important">
+                  </label>
+                </div>
+              </section>
+              <section class="col col-lg-12">
+                <label class="label">{{'Description' | i18n}}</label>
+                <label class="textarea">
+                  <textarea name="remark" [(ngModel)]="detailInfo.remark" rows="2"></textarea>
+                </label>
+              </section>
+            </section>
+            <section class="col col-lg-12">
+              <div class="smart-form" style="top: 5px;">
+                <footer style="background:none;border:none;padding: 0;float: right;">
+                  <button type="button" class="btn btn-cancel">
+                    <i class="fa fa-times"></i>
+                    {{'button-close' | i18n}}
+                  </button>
+                  <button type="button" (click)="onReset()" name="reset" class="btn btn-reset-form">
+                    <i class="fa fa-refresh"></i>
+                    {{'BUTTON-RESET' | i18n}}
+                  </button>
+                  <button type="submit" [disabled]="!this.permission.canSave" name="submit" class="btn btn-primary">
+                    <i class="fa fa-save"></i>
+                    {{'BUTTON-SAVE' | i18n}}
+                  </button>
+                  <!-- <button type="submit" name="submit" class="btn btn-primary">
+                    <i class="fa fa-save"></i>
+                    {{'BUTTON-SAVE' | i18n}}
+                  </button> -->
+                </footer>
+              </div>
+            </section>
+          </div>
+        </fieldset>
+      </form>
+
+      <section style="margin-top: 50px;">
+        <span><strong>{{'FINANCIAL-CODE-SETTING' | i18n}}</strong></span>
+      </section>
+    </section>
+    <section class="col-md-5 col-lg-5">
+      <sa-widgets-grid>
+        <div class="row">
+          <article class="col-sm-12">
+            <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+              <header>
+                <span class="widget-icon">
+                  <i class="fa fa-list"></i>
+                </span>
+                <h2>{{'TRANSACTION_LIST' | i18n}}</h2>
+              </header>
+              <div>
+                <div class="widget-body no-padding">
+                  <sa-datatable [options]="options" (rowClick)="onRowClick($event)"[paginationLength]="true"
+                    filter="true"
+                    tableClass="table table-striped table-condensed table-hover table-bordered tableGetApproval">
+                    <thead>
+                      <tr class="heading">
+                        <th>{{'NO' | i18n}}</th>
+                        <th>{{'TRANS_GROUP' | i18n}}</th>
+                        <th>{{'Sort_AC' | i18n}}</th>
+                        <th>{{'TRANS_NAME' | i18n}}</th>
+                        <th>{{'ENG_NAME' | i18n}}</th>
+                        <th>{{'L_TYPE' | i18n}}</th>
+                        <th>{{'APPR' | i18n}}</th>
+                        <th>{{'use-yn' | i18n}}</th>
+                        <th>{{'D.' | i18n}}</th>
+                      </tr>
+                      <tr>
+                        <th class="hasinput" [ngStyle]="{width:'50px'}">
+                          <input type="text" class="form-control" placeholder="" />
+                        </th>
+                        <th class="hasinput">
+                          <select class="form-control select-filter" style="width: 100%;">
+                            <option value="">All</option>
+                            <option *ngFor="let group of transGroup" value={{group.gen_cd}}>{{group.gen_nm}}</option>
+                          </select>
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="Sort" />
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="Name" />
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="Name" />
+                        </th>
+                        <th class="hasinput">
+                          <select class="form-control select-filter" style="width: 100%;">
+                            <option value="">All</option>
+                            <option *ngFor="let type of acFsTypes" value={{type.value}}>{{type.name}}</option>
+                          </select>
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="" />
+                        </th>
+                        <th class="hasinput" [ngStyle]="{width:'60px'}">
+                          <select id="filerByActiveYN" class="form-control select-filter" style="width: 100%;">
+                            <option value="">All</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </th>
+                        <th class="hasinput" [ngStyle]="{width:'60px'}">
+                          <input type="text" class="form-control" placeholder="" />
+                        </th>
+                      </tr>
+                    </thead>
+                  </sa-datatable>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </sa-widgets-grid>
+    </section>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="at-smart-table atman-form-small smart-form">
+        <section class="table-bordered">
+          <div class="section-transaction-component-table">
+            <ng2-smart-table class="table table-striped table-condensed table-hover"
+              (createConfirm)="onCreateConfirm($event)" (editConfirm)="onSaveConfirm($event)"
+              (deleteConfirm)="onDeleteConfirm($event)" [source]="source" id="transaction-component-table"
+              [settings]="settings">
+            </ng2-smart-table>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>

@@ -1,0 +1,210 @@
+<div id="content pt-0">
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-3">
+        <div sa-widget color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-edit"></i>
+            </span>
+            <h2>{{'GLOBAL_AC_SETTING' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+                class="smart-form atman-form-small frm-detail" novalidate="novalidate"
+                [saUiValidate]="validationOptions">
+                <fieldset>
+                  <input type="hidden" name="companyid" [(ngModel)]="detailInfo.companyid" />
+                  <div class="row">
+                    <section class="col col-12">
+                      <label class="label">{{'Fs_Type' | i18n}}</label>
+                      <div class="inline-group">
+                        <label class="radio" *ngFor="let type of FSTypes">
+                          <input type="radio" name="fstype" [(ngModel)]="detailInfo.fstype" [value]="type.value">
+                          <i></i>{{type.name | i18n}}
+                        </label>
+                      </div>
+                    </section>
+                  </div>
+                  <div class="row">
+                    <section class="col col-6">
+                      <label class="label">{{'ACCOUNT_CODE' | i18n}}</label>
+                      <label class="input" style="width: 40%;">
+                        <input type="number" maxlength=8 name="standardacctcd" [(ngModel)]="detailInfo.standardacctcd" [disabled]="!detailInfo.is_system || isDisabled" 
+                          placeholder="Acc code" autocomplete="off" required class="required_input" />
+                      </label>
+                    </section>
+                    <div class="col col-6" style="text-align: -webkit-right;width: 49%;">
+                      <div class="form-group" id="form-spinner">
+                        <label style="padding-bottom: 5px;">{{'SORT_ORDER_ON_FS' | i18n}}</label>
+                        <label class="input" style="width: 40%;">
+                          <input class="form-control"
+                          type="number"   name="sortorder" [(ngModel)]="detailInfo.sortorder" min="1000" aria-valuenow="1000" id="spinner-global" style="height: 19px !important">
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <section>
+                    <label class="label">{{'ACC_KOR_NAME' | i18n}}</label>
+                    <label class="input">
+                      <input type="text" name="acctkoreanm" [(ngModel)]="detailInfo.acctkoreanm" autocomplete="off"
+                        required class="required_input" />
+                    </label>
+                  </section>
+                  <section>
+                    <label class="label">{{'SIMPLE_KOR_NAME' | i18n}}</label>
+                    <label class="input">
+                      <input type="text" name="acctsimkoreanm" [(ngModel)]="detailInfo.acctsimkoreanm"
+                        autocomplete="off" required class="required_input" />
+                    </label>
+                  </section>
+
+
+                  <section>
+                    <label class="label">{{'ACC_ENG_NAME' | i18n}}</label>
+                    <label class="input">
+                      <input type="text" name="acctengnm" [(ngModel)]="detailInfo.acctengnm" autocomplete="off" />
+                    </label>
+                  </section>
+                  <section>
+                    <label class="label">{{'SIMPLE_ENG_NAME' | i18n}}</label>
+                    <label class="input">
+                      <input type="text" name="acctsimengnm" [(ngModel)]="detailInfo.acctsimengnm" autocomplete="off" />
+                    </label>
+                  </section>
+
+                  <div class="row">
+                    <section class="col col-6">
+                      <label class="label">{{'DR_CR' | i18n}}</label>
+                      <div class="inline-group">
+                        <label class="radio" *ngFor="let type of DrCrType">
+                          <input type="radio" name="drcr" [(ngModel)]="detailInfo.drcr" [value]="type.value" checked="checked" required>
+                          <i></i>{{type.name | i18n}}
+                        </label>
+                      </div>
+                    </section>
+                    <section class="col col-6">
+                      <label class="label">{{'USE-YN' | i18n}}</label>
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="useyn" [(ngModel)]="detailInfo.useyn">
+                          <i></i>Active
+                        </label>
+                      </label>
+                    </section>
+                  </div>
+                  <section>
+                    <label class="label">{{'REMARK' | i18n}}</label>
+                    <label class="textarea">
+                      <textarea name="remark" [(ngModel)]="detailInfo.remark" rows="2"></textarea>
+                    </label>
+                  </section>
+                </fieldset>
+
+                <footer>
+                  <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-cancel">
+                    <i class="fa fa-times"></i>
+                    {{'BUTTON-CLOSE' | i18n}}
+                  </button>
+                  <button type="button" (click)="onReset(frmDetail)" name="reset" class="btn btn-reset-form">
+                    <i class="fa fa-refresh"></i>
+                    {{'BUTTON-RESET' | i18n}}
+                  </button>
+                  <button type="submit" [disabled]="!this.permission.canSave" name="submit"
+                    class="btn btn-primary btn-xs edit-program">
+                    <i class="fa fa-save"></i>
+                    {{'BUTTON-SAVE' | i18n}}
+                  </button>
+                </footer>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="col-sm-9">
+        <div sa-widget color="atman" [editbutton]="false" [deletebutton]="false" color="atman"
+          class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>{{'LIST_GLOBAL_AC' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                tableClass="table table-striped table-condensed table-hover table-bordered">
+                <thead>
+                  <tr class="heading">
+                    <th>{{'NO' | i18n}}</th>
+                    <th>{{'Type_AC' | i18n}}</th>
+                    <th>{{'Sort_AC' | i18n}}</th>
+                    <th>{{'Global-CD' | i18n}}</th>
+                    <th>{{'Kor_Name' | i18n}}</th>
+                    <th>{{'Simple_Kor_Name' | i18n}}</th>
+                    <th>{{'Eng_Name' | i18n}}</th>
+                    <th>{{'Simple_Eng_Name' | i18n}}</th>
+                    <th>{{'Dr_Cr' | i18n}}</th>
+                    <th>{{'use-yn' | i18n}}</th>
+                    <th>{{'Remart' | i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput" [ngStyle]="{width:'60px'}">
+                      <input type="text" class="form-control"/>
+                    </th>
+                    <th class="hasinput">
+                      <select name="filter_routing_class" class="form-control select-filter" placeholder="Filter Type"
+                        style="width: 100%;">
+                        <option value="">All</option>
+                        <option *ngFor="let fstype of FSTypes" value={{fstype.value}}>{{fstype.name}} </option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control text-center" placeholder="Filter Sort" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control text-center" placeholder="Filter Global" />
+                    </th>
+
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Name" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Name" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Name" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Name" />
+                    </th>
+                    <th class="hasinput">
+                      <select class="form-control select-filter"
+                        style="width: 100%;">
+                        <option value="">All</option>
+                        <option *ngFor="let dctype of DrCrType" value={{dctype.value}}>{{dctype.name}} </option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <select id="filerByStatus" class="form-control select-filter" style="width: 100%;">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Remart" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

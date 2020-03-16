@@ -1,0 +1,33 @@
+<!-- <div id="content-popup" > -->
+<sa-widgets-grid>
+  <div class="row" style="margin-bottom: 15px;">
+    <article class="col-sm-12">
+      <div>
+        <div class="widget-body no-padding" style="margin: 0px 15px 15px 15px">
+          <sa-datatable [options]="options" (rowClick)="onRowClick($event)" [paginationLength]="false" filter="true"
+            tableClass="table projects-table table-striped table-condensed table-hover table-bordered tableItem">
+            <thead>
+              <tr class="heading">
+                <th>NAME</th>
+                <th>ORG</th>
+                <th>POSITION</th>
+              </tr>
+              <tr>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+                <th class="hasinput">
+                  <input type="text" class="form-control" placeholder="Filter" />
+                </th>
+              </tr>
+            </thead>
+          </sa-datatable>
+        </div>
+      </div>
+    </article>
+  </div>
+</sa-widgets-grid>
+<!-- </div> -->

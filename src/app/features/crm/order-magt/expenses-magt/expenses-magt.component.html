@@ -1,0 +1,73 @@
+<div id="content">
+    <button _ngcontent-c5="" class="btn btn-success dropdown-toggle" (click)="onNewExpenses()" data-toggle="dropdown"
+        tabindex="-1" type="button">
+        <i _ngcontent-c5="" class="fa fa-plus"></i>&nbsp;&nbsp;
+        New
+    </button>
+    <br><br>
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-sm-12">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman ">
+                    <header>
+                        <span class="widget-icon">
+                            <i class="fa fa-list"></i>
+                        </span>
+                        <h2> {{'EXPENSES_PANEL_HEADER_LIST_NAME' | i18n}}</h2>
+                    </header>
+                    <div>
+                        <div class="widget-body no-padding">
+                            <sa-datatable [options]="optionsCategory" (rowClick)="onRowClickExpenses($event)"
+                                paginationLength="true" filter="false" tableClass="table table-striped table-condensed table-hover table-bordered tableExpenses reduce_width_column">
+                                <thead>
+                                    <tr class="heading">
+                                        <th>{{"EXPENSES-TYPE" | i18n}}</th>
+                                        <!-- <th>{{"EXPENSES_ACCOUNT_DATE" | i18n}}</th> -->
+                                        <th>{{'EXPENSES-ACCOUNT-DATE' | i18n}}</th>
+                                        <th>{{"EXPENSES-AMOUNT" | i18n}}</th>
+                                        <!-- <th>{{"EXPENSES_PAYMENT_BY" | i18n}}</th> -->
+                                        <th>{{"EXPENSES-PAYMENT-BY" | i18n}}</th>
+                                        <!-- <th>{{"EXPENSES_CREDITCARD_NO" | i18n}}</th> -->
+                                        <th>{{"EXPENSES-CREDIT-CARD" | i18n}}</th>
+
+                                        <th>{{"DESCRIPTION" | i18n}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control testInput123" />
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" />
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" />
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control testInput123" />
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" />
+                                        </th>
+                                        <th class="hasinput">
+                                            <input type="text" class="form-control" />
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+                            </sa-datatable>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </sa-widgets-grid>
+</div>
+
+
+<ng-template #popupExpenses>
+    <sa-popup-modal headerTitle="{{'EXPENSES-HEADER-EDIT-DATA-MANAGEMENT' | i18n}}" width="1000"
+        height="900" (onClose)="closePopup()">
+        <sa-expenses-magt-popup [inputModel]="listInput" [isDisabledCredit]="isDisabledCredit" (childCall)="reloadDatatable($event)"></sa-expenses-magt-popup>
+    </sa-popup-modal>
+</ng-template>

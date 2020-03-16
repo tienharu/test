@@ -1,0 +1,154 @@
+<div id="content">
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-4">
+        <div sa-widget color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-edit"></i>
+            </span>
+            <h2>{{'CLOSING PAYROLL' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <form #frmDetail="ngForm" (ngSubmit)="onSubmit()" class="smart-form atman-form-small frm-detail" novalidate="novalidate" [saUiValidate]="validationOptions">
+                <fieldset>
+                  <div class="row">
+                    <section class="col col-6">
+                      <label class="label">{{'CLOSING-PAYROLL-SALARY-KIND' | i18n}}</label>
+                      <label class="input">
+                        <select [(ngModel)]="model.salary_kind" name="salary_kind" [defaultVal]="model.salary_kind" 
+                          select2 style="width:100%;" class="select2 required" placeHolder="Select Salary Kind"
+                          allowClear='true'>
+                          <option *ngFor="let s of salaryKind" [value]="s.gen_cd">{{s.gen_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+                    <section class="col col-6" *ngIf="model.salary_kind=='670000000000'">
+                      <label class="label">{{'YEAR-MONTH' | i18n}}</label>
+                      <label class="input">
+                        <select select2 [(ngModel)]="model.period" [defaultVal]="model.period" name="period"
+                          required style="width:100%;" class="select2 required" placeHolder="YYYY-MM">
+                          <option value=""></option>
+                          <option *ngFor="let m of monthsYear" value={{m.val}}>{{m.text}}</option>
+                        </select>
+                      </label>
+                    </section>
+                    <section class="col col-6" *ngIf="model.salary_kind=='670000000003' || model.salary_kind=='670000000002'">
+                        <label class="label">{{'YEAR' | i18n}}</label>
+                        <label class="input">
+                          <select select2 [(ngModel)]="model.period" [defaultVal]="model.period" name="period"
+                            required style="width:100%;" class="select2 required" placeHolder="YYYY">
+                            <option value=""></option>
+                            <option *ngFor="let y of year" value={{y.val}}>{{y.text}}</option>
+                          </select>
+                        </label>
+                      </section>
+                  </div>
+                  <div class="row" *ngIf="model.salary_kind=='670000000001'">
+                      <section class="col col-lg-6">
+                        <label class="label">{{'CLOSING_PAYROLL_PERIOD_FROM' | i18n}}</label>
+                        <label class="input">
+                            <input type="text" autocomplete="off" name="period_from" [(ngModel)]="model.period_from" placeholder="yyyy-mm-dd" [saUiDatepicker]/>
+                        </label>
+                      </section>
+                      <section class="col col-lg-6">
+                        <label class="label">{{'CLOSING_PAYROLL_PERIOD_TO' | i18n}}</label>
+                        <label class="input">
+                            <input type="text" autocomplete="off" name="period_to" [(ngModel)]="model.period_to"  placeholder="yyyy-mm-dd" [saUiDatepicker]/>
+                        </label>
+                      </section>
+                    </div>
+                   <div class="row">
+                    <section class=" col col-xs-12">
+                      <label class="label">{{'CLOSING-PAYROLL-DESCRIPTION' | i18n}}</label>
+                      <label class="textarea">
+                        <textarea type="text" name="description" [(ngModel)]="model.description" autocomplete="off"
+                          rows="3"></textarea>
+                      </label>
+                    </section>
+                  </div>
+                </fieldset>
+                <footer>
+                  <label style="padding-top: 10px;" [ngClass]="{'text-success': status==1,'text-danger': status==0}">{{resultMsg}}</label>
+                  <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs">
+                    <i class="fa fa-times"></i>
+                    {{'button-close' | i18n}}
+                  </button>
+                  <!-- <a type="button" href="/#/salary-basic"  class="btn btn-default btn-xs edit-program">
+                    <i class="fa fa-undo"></i>
+                    {{'Go to Payroll - List' | i18n}}
+                  </a> -->
+                  <button type="submit" name="submit" [disabled]="creating" class="btn btn-primary btn-xs edit-program">
+                    <i class="fa fa-save"></i>
+                    {{creating?'Please wait...':'button-create' | i18n}}
+                  </button>
+                </footer>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="col-sm-8">
+        <div sa-widget color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-table"></i>
+            </span>
+            <h2>{{'CLOSING-PAYROLL-LIST-SALARY-KIND' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" id="example" (rowClick)="onRowClick($event)" paginationLength="true"
+                filter="true" tableClass="ListInfo table table-striped table-condensed table-hover table-bordered datagrid_languages">
+                <thead>
+                  <tr class="heading datatable_title">
+                    <th style="width: 40px;">{{'NO' | i18n}}</th>
+                    <th style="width: 130px;">{{'CLOSING-PAYROLL-SALARY-KIND' | i18n}}</th>
+                    <th>{{'CLOSING_PAYROLL_PERIOD' | i18n}}</th>
+                    <th>{{'CLOSING_PAYROLL_PERIOD_FROM' | i18n}}</th>
+                    <th>{{'CLOSING_PAYROLL_PERIOD_TO' | i18n}}</th>
+                    <th style="width: 200px;">{{'Description' | i18n}}</th>
+                    <th>{{'CLOSING_PAYROLL_CREATOR' | i18n}}</th>
+                    <th>{{'CLOSING_PAYROLL_CREATE_DATE' | i18n}}</th>
+                    <th>{{'CLOSING_PAYROLL_ACTION' | i18n}}</th>
+                  </tr>
+                  <tr class="table_filter">
+                    <th class="hasinput table_border_filter">
+                      <input type="text" class="form-control" placeholder="" />
+                    </th>
+                    <th class="hasinput table_border_filter">
+                      <select id="FilterDropdownPayroll" class="form-control select-filter">
+                        <option value="">{{'ALL' | i18n}}</option>
+                        <option *ngFor="let s of salaryKind" [value]="s.gen_cd">{{s.gen_nm}}</option>
+                      </select>
+                    </th>
+                    <th class="hasinput table_border_filter">
+                      <input type="text" class="form-control" placeholder="" />
+                    </th>
+                    <th class="hasinput table_border_filter">
+                      <input type="text" class="form-control" placeholder="" />
+                    </th>
+                    <th class="hasinput table_border_filter">
+                      <input type="text" class="form-control" placeholder="" />
+                    </th>
+                    <th class="hasinput table_border_filter">
+                      <input type="text" class="form-control" placeholder="" />
+                    </th>
+                    <th class="hasinput table_border_filter">
+                      <input type="text" class="form-control" placeholder="" />
+                    </th>
+                    <th class="hasinput table_border_filter">
+                        <input type="text" class="form-control" placeholder="" />
+                    </th>
+                    <th></th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

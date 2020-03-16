@@ -1,0 +1,380 @@
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-magic"></i> {{'MATERIAL_MASTER' | i18n}}</h1>
+      </div>
+    </div>
+  </div>
+  <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+    class="smart-form atman-form-small no-header frm-detail" novalidate="novalidate" [saUiValidate]="validationOptions">
+    <fieldset>
+      <input type="hidden" name="materialCd" [(ngModel)]="detailInfo.materialCd" />
+      <div class="row">
+        <section class="col col-9">
+          <!-- ROW 1 -->
+          <div class="row">
+            <section class="col col-3">
+              <label class="label" id="label-hidden">.</label>
+              <label class="input state-disabled col col-6 non-padding">
+                <input type="text" name="creator" class="center" [value]="detailInfo.creator" autocomplete="off"
+                  disabled />
+              </label>
+              <span class="input-group-btn" style="width:0px;"></span>
+              <label class="input state-disabled col col-6 non-padding">
+                <input type="text" name="entryDate" class="center" [value]="entryDate" autocomplete="off" disabled />
+              </label>
+            </section>
+            <section class="col col-5 padding-left-col">
+              <section class="col col-9 non-padding-right">
+                <label class="label">{{'MATERIAL_FULL_NAME' | i18n}}</label>
+                <label class="input">
+                  <input type="text" class="main required_input" name="materialFullNm"
+                    [(ngModel)]="detailInfo.materialFullNm" autocomplete="off" required />
+                </label>
+              </section>
+              <section class="col col-3">
+                <label class="label" style="visibility: hidden">.</label>
+                <label class="input state-disabled">
+                  <input type="text" class="center" name="materialSeq" [(ngModel)]="detailInfo.materialSeq"
+                    autocomplete="off" disabled />
+                </label>
+              </section>
+            </section>
+            <section class="col col-4 padding-right-col">
+              <section class="col col-lg-4 margin-bottom-0">
+                <label class="label" style="visibility: hidden">.</label>
+                <label class="checkbox" style="padding-left: 0px;">
+                  {{'MATERIAL_OUT_PROCESS_1' | i18n}}
+                  <input type="checkbox" name="outsourcingYn" [(ngModel)]="detailInfo.outsourcingYn" />
+                  <i class="checkbox-icon-right"></i>
+                </label>
+              </section>
+              <section class="col col-lg-8 margin-bottom-0">
+                <label class="label" style="visibility: hidden">.</label>
+                <label class="checkbox checkbox-right">
+                  <input type="checkbox" name="comomMaterialYn" [(ngModel)]="detailInfo.comomMaterialYn" />
+                  <i class="checkbox-icon-right"></i>
+                  <span style="padding-right: 30px; float: right;">{{'PUBLIC-MULTI' | i18n}}</span>
+                </label>
+              </section>
+            </section>
+          </div>
+          <!-- ROW 2 -->
+          <div class="row">
+            <section class="col col-3 ">
+              <label class="label">{{'ITEMIZED' | i18n}}</label>
+              <label class="input">
+                <select name="itemCateGenCd" [defaultVal]="detailInfo.itemCateGenCd" select2
+                  [(ngModel)]="detailInfo.itemCateGenCd" style="width:100%;" class="select2 parent_cd required"
+                  placeHolder="Select Itemized" required>
+                  <option *ngFor="let itemized of itemizeds" value={{itemized.gen_cd}}>{{itemized.gen_nm}}</option>
+                </select>
+              </label>
+            </section>
+            <section class="col col-5 padding-left-col">
+              <section class="col col-6">
+                <label class="label">{{'MATERIAL_DISPLAY_NAME' | i18n}}</label>
+                <label class="input">
+                  <input type="text" class="main required_input" name="materialDsplNm"
+                    [(ngModel)]="detailInfo.materialDsplNm" autocomplete="off" required />
+                </label>
+              </section>
+              <section class="col col-2"></section>
+              <section class="col col-4">
+                <label class="label">{{'MATERIAL_TYPE' | i18n}}</label>
+                <label class="select">
+                  <select name="materialPropertyGenCd" select2 [defaultVal]="detailInfo.materialPropertyGenCd"
+                    [(ngModel)]="detailInfo.materialPropertyGenCd" style="width:100%;"
+                    class="select2 parent_cd required" placeHolder="Select Property" required>
+                    <option *ngFor="let property of properties" value={{property.gen_cd}}>{{property.gen_nm}}</option>
+                  </select>
+                </label>
+              </section>
+            </section>
+            <section class="col col-4 padding-right-col">
+              <section class="col col-lg-4">
+                <label class="label" style="visibility: hidden">.</label>
+                <label class="checkbox" style="padding-left: 0px;">
+                  <input type="checkbox" name="salesYn" [(ngModel)]="detailInfo.salesYn"
+                    (change)="onCheckSale($event)" />
+                  <i class="checkbox-icon-right"></i>
+                  <span>{{'SALES' | i18n}}</span>
+                </label>
+              </section>
+              <section class="col col-lg-8">
+                <label class="label" style="visibility: hidden">.</label>
+                <label class="label col-lg-6" style="padding-top: 6px;  text-align: right"><span
+                    style="padding-right: 8px;">{{'PRICE' | i18n}}</span></label>
+                <label class="input col-lg-6 state-disabled" id="background-price-disabled">
+                  <input type="text" class="center" id="price" name="salesPrice" autocomplete="off"
+                    [(ngModel)]="detailInfo.salesPrice" disabled currencyMask [options]="{prefix:'', suffix:'', precision : 0, allowNegative : false }" />
+                </label>
+              </section>
+            </section>
+          </div>
+          <!-- ROW 3 -->
+          <div class="row">
+            <section class="col col-3">
+              <label class="label">{{'BIZ_UNIT' | i18n}}</label>
+              <label class="input">
+                <select name="bizUnitId" select2 [(ngModel)]="detailInfo.bizUnitId" [defaultVal]="detailInfo.bizUnitId"
+                  style="width:100%;" class="select2 parent_cd required" placeHolder="Select Biz Unit" required>
+                  <option *ngFor="let bizUnit of bizUnits" value={{bizUnit.global_unit_id}}>{{bizUnit.global_unit_nm}}
+                  </option>
+                </select>
+              </label>
+            </section>
+            <section class="col col-5 padding-left-col">
+              <section class="col col-3">
+                <label class="label">{{'STOCK_UNIT' | i18n}}</label>
+                <label class="select">
+                  <select name="stockUnitGenCd" id="stock-unit-select" [defaultVal]="detailInfo.stockUnitGenCd" select2
+                    [(ngModel)]="detailInfo.stockUnitGenCd" style="width:100%;" class="select2 parent_cd required"
+                    placeHolder="Select..." required>
+                    <option *ngFor="let stock of stockUnits" value={{stock.gen_cd}}>{{stock.gen_nm}}</option>
+                  </select>
+                </label>
+              </section>
+              <section class="col col-2"></section>
+              <section class="col col-3">
+                <label class="label">{{'PACK_UNIT' | i18n}}</label>
+                <label class="select">
+                  <select name="packingUnitGenCd" [defaultVal]="detailInfo.packingUnitGenCd" select2
+                    [(ngModel)]="detailInfo.packingUnitGenCd" style="width:100%;" class="select2 parent_cd required"
+                    placeHolder="Select..." required>
+                    <option *ngFor="let pack of packUnits" value={{pack.gen_cd}}>{{pack.gen_nm}}</option>
+                  </select>
+                </label>
+              </section>
+              <section class="col col-1"></section>
+              <section class="col col-3">
+                <label class="label">{{'PACK_UNIT_QTY' | i18n}}</label>
+                <label class="input">
+                  <input type="text" class="center" name="packingUnitQty" [(ngModel)]="detailInfo.packingUnitQty"
+                    placeholder="Pack Unit QTY" autocomplete="off" currencyMask [options]="{prefix:'', suffix:'', precision : 0, allowNegative : false }" />
+                </label>
+              </section>
+            </section>
+            <section class="col col-4 padding-right-col">
+              <label class="label col col-6" style="padding-top: 22px;  text-align: left">
+                <span>Conversion Index: &nbsp;&nbsp;&nbsp;1kg &nbsp;&nbsp;&nbsp;= </span>
+              </label>
+              <label class="input col col-3 non-padding" style="padding-top: 18px;">
+                <input type="text" class="center" name="conIndexValue" [(ngModel)]="detailInfo.conIndexValue"
+                  autocomplete="off" currencyMask [options]="{prefix:'', suffix:'', precision : 0, allowNegative : false }" />
+              </label>
+              <section class="col col-3">
+                <label class="label" style="visibility: hidden">.</label>
+                <label class="input state-disabled">
+                  <input type="text" id="stock-unit-selected" class="center" disabled />
+                </label>
+              </section>
+            </section>
+          </div>
+          <!-- ROW 4 -->
+          <div class="row">
+            <section class="col col-3">
+              <label class="label">{{'ORIGIN' | i18n}}</label>
+              <label class="input">
+                <select name="originGenCd" select2 [(ngModel)]="detailInfo.originGenCd"
+                  [defaultVal]="detailInfo.originGenCd" style="width:100%;" class="select2 parent_cd required"
+                  placeHolder="Select Origin" required>
+                  <option *ngFor="let origin of masOrigins" [value]=origin.gen_cd>{{origin.gen_nm}}</option>
+                </select>
+              </label>
+            </section>
+            <section class="col col-5 padding-left-col">
+              <section class="col col col-5" style="margin-top: 0;">
+                <label class="label">{{'EXPIRY' | i18n}}</label>
+                <label class="input col-lg-4">
+                  <input type="number" class="center" name="expiryMonth" [(ngModel)]="detailInfo.expiryMonth"
+                    autocomplete="off" />
+                </label>
+                <label class="label col-lg-8" style="padding-top: 6px;  text-align: left">
+                  <span style="padding-left: 8px;">Month</span>
+                </label>
+              </section>
+
+              <section class="col col-7">
+                <label class="label">{{'SPEC' | i18n}}</label>
+                <label class="select">
+                  <select name="specGenCd" [defaultVal]="detailInfo.specGenCd" select2
+                    [(ngModel)]="detailInfo.specGenCd" style="width:100%;" class="select2 parent_cd required"
+                    placeHolder="Select Spec" required>
+                    <option *ngFor="let spec of specMasters" value={{spec.gen_cd}}>{{spec.gen_nm}}</option>
+                  </select>
+                </label>
+              </section>
+            </section>
+            <section class="col col-4 padding-right-col">
+              <label class="label col col-3" style="padding-top: 22px;  text-align: left">
+                <span>AS-IS Code</span>
+              </label>
+              <label class="input col col-5 non-padding" style="padding-top: 18px;">
+                <input type="text" class="center" name="asIsCd" [(ngModel)]="detailInfo.asIsCd" autocomplete="off" />
+              </label>
+              <section class="col col-4 checkbox-field ">
+                <label class="checkbox">
+                  <input type="checkbox" name="useYn" [(ngModel)]="detailInfo.useYn" />
+                  <i></i>
+                  <span>Active</span>
+                </label>
+              </section>
+            </section>
+          </div>
+        </section>
+        <section class="col col-3">
+          <div class="row">
+            <section class="col col-md-12 padding-left-col">
+              <sa-sharing-info></sa-sharing-info>
+            </section>
+          </div>
+          <div class="row">
+            <section class="col col-md-12 padding-left-col">
+              <label class="label">{{'DESCRIPTION' | i18n}}</label>
+              <label class="textarea">
+                <textarea placeholder="Description" [(ngModel)]="detailInfo.remark" name="remark" rows="3"
+                  class="txtarea-height"></textarea>
+              </label>
+            </section>
+          </div>
+        </section>
+      </div>
+      <div class="row">
+        <section class="col col-md-12">
+          <button type="button" name="btnShowSupplierPopup" (click)="showPopupSupplier($event)" class="btn popup-supp">
+            {{'SUPPLIER_INFORMATION' | i18n}}
+          </button>
+          <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-cancel"> <i
+              class="fa fa-times"></i>
+            {{'BUTTON-CLOSE' | i18n}}
+          </button>
+          <button type="button" (click)="onReset()" name="reset" class="btn btn-reset-form"> <i
+              class="fa fa-refresh"></i>
+            {{'BUTTON-RESET' | i18n}}
+          </button>
+          <button type="submit" [disabled]="!this.permission.canSave" name="submit" class="btn btn-primary"> <i
+              class="fa fa-save"></i>
+            {{'BUTTON-SAVE' | i18n}}
+          </button>
+        </section>
+      </div>
+    </fieldset>
+
+  </form>
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>Material Master Information</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" (rowClick)="onRowClick($event)" [paginationLength]="true" filter="true"
+                tableClass="table table-striped table-condensed table-hover table-bordered tableGetMaterial">
+                <thead>
+                  <tr class="heading">
+                    <th class="center">{{'ITEMIZED' | i18n}}</th>
+                    <th class="center">{{'BIZ_UNIT' | i18n}}</th>
+                    <th class="center">{{'MATERIAL_FULL_NAME' | i18n}}</th>
+                    <th class="center">{{'MATERIAL_SEMI_NAME' | i18n}}</th>
+                    <th class="center">{{'MATERIAL_UNIT' | i18n}}</th>
+                    <th class="center">{{'EXPIRY' | i18n}}</th>
+                    <th class="center">{{'SPEC' | i18n}}</th>
+                    <th class="center">{{'COMMON' | i18n}}</th>
+                    <th class="center">{{'MATERIAL_OUT_PROCESS_2' | i18n}}</th>
+                    <th class="center">{{'SALES' | i18n}}</th>
+                    <th class="center">Active</th>
+                    <th class="center">{{'DESCRIPTION' | i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput">
+                      <select name="filter_routing_class" class="form-control select-filter" style="width: 100%;">
+                        <option value="">All</option>
+                        <option *ngFor="let itemized of itemizeds" value={{itemized.gen_cd}}>{{itemized.gen_nm}}
+                        </option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <select name="filter_routing_class" class="form-control select-filter" style="width: 100%;">
+                        <option value="">All</option>
+                        <option *ngFor="let bizunit of bizUnits" value={{bizunit.global_unit_id}}>{{bizunit.global_unit_nm}}
+                        </option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <select name="filter_routing_class" class="form-control select-filter" style="width: 100%;">
+                        <option value="">All</option>
+                        <option *ngFor="let stockUnit of stockUnits" value={{stockUnit.gen_cd}}>{{stockUnit.gen_nm}}
+                        </option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="number" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <select name="filter_routing_class" class="form-control select-filter" style="width: 100%;">
+                        <option value="">All</option>
+                        <option *ngFor="let spec of specMasters" value={{spec.gen_cd}}>{{spec.gen_nm}} </option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <select id="filerByCommonYN" class="form-control select-filter" style="width: 100%;">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <select id="filerByOutProcessYN" class="form-control select-filter" style="width: 100%;">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <select id="filerBySalesYN" class="form-control select-filter" style="width: 100%;">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <select id="filerByActiveYN" class="form-control select-filter" style="width: 100%;">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>
+
+<ng-template #popupSupplierInformation>
+  <sa-popup-modal headerTitle="Supplier Information" width="60%" height="400" (onClose)="closePopup()">
+    <sa-material-master-popup ParentInfo="{{detailInfo|json}}">
+
+    </sa-material-master-popup>
+  </sa-popup-modal>
+</ng-template>

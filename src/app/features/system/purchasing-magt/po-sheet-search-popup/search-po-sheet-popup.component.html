@@ -1,0 +1,108 @@
+<!-- <div id="content-popup" > -->
+  <form #frmDetail="ngForm" class="smart-form atman-form-small no-header frm-detail_popup"
+  (ngSubmit)="frmDetail.form.valid && onSearch()" novalidate="novalidate" [saUiValidate]="validationOptions">
+  <fieldset>
+    <div class="row" style="margin-left: 2%; margin-right: 2%;">
+      <section class="col col-7">
+        <label class="label col-md-3">{{'PO_DATE' | i18n}}</label>
+        <label class="input col-md-4" style="margin-top: -14px;margin-bottom: 10px;">
+          <i class="fa fa-calendar" id="start-date"></i>
+          <input type="text" name="from_date" class="datePicker" placeholder="yyyy-mm-dd" [(ngModel)]="cri.fromPoDate"
+                    [saUiDatepicker]="optionsDatePicker" autocomplete="off" />
+        </label>
+        <label class="label col-md-1 letter-spacing">~</label>
+        <label class="input col-md-4" style="margin-top: -14px;margin-bottom: 10px;">
+          <i class="fa fa-calendar" id="from-date"></i>
+          <input type="text" name="to_date" class="datePicker" placeholder="yyyy-mm-dd" [(ngModel)]="cri.toPoDate"
+                    [saUiDatepicker]="optionsDatePicker" autocomplete="off" />
+        </label>
+        
+      </section>
+      <section class="col col-5">
+        <label class="label col-md-7" style="text-align: right;">{{'STATUS' | i18n}}</label>
+        <label class="label col-md-1"></label>
+        <label class="input col-md-4" style="margin-top: -2px;">
+          <select name="styleCategoryGenCd" [(ngModel)]="cri.orderType"
+                  [defaultVal]="cri.statusCd" select2 style="width:100%;" class="select2">
+                  <option *ngFor="let item of statuses" value={{item.value}}>{{item.text | i18n}}</option>
+                </select>
+        </label>
+      </section>
+    </div>
+    <div class="row" style="margin-left: 2%; margin-right: 2%;">
+      <section class="col col-7">
+        <label class="label col-md-3" style="padding-top: 3px;">{{'PO_SHEET_NO' | i18n}}</label>
+        <label class="input col-md-9">
+          <input type="text" name="poSheetNo" [(ngModel)]="cri.poSheetNo" autocomplete="off" />
+        </label>
+        
+      </section>
+      <section class="col col-5">
+        <button type="button" name="button" class="btn btn-cancel search-style-btn" (click)="onClose()">
+          {{'BUTTON-CLOSE' | i18n}}
+        </button>
+        <button type="submit" name="submit" class="btn btn-primary search-style-btn" (click)="onSearch()">
+          {{'SEARCH' | i18n}}
+        </button>
+      </section>
+    </div>
+
+  </fieldset>
+</form>
+<sa-widgets-grid>
+  <div class="row">
+    <article class="col-sm-12">
+      <article class="col col-sm-12">
+        <div sa-widget color="atman" class="jarviswidget-atman">
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options_popup" (rowClick)="onRowClick($event)" [paginationLength]="false" filter="true" 
+              tableClass="table projects-table table-striped table-condensed table-hover table-bordered tablePoSheet">
+                <thead>
+                  <tr class="heading">
+                    <th class="5%">{{'NO' | i18n}}</th>
+                    <th>{{'PO_SHEET_NO' | i18n}}</th>
+                    <th>{{'PO_SHEET_YMD' | i18n}}</th>
+                    <th>{{'TOTAL_SUPPLIER' | i18n}}</th>
+                    <th>{{'TOTAL_WONO' | i18n}}</th>
+                    <th>{{'TOTAL_MATERIAL' | i18n}}</th>
+                    <th>{{'TOTAL_AMOUNT' | i18n}}</th>
+                    <th>{{'REMARK' | i18n}}</th>
+                  </tr>
+                  <!-- <tr>
+                    <th class="hasinput"></th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter" />
+                    </th>
+                  </tr> -->
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </article>
+  </div>
+</sa-widgets-grid>
+<!-- </div> -->

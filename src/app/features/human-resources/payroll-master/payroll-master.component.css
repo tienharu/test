@@ -1,0 +1,16 @@
+.detail{
+    width: 180px; 
+    margin: 0px;
+    padding: 0px;
+}
+.well.well-sm{border:none;margin-bottom: 8px;}
+
+tr.row-edit{
+    background:#ccc;
+}
+td.detail.edit{
+    padding: 1px 3px 0!important;
+}
+input.input-edit{
+    background-color: white; border: #bfbdbd solid 1px; text-align: right; width: 100%; padding: 0px; height: 20px; line-height: 20px; padding: 2px;
+}

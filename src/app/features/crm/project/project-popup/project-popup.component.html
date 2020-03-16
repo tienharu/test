@@ -1,0 +1,117 @@
+<form class="smart-form frm-detail" #frmDetail="ngForm" novalidate="novalidate" (ngSubmit)="frmDetail.form.valid && onSubmit()"  [saUiValidate]="validationOptions">
+  <fieldset>
+    <div class="col col-lg-7">
+        <section class="col-lg-12">
+            <label class="label">{{'PROJECT-EDIT-PROJECT-NAME'|i18n}}</label>
+            <input type="text" name="salesopt_id" hidden required [(ngModel)]="projectInfo.salesopt_id">
+            <label class="input col-lg-3">
+              <select select2 class="select2" name="project_type_gen_cd" required [(ngModel)]="projectInfo.project_type_gen_cd"
+              [defaultVal]="projectInfo.project_type_gen_cd" style="width:100%">
+              <option *ngFor="let item of projectType" value="{{item.gen_cd}}">{{item.gen_nm | i18n}}</option>
+              </select>
+            </label>
+            <label class="input col-lg-9">
+              <label class="input col-lg-12">
+                <input type="text" class="title-input none-boder-left" required placeholder="Please enter title" name="project_nm" [(ngModel)]="projectInfo.project_nm"
+                  autocomplete="off" />
+              </label>
+            </label>
+          </section>
+          <section class="col-lg-12">
+            <div class="col col-5" style="padding-left: 0">
+              <label class="label">{{'PROJECT-EDIT-START-DATE'|i18n}}</label>
+              <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                <input type="text" required name="start_ymd" [(ngModel)]="projectInfo.start_ymd" class="start-ymd-datepicker"
+                  autocomplete="off">
+              </label>
+            </div>
+            <div class="col col-5">
+              <label class="label">{{'PROJECT-EDIT-EXPECTED-END-DATE'|i18n}}</label>
+              <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                <input type="text" required name="end_ymd" [(ngModel)]="projectInfo.end_ymd" class="end-ymd-datepicker"
+                  autocomplete="off">
+              </label>
+            </div>
+            <div class="col col-2" style="padding-right: 0;padding-left: 6px;">
+              <label class="label">{{'PROJECT-EDIT-TOTAL-HOURS'|i18n}}</label>
+              <label class="input col-lg-12">
+                  <input type="text" required class="title-input none-boder-left" placeholder="0" name="work_hours" [(ngModel)]="projectInfo.work_hours"
+                    autocomplete="off" />
+                </label>
+            </div>
+          </section>
+          <section class="col-lg-12">
+            <label class="label">{{'PROJECT-EDIT-DESCRIPTION'| i18n}}</label>
+            <label class="textarea">
+              <textarea rows="4" name="memo_text" [(ngModel)]="projectInfo.memo_text" class="custom-scroll"></textarea> 
+            </label>
+            <div class="note">
+            </div>
+          </section>
+          <section class="col-lg-12 sharing" style="margin-bottom:0">
+              <!--sharing here-->
+              <sa-sharing-info (outputData)="sharingToSelected($event)" [sharedData]="projectInfo.sharing_to"></sa-sharing-info>
+          </section>
+    </div>
+    <div class="col col-lg-5">
+      <section class="col-lg-12" style="margin-top: 15px;">
+          <a href="javascript:void(0);" (click)="openPopup()" class="btn btn-labeled btn-primary" style="margin-right: 4px;">
+              <span class="btn-label" style="left: 0;"><i class="glyphicon glyphicon-search"></i></span>
+              <span style="padding: 0 7px;">{{'PROJECT-EDIT-Find-a-opportuinity'| i18n}}</span>
+          </a>
+          <a href="javascript:void(0);" (click)="removeOpportunity()" class="btn btn-labeled btn-danger">
+                <span class="btn-label" style="left: 0;"><i class="glyphicon glyphicon-remove"></i></span>
+                <span style="padding: 0 7px;">{{'PROJECT-EDIT-Delete-link'| i18n}}</span>
+          </a>
+          
+      </section>
+      <section class="col-lg-12">
+          <label class="label">{{'PROJECT-EDIT-SALES-OPPORTUNITY'|i18n}}</label>
+          <label class="input col-lg-12">
+              <input type="text" class="title-input none-boder-left" readonly placeholder="" name="salesopt_nm" [(ngModel)]="projectInfo.salesopt_nm"
+                autocomplete="off" />
+          </label>
+      </section>
+      <section class="col col-6" style="padding-left: 0;">
+          <label class="label">{{'PROJECT-EDIT-CUSTOMER'|i18n}}</label>
+          <label class="input col-lg-12">
+              <input type="text" class="title-input none-boder-left" readonly placeholder="" name="customer_nm" [(ngModel)]="projectInfo.customer_nm"
+                autocomplete="off" />
+          </label>
+      </section>
+      <section class="col col-6" style="padding-right: 0;">
+          <label class="label">{{'PROJECT-EDIT-CONTACTOR'|i18n}}</label>
+          <label class="input col-lg-12">
+              <input type="text" class="title-input none-boder-left" readonly placeholder="" name="contractor_nm" [(ngModel)]="projectInfo.contractor_nm"
+                autocomplete="off" />
+          </label>
+      </section>
+      <section class="col-lg-12" style="text-align: right; padding: 0 13px 0 0; top: 141px;">
+          <button type="button" (click)="onReset()" name="reset" style="margin:0 5px 0 0" class="btn btn-default btn-xs btn-reset float-none">
+            <i class="fa fa-refresh"></i>
+            {{'button-reset' | i18n}}
+          </button>
+          <button type="submit" name="submit" style="margin:0 5px 0 0" class="btn btn-primary btn-xs btn-save float-none">
+            <i class="fa fa-save"></i>
+            {{'button-save' | i18n}}
+         </button>
+         <button type="button" name="delete" (click)="onDelete()" style="margin:0 5px 0 0" *ngIf="projectInfo.project_id > 0" class="btn btn-danger btn-xs btn-delete float-none">
+            <i class="fa fa-trash-o"></i>
+            {{'button-delete' | i18n}}
+          </button>
+          <button type="button" name="close" (click)="onClose()" class="btn btn-xs btn-close float-none">
+              <i class="fa fa-remove"></i>
+              {{'button-close' | i18n}}
+            </button>
+      </section>
+    </div>
+    
+  </fieldset>
+</form>
+
+<ng-template #popupFindOpportunity>
+  <sa-popup-modal headerTitle="{{'SEARCH-FOR-OPPORTUNITIES' | i18n}}" width="800"
+  height="900" (onClose)="onClose()">
+      <sa-find-opportunity-popup (childCall)="dataFromFindOpp($event)"></sa-find-opportunity-popup>
+  </sa-popup-modal>
+</ng-template>

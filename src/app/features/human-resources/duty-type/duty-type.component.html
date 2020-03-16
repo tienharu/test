@@ -1,0 +1,273 @@
+<div id="content">
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col-sm-4">
+                    <div sa-widget color="atman" class="jarviswidget-atman">
+                        <header>
+                            <span class="widget-icon">
+                            <i class="fa fa-list"></i>
+                            </span>
+                            <h2>{{'DUTY_TYPE_INFO' | i18n}}</h2>
+                        </header>
+                        <div>
+                            <div class="widget-body no-padding">
+                                <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" class="smart-form atman-form-small frm-detail" 
+                                novalidate="novalidate" [saUiValidate]="validationOptions">
+                                    <fieldset>
+                                    <div class="row">
+                                        <section class="col col-sm-6">
+                                            <label class="label">{{'DUTY_TYPE_NAME' | i18n}}</label>
+                                            <label class="input">
+                                                <input class="required_input" type="text" name="duty_type_nm" [(ngModel)]="dutyType.duty_type_nm" placeholder="Name" required/>
+                                            </label>
+                                        </section>
+                                        <section class="col col-sm-6">
+                                            <label class="label">{{'DUTY_TYPE_OVERTIME' | i18n}}</label>
+                                            <select select2 required class="form-control select2 selection-box" allowClear="true" name="ot_table_id" (ngModelChange)="changeOT($event)"  [defaultVal]="dutyType.ot_table_id" style="width:100%" required>
+                                                <option value=""></option>
+                                                <option *ngFor="let item of overtimes" value="{{item.ot_table_id}}">{{item.ot_table_id}} - {{item.ot_table_nm}} - Start: {{item.start_working_time}}</option>
+                                            </select>
+                                        </section>
+                                    </div>
+                                    <div class="row">
+                                        <section class="col col-sm-6">
+                                            <label class="label">{{'DUTY_TYPE_START_TIME' | i18n}}</label>
+                                            <label class="input">
+                                                <input class="required_input" type="text" name="start_work_time" [(ngModel)]="dutyType.start_work_time" placeholder="Start Time" autocomplete="off" required smartTimepicker/>
+                                            </label>
+                                        </section>
+                                        <section class="col col-sm-6">
+                                            <label class="label">{{'DUTY_TYPE_END_TIME' | i18n}}</label>
+                                            <label class="input">
+                                                <input class="required_input" type="text" name="end_work_time" [(ngModel)]="dutyType.end_work_time" placeholder="End Time" autocomplete="off" required smartTimepicker/>
+                                            </label>
+                                        </section>
+                                    </div>
+                                    <div class="row" [hidden]="isHide">
+                                        <section class="col col-sm-6">
+                                            <label class="label">{{'DUTY_TYPE_MACHINE_TIME_FROM' | i18n}}</label>
+                                            <label class="input"> <i class="icon-append fa fa-clock-o"></i>
+                                                <input type="text" name="select_range_machine_from" [(ngModel)]="dutyType.select_range_machine_from" placeholder="Machine Time From" autocomplete="off" smartTimepicker/>
+                                            </label>
+                                        </section>
+                                        <section class="col col-sm-6">
+                                            <label class="label">{{'DUTY_TYPE_MACHINE_TIME_TO' | i18n}}</label>
+                                            <label class="input"> <i class="icon-append fa fa-clock-o"></i>
+                                                <input type="text" name="select_range_machine_to" [(ngModel)]="dutyType.select_range_machine_to" placeholder="Machine Time To" autocomplete="off" smartTimepicker/>
+                                            </label>
+                                        </section>
+                                    </div>
+                                    <div class="row" [hidden]="isHide">
+                                            <section class="col col-sm-6">
+                                                <label class="label">{{'DUTY_TYPE_NIGHT_TIME_FROM' | i18n}}</label>
+                                                <label class="input"> <i class="icon-append fa fa-clock-o"></i>
+                                                    <input type="text" name="night_time_from" [(ngModel)]="dutyType.night_time_from" placeholder="Night Time From" autocomplete="off" smartTimepicker/>
+                                                </label>
+                                            </section>
+                                            <section class="col col-sm-6">
+                                                <label class="label">{{'DUTY_TYPE_NIGHT_TIME_TO' | i18n}}</label>
+                                                <label class="input"> <i class="icon-append fa fa-clock-o"></i>
+                                                    <input type="text" name="night_time_to" [(ngModel)]="dutyType.night_time_to" placeholder="Night Time To" autocomplete="off" smartTimepicker/>
+                                                </label>
+                                            </section>
+                                        </div>
+                                    <div class="row">
+                                        <section class="col col-sm-3">
+                                            <label class="toggle label" style="padding-top:2px">
+                                                <input type="checkbox" [checked]="dutyType.overlap_date_yn" name="overlap_date_yn" [(ngModel)]="dutyType.overlap_date_yn" (ngModelChange)="changeOverLap($event)">
+                                                <i data-swchon-text="Yes" data-swchoff-text="No"></i>{{'DUTY_TYPE_OVERLAP' | i18n}}
+                                            </label>
+                                        </section>
+                                        <section class="col col-sm-3">
+                                            <label class="toggle label" style="padding-top:2px">
+                                                <input type="checkbox" [checked]="dutyType.use_yn" name="use_yn" [(ngModel)]="dutyType.use_yn">
+                                                <i data-swchon-text="Yes" data-swchoff-text="No"></i>{{'DUTY_TYPE_USE_YN' | i18n}}
+                                            </label>
+                                        </section>
+                                        <section class="col col-sm-6">
+                                            <label class="toggle label" style="padding-top:2px">
+                                                <input type="checkbox" [checked]="dutyType.ot_before_start_yn" name="ot_before_start_yn" [(ngModel)]="dutyType.ot_before_start_yn">
+                                                <i data-swchon-text="Yes" data-swchoff-text="No"></i>{{'DUTY_TYPE_OT_BEFORE_START' | i18n}}
+                                            </label>
+                                        </section>
+                                    </div>
+                                    <div class="row">
+                                        <section class="col col-sm-6">
+                                            <label class="label">{{'DUTY_TYPE_ROUND_OT_TYPE' | i18n}}</label>
+                                            <select select2 class="form-control select2 selection-box" style="width:100%;" allowClear="true" name="round_ot_type" [(ngModel)]="dutyType.round_ot_type" [defaultVal]="dutyType.round_ot_type">
+                                                <option value=""></option>
+                                                <option value="1">15 minutes</option>
+                                                <option value="2">30 minutes</option>
+                                            </select>
+                                        </section>
+                                        <section class="col col-sm-6" *ngIf="dutyType.ot_before_start_yn">
+                                            <label class="label">{{'DUTY_TYPE_OT_EARLY_COME' | i18n}}</label>
+                                            <label class="input"> <i class="icon-append fa fa-clock-o"></i>
+                                                <input type="text" name="ot_before_minute" [(ngModel)]="dutyType.ot_before_minute" placeholder="Minute Early Come" />
+                                            </label>
+                                        </section>
+                                    </div>
+                                    <div class="row">
+                                        <section class="col col-sm-6">
+                                            <label class="label">{{'DUTY_TYPE_MAX_WORKING_TIME' | i18n}}</label>
+                                            <label class="input"> <i class="icon-append fa fa-clock-o"></i>
+                                                <input type="text" name="max_working_time" [(ngModel)]="dutyType.max_working_time" />
+                                            </label>
+                                        </section>
+                                    </div>
+                                    <!-- <div class="row">
+                                        <section class="col col-sm-6">
+                                            <label class="label">{{'DUTY_TYPE_PAYROLL_ITEM' | i18n}}</label>
+                                            <select select2 class="form-control select2 selection-box" id="payrollitem" style="width:100%;" allowClear="true" (ngModelChange)="addPayrollItem($event)">
+                                                <option value=""></option>
+                                                <option *ngFor="let item of payrollitems" value="{{item.payrollitemid}}">{{item.payrollitemnm}}</option>
+                                            </select>
+                                        </section>
+                                    </div> -->
+                                    <!-- <div class="row" *ngIf="selectedPayrollItems.length > 0"> 
+                                        <div class="col col-sm-12 table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="col-sm-1 center">{{'DUTY_TYPE_PAYROLL_ITEM_NO' | i18n}}</th>
+                                                        <th class="col-sm-6">{{'DUTY_TYPE_PAYROLL_ITEM_NAME' | i18n}}</th>
+                                                        <th class="col-sm-2 center">{{'DUTY_TYPE_PAYROLL_ITEM_DEDUCT' | i18n}}</th>
+                                                        <th class="col-sm-2 center">{{'DUTY_TYPE_PAYROLL_ITEM_TAX' | i18n}}</th>
+                                                        <th class="col-sm-1">{{'DUTY_TYPE_PAYROLL_ITEM_ACTION' | i18n}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of selectedPayrollItems">
+                                                        <td class="center">{{item.payrollitemid}}</td>
+                                                        <td>{{item.payrollitemnm}}</td>
+                                                        <td class="center">{{item.adddeducttype==true?"Yes":"No"}}</td>
+                                                        <td class="center">{{item.taxyn==true?"Yes":"No"}}</td>
+                                                        <td><button class="btn btn-xs btn-danger" title="Remove" (click)="removePayrollItem(item.payrollitemid)"><span class="glyphicon glyphicon-trash"></span></button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div> 
+                                    </div>-->
+
+                                    </fieldset>
+                                    <footer>
+                                        <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs">
+                                            <i class="fa fa-times"></i>
+                                            {{'button-close' | i18n}}
+                                        </button>
+                        
+                                        <button type="button" (click)="onReset()" name="reset" class="btn btn-default btn-xs">
+                                            <i class="fa fa-refresh"></i>
+                                            {{'button-reset' | i18n}}
+                                        </button>
+                        
+                                        <button type="submit" name="submit" [disabled]="!permission.canSave" class="btn btn-primary btn-xs ">
+                                            <i class="fa fa-save"></i>
+                                            {{'button-save' | i18n}}
+                                        </button>
+                                    </footer>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            </article>
+            <article class="col-sm-8">
+                <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+                    <header>
+                        <span class="widget-icon">
+                        <i class="fa fa-list"></i>
+                        </span>
+                        <h2>{{'DUTY_TYPE_LIST' | i18n}}</h2>
+                    </header>
+                    <div>
+                        <div class="widget-body no-padding">
+                            <sa-datatable [options]="options" (rowClick)="onRowClick($event)"
+                                paginationLength="true" filter="true" tableClass="listInfo table table-striped table-condensed table-hover table-bordered datagrid_languages">
+                                <thead>
+                                    <tr class="heading datatable_title">
+                                        <th>{{'DUTY_TYPE_ID' | i18n}}</th>
+                                        <th>{{'DUTY_TYPE_NAME' | i18n}}</th>
+                                        <th>{{'DUTY_TYPE_OVERTIME' | i18n}}</th>
+                                        <th>{{'DUTY_TYPE_START_TIME' | i18n}}</th>
+                                        <th>{{'DUTY_TYPE_END_TIME' | i18n}}</th>
+                                        <th>{{'DUTY_TYPE_MACHINE_TIME_FROM' | i18n}}</th>
+                                        <th>{{'DUTY_TYPE_MACHINE_TIME_TO' | i18n}}</th>
+                                        <th>{{'DUTY_TYPE_NIGHT_TIME_FROM' | i18n}}</th>
+                                        <th>{{'DUTY_TYPE_NIGHT_TIME_TO' | i18n}}</th>
+                                        <th>{{'DUTY_TYPE_OT_EARLY_COME' | i18n}}</th>
+                                        <th>{{'DUTY_TYPE_OVERLAP' | i18n}}</th>
+                                        <th>{{'DUTY_TYPE_OT_BEFORE_WORK_HOUR' | i18n}}</th>
+                                        <th>{{'DUTY_TYPE_USE_YN' | i18n}}</th>
+                                        <th>{{'CREATED-BY' | i18n}}</th>
+                                        <th>{{'CREATED-DATE' | i18n}}</th>
+                                    </tr>
+                                    <tr class="table_filter">
+                                        <th class="hasinput table_border_filter">
+                                            <input type="text" class="form-control"/>
+                                        </th>
+                                        <th class="hasinput table_border_filter">
+                                            <input type="text" class="form-control"/>
+                                        </th>
+                                        <th class="hasinput table_border_filter">
+                                            <input type="text" class="form-control"/>
+                                        </th>
+                                        <th class="hasinput table_border_filter">
+                                            <input type="text" class="form-control"/>
+                                        </th>
+                                        <th class="hasinput table_border_filter">
+                                            <input type="text" class="form-control"/>
+                                        </th>
+                                        <th class="hasinput table_border_filter">
+                                            <input type="text" class="form-control"/>
+                                        </th>
+                                        <th class="hasinput table_border_filter">
+                                            <input type="text" class="form-control"/>
+                                        </th>
+                                        <th class="hasinput table_border_filter">
+                                            <input type="text" class="form-control"/>
+                                        </th>
+                                        <th class="hasinput table_border_filter">
+                                            <input type="text" class="form-control"/>
+                                        </th>
+                                        <th class="hasinput table_border_filter">
+                                            <input type="text" class="form-control"/>
+                                        </th>
+                                        <th class="hasinput table_border_filter">
+                                            <select id="FilterDropdown" class="form-control select-filter">
+                                                <option value="">All</option>
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </th>
+                                        <th class="hasinput table_border_filter">
+                                            <select id="FilterDropdown" class="form-control select-filter">
+                                                <option value="">All</option>
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </th>
+                                        <th class="hasinput table_border_filter">
+                                            <select id="FilterDropdown" class="form-control select-filter">
+                                                <option value="">All</option>
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </th>
+                                        <th class="hasinput table_border_filter">
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </th>
+                                        <th class="hasinput icon-addon table_border_filter">
+                                                <i class="fa fa-calendar margin-top-5"></i>
+                                                <input type="text" class="form-control" placeholder="YYYY-MM-DD" class="form-control datepicker"
+                                                [saUiDatepicker]="{}" />  
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </sa-datatable>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </sa-widgets-grid>
+</div>

@@ -1,0 +1,3 @@
+<select class="sharingType"name="" id="" #sharingTypeSelect (change)="onChange($event.target.value)" style="width:100%;height: 29px">
+  <option *ngFor ="let item of sharingTypeShow"value="{{item.value}}"  title="{{item.title}}">{{item.title}}</option>
+</select>

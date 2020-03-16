@@ -1,0 +1,200 @@
+﻿
+body.smart-style-3{
+    font: 13px "Open Sans",Verdana,Arial,sans-serif;
+}
+.smart-style-3 #header {
+    background-color: #178bb9;
+    background-image: -moz-linear-gradient(top,#178bb9,#086b92);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#178bb9),to(#086b92));
+    background-image: -webkit-linear-gradient(top,#178bb9,#086b92);
+    background-image: -o-linear-gradient(top,#178bb9,#086b92);
+    background-image: linear-gradient(to bottom,#178bb9,#086b92);
+}
+.smart-style-3 .page-footer {
+    background-color: #178bb9;
+    background-image: -moz-linear-gradient(top,#178bb9,#086b92);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#178bb9),to(#086b92));
+    background-image: -webkit-linear-gradient(top,#178bb9,#086b92);
+    background-image: -o-linear-gradient(top,#178bb9,#086b92);
+    background-image: linear-gradient(to bottom,#178bb9,#086b92);
+}
+.smart-style-3 div#activity, 
+.smart-style-3 div#top-count-new, 
+.smart-style-3 div#top-todo-count,
+.smart-style-3 .btn-header>:first-child>a {
+    background-color: #DD7C37;
+    background-image: -moz-linear-gradient(top,#dd7c37,#b9662b);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#b9662b),to(#b9662b));
+    background-image: -webkit-linear-gradient(top,#dd7c37,#b9662b);
+    background-image: -o-linear-gradient(top,#dd7c37,#b9662b);
+    background-image: linear-gradient(to bottom,#dd7c37,#b9662b);
+    color: #fff!important;
+    border: 1px solid #f09d61;
+    text-shadow: #985813 0 -1px;
+}
+
+.smart-style-3 .btn-style-2{
+    background-image: linear-gradient(to bottom,#0f6b90,#065c7d)!important;
+    border: 1px solid #09526f!important;
+}
+
+.smart-style-3 .welcome-info p {
+    color: #0b739b;
+}
+/*.smart-style-3 .header-dropdown-list > li > .dropdown-toggle, .smart-style-3 .project-context > :first-child, .smart-style-3 .project-selector {
+    color: #fff;
+    text-shadow: #985813 0 -1px;
+}*/
+.smart-style-3 .header-dropdown-list > li > .dropdown-toggle {
+    background: none;
+    padding: inherit;
+}
+.smart-style-3 .header-dropdown-list > li {
+    padding-right: 0
+}
+.smart-style-3 .dropdown-menu {
+    background: #06668c;
+    border-bottom: 2px solid #025f84;
+}
+    .smart-style-3 .dropdown-menu > .active > a, .smart-style-3 .dropdown-menu > .active > a:hover, .smart-style-3 .dropdown-menu > li > a:focus, .smart-style-3 .dropdown-menu > li > a:hover, .smart-style-3 .tt-suggestion.tt-is-under-cursor {
+        background-color: #0b739b;
+        color: #fff;
+    }
+.smart-style-3 .dropdown-menu>li>a {
+    color: #fff!important;
+}
+.smart-style-3 .dropdown-menu .divider {
+    background-color: #07739e;
+}
+.smart-style-3 .language-select a.dropdown-toggle{
+    /* background: rgba(0,0,0,.2); */
+    padding: 3px 5px 3px;
+    border-radius: 3px;
+}
+.smart-style-3 #mobile-profile-img a.userdropdown img {
+    width: 31px;
+    border: 1px solid #107ca7 !important;
+    float: left;
+    /* border-radius:50%; */
+}
+.userdropdown span.user-top-info{
+    float: left;
+    display: block;
+    line-height: 12px;
+    margin-top: 7px;
+    margin-left: 5px;
+    font-size: 12px;
+}
+.userdropdown span.user-top-info i{
+    font-size: 11px;
+}
+.smart-style-3 .header-search > input[type=text] {
+    border-color: #107ca7;
+}
+.smart-style-3 input:not([type]), .smart-style-3 input[type=color], .smart-style-3 input[type=email], .smart-style-3 input[type=number], .smart-style-3 input[type=password], .smart-style-3 input[type=tel], .smart-style-3 input[type=text], .smart-style-3 input[type=url], .smart-style-3 textarea {
+    border-top-color: #ccc;
+    border-left-color: #ccc;
+    border-bottom-color: #ccc;
+    border-right-color: #ccc;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    color: #000;
+}
+
+
+.smart-style-3 .minifyme{
+    border-bottom: 1px solid #0b6284;
+    background: #4d8ba5;
+    color: #fff;
+}
+.smart-style-3 .minifyme:hover{
+    background: #107ca7;
+    color: #fffdfd;
+}
+.smart-style-3 .minified .minifyme{
+    color: #fff;
+}
+
+.smart-style-3 .left-bottom-menu{
+    background-color: #178bb9;
+    background-image: -moz-linear-gradient(top,#178bb9,#086b92);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#178bb9),to(#086b92));
+    background-image: -webkit-linear-gradient(top,#178bb9,#086b92);
+    background-image: -o-linear-gradient(top,#178bb9,#086b92);
+    background-image: linear-gradient(to bottom,#178bb9,#086b92);
+}
+.smart-style-3 .btn-opened-prog:hover{
+    background-image: -moz-linear-gradient(top,#1e8ebb,#0e7096);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#1e8ebb),to(#0e7096));
+    background-image: -webkit-linear-gradient(top,#1e8ebb,#0e7096);
+    background-image: -o-linear-gradient(top,#1e8ebb,#0e7096);
+    background-image: linear-gradient(to bottom,#1e8ebb,#0e7096)
+}
+.smart-style-3 .header-clock {
+     color: #fff;
+    text-shadow:#064fa5 0 -1px;
+}
+.smart-style-1 .header-clock {
+    color: #B9B9B9;
+}
+.smart-style-3 .MessageBoxContainer {
+    background-color: #094963b5;
+}
+.smart-style-1 .btn-style-2.btn-with-badge i,
+.smart-style-0 .btn-style-2.btn-with-badge i {
+    color: #6d6a69;
+}
+.smart-style-3 .btn-style-2.btn-with-badge i{
+    color: #e4f7ff;
+}
+
+
+.smart-style-3 nav > ul > li.open ul li > a.third-level-nav {
+    color: #0a7098!important;
+}
+
+.smart-style-1 .btn-with-badge,.smart-style-1 div#activity {
+    background-image: -webkit-linear-gradient(top, #2d2c2c, #0c0c0c)!important;
+    border: 1px solid #4a4a4a!important;
+    color: #ffffff!important;
+}
+
+.smart-style-1 .btn-style-2.btn-with-badge i {
+    color: #ffffff;
+}
+
+.smart-style-1 .header-clock .hour{
+    color: #ffffff!important;
+}
+.smart-style-1 .bg-color-red {
+    background-color: #1a79c7 !important;
+}
+.smart-style-3 .project-context > :first-child,.smart-style-3 .latest-news > :first-child {
+    color: #35b5e3!important;
+    text-shadow: none;
+}
+.smart-style-1 .project-context > :first-child,.smart-style-1 .latest-news > :first-child {
+    color: #697B92!important;
+    font-weight: normal;
+}
+
+.smart-style-0 .project-context > :first-child,.smart-style-0 .latest-news > :first-child { 
+    color: #bfbfbf!important;
+    font-weight: normal;
+}
+.smart-style-3 nav > ul > li > a {
+    font-size: 13px;
+}
+.smart-style-3 nav ul ul li > a {
+    font-size: 13px;
+}
+.smart-style-3 .page-footer span.txt-color-white{
+    color: #fff!important;
+  }
+  .smart-style-3 aside {
+    background: #f2f2f2!important;
+}
+.smart-style-1 fieldset.hr-skin,.smart-style-0 fieldset.hr-skin {
+    background: transparent!important;
+}

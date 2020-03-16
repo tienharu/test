@@ -1,0 +1,124 @@
+<div id="content pt-0">
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12">
+        <div class="well well-sm overtime-tool" style="margin-bottom: 10px">
+          <div class="row">
+            <div class="col-lg-3">
+              <label class="col-lg-3 title">{{'COMPANY'|i18n}}</label>
+              <label class="input col-lg-8" style="padding:0">
+                <select select2 class="form-control select2" name="companyid" [(ngModel)]="detailInfo.companyid"
+                  style="width:80%" placeHolder="Select company">
+                  <option *ngFor="let com of companies" value={{com.company_id}}>{{com.company_nm}}</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="col-lg-2">
+              <label class="col-lg-4 title">{{'FS_Type'|i18n}}</label>
+              <label class="input col-lg-8" style="padding:0">
+                <select select2 class="form-control select2" name="fstype" [(ngModel)]="detailInfo.fstype"
+                  style="width:50%" placeHolder="Select">
+                  <option *ngFor="let sub of FSTypes" value={{sub.value}}>{{sub.name}}</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="col-lg-3">
+              <label class="col-lg-3 title">{{'Language' | i18n}}</label>
+              <label class="input col-lg-6" style="padding:0">
+                <select select2 class="form-control select2" name="locallanguagegid"
+                  [(ngModel)]="detailInfo.locallanguagegid" style="width:80%" placeHolder="Select local language">
+                  <option *ngFor="let lang of localLanguage" value={{lang.gen_cd}}>{{lang.gen_nm}}</option>
+                </select>
+              </label>
+              <label class="col-lg-3 title"><button (click)="searchData()"
+                  class="btn btn-sm btn-default margin-right-5">
+                  <i class="fa fa-search"></i>
+                  {{'Search' | i18n}}</button></label>
+            </div>
+          </div>
+        </div>
+        <div sa-widget color="atman" [editbutton]="false" [deletebutton]="false" color="atman"
+          class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>{{'List-Local_Language' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true"  filter="true"
+                tableClass="table table-striped table-condensed table-hover table-bordered">
+                <thead>
+                  <tr class="heading">
+                    <th>{{'NO' | i18n}}</th>
+                    <th>{{'Local_Language' | i18n}}</th>
+                    <th>{{'Company' | i18n}}</th>
+                    <th>{{'Account_Code' | i18n}}</th>
+                    <th>{{'Kor_Name' | i18n}}</th>
+                    <th>{{'Eng_Name' | i18n}}</th>
+                    <th>{{'Type_Ac' | i18n}}</th>
+                    <th>{{'Sort_Ac' | i18n}}</th>
+                    <th>{{'Whole_Name' | i18n}}</th>
+                    <th>{{'Simple_Name' | i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput" [ngStyle]="{width:'50px'}">
+                      <input type="text" class="form-control text-center"/>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Language" />
+                    </th>
+                    <th class="hasinput">
+                      <select class="form-control select-filter" style="width: 100%;">
+                        <option value="">All</option>
+                        <option *ngFor="let com of companies" value={{com.company_id}}>{{com.company_nm}}</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control text-center" placeholder="Filter Code" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Name" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Name" />
+                    </th>
+                    <th class="hasinput" >
+                      <select class="form-control select-filter" style="width: 100%;">
+                        <option value="">All</option>
+                        <option *ngFor="let sub of FSTypes" value={{sub.value}}>{{sub.name}}</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control text-center" placeholder="Filter Sort" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Name" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Name" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+      <!-- <footer class="text-center">
+        <button type="submit" [disabled]="!this.permission.canSave" name="submit"
+        class="btn btn-primary">
+        <i class="fa fa-save"></i>
+        {{'button-save' | i18n}}
+      </button>
+        <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-cancel">
+          <i class="fa fa-times"></i>
+          {{'button-close' | i18n}}
+        </button>
+      </footer> -->
+    </div>
+  </sa-widgets-grid>
+</div>

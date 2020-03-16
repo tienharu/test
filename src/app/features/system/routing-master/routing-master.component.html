@@ -1,0 +1,219 @@
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-road"></i>{{'ROUTING_MASTER' | i18n}}</h1>
+      </div>
+    </div>
+  </div>
+  <!-- (ngSubmit)="frmDetail.form.valid && onSubmit()" -->
+  <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+    class="smart-form atman-form-small no-header frm-detail" novalidate="novalidate" [saUiValidate]="validationOptions">
+    <fieldset>
+        <input type="hidden" name="routeId" [(ngModel)]="detailInfo.routeId" />
+      <div class="row">
+        <section class="col col-9">
+          <!-- ROW 1 -->
+          <div class="row">
+            <section class="col col-3 non-padding-right">
+              <label class="label">{{'ROUTING_NAME' | i18n}}</label>
+              <label class="input">
+                <input class="main required_input" name="routeName" [(ngModel)]="detailInfo.routeName" type="text"
+                  autocomplete="off" required />
+              </label>
+            </section>
+            <section class="col col-1">
+              <label class="label" id="label-hidden">.</label>
+              <label class="input state-disabled">
+                <input class="center" name="routeSeq" [(ngModel)]="detailInfo.routeSeq" disabled type="text"
+                  autocomplete="off" />
+              </label>
+            </section>
+            <section class="col col-5">
+              <section class="col col-3">
+                <label class="label">{{'INVENTORY_UNIT' | i18n}}</label>
+                <label class="input">
+                  <select name="stockUnitGenCd" select2 [(ngModel)]="detailInfo.stockUnitGenCd"
+                    [defaultVal]="detailInfo.stockUnitGenCd" style="width:100%;" class="select2 parent_cd required"
+                    placeHolder="Please select" required>
+                    <option *ngFor="let stockunit of stockUnits" value={{stockunit.gen_cd}}>
+                      {{stockunit.gen_nm}}
+                    </option>
+                  </select>
+                </label>
+              </section>
+              <section class="col col-4">
+                <label class="label">{{'ROUTING_CLASS' | i18n}}</label>
+                <label class="input">
+                  <select name="routeClassGenCd" select2 [(ngModel)]="detailInfo.routeClassGenCd"
+                    [defaultVal]="detailInfo.routeClassGenCd" style="width:100%;" class="select2 required"
+                    placeHolder="Please select" required>
+                    <option *ngFor="let routingClass of routingClasses" value={{routingClass.gen_cd}}>
+                      {{routingClass.gen_nm}}
+                    </option>
+                  </select>
+                </label>
+              </section>
+              <section class="col col-5">
+                <label class="label">{{'LOCATION' | i18n}}</label>
+                <label class="input">
+                  <select name="locationGenCd" select2 [(ngModel)]="detailInfo.locationGenCd"
+                    [defaultVal]="detailInfo.locationGenCd" style="width:100%;" class="select2 parent_cd required"
+                    placeHolder="Please select" required>
+                    <option *ngFor="let location of locations" value={{location.gen_cd}}>
+                      {{location.gen_nm}}
+                    </option>
+                  </select>
+                </label>
+              </section>
+            </section>
+            <section class="col col-3">
+              <label class="label" id="label-hidden">.</label>
+              <label class="input state-disabled col col-6 non-padding">
+                <input type="text" name="creator" class="center" [value]="detailInfo.creator" autocomplete="off"
+                  disabled />
+              </label>
+              <span class="input-group-btn" style="width:0px;"></span>
+              <label class="input state-disabled col col-6 non-padding">
+                <input type="text" name="entry_date" class="center" [value]="entryDate" autocomplete="off" disabled />
+              </label>
+            </section>
+          </div>
+          <!-- ROW 2 -->
+          <div class="row">
+            <section class="col col-9 padding-right-col">
+              <label class="label">{{'DESCRIPTION' | i18n}}</label>
+              <label class="textarea">
+                <textarea name="remark" [(ngModel)]="detailInfo.remark" autocomplete="off" rows="2"></textarea>
+              </label>
+            </section>
+            <section class="col col-checkbox checkbox-field-left">
+              <label class="checkbox">
+                <input type="checkbox" name="outprocessYn" [(ngModel)]="detailInfo.outprocessYn"
+                  checked="detailInfo.outprocessYn" />
+                  <i></i>
+                <span>{{'OUT_PROCESS' | i18n}}</span>
+                
+              </label>
+            </section>
+            <section class="col col-checkbox checkbox-field-right">
+              <label class="checkbox">
+                <input type="checkbox" name="useYn" [(ngModel)]="detailInfo.useYn" checked="detailInfo.useYn" />
+                <i></i>
+                <span>Active</span>
+              </label>
+            </section>
+          </div>
+        </section>
+        <section class="col col-3">
+          <div class="row">
+            <section class="col col-md-12 padding-left-col">
+              <sa-sharing-info></sa-sharing-info>
+            </section>
+          </div>
+          <div class="row">
+
+            <section class="col col-sm-12">
+              <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-cancel">
+                {{'BUTTON-CLOSE' | i18n}}
+              </button>
+              <button type="button" (click)="onReset()" name="reset" class="btn btn-reset-form">
+                {{'BUTTON-RESET' | i18n}}
+              </button>
+              <button type="submit" [disabled]="!this.permission.canSave" name="submit" class="btn btn-primary">
+                {{'BUTTON-SAVE' | i18n}}
+              </button>
+            </section>
+          </div>
+        </section>
+      </div>
+    </fieldset>
+  </form>
+
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span>
+            <h2>{{'ROUTING_MASTER' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                tableClass="table table-striped table-condensed table-hover table-bordered">
+                <thead>
+                  <tr class="heading">
+                    <th class="center">No</th>
+                    <th class="center">{{'ROUTING_NAME' | i18n}}</th>
+                    <th class="center">{{'ROUTING_CODE' | i18n}}</th>
+                    <th class="center">{{'CLASS' | i18n}}</th>
+                    <th class="center">{{'ROUTING_UNIT' | i18n}}</th>
+                    <th class="center">{{'ROUTING_LOCATION' | i18n}}</th>
+                    <th class="center">{{'ROUTING_OUT_PROCESS' | i18n}}</th>
+                    <th class="center">Active</th>
+                    <th class="center">{{'DESCRIPTION' | i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput">
+                      <input type="number" class="form-control" placeholder="Filter No" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter {{'ROUTING_NAME' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter {{'ROUTING_CODE' | i18n}}" />
+                    </th>
+                    <th class="hasinput">
+                      <select name="filter_routing_class" class="form-control select-filter"
+                        placeHolder="Filter routing class" style="width: 100%;">
+                        <option value="">All</option>
+                        <option *ngFor="let routingClass of routingClasses" value={{routingClass.gen_cd}}>
+                          {{routingClass.gen_nm}} </option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <select name="filter_inventory_unit" class="form-control select-filter"
+                        placeHolder="Filter inventory unit" style="width: 100%;">
+                        <option value="">All</option>
+                        <option *ngFor="let stockunit of stockUnits" value={{stockunit.gen_cd}}>{{stockunit.gen_nm}}
+                        </option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <select name="filter_location" class="form-control select-filter" placeHolder="Filter location"
+                        style="width: 100%;">
+                        <option value="">All</option>
+                        <option *ngFor="let location of locations" value={{location.gen_cd}}>{{location.gen_nm}}
+                        </option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <select id="filerByOutProcess" class="form-control select-filter" style="width: 100%;">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <select id="filerByUseYN" class="form-control select-filter" style="width: 100%;">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter {{'DESCRIPTION' | i18n}}" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

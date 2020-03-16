@@ -1,0 +1,460 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[('EPL-PRINT-HEADER'|i18n)]" icon="users" class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+    </sa-big-breadcrumbs>
+  </div>
+  <div class="well well-sm overtime-tool">
+    <div class="row">
+      <div class="col-lg-2">
+        <label class="col-lg-4 title">{{'EPL-PRINT-HRCODE'|i18n}}</label>
+        <label class="input col-lg-8" style="padding:0">
+          <input type="text" id="txtHrId" class="form-control" placeHolder="Hr Code">
+        </label>
+      </div>
+      <div class="col-lg-3">
+        <label class="col-lg-3 title">{{'EPL-PRINT-NAME'|i18n}}</label>
+        <label class="input col-lg-9" style="padding:0">
+          <input type="text" id="txtEplName" class="form-control" placeHolder="Employee Name">
+        </label>
+      </div>
+      <div class="col-lg-3">
+        <button type="button" (click)="searchData()" class="btn btn-sm btn-default margin-right-5">
+          <i class="fa fa-search"></i>
+          {{'Search'|i18n}}
+        </button>
+        <button type="button" (click)="print()" class="btn btn-sm btn-info margin-right-5"
+          *ngIf="isCreated!=undefined && isCreated">
+          <i class="fa fa-print"></i>
+          {{'Print'|i18n}}
+        </button>
+        <!-- <button type="button" (click)="exportToExcel()" class="btn btn-sm btn-excel margin-right-5">
+          <i class="fa fa-file-excel-o"></i>
+          {{'Excel'|i18n}}
+        </button> -->
+        <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs">
+          <i class="fa fa-times"></i>
+          {{'button-close' | i18n}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" id="printTable" style="margin-left: 100px" #table>
+    <div class="col col-8 center"><label style="font-size: 19px;border-bottom: 2px solid;
+      font-weight: 700;">Human Resource Record Card</label></div>
+    <div style="margin: auto; width: 1000px;">
+      <div style="margin-left: 15px">
+        <div class="row">
+          <label class="custom-title">1. {{'EPL-PRINT-BASIC-INFO'|i18n}}</label>
+          <div style="width: 1000px">
+            <table class="table table-bordered custom-border-table">
+              <tbody>
+                <tr>
+                  <th rowspan="6" style="width: 160px">
+                    <img class="hr-img custom-avatar" id="profileImage"
+                      src="{{mainInfo.image_url||'/assets/img/epl_avatar.jpg'}}"
+                      onerror="this.src='/assets/img/epl_avatar.jpg'" />
+                  </th>
+                  <th class="custom-th-width">{{'EPL-PRINT-NAME' | i18n}}</th>
+                  <th class="font-weight-epl-info">{{mainInfo.employee_nm}}</th>
+                  <th class="custom-th-width">{{'EPL-PRINT-EMPLOYEE-NO' | i18n}}</th>
+                  <th class="font-weight-epl-info">{{mainInfo.hr_id}}</th>
+                </tr>
+                <tr>
+                  <th class="custom-th-width">{{'EPL-PRINT-DEPARTMENT' | i18n}}</th>
+                  <th class="font-weight-epl-info">{{getOrgName(mainInfo.org_id)}}</th>
+                  <th class="custom-th-width">{{'EPL-PRINT-TRAIN-YN' | i18n}}</th>
+                  <th style="width: 200px">
+                    <span style="margin-left: 20px; margin-right: 60px">{{'EPL-PRINT-YES'|i18n}} &nbsp;&nbsp;&nbsp;
+                      <input type="checkbox"  name="mainInfo.training_yn" [attr.checked] ="mainInfo.training_yn==true ? 'checked' : null">
+                    </span>
+                    <span>{{'EPL-PRINT-NO'|i18n}} &nbsp;&nbsp;&nbsp;
+                      <input type="checkbox" name="mainInfo.training_yn"  [attr.checked] ="mainInfo.training_yn==false ? 'checked' : null">
+                    </span>
+                  </th>
+                </tr>
+                <tr>
+                  <th class="custom-th-width">{{'EPL-PRINT-ENTER-DATE' | i18n}}</th>
+                  <th class="font-weight-epl-info">{{mainInfo.entrance_ymd}}</th>
+                  <th class="custom-th-width">{{'EPL-PRINT-DUTY-TYPE' | i18n}}</th>
+                  <th class="font-weight-epl-info">
+                    {{getDutyTypesName(mainInfo.duty_type_id)}}
+                  </th>
+                </tr>
+                <tr>
+                  <th class="custom-th-width">{{'EPL-PRINT-DUTY-KIND' | i18n}}</th>
+                  <th class="font-weight-epl-info">{{getDutyKindName(mainInfo.duty_kind_gen_cd)}}</th>
+                  <th class="custom-th-width">{{'EPL-PRINT-DUTY-STATUS' | i18n}}</th>
+                  <th class="font-weight-epl-info">{{getDutyStatusName(mainInfo.duty_status_gen_cd)}}</th>
+                </tr>
+                <tr>
+                  <th class="custom-th-width">{{'EPL-PRINT-SALARY-CODE' | i18n}}</th>
+                  <th class="font-weight-epl-info">{{getSalaryCodeName(mainInfo.job_type_gen_cd)}}</th>
+                  <th class="custom-th-width">{{'EPL-PRINT-WORK-PLACE' | i18n}}</th>
+                  <th class="font-weight-epl-info">{{getWorkPlaceName(mainInfo.work_place_gen_cd)}}</th>
+                </tr>
+                <tr>
+                  <th class="custom-th-width">{{'EPL-PRINT-POSITION' | i18n}}</th>
+                  <!-- <th class="font-weight-epl-info">{{getClassName(mainInfo.job_class_gen_cd)}}</th> -->
+                  <th class="font-weight-epl-info">{{getSalaryCodeName(mainInfo.job_type_gen_cd)}}</th>
+                  <th class="custom-th-width">{{'EPL-PRINT-RETIRED-DATE' | i18n}}</th>
+                  <th class="font-weight-epl-info">{{mainInfo.retired_ymd}}</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row">
+          <label class="custom-title">2. {{'EPL-PRINT-PERSONAL-RECORD'|i18n}}</label>
+          <div style="width: 1000px">
+            <table class="table table-bordered custom-border-table">
+              <tbody>
+                <tr>
+                  <th class="custom-th-width">{{'EPL-PRINT-BIRTHDAY' | i18n}}</th>
+                  <th class="font-weight-epl-info" style="width: 250px">{{mainInfo.birth_ymd}}</th>
+                  <th class="center" style="width: 100px">{{'EPL-PRINT-SEX' | i18n}}</th>
+                  <th style="width: 175px">
+                    <span style="margin-left: 10px ; margin-right: 27px">{{'EPL-PRINT-MAN' |
+                    i18n}} &nbsp;&nbsp;<input type="checkbox"  [attr.checked] ="mainInfo.gender==1 ? 'checked' : null"></span><span>{{'EPL-PRINT-WOMAN' | i18n}}
+                      &nbsp;&nbsp;<input type="checkbox" [attr.checked] ="mainInfo.gender==2 ? 'checked' : null"></span></th>
+                  <th class="center" style="width: 200px">{{'EPL-PRINT-MARRIED'|i18n}}</th>
+                  <th style="width: 155px"><span style="margin-left: 10px ; margin-right: 35px">{{'EPL-PRINT-YES'|i18n}}
+                      &nbsp;&nbsp;<input type="checkbox" [attr.checked] ="mainInfo.married_yn== true ? 'checked' : null"></span><span>{{'EPL-PRINT-NO'|i18n}}
+                      &nbsp;&nbsp;<input type="checkbox" [attr.checked] ="mainInfo.married_yn== false ? 'checked' : null"></span></th>
+                </tr>
+                <tr>
+                  <th class="custom-th-width">{{'ELP-PRINT-NATIONAL-ID' | i18n}}</th>
+                  <th colspan="2" class="font-weight-epl-info">{{mainInfo.national_id}}</th>
+                  <th class="custom-th-width">{{'EPL-PRINT-INSURANCE' | i18n}}</th>
+                  <th colspan="2" class="font-weight-epl-info">
+                    {{insurance1}}
+                  </th>
+                </tr>
+                <tr>
+                  <th class="custom-th-width">{{'EPL-PRINT-TAX' | i18n}}</th>
+                  <th colspan="2" class="font-weight-epl-info">{{mainInfo.tax_code_gen_cd}}</th>
+                  <th></th>
+                  <th colspan="2" class="font-weight-epl-info">
+                    {{insurance2}}
+                  </th>
+                </tr>
+                <tr>
+                  <th class="custom-th-width">{{'EPL-PRINT-BANK-NO' | i18n}}</th>
+                  <th colspan="2" class="font-weight-epl-info">{{mainInfo.bankbook_num1}} {{mainInfo.bank_nm1}}</th>
+                  <th></th>
+                  <th colspan="2" class="font-weight-epl-info">
+                    {{insurance3}}
+                  </th>
+                </tr>
+                <tr>
+                  <th class="custom-th-width">{{'EPL-PRINT-ADDRESS' | i18n}}</th>
+                  <th colspan="5" class="font-weight-epl-info">{{mainInfo.address}}</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row">
+          <label class="custom-title">3. {{'EPL-PRINT-FAMILY-RECORD'|i18n}}</label>
+          <div class="custom-table">
+            <table class="table table-bordered custom-border-table">
+              <thead class="heading">
+                <tr>
+                  <th style="width: 60px">{{'EPL-PRINT-NO' | i18n}}</th>
+                  <th>{{'EPL-PRINT-RELATION' | i18n}}</th>
+                  <th>{{'EPL-PRINT-NAME' | i18n}}</th>
+                  <th style="width: 100px;">{{'EPL-PRINT-BIRTHDAY' | i18n}}</th>
+                  <th>{{'ELP-PRINT-KTP-NO' | i18n}}</th>
+                  <th>{{'EPL-PRINT-NO-BPJS' | i18n}}</th>
+                  <th>{{'EPL-PRINT-KLINIK' | i18n}}</th>
+                  <th style="width: 80px;">{{'EPL-PRINT-LIVING'|i18n}}</th>
+                  <th>{{'EPL-PRINT-WORK'|i18n}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of familyInfo , let i = index;" data-id={{i+1}}>
+                  <td class="center">{{i+1}}</td>
+                  <td>{{getRelationName(item.relate_gen)}}</td>
+                  <td>{{item.family}}</td>
+                  <td class="center">{{item.birth_ymd}}</td>
+                  <td>{{item.phone}}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row">
+          <label class="custom-title">4. {{'EPL-PRINT-ACADEMIC-RECORD'|i18n}}</label>
+          <div class="custom-table">
+            <table class="table table-bordered custom-border-table">
+              <thead>
+                <tr>
+                  <th style="width: 60px">{{'EPL-PRINT-NO' | i18n}}</th>
+                  <th>{{'EPL-PRINT-SCHOOL-CLASS'|i18n}}</th>
+                  <th>{{'EPL-PRINT-SCHOOL-NAME'|i18n}}</th>
+                  <th>{{'EPL-PRINT-MAJOR'|i18n}}</th>
+                  <th style="width: 100px">{{'EPL-PRINT-ENT-DATE'|i18n}}</th>
+                  <th style="width: 100px">{{'EPL-PRINT-GRAD-DATE'|i18n}}</th>
+                  <th>{{'EPL-PRINT-GRADUATION'|i18n}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of academicInfo,let i = index;" data-id={{i+1}}>
+                  <td class="center">{{i+1}}</td>
+                  <td>{{getSchoolClassName(item.school_type_gen_cd)}}</td>
+                  <td>{{item.school_nm}}</td>
+                  <td>{{item.major_nm}}</td>
+                  <td class="center">{{item.start_ymd}}</td>
+                  <td class="center">{{item.graduated_ymd}}</td>
+                  <td>{{getGradName(item.graduated_type_cd)}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row">
+          <label class="custom-title">5. {{'EPL-PRINT-CAREER-RECORD'|i18n}}</label><br>
+          <label class="custom-title">5-1. {{'EPL-PRINT-BEFORE-CAREER'|i18n}}</label>
+          <div class="custom-table">
+            <table class="table5 table table-bordered custom-border-table">
+              <thead>
+                <tr>
+                  <th style="width: 60px">{{'EPL-PRINT-NO'|i18n}}</th>
+                  <th>{{'EPL-PRINT-COMPANY-NAME'|i18n}}</th>
+                  <th>{{'EPL-PRINT-LAST-JOB'|i18n}}</th>
+                  <th>{{'EPL-PRINT-LAST-POSITION'|i18n}}</th>
+                  <th style="width: 150px">{{'EPL-PRINT-ENTER-DATE' | i18n}}</th>
+                  <th style="width: 150px">{{'EPL-PRINT-RETIRED-DATE' | i18n}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of beforeCareer, let i =index" data-id={{i+1}}>
+                  <td class="center">{{i+1}}</td>
+                  <td>{{item.last_company_nm}}</td>
+                  <td>{{item.last_work_nm}}</td>
+                  <td>{{item.last_position}}</td>
+                  <td class="center">{{item.last_joined_ymd}}</td>
+                  <td class="center">{{item.last_retired_ymd}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row">
+          <label class="custom-title">5-2. {{'EPL-PRINT-AFTER-CAREER'|i18n}}</label>
+          <div class="custom-table">
+            <table class="table5 table table-bordered custom-border-table custom-height-td">
+              <thead>
+                <tr>
+                  <th style="width: 60px">{{'EPL-PRINT-NO'|i18n}}</th>
+                  <th style="width: 100px">{{'EPL-PRINT-DATE'|i18n}}</th>
+                  <th>Career Path<br>{{'EPL-PRINT-DUTY-TYPE'|i18n}}</th>
+                  <th style="width: 150px">{{'EPL-PRINT-DEPARTMENT'|i18n}}<br> Job</th>
+                  <th style="width: 100px">{{'EPL-PRINT-CLASS'|i18n}}<br>{{'EPL-PRINT-TAX'|i18n}}</th>
+                  <th style="width: 150px">{{'EPL-PRINT-DUTY-KIND'|i18n}}<br>{{'EPL-PRINT-DUTY-STATUS'|i18n}}</th>
+                  <th>{{'EPL-PRINT-WORK-PLACE'|i18n}}<br> {{'EPL-PRINT-REASON'|i18n}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of afterCareer,let i=index" data-id={{i+1}}>
+                  <td class="center">{{i+1}}</td>
+                  <td class="center" style="vertical-align: middle">{{item.path_ymd}}</td>
+                  <td>{{getPathName(item.path_gen_cd)}}<br>
+                    <!-- {{getDutyTypesName(item.to_duty_type_gen_cd)}} -->
+                  </td>
+                  <td>{{getOrgName(item.to_org_cd)}}<br>
+                    {{getSalaryCodeName(item.TO_job_type_gen_cd)}}</td>
+                  <td>{{getClassName(item.to_hr_class_gen_cd)}}<br>
+                    {{getTaxName(item.to_tax_cd_gen_cd)}}
+                  </td>
+                  <td> {{getDutyKindName(item.to_duty_kind_gen_cd)}}<br>
+                    {{getDutyStatusName(item.to_duty_status_gen_cd)}}
+                  </td>
+                  <td>{{getWorkPlaceName(item.from_work_place_gen_cd)}}<br>
+                    {{item.reason}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row row5">
+          <label class="custom-title">5-3.{{'EPL-PRINT-CERTIFICATE-RECORD'|i18n}}</label>
+          <div class="custom-table">
+            <table class="table5 table table-bordered custom-border-table">
+              <thead>
+                <tr>
+                  <th style="width: 60px">{{'EPL-PRINT-NO'|i18n}}</th>
+                  <th style="width: 150px">{{'EPL-PRINT-DATE'|i18n}}</th>
+                  <th>{{'EPL-PRINT-CERTIFICATE'|i18n}}</th>
+                  <th>{{'EPL-PRINT-DESCRIPTION'|i18n}}</th>
+                  <th style="width: 100px">{{'EPL-PRINT-TYPE'|i18n}}</th>
+                  <th style="width: 150px">{{'EPL-PRINT-EXPIRE-DATE'|i18n}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of certificateInfo,let i =index" data-id={{i+1}}>
+                  <td class="center">{{i+1}}</td>
+                  <td class="center">{{item.cetificated_ymd}}</td>
+                  <td>{{getCertificateName(item.cetificated_gen_cd)}}</td>
+                  <td>{{item.cetificated_text}}</td>
+                  <td>{{getcertificateType(item.cetificated_type_gen_cd)}}</td>
+                  <td class="center">{{item.expire_ymd}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row row5">
+          <label class="custom-title">6. {{'EPL-PRINT-REWARD-WARNING'|i18n}}</label>
+          <div class="custom-table">
+            <table class="table45 table table-bordered custom-border-table">
+              <thead>
+                <tr>
+                  <th style="width: 60px">{{'EPL-PRINT-NO'|i18n}}</th>
+                  <th style="width: 150px">{{'EPL-PRINT-DATE'|i18n}}</th>
+                  <th style="width: 150px">{{'EPL-PRINT-NAME'|i18n}}</th>
+                  <th>{{'EPL-PRINT-DESCRIPTION'|i18n}}</th>
+                  <th>Issued Bv</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of rewardInfo,let i=index" data-id={{i+1}}>
+                  <td class="center">{{i+1}}</td>
+                  <td class="center">{{item.from_ymd}}</td>
+                  <td>{{item.from_ymd ? (item.reward_punish_type == 1 ? "Reward" : "Punish") : ' '}}</td>
+                  <td>{{item.reward_punish_reason}}</td>
+                  <td>{{item.issued_by}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row row6">
+          <label class="custom-title">7. Training Record</label>
+          <div style="width: 1000px" class="custom-table">
+            <table class="table45 table table-bordered custom-border-table">
+              <thead>
+                <tr>
+                  <th style="width: 60px">{{'EPL-PRINT-NO'|i18n}}</th>
+                  <th style="width: 150px">{{'EPL-PRINT-DATE'|i18n}}</th>
+                  <th>{{'EPL-PRINT-TYPE'|i18n}}</th>
+                  <th style="width: 100px">{{'EPL-PRINT-TRAIN-TIME'|i18n}}</th>
+                  <th>{{'EPL-PRINT-ORGANIZER'|i18n}}</th>
+                  <th style="width: 80px">{{'EPL-PRINT-BEFORE'|i18n}}</th>
+                  <th style="width: 80px">{{'EPL-PRINT-AFTER'|i18n}}</th>
+                  <th style="width: 80px">{{'EPL-PRINT-PTE'|i18n}}</th>
+                  <th style="width: 80px">{{'EPL-PRINT-CERTI'|i18n}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of trainingInfo, let i=index" data-id={{i+1}}>
+                  <td class="center">{{i+1}}</td>
+                  <td class="center">{{item.from_ymd}}</td>
+                  <td>{{getTrainingName(item.training_type_gen_cd)}}</td>
+                  <td class="center">{{item.training_sum_hour}}</td>
+                  <td>{{getOrganizerName(item.organizer_gen_cd)}}</td>
+                  <td class="center">{{item.last_score}}</td>
+                  <td class="center">{{item.after_score}}</td>
+                  <td class="center">{{item.final_score}}</td>
+                  <td class="center">{{item.from_ymd? (item.cetificate_yn ? "Yes" : "No") : ''}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 15px">
+          <label class="custom-title">8. {{'EPL-PRINT-MEDICAL-RECORD'|i18n}}</label>
+          <div class="custom-table">
+            <table class="table20 table table-bordered custom-border-table">
+              <thead>
+                <tr>
+                  <th style="width: 60px">{{'EPL-PRINT-NO'|i18n}}</th>
+                  <th style="width: 150px">{{'EPL-PRINT-DATE'|i18n}}</th>
+                  <th>{{'EPL-PRINT-DISEASE'|i18n}}</th>
+                  <th>{{'EPL-PRINT-STATUS'|i18n}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of medicalInfo,let i=index" data-id={{i+1}}>
+                  <td class="center">{{i+1}}</td>
+                  <td class="center">{{item.medical_ymd}}</td>
+                  <td>{{item.medical_nm}}</td>
+                  <td>{{item.medical_result}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row">
+          <label class="custom-title">9. {{'EPL-PRINT-PERSONAL-APPRAISAL'|i18n}}</label><br>
+          <label class="custom-title">9-1. {{'EPL-PRINT-PERFORMANCE-APPR-RECORD'|i18n}}</label><br>
+          <div class="custom-table">
+            <table class="table20  table table-bordered custom-border-table">
+              <thead>
+                <tr>
+                  <th style="width: 60px">{{'EPL-PRINT-NO'|i18n}}</th>
+                  <th style="width: 150px">{{'EPL-PRINT-APPDATE'|i18n}}</th>
+                  <th>{{'EPL-PRINT-PERIOD'|i18n}}</th>
+                  <th>{{'EPL-PRINT-CONTRIBUTION'|i18n}}</th>
+                  <th>{{'EPL-PRINT-CAPABILITY'|i18n}}</th>
+                  <th>{{'EPL-PRINT-RESULT'|i18n}}</th>
+                  <th>{{'EPL-PRINT-REMART'|i18n}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of appraisalInfo , let i=index" data-id={{i+1}}>
+                  <td class="center">{{i+1}}</td>
+                  <td class="center">{{item.eval_ymd}}</td>
+                  <td>{{getPeriodName(item.eval_period_gen_cd)}}</td>
+                  <td>{{getContributionName(item.eval_type_gen_cd)}}</td>
+                  <td>{{getResultName(item.eval_result_gen_cd)}}</td>
+                  <td>{{getCapabilityName(item.capability_level_gen_cd)}}</td>
+                  <td>{{item.remark}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- <div class="row">
+        <label class="custom-title">9-2. {{'EPL-PRINT-ASSESSMENT-RECORD'|i18n}}</label><br>
+        <div style="width: 1000px" class="custom-table">
+          <table class="table20  table table-bordered custom-border-table">
+            <thead>
+              <tr>
+                <th style="width: 60px">{{'EPL-PRINT-NO'|i18n}}</th>
+                <th style="width: 150px">{{'EPL-PRINT-DATE'|i18n}}</th>
+                <th>{{'EPL-PRINT-SKILL'|i18n}}</th>
+                <th>{{'EPL-PRINT-LEVEL'|i18n}}</th>
+                <th>{{'EPL-PRINT-REMART'|i18n}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of row25">
+                <td class="center">{{item}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div> -->
+      </div>
+    </div>
+  </div>
+</div>

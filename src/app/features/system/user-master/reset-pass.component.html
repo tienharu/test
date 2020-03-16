@@ -1,0 +1,45 @@
+
+<form #frmResetPass="ngForm" (ngSubmit)="frmResetPass.form.valid && onSubmit()" class="smart-form" novalidate="novalidate" [saUiValidate]="resetValidationOptions">
+  <fieldset>
+      <section>
+          <div class="row">
+            <label class="label col col-4">Username</label>
+            <div class="col col-8">
+              <label class="input"> <i class="icon-append fa fa-user"></i>
+                <input type="text" name="username" value="{{userName}}" disabled class="disabled">
+              </label>
+            </div>
+          </div>
+        </section>
+    <section>
+      <div class="row">
+        <label class="label col col-4">New Password</label>
+        <div class="col col-8">
+          <label class="input"> <i class="icon-append fa fa-lock"></i>
+            <input type="password" [(ngModel)]="model.password" name="password" id="newPass" required>
+          </label>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="row">
+        <label class="label col col-4">Confirm Password</label>
+        <div class="col col-8">
+          <label class="input"> <i class="icon-append fa fa-lock"></i>
+            <input type="password" [(ngModel)]="model.confirm_password" name="confirm_password" required>
+          </label>
+        </div>
+      </div>
+    </section>
+  </fieldset>
+
+  <footer>
+    
+    <button type="submit" class="btn btn-primary">
+      Save Changes
+    </button>
+    <!-- <button type="button" class="btn btn-default" (click)="null">
+      Cancel
+    </button> -->
+  </footer>
+</form>

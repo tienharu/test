@@ -1,0 +1,59 @@
+.dropdown .dropdown-menu {
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+
+    max-height: 0;
+    display: block;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.dropdown:hover .dropdown-menu {
+    max-height: 200px;
+    opacity: 1;
+}
+
+.contactor-detail .address .label{width: 12%}
+.contactor-detail .address .input{width:88%}
+:host /deep/ .multiple-select .selection .select2-selection--multiple{height: 100% !important}
+.none-boder-left{border-left:none !important}
+.new-activity li a{height: 30px; line-height: 25px;}
+.new-activity li a i{padding-right: 10px;}
+.btn-actions{
+    float: right;
+    top: -28px;
+    position: relative;
+}
+.btn-actions a{margin: 0 3px;}
+.smart-form label.label{    
+    height: 27px;
+    line-height: 30px;
+}
+:host /deep/ .smart-timeline-content{margin-left: 140px;}
+.smart-timeline-icon .index span{
+    position: relative;
+  }
+  .smart-timeline-icon:hover .index span{
+    display: none;
+  }
+  .smart-timeline-icon:hover .index:after{
+    content: "\f044";
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    cursor: pointer;
+  }
+
+  :host /deep/ .select2-custom .select2-container{width: 100% !important}
+  :host /deep/ .select2-custom .select2-selection{height: auto !important;}
+  /* .contactor-detail label.data{
+      height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+  } */
+  .contactor-detail button.dropdown-toggle{background-color: #21ba45;border:1px solid #20af42}

@@ -1,0 +1,260 @@
+<header id="header" class="animated fadeInDown">
+
+  <!-- <div id="logo-group">
+    <span id="logo"> 
+      <img src="assets/img/logo.png" alt="SmartAdmin"> 
+    </span>
+  </div> -->
+
+  <div class="logo-text">
+    <img alt="AtmanEuler" src="assets/img/logo-dark.png">
+  </div>
+
+  <span id="extr-page-header-space">
+    <span class="hidden-mobile hiddex-xs">Already registered?</span> <a routerLink="/auth/login" class="btn btn-danger">Sign
+      In</a> </span>
+
+</header>
+<div id="main" role="main" class="animated fadeInDown">
+
+  <!-- MAIN CONTENT -->
+  <div id="content" class="container">
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 hidden-xs hidden-sm">
+        <div class="txt-color-red login-header-big logo-text2">
+          <img alt="AtmanEuler" src="assets/img/logo-gray.png">
+        </div>
+        <div class="hero">
+
+          <div class="pull-left login-desc-box-l">
+            <h4 class="paragraph-header">
+              It’s Okay to be smart. 
+              Experience the global excellence business management of AtmanEuler, everywhere you go!
+            </h4>
+
+            <!-- <h4 class="paragraph-header">              
+            </h4> -->
+
+            <div class="login-app-icons">
+              <a href="https://atmaneuler.com/" class="btn btn-danger btn-sm">Find out more</a>&nbsp;
+              <a href="http://blog.atmaneuler.com/" class="btn btn-danger btn-sm">Knowledge Edge</a>
+            </div>
+          </div>
+          <div class="iphoneatman">
+            <img src="assets/img/demo/iphone5s-atman.png" alt="" class="pull-right display-image" style="width:180px">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <h5 class="about-heading">About AtmanEuler - Are you up to date?</h5>
+            <p class="logindes">
+              글로벌 비즈니스 현장과 학계에서 검증된 비즈니스 프로세스와 이론을 기반으로 과학적인 경영관리를 체험할 수 있습니다. 정보기술을 적극 활용하지 못하는 만큼 경쟁에서 뒤쳐지는 시대입니다. 그러나 두려움은 없습니다. Mobil ∙ Iot Device & 최고의 WEB 기술을 통합한 아트만오일러가 있습니다.
+            </p>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 Knowledge">
+            <h5 class="about-heading">Knowledge Based Business System!</h5>
+            <p class="logindes">
+              비즈니스인을 위한 지식창고입니다. 자연과학 ∙ 수학 ∙ 인공지능 ∙ 인문학 ∙ 비즈니스이론 그 경계를 구분하지 않습니다. 
+              올바른 사고과<span style="font-size: 10px">정思考過程</span>과 사고능력<span style="font-size: 10px">思考能力</span>에 가치를 부여합니다. AtMAN은 『명백한 사실 and 반박할 수 없는 결론』만을 인정합니다.                
+            </p>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+        <div class="well no-padding">
+
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="smart-form client-form">
+            <header class="left">
+              <b>Registration is FREE*</b>
+            </header>
+
+            <fieldset>
+              <section>
+                <label class="label">E-Mail</label>
+                <label class="input" [ngClass]="{ 'state-error': submitted && f.email.errors }">
+                  <i class="icon-prepend fa fa-envelope"></i>
+                  <input type="email" name="email" formControlName="email" [(ngModel)]="model.email" autocomplete="off"
+                    placeholder="Enter email">
+                  <b class="tooltip tooltip-top-right">
+                    <i class="fa fa-envelope"></i>
+                    Enter your email
+                  </b>
+                  <div *ngIf="submitted && f.email.errors">
+                    <span *ngIf="f.email.errors.required" class="text-danger">Email is required</span>
+                    <span *ngIf="f.email.errors.pattern" class="text-danger">Email must be a valid email
+                      address</span>
+                  </div>
+                </label>
+              </section>
+
+              <section>
+                <label class="label">Full Name</label>
+                <label class="input" [ngClass]="{ 'state-error': submitted && f.fullname.errors }">
+                  <i class="icon-prepend fa fa-user"></i>
+                  <input type="text" name="fullname" formControlName="fullname" [(ngModel)]="model.fullname"
+                    autocomplete="off" placeholder="Enter full name">
+                  <b class="tooltip tooltip-top-right">
+                    <i class="fa fa-user"></i>
+                    Enter your full name
+                  </b>
+                  <div *ngIf="submitted && f.fullname.errors">
+                    <span *ngIf="f.fullname.errors.required" class="text-danger">Full Name is required</span>
+                    <span *ngIf="f.fullname.errors.maxLength" class="text-danger">Full Nameks must be less than 100
+                      characters</span>
+                  </div>
+                </label>
+              </section>
+
+              <section>
+                <label class="label">Username</label>
+                <label class="input" [ngClass]="{ 'state-error': submitted && f.username.errors }">
+                  <i class="icon-prepend fa fa-user"></i>
+                  <input type="text" name="username" formControlName="username" [(ngModel)]="model.username"
+                    autocomplete="off" placeholder="Enter username">
+                  <b class="tooltip tooltip-top-right">
+                    <i class="fa fa-user"></i>
+                    Enter your username
+                  </b>
+                  <div *ngIf="submitted && f.username.errors">
+                    <span *ngIf="f.username.errors.required" class="text-danger">Username is required</span>
+                    <span *ngIf="f.username.errors.minlength" class="text-danger">Username must be at least 3
+                      characters</span>
+                    <span *ngIf="f.username.errors.maxLength" class="text-danger">Username must be less than 50
+                      characters</span>
+                  </div>
+                </label>
+              </section>
+
+              <section>
+                <label class="label">Password</label>
+                <label class="input" [ngClass]="{ 'state-error': submitted && f.password.errors }">
+                  <i class="icon-prepend fa fa-lock"></i>
+                  <input type="password" name="password" formControlName="password" [(ngModel)]="model.password"
+                    (change)="onPasswordInputChanged()" autocomplete="off" placeholder="Enter password">
+                  <b class="tooltip tooltip-top-right">
+                    <i class="fa fa-lock"></i>
+                    Enter your password
+                  </b>
+                  <div *ngIf="submitted && f.password.invalid">
+                    <span *ngIf="f.password.errors.required" class="text-danger">Password is required</span>
+                    <span *ngIf="f.password.errors.minlength" class="text-danger">Password must be at least 3
+                      characters</span>
+                    <span *ngIf="f.password.errors.maxLength" class="text-danger">Password must be less than 50
+                      characters</span>
+                  </div>
+                </label>
+              </section>
+
+              <section>
+                <label class="label">Confirm Password</label>
+                <label class="input" [ngClass]="{ 'state-error': submitted && f.confirmPassword.errors }">
+                  <i class="icon-prepend fa fa-lock"></i>
+                  <input type="password" name="confirmPassword" [readonly]="isReadOnly" formControlName="confirmPassword"
+                    [(ngModel)]="model.confirmPassword" autocomplete="off" placeholder="Confirm password">
+                  <b class="tooltip tooltip-top-right">
+                    <i class="fa fa-lock"></i>
+                    Confirm your password
+                  </b>
+                  <div *ngIf="submitted && f.confirmPassword.invalid">
+                    <span *ngIf="f.confirmPassword.errors.required" class="text-danger">Confirm Password is required</span>
+                    <span *ngIf="f.confirmPassword.errors.minlength" class="text-danger">Confirm Password must be at
+                      least 3
+                      characters</span>
+                    <span *ngIf="f.confirmPassword.errors.UnmatchedPassword " class="text-danger">Password and Confirm
+                      Password are not matched</span>
+                  </div>
+                </label>
+              </section>
+
+            </fieldset>
+
+            <!-- <fieldset>
+              <div class="row">
+                <section class="col col-6">
+                  <label class="input">
+                    <input type="text" name="firstname" placeholder="First name">
+                  </label>
+                </section>
+                <section class="col col-6">
+                  <label class="input">
+                    <input type="text" name="lastname" placeholder="Last name">
+                  </label>
+                </section>
+              </div>
+
+              <div class="row">
+                <section class="col col-6">
+                  <label class="select">
+                    <select name="gender">
+                      <option value="0" selected disabled>Gender</option>
+                      <option value="1">Male</option>
+                      <option value="2">Female</option>
+                      <option value="3">Prefer not to answer</option>
+                    </select> <i></i> </label>
+                </section>
+                <section class="col col-6">
+                  <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                    <input type="text" name="request" placeholder="Request activation on" class="datepicker"
+                      data-dateformat="dd/mm/yy">
+                  </label>
+                </section>
+              </div>
+
+              <section>
+                <label class="checkbox">
+                  <input type="checkbox" name="subscription" id="subscription">
+                  <i></i>I want to receive news and special offers</label>
+                <label class="checkbox">
+                  <input type="checkbox" name="terms" id="terms" [(ngModel)]="termsAgreed">
+                  <i></i>I agree with the <a href="#" (click)="openModal($event, termsModal)"> Terms and Conditions </a></label>
+              </section>
+            </fieldset> -->
+
+            <footer>
+              <button type="submit" class="btn btn-primary">
+                Submit
+              </button>
+              <button type="button" (click)="onCancel()" class="btn btn-warning">
+                Cancel
+              </button>
+            </footer>
+
+            <!-- <div class="message">
+              <i class="fa fa-check"></i>
+              <p>
+                Thank you for your registration!
+              </p>
+            </div> -->
+          </form>
+
+        </div>
+
+        <!-- <p class="note text-center">*FREE Registration ends on October 2015.</p>
+        <h5 class="text-center">- Or sign in using -</h5>
+        <ul class="list-inline text-center">
+          <li>
+            <a (click)="(null)" class="btn btn-primary btn-circle"><i class="fa fa-facebook"></i></a>
+          </li>
+          <li>
+            <a (click)="(null)" class="btn btn-info btn-circle"><i class="fa fa-twitter"></i></a>
+          </li>
+          <li>
+            <a (click)="(null)" class="btn btn-warning btn-circle"><i class="fa fa-linkedin"></i></a>
+          </li>
+        </ul> -->
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- <ng-container  *ngComponentOutlet="TermsModalComponent"></ng-container> -->
+
+<!-- <ng-template #termsModal>
+  <smart-terms-modal (agree)="onTermsAgree()" (close)="onTermsClose()"></smart-terms-modal>
+
+</ng-template> -->

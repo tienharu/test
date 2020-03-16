@@ -1,0 +1,74 @@
+<div class="col-lg-12 right-content">
+    <section class="widget-body no-padding col-lg-4 field-1">
+        <form class="smart-form medical-form" #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" novalidate="novalidate"
+        [saUiValidate]="validationOptions">
+                <fieldset>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Date' | i18n}}</label>
+                                    <label class="input col-lg-6"> <i class="icon-append fa fa-calendar"></i>
+                                        <input type="text" name="medical_ymd" [(ngModel)]="medicalInfo.medical_ymd" required class="medical-ymd-datepicker" autocomplete="off">
+                                    </label>
+                            </section>
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Diseas-Name' | i18n}}</label>
+                                    <label class="textarea col-lg-6">
+                                        <textarea rows="3" name="medical_nm" [(ngModel)]="medicalInfo.medical_nm" required class="custom-scroll"></textarea> </label>
+                                    <div class="note">
+                                    </div>
+                            </section>  
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Status' | i18n}}</label>
+                                    <label class="textarea col-lg-6">
+                                        <textarea rows="3" name="medical_result" [(ngModel)]="medicalInfo.medical_result" required class="custom-scroll"></textarea> </label>
+                                    <div class="note">
+                                    </div>
+                            </section>  
+                            <section class="col-lg-12">
+                                    <label class="label col-lg-5">{{'Remarks' | i18n}}</label>
+                                    <label class="textarea col-lg-6">
+                                        <textarea rows="3" name="remark" [(ngModel)]="medicalInfo.remark" class="custom-scroll"></textarea> </label>
+                                    <div class="note">
+                                    </div>
+                            </section>  
+                            <section class="col-lg-11 btn-cmd">
+                              <button class="btn btn-small btn-primary" [disabled]="!permission.canSave" type="submit"><i class="fa fa-save"></i> {{'BUTTON-SAVE' | i18n}}</button>
+                              <button class="btn btn-small btn-default" type="button" (click)="onReset()"><i class="fa fa-refresh"></i> {{'BUTTON-RESET' | i18n}}</button>
+                          </section>
+                </fieldset>
+            </form>
+      
+      </section>
+      <section class="col-lg-8 field-2">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+                <div>
+                    <div class="widget-body no-padding">
+                        <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                        tableClass="eplMedicalInfoList table table-striped table-condensed table-hover table-bordered">
+                            <thead>
+                                <tr class="heading">
+                                    <th>{{'Date' | i18n}}</th>
+                                    <th>{{'Disease' | i18n}}</th>
+                                    <th>{{'Status' | i18n}}</th>
+                                    <th>{{'Remarks' | i18n}}</th>
+                                </tr>
+                                <tr>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Date" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Disease" />
+                                    </th>
+                                    <th class="hasinput">
+                                                <input type="text" class="form-control" placeholder="Status" />
+                                    </th>
+                                    <th class="hasinput">
+                                      <input type="text" class="form-control" placeholder="Remarks" />
+                                  </th>
+                                </tr>
+                            </thead>
+                        </sa-datatable>
+                    </div>
+                </div>
+            </div>   
+      </section>
+</div>

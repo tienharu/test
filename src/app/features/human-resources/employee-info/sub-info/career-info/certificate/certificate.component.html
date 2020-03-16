@@ -1,0 +1,94 @@
+<div class="row">
+        <section class="col-lg-12 right-content">
+                <div class="col-lg-4 field-1" style="padding-left: 0">
+                        <form class="smart-form frmCertificate" #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" novalidate="novalidate">
+                                <fieldset>
+                                        <section class="col-lg-12">
+                                                <label class="label col-lg-5">{{'Certificate' | i18n}}</label>
+                                                <label class="input col-lg-6">
+                                                        <select select2 class="select2" name="cetificated_gen_cd" [(ngModel)]="certificateInfo.cetificated_gen_cd" [defaultVal]="certificateInfo.cetificated_gen_cd" style="width:100%">
+                                                            <option *ngFor="let item of certificate" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                        </select>
+                                                    </label>
+                                        </section>
+                                        <section class="col-lg-12">
+                                                <label class="label col-lg-5">{{'Type' | i18n}}</label>
+                                                <label class="input col-lg-6">
+                                                        <select select2 class="select2" name="cetificated_type_gen_cd" [(ngModel)]="certificateInfo.cetificated_type_gen_cd" [defaultVal]="certificateInfo.cetificated_type_gen_cd" style="width:100%">
+                                                            <option *ngFor="let item of certificateType" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                        </select>
+                                                    </label>
+                                        </section>
+                                        <section class="col-lg-12">
+                                                <label class="label col-lg-5">{{'Certificate-Date' | i18n}}</label>
+                                                <label class="input col-lg-6"> <i class="icon-append fa fa-calendar"></i>
+                                                    <input type="text" name="last_joined_ymd" name="cetificated_ymd" [(ngModel)]="certificateInfo.cetificated_ymd" class="certi-ymd-datepicker" autocomplete="off">
+                                                </label>
+                                        </section>
+                                        <section class="col-lg-12">
+                                                <label class="label col-lg-5">{{'Expired-Date' | i18n}}</label>
+                                                <label class="input col-lg-6"> <i class="icon-append fa fa-calendar"></i>
+                                                    <input type="text" name="last_joined_ymd" name="expire_ymd" [(ngModel)]="certificateInfo.expire_ymd" class="expire-ymd-datepicker" autocomplete="off">
+                                                </label>
+                                        </section>
+                                        <section class="col-lg-12">
+                                                <label class="label col-lg-5">{{'Text' | i18n}}</label>
+                                                <label class="input col-lg-6">
+                                                    <input type="text" name="last_position" name="cetificated_text" [(ngModel)]="certificateInfo.cetificated_text" />
+                                                </label>
+                                        </section>
+                                            <section class="col-lg-11 btn-cmd">
+                                              <button class="btn btn-small btn-primary" [disabled]="!permission.canSave" type="submit"><i class="fa fa-save"></i> {{'BUTTON-SAVE' | i18n}}</button>
+                                              <button class="btn btn-small btn-default" type="button" (click)="onReset()"><i class="fa fa-refresh"></i> {{'BUTTON-RESET' | i18n}}</button>
+                                          </section>
+                                </fieldset>
+                            </form>
+                    </div>
+                    <div class="col-lg-8" style="padding: 0;">
+                        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+                                <div>
+                                    <div class="widget-body no-padding">
+                                        <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                                        tableClass="eplCertifiList table table-striped table-condensed table-hover table-bordered">
+                                            <thead>
+                                                <tr class="heading">
+                                                    <th>{{'Certificate' | i18n}}</th>
+                                                    <th>{{'Type' | i18n}}</th>
+                                                    <th>{{'CERTIFICATE-DATE' | i18n}}</th>
+                                                    <th>{{'EXPIRED-DATE' | i18n}}</th>
+                                                    <th>{{'Text' | i18n}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="hasinput">
+                                                        <select class="form-control select-filter" name="Certificate"
+                                                            style="width:100%">
+                                                            <option value="">{{'All' | i18n}}</option>
+                                                            <option *ngFor="let item of certificate" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                        </select>
+                                                    </th>
+                                                    <th class="hasinput">
+                                                        <select class="form-control select-filter" name="Type"
+                                                            style="width:100%">
+                                                            <option value="">{{'All' | i18n}}</option>
+                                                            <option *ngFor="let item of certificateType" value="{{item.gen_cd}}">{{item.gen_nm}}</option>
+                                                        </select>
+                                                    </th>
+                                                    <th class="hasinput">
+                                                                <input type="text" class="form-control" placeholder="Certificate Date" />
+                                                    </th>
+                                                    <th class="hasinput">
+                                                            <input type="text" class="form-control" placeholder="Expired Date" />
+                                                </th>
+                                                <th class="hasinput">
+                                                        <input type="text" class="form-control" placeholder="Text" />
+                                            </th>
+                                                </tr>
+                                            </thead>
+                                        </sa-datatable>
+                                    </div>
+                                </div>
+                            </div> 
+                    </div>  
+        </section>
+    </div>
+    

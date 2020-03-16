@@ -1,0 +1,234 @@
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-magic"></i>Approval-line Registration</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <section class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+        class="smart-form atman-form-small no-header frm-detail" novalidate="novalidate"
+        [saUiValidate]="validationOptions">
+        <fieldset>
+          <div class="row">
+            <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <section class="col-lg-6">
+                <section class="col col-lg-6">
+                  <label class="label">{{'AR_ENTRYDAY' | i18n}}</label>
+                  <label class="input  state-disabled">
+                    <input type="text" class="center" autocomplete="off" value={{this.dateTimeNow}} />
+                  </label>
+                </section>
+                <section class="col col-lg-6">
+                  <label class="label">{{'AR_ENTRYMEMBER' | i18n}}</label>
+                  <label class="input state-disabled">
+                    <input type="text" name="creator" class="center" [(ngModel)]="detailInfo.creator" autocomplete="off"
+                      disabled />
+                  </label>
+                </section>
+
+                <section class="col col-lg-8">
+                  <label class="label">{{'AR_APP_KOR_NAME' | i18n}}</label>
+                  <label class="input">
+                    <input type="text" class="main" name="aprvlLineKoreaNm"
+                      [(ngModel)]="detailInfo.aprvlLineKoreaNm" placeHolder="" autocomplete="off" required />
+                  </label>
+                </section>
+                <section class="col col-lg-4">
+                  <label class="label" style="visibility: hidden">Code</label>
+                  <label class="input state-disabled">
+                    <input type="text" name="aprvlLineCd" class="center" [(ngModel)]="detailInfo.aprvlLineCd" autocomplete="off"
+                      disabled />
+                  </label>
+                </section>
+
+                <section class="col col-lg-12">
+                  <label class="label">{{'AR_APP_ENG_NAME' | i18n}}</label>
+                  <label class="input">
+                    <input type="text" class="main" name="aprvlLineEngNm"
+                      [(ngModel)]="detailInfo.aprvlLineEngNm" placeHolder="" autocomplete="off" required />
+                  </label>
+                </section>
+                <section class="col col-lg-6">
+                  <label class="label" style="visibility: hidden">Urgent or Important Yn</label>
+                  <label class="checkbox" style="padding-left: 0px;">
+                    <input type="checkbox" name="urgentYn" [(ngModel)]="detailInfo.urgentYn" />
+                    <i class="checkbox-icon-right"></i>
+                    <span>{{'AR_URGENT_IMPORTANT' | i18n}}</span>
+                  </label>
+                </section>
+
+                <section class="col col-lg-6">
+                  <label class="label" style="visibility: hidden">Use Yn</label>
+                  <label class="checkbox">
+                    <input type="checkbox" name="useYn" [(ngModel)]="detailInfo.useYn" />
+                    <i class="checkbox-icon-right"></i>
+                    <span style="margin-left: 20px;">Use Yn</span>
+                  </label>
+                </section>
+              </section>
+
+              <section class="col col-lg-6" style="margin: -5px 0 0 0px;">
+                <sa-sharing-info (outputData)="sharingToSelected($event)" [sharedData]="">
+                </sa-sharing-info>
+              </section>
+
+              <section class="col-lg-12">
+                <section class="col col-lg-3">
+                  <label class="label" style="visibility: hidden">Approval Process</label>
+                  <label class="checkbox" style="padding-left: 0px;">
+                    <span><strong>{{'AR_PROCCESS' | i18n}}</strong></span>
+                  </label>
+                </section>
+
+                <section class="col col-lg-3">
+                  <label class="label" style="visibility: hidden">Number of Steps</label>
+                  <label class="input state-disabled">
+                    <input class="center" type="text" name="numStep" [(ngModel)]="detailInfo.numStep"
+                      style="width: 30px;float: right;margin-top: -2px;" />
+                    <span style="float: right;margin-right: 3%;">{{'AR_NUM_STEP' | i18n}}</span>
+                  </label>
+                </section>
+
+                <section class="col col-lg-4" style="float: right;">
+                  <label class="label" style="visibility: hidden">{{'AR_NUM_REFER' | i18n}}</label>
+                  <label class="input state-disabled">
+                    <input class="center" type="text" name="numRefer"
+                      style="width: 30px; float: right; margin-top: -2px; " />
+                    <span style="float: right;margin-right: 3%;">{{'AR_NUM_REFER' | i18n}}</span>
+                  </label>
+                </section>
+              </section>
+
+              <section class="col col-lg-12">
+                <sa-widgets-grid>
+                  <div class="row">
+                    <div class="at-smart-table" style="padding: 0 15px;">
+                      <section class="col-lg-12 table-bordered">
+                        <div class="section-path-route-tables" style="padding: 0;min-width: 300px; overflow: auto;">
+                          <ng2-smart-table class="table table-striped table-condensed table-hover" [source]="source"
+                          (createConfirm)="onCreateProcessConfirm($event)" (editConfirm)="onSaveConfirm($event)" (deleteConfirm)="onDeleteProcessConfirm($event)"
+                            id="process-path-route-table" [settings]="settingsApprovalComponent">
+                          </ng2-smart-table>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+                </sa-widgets-grid>
+              </section>
+
+              <section class="col-lg-12">
+                <section class="col col-lg-12">
+                  <label class="label">{{'Description' | i18n}}</label>
+                  <label class="textarea">
+                    <textarea name="remark" [(ngModel)]="detailInfo.remark" rows="2"></textarea>
+                  </label>
+                </section>
+              </section>
+              <section class=" col-lg-12">
+                <section class="col col-lg-12">
+                  <div class="smart-form" style="top: 5px;">
+                    <footer style="background:none;border:none;padding: 0;float: right;">
+                      <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-cancel">
+                        <i class="fa fa-times"></i>
+                        {{'button-close' | i18n}}
+                      </button>
+                      <button type="button" (click)="onReset()" name="reset" class="btn btn-reset-form">
+                        <i class="fa fa-refresh"></i>
+                        {{'BUTTON-RESET' | i18n}}
+                      </button>
+                      <button type="submit" [disabled]="!this.permission.canSave" name="submit" class="btn btn-primary">
+                        <i class="fa fa-save"></i>
+                        {{'BUTTON-SAVE' | i18n}}
+                      </button>
+                    </footer>
+                  </div>
+                </section>
+              </section>
+            </section>
+          </div>
+        </fieldset>
+      </form>
+
+    </section>
+    <section class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <sa-widgets-grid>
+        <div class="row">
+          <article class="col-sm-12">
+            <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+              <header>
+                <span class="widget-icon">
+                  <i class="fa fa-list"></i>
+                </span>
+                <h2>{{'AR_PROCESS_LINE' | i18n}}</h2>
+              </header>
+              <div>
+                <div class="widget-body no-padding">
+                  <sa-datatable [options]="options" (rowClick)="onRowClick($event)" [paginationLength]="true"
+                    filter="true"
+                    tableClass="table table-striped table-condensed table-hover table-bordered tableGetApproval">
+                    <thead>
+                      <tr class="heading">
+                        <th>No</th>
+                        <th>{{'AR_CODE' | i18n}}</th>
+                        <th>{{'AR_APP_KOR_NAME' | i18n}}</th>
+                        <th>{{'AR_STEP' | i18n}}</th>
+                        <th>{{'AR_REFER' | i18n}}</th>
+                        <th>{{'AR_URG' | i18n}}</th>
+                        <th>{{'AR_USE' | i18n}}</th>
+                        <th>{{'AR_APP_ENG_NAME' | i18n}}</th>
+                        <th>{{'AR_REMARK' | i18n}}</th>
+                      </tr>
+                      <tr>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="" />
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="" />
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="" />
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="" />
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="" />
+                        </th>
+                        <th class="hasinput">
+                          <select id="filerByActiveYN" class="form-control select-filter" style="width: 100%;">
+                            <option value="">All</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </th>
+
+                        <th class="hasinput">
+                          <select id="filerByActiveYN" class="form-control select-filter" style="width: 100%;">
+                            <option value="">All</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="" />
+                        </th>
+                        <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="" />
+                        </th>
+
+                      </tr>
+                    </thead>
+                  </sa-datatable>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </sa-widgets-grid>
+    </section>
+  </div>
+
+</div>

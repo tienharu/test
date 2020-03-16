@@ -1,0 +1,71 @@
+.heading th{
+    height: 24px;
+}
+.checkbox-field .checkbox{
+    margin-top: 20px;
+    }
+.checkbox-field .checkbox i{
+    right: 0px;
+    left: auto;
+}
+.checkbox-field .checkbox span{
+    position: absolute;
+    right: 25px;
+    top: -2px;
+}
+.non-padding-right {
+    padding-right: unset;
+}
+.non-padding-left {
+    padding-left: unset;
+}
+.checkbox-margin-right {
+    margin-right: 30px;
+}
+.checkbox-title-padding {
+    padding-left: 25px;
+}
+#label-hidden {
+    visibility: hidden;
+}
+#margin-top-user-info {
+    margin-top: 5px;
+}
+.smart-form .col-des-hidden {
+    width: 3%;
+}
+.smart-form .col-des {
+    width: 97%;
+    padding-right: 35px;
+}
+.smart-form .col-temp {
+    width: 6.33%;
+}
+.data-share {
+    margin-top: 19px;
+    position: absolute;
+    right: 0;
+    max-height: 255px;
+}
+.padding-col-3 {
+    padding-left: 8px;
+    padding-right: 35px;
+}
+.non-padding {
+    padding: 0;
+}
+.btn.btn-non-margin-top {
+    margin-top: 0;
+}
+/* .data-share .custom-header-sharing {
+    margin-bottom: 23px;
+    font: 11px "Open Sans",Verdana,Arial,sans-serif;
+    color: #525151;
+}
+.data-share .clearSelected {
+    height: 20px;
+}
+.data-share .fa-trash-o {
+    margin-top: 2px;
+    display: block;
+} */

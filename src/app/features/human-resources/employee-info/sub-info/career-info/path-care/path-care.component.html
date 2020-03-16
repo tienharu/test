@@ -1,0 +1,100 @@
+<div class="row">
+        <section class="col-lg-12" style="padding-right: 0;">
+            <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+                <div>
+                    <div class="widget-body no-padding">
+                        <sa-datatable [options]="options" (rowDbClick)="onRowClick($event)" paginationLength="true" filter="true"
+                        tableClass="eplPathCareList table table-striped table-condensed table-hover table-bordered">
+                            <thead>
+                                <tr class="heading">
+                                    <th style="width: 100px">{{'Career' | i18n}}</th>
+                                    <th>{{'Path-Career' | i18n}}</th>
+                                    <th>{{'From-Org' | i18n}}</th>
+                                    <th>{{'To-Org' | i18n}}</th>
+                                    <th>{{'From-Salary' | i18n}}</th>
+                                    <th>{{'To-Salary' | i18n}}</th>
+                                    <th>{{'From-Class' | i18n}}</th>
+                                    <th>{{'To-Class' | i18n}}</th>
+                                    <th>{{'From-Duty-Kind' | i18n}}</th>
+                                    <th>{{'To-Duty-Kind' | i18n}}</th>
+                                    <th>{{'From-Duty-Type' | i18n}}</th>
+                                    <th>{{'To-Duty-Type' | i18n}}</th>
+                                    <th>{{'From-Work-Place' | i18n}}</th>
+                                    <th>{{'To-Work-Place' | i18n}}</th>
+                                    <th>{{'From-Tax-no' | i18n}}</th>
+                                    <th>{{'To-Tax-no' | i18n}}</th>
+                                    <th>{{'From-Duty-Status' | i18n}}</th>
+                                    <th>{{'To-Duty-Status' | i18n}}</th>
+                                    <th>{{'Reason' | i18n}}</th>
+                                </tr>
+                                <tr>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="Career" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Path Career" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="From Org" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="To Org" />
+                                    </th>
+                                    <th class="hasinput">
+                                                <input type="text" class="form-control" placeholder="From Job" />
+                                        </th>
+                                  <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="To Job" />
+                                 </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="From Class" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="To Class" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="From Duty Kind" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="To Duty Kind" />
+                                    </th>
+                                    <th class="hasinput">
+                                        <input type="text" class="form-control" placeholder="From Duty Type" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="To Duty Type" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="From Work Place" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="To Work Place" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="From Tax no" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="To Tax no" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="From Duty Status" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="To Duty Status" />
+                                    </th>
+                                    <th class="hasinput">
+                                            <input type="text" class="form-control" placeholder="Reason" />
+                                    </th>
+                                </tr>
+                            </thead>
+                        </sa-datatable>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+<ng-template #popupPathCareer>
+    <sa-popup-modal headerTitle="New Career" width="1000" height="600" (onClose)="closePopupPathCareer()">
+            <sa-new-path-career companyId="{{companyId}}" hrId="{{hrId}}" pathCareerInfoJson={{pathCareerInfo|json}} isAddNew={{isAdd}} formData = {{formData|json}} (resetParent) = "reloadDatatable($event)"></sa-new-path-career>
+    </sa-popup-modal>
+  </ng-template>

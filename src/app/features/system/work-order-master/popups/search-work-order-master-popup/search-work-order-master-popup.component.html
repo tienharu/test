@@ -1,0 +1,130 @@
+<!-- <div id="content-popup" > -->
+<form #frmDetail="ngForm" class="smart-form atman-form-small no-header frm-search-work-order"
+  (ngSubmit)="frmDetail.form.valid && onSubmit()" novalidate="novalidate" [saUiValidate]="validationOptions">
+  <fieldset>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10" style="margin-left: 8%;">
+        <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <section class="col col-xs-12 col-sm-4 col-md-5 col-lg-5">
+            <label class="label col-md-3">{{'WO_NO' | i18n}}</label>
+            <label class="input col-md-9">
+              <input type="text" name="woNo" [(ngModel)]="cri.woNo" autocomplete="off" />
+            </label>
+          </section>
+          <section class="col col-xs-12 col-sm-4 col-md-5 col-lg-5">
+            <label class="label col-md-3">{{'ORDER_TYPE' | i18n}}</label>
+            <label class="input col-md-9">
+              <select name="orderType" [(ngModel)]="cri.orderType" select2 [defaultVal]="cri.orderType"
+                style="width:100%;" class="select2">
+                <option *ngFor="let item of orderTypes" value={{item.value}}>{{item.text | i18n}}</option>
+              </select>
+            </label>
+          </section>
+          <section class="col col-xs-12 col-sm-3 col-md-2 col-lg-2">
+            <button type="submit" name="search" class="btn btn-primary search-style-btn">
+              {{'SEARCH' | i18n}}
+            </button>
+          </section>
+        </section>
+        <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <section class="col col-xs-12 col-sm-4 col-md-5 col-lg-5">
+            <label class="label col-md-3">{{'STYLE_NO' | i18n}}</label>
+            <label class="input col-md-9">
+              <input type="text" name="styleNo" [(ngModel)]="cri.styleNo" autocomplete="off" />
+            </label>
+          </section>
+          <section class="col col-xs-12 col-sm-4 col-md-5 col-lg-5">
+            <label class="label col-md-3">{{'BUYER' | i18n}}</label>
+            <label class="input col-md-9">
+              <select name="buyer" allowClear="true" [(ngModel)]="cri.buyer" select2 style="width:100%;"
+                class="select2">
+                <option *ngFor="let item of buyers" value={{item.trader_id}}>{{item.trader_local_nm | i18n}}</option>
+              </select>
+            </label>
+          </section>
+          <section class="col col-xs-12 col-sm-3 col-md-2 col-lg-2">
+            <button type="button" name="close" (click)="onClose()" class="btn btn-cancel search-style-btn">
+              {{'BUTTON-CLOSE' | i18n}}
+            </button>
+          </section>
+        </section>
+        <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <section class="col col-xs-12 col-sm-4 col-md-5 col-lg-5">
+            <label class="label col-md-3">{{'Brand' | i18n}}</label>
+            <label class="input col-md-9">
+              <select name="brand" allowClear="true" [(ngModel)]="cri.brand" select2 style="width:100%;"
+                class="select2">
+                <option *ngFor="let item of brands" value={{item.gen_cd}}>{{item.gen_nm | i18n}}</option>
+              </select>
+            </label>
+          </section>
+          <section class="col col-xs-12 col-sm-4 col-md-5 col-lg-5">
+            <label class="label col-md-3">{{'SAMP_STEP' | i18n}}</label>
+            <label class="input col-md-9">
+              <select name="sampStep" [(ngModel)]="cri.sampStep" select2 [defaultVal]="cri.sampStep" style="width:100%;"
+                class="select2">
+                <option *ngFor="let item of sampSteps" value={{item.gen_cd}}>{{item.gen_nm | i18n}}</option>
+              </select>
+            </label>
+          </section>
+          <section class="col col-xs-12 col-sm-3 col-md-2 col-lg-2">
+          </section>
+        </section>
+        <!-- <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <section class="col col-xs-12 col-sm-4 col-md-5 col-lg-5">
+            <label class="label col-md-3">{{'Brand' | i18n}}</label>
+            <label class="input col-md-9">
+              <select name="brand" allowClear="true" [(ngModel)]="cri.brand" select2 style="width:100%;" class="select2">
+                <option *ngFor="let item of brands" value={{item.gen_cd}}>{{item.gen_nm | i18n}}</option>
+              </select>
+            </label>
+          </section>
+          <section class="col col-xs-12 col-sm-8 col-md-7 col-lg-7">
+            <label class="label col-md-2">{{'Inning' | i18n}}</label>
+            <label class="input col-md-2" style="margin-left: 4px;">
+              <select name="orderType" [(ngModel)]="cri.orderType" select2 [defaultVal]="cri.orderType" style="width:100%;"
+                  class="select2">
+                  <option *ngFor="let item of orderTypes" value={{item.value}}>{{item.text | i18n}}</option>
+                </select>
+            </label>
+            <label class="label col-md-3" style="text-align: center; margin-right: -4px;">{{'SAMP_STEP' | i18n}}</label>
+            <label class="input col-md-5">
+              <select name="orderType" [(ngModel)]="cri.sampStep" select2 [defaultVal]="cri.sampStep" style="width:100%;"
+                  class="select2">
+                  <option *ngFor="let item of sampSteps" value={{item.gen_cd}}>{{item.gen_nm | i18n}}</option>
+                </select>
+            </label>
+          </section>
+        </section> -->
+      </div>
+    </div>
+  </fieldset>
+</form>
+<sa-widgets-grid>
+  <div class="row">
+    <article class="col-sm-12">
+      <article class="col col-sm-12">
+        <div sa-widget color="atman" class="jarviswidget-atman">
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" (rowClick)="onRowClick($event)" [paginationLength]="false"
+                tableClass="table projects-table table-striped table-condensed table-hover table-bordered search-work-order-table">
+                <thead>
+                  <tr class="heading">
+                    <th>{{'WO_NO' | i18n}}</th>
+                    <th>{{'STYLE_NO' | i18n}}</th>
+                    <th>{{'BUYER' | i18n}}</th>
+                    <th>{{'Inning' | i18n}}</th>
+                    <th>{{'Brand' | i18n}}</th>
+                    <th>{{'SAMPLE_STEP' | i18n}}</th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </article>
+  </div>
+</sa-widgets-grid>
+<!-- </div> -->

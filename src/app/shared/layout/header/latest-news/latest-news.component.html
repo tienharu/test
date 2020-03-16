@@ -1,0 +1,34 @@
+<div id="hot-news" class="hidden-xs hidden-sm hidden-md">
+    <div id="top-count-new" class="btn-with-badge btn-style-2 count-new pull-left">
+        <i class="fa fa-twitter"></i>
+        <b class="badge bg-color-red">{{count}}</b>
+    </div>
+
+    <div class="latest-news dropdown" dropdown>
+        <span class="label">{{ 'HOT-NEWS' | i18n }}:</span>
+        <span class="project-selector dropdown-toggle hot-news" dropdownToggle>
+            {{title}}
+            <i ng-if="NewsList.length" class="fa fa-angle-down"></i>
+        </span>
+        <ul *dropdownMenu class="dropdown-menu news-panel dropdown-menu-dark">
+            <li *ngFor="let item of NewsList" class="inline" style="width: 460px;">
+                <a (click)="openNewInfoPopup(item)">-{{ (item.title.length>=28)? (item.title | slice:0:28)+'...':(item.title) }}<span class="pull-right">- {{item.created_time| date:'mediumDate'}}&nbsp;&nbsp;&nbsp; by : {{item.creator}}</span></a>   
+            </li>
+            <!-- <li *ngFor="let project of projects">
+                <a href="{{project.href}}">+ {{project.title}}</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a (click)="clearProjects()"><i class="fa fa-power-off"></i> Clear</a>
+            </li> -->
+        </ul>
+    </div>
+</div>
+
+<ng-template #popupNewInfoData>
+    <sa-popup-modal headerTitle="New info" width="600" height="1000" (onClose)="closeNewInfoPopup()">
+        <sa-info-news comId="{{NewsInfo.company_id}}" newsId="{{NewsInfo.id}}"></sa-info-news>
+    </sa-popup-modal>
+</ng-template>
+
+

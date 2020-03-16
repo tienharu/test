@@ -1,0 +1,49 @@
+<article class="col-sm-12 col-md-12 col-lg-12 human-resources">
+    <div class="row">
+        <div class="no-padding ">
+            <section class="col-lg-12">
+                <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" class="smart-form atman-form-small frm-detail"
+                    novalidate="novalidate">
+                    <fieldset>
+                        <div class="row">
+                            <section class="col col-10">
+                                <label class="label" style=" font-weight: 600">Last standard basic salary on:
+                                    {{yearMonth.sbtyear}} - {{yearMonth.sbtmonth|number:'2.0'}}
+                                </label>
+                            </section>
+                        </div>
+                        <div class="row">
+                                <section class="col col-4">
+                                        <label class="label">{{'YEAR'| i18n}}</label>
+                                        <label class="input" style="padding:0">
+                                            <select select2 class="form-control select2 required" name="sbt_year" [(ngModel)]="salaryInfo.sbt_year" [defaultVal]="salaryInfo.sbt_year"
+                                                style="width:100%" placeHolder="&nbsp;">
+                                                <option *ngFor="let item of year" value="{{item.value}}">{{item.text}}</option>
+                                            </select>
+                                        </label>
+                                    </section>
+                            <section class="col col-4">
+                                <label class="label">{{'MONTH'| i18n}}</label>
+                                <label class="input" style="padding:0">
+                                    <select select2 class="form-control select2 required" name="sbt_month" [(ngModel)]="salaryInfo.sbt_month" [defaultVal]="salaryInfo.sbt_month"
+                                        style="width:100%" placeHolder="&nbsp;">
+                                        <option *ngFor="let item of month" value="{{item.value}}">{{item.text|number:'2.0'}}</option>
+                                    </select>
+                                </label>
+                            </section>
+                            
+                            <section class="col col-4">
+                                <label class="label">&nbsp;</label>
+                                <button type="submit" [disabled]="!permission.canSave" name="submit" class="btn btn-primary btn-xs edit-program">
+                                    <i class="fa fa-save"></i>
+                                    {{'button-create' | i18n}}
+                                </button>
+                            </section>
+                        </div>
+                    </fieldset>
+                    
+                </form>
+            </section>
+        </div>
+    </div>
+</article>

@@ -1,0 +1,302 @@
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-magic"></i>Style Master</h1>
+      </div>
+    </div>
+  </div>
+  <form #frmStyleDetail="ngForm" (ngSubmit)="frmStyleDetail.form.valid && onSubmit()"
+    class="smart-form atman-form-small no-header frm-style-detail" novalidate="novalidate"
+    [saUiValidate]="validationOptions">
+    <fieldset>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11" style="margin-left: 5%;">
+          <section class="col-md-6">
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3">{{'ORDER_TYPE' | i18n}}</label>
+              <div class="inline-group col-md-9 radio-order-type">
+                <label class="radio order-main">
+                  <input name="radio-inline" type="radio" [value]="true" [(ngModel)]="styleHeader.orderType"
+                    [checked]="styleHeader.orderType === true"><i></i>{{'MAIN' | i18n}}
+                </label>
+                <label class="radio order-sample">
+                  <input name="radio-inline" type="radio" [value]="false" [(ngModel)]="styleHeader.orderType"
+                    [checked]="styleHeader.orderType === false"><i></i>{{'SAMPLE' | i18n}}
+                </label>
+              </div>
+            </section>
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3 text-center">{{'STATUS' | i18n}}</label>
+              <label class="input col-md-9">
+                <select name="status" [(ngModel)]="styleHeader.styleStatusGenCd"
+                  [defaultVal]="styleHeader.styleStatusGenCd" disabled select2 style="width:100%;" class="select2">
+                  <option *ngFor="let item of statuses" value={{item.gen_cd}}>{{item.gen_nm | i18n}}</option>
+                </select>
+              </label>
+            </section>
+            <div class="clearfix"></div>
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3">{{'VENDOR' | i18n}}</label>
+              <label class="input col-md-9">
+                <select name="venderCd" [(ngModel)]="styleHeader.venderCd" disabled select2 style="width:100%;"
+                  class="select2">
+                  <option *ngFor="let item of vendors" value={{item.trader_id}}>{{item.trader_local_nm | i18n}}</option>
+                </select>
+              </label>
+            </section>
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3 text-center">{{'BUYER' | i18n}}</label>
+              <label class="input col-md-7">
+                <select name="buyerCd" [(ngModel)]="buyerCd" select2 [defaultVal]="buyerCd" style="width:100%;"
+                  class="select2">
+                  <option *ngFor="let item of buyers" value={{item.trader_id}}>{{item.trader_local_nm | i18n}}</option>
+                </select>
+              </label>
+              <label class="input col-md-2 state-disabled">
+                <input class="extra text-center" name="buyerCd_text" disabled type="text" disabled value="{{buyerCd}}"
+                  autocomplete="off" />
+              </label>
+            </section>
+            <div class="clearfix"></div>
+            <section class="col col-md-12 margin-bottom-20">
+              <label class="label col-md-2" style="width:12%">{{'STYLE_NO' | i18n}}</label>
+              <div class="col-md-10" style="width:88%">
+                <label class="input col-md-5" style="width:41%">
+                  <input class="extra" name="styleNo" [disabled]="isEdit" placeholder="Style No" type="text"
+                    [(ngModel)]="styleHeader.styleNo" autocomplete="off" />
+                </label>
+                <label class="input col-md-2 state-disabled" style="width:18%">
+                  <input class="extra text-center" name="styleSysId" disabled type="text"
+                    value="{{styleHeader.styleSysId}}" autocomplete="off" />
+                </label>
+                <label class="input input-group col-md-5" style="display: table !important; width:41%">
+                  <input class="extra" name="styleName" placeholder="Style Name" type="text"
+                    [(ngModel)]="styleHeader.styleName" autocomplete="off" />
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" (click)="showSearchStylePopup()"><i
+                        class="icon-append fa fa-search"></i></button>
+                  </span>
+                </label>
+              </div>
+            </section>
+            <div class="clearfix"></div>
+            <section class="col col-6 margin-bottom-25">
+              <label class="label col-md-3">{{'ORDER_RECV' | i18n}}</label>
+              <label class="input col-md-9">
+                <input type="text" class="main required_input required text-center" placeholder="YYYY.MM.DD"
+                  name="orderRecvYmd" [(ngModel)]="recvYmd" [saUiDatepicker]="{dateFormat: 'yy.mm.dd'}"
+                  autocomplete="off" />
+              </label>
+            </section>
+            <section class="col col-6 margin-bottom-25">
+              <label class="label col-md-3">{{'ORDER_QTY' | i18n}}</label>
+              <label class="input col-md-9">
+                <input class="extra price-format" name="orderQty" (keyup)="calPriceAmount()"
+                  (focus)="setSelectionRange($event)" placeholder="Order Qty" type="text"
+                  value="{{styleHeader.orderQty}}" [(ngModel)]="styleHeader.orderQty" autocomplete="off" />
+              </label>
+            </section>
+            <div class="clearfix"></div>
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3">{{'ORDER_PRICE' | i18n}}</label>
+              <label class="input col-md-9">
+                <input type="text" class="price-format" name="price" (keyup)="calPriceAmount()"
+                  (focus)="setSelectionRange($event)" placeholder="Order Price" currencyMask
+                  [options]="{prefix:'', suffix:'', precision : 0, allowNegative : false }"
+                  [(ngModel)]="styleHeader.price" autocomplete="off" />
+              </label>
+            </section>
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3">{{'ORDER_AMOUNT' | i18n}}</label>
+              <label class="input col-md-9 state-disabled">
+                <input type="text" class="price-format" disabled name="amount" currencyMask placeholder="Amount"
+                  [options]="{prefix:'', suffix:'', precision : 0, allowNegative : false }"
+                  [(ngModel)]="styleHeader.amount" autocomplete="off" />
+              </label>
+            </section>
+          </section>
+          <section class="col-md-6">
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3">{{'ENTRY_DATE' | i18n}}</label>
+              <label class="input col-md-9 state-disabled">
+                <input class="extra text-center" name="entry_date" disabled type="text" value="{{entryData.date}}"
+                  autocomplete="off" />
+              </label>
+            </section>
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3">{{'ENTRY_USER' | i18n}}</label>
+              <label class="input col-md-9 state-disabled">
+                <input class="extra text-center" name="entry_user" disabled type="text" value="{{entryData.user}}"
+                  autocomplete="off" />
+              </label>
+            </section>
+            <div class="clearfix"></div>
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3">{{'CATEGORY' | i18n}}</label>
+              <label class="input col-md-9">
+                <select name="styleCategoryGenCd" [(ngModel)]="styleHeader.styleCategoryGenCd"
+                  [defaultVal]="styleHeader.styleCategoryGenCd" select2 style="width:100%;" class="select2">
+                  <option *ngFor="let item of styleCategories" value={{item.gen_cd}}>{{item.gen_nm | i18n}}</option>
+                </select>
+              </label>
+            </section>
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3">{{'Brand' | i18n}}</label>
+              <label class="input col-md-9">
+                <select name="brandGenCd" [(ngModel)]="styleHeader.brandGenCd" select2 style="width:100%;"
+                  class="select2">
+                  <option *ngFor="let item of brands" value={{item.gen_cd}}>{{item.gen_nm | i18n}}</option>
+                </select>
+              </label>
+            </section>
+            <div class="clearfix"></div>
+            <section class="col col-6 margin-bottom-20">
+              <label class="label col-md-3">{{'STYLE_TYPE' | i18n}}</label>
+              <label class="input col-md-9">
+                <select name="styleTypeGenCd" [(ngModel)]="styleHeader.styleTypeGenCd"
+                  [defaultVal]="styleHeader.styleTypeGenCd" select2 style="width:100%;" class="select2">
+                  <option *ngFor="let item of styleTypes" value={{item.gen_cd}}>{{item.gen_nm | i18n}}</option>
+                </select>
+              </label>
+            </section>
+            <section class="col col-6 margin-bottom-20">
+             
+            </section>
+            <div class="clearfix"></div>
+            <section class="col col-md-12 margin-bottom-15">
+              <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-primary btn-lg btn-style-popup" (click)="showRegistSwatchPopup()"
+                  [disabled]="!isEdit">{{'BTN_SWATCH'| i18n}}</button>
+                <button type="button" class="btn btn-success btn-lg btn-style-popup" (click)="showRegistColorPopup()"
+                  [disabled]="!isEdit">{{'BTN_COLOR' | i18n}}</button>
+                <button type="button" class="btn btn-info btn-lg btn-style-popup" (click)="showRegistYieldPopup()"
+                  [disabled]="!isEdit">{{'BTN_YIELD' | i18n}}</button>
+              </div>
+            </section>
+            <div class="clearfix"></div>
+            <section class="col col-5 margin-bottom-20">
+              <label class="label col-md-4 ">
+                <label class="checkbox">
+                  <input [(ngModel)]="isClosed" [checked]="isClosed == true" (change)="onCheckClosed()" name="closed"
+                    type="checkbox"><i></i>
+                  {{'CLOSED' | i18n}}
+                </label>
+              </label>
+              <label class="input col-md-8" [ngClass]="{'state-disabled': !isClosed}">
+                <input type="text" class="main text-center" name="closedYmd" [(ngModel)]="closedYmd"
+                  [disabled]="!isClosed" [saUiDatepicker]="{dateFormat: 'yy.mm.dd'}" autocomplete="off" />
+              </label>
+            </section>
+            <section class="col col-5 margin-bottom-20">
+              <label class="label col-md-4 ">
+                <label class="checkbox">
+                  <input [(ngModel)]="isCancelled" [checked]="isCancelled == true" (change)="onCheckCancelled()"
+                    name="cancelled" type="checkbox"><i></i>
+                  {{'CANCELED' | i18n}}
+                </label>
+              </label>
+              <label class="input col-md-8" [ngClass]="{'state-disabled': !isCancelled}">
+                <input type="text" class="main text-center" name="cancelYmd" [(ngModel)]="cancelledYmd"
+                  [disabled]="!isCancelled" [saUiDatepicker]="{dateFormat: 'yy.mm.dd'}" autocomplete="off" />
+              </label>
+            </section>
+            <section class="col col-2 margin-bottom-20">
+              <label class="checkbox">
+                <input name="checkbox" [(ngModel)]="styleHeader.useYn" type="checkbox"><i></i>
+                {{'ACTIVE' | i18n}}
+              </label>
+            </section>
+          </section>
+          <section class="col-md-12">
+            <section class="col col-md-12 margin-bottom-20">
+              <label class="label col-md-3" style="width:6%">{{'DESCRIPTION' | i18n}}</label>
+              <label class="input col-md-9" style="width:94%">
+                <label class="textarea">
+                  <textarea autocomplete="off" rows="2" name="desc" [(ngModel)]="styleHeader.remark"></textarea>
+                </label>
+              </label>
+            </section>
+          </section>
+          <section class="col-md-12">
+            <section class="col col-md-12 margin-bottom-20">
+              <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-cancel">
+                {{'BUTTON-CLOSE' | i18n}}
+              </button>
+              <button type="button" name=" reset" (click)="onReset()" class="btn btn-reset-form">
+                {{'BUTTON-RESET' | i18n}}
+              </button>
+              <button type="submit" name="submit" class="btn btn-primary">
+                {{'BUTTON-SAVE' | i18n}}
+              </button>
+            </section>
+          </section>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+  <div class="widget-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <ul id="materialTabs" class="nav nav-tabs">
+          <li [ngClass]="{'active': tab === 1}">
+            <a (click)="tab = 1">{{'Row-Material' | i18n}}</a>
+          </li>
+          <li [ngClass]="{'active': tab === 2}">
+            <a (click)="tab = 2">{{'Sub-Material' | i18n}}</a>
+          </li>
+          <li [ngClass]="{'active': tab === 3}">
+            <a (click)="tab = 3">{{'Po' | i18n}}</a>
+          </li>
+        </ul>
+        <div id="myTabContent1" class="tab-content padding-10">
+          <div class="tab-pane" id="s1" [ngClass]="{ 'active in': tab === 1 }" *ngIf="tab === 1">
+            <sa-row-material #rowTab [styleSysId]="styleSysId" [styleType]="styleHeader.orderType"></sa-row-material>
+          </div>
+          <div class="tab-pane" id="s2" [ngClass]="{ 'active in': tab === 2 }" *ngIf="tab === 2">
+            <sa-sub-material #subTab [styleSysId]="styleSysId" [styleType]="styleHeader.orderType"></sa-sub-material>
+          </div>
+          <div class="tab-pane" id="s3" [ngClass]="{ 'active in': tab === 3 }" *ngIf="tab === 3">
+            <sa-po-material #poTab [styleSysId]="styleSysId"></sa-po-material>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #popupStyleMasterSearch>
+  <sa-popup-modal headerTitle="Search Style" width="50%" height="400" (onClose)="closeSearchStylePopup()">
+    <sa-style-master-search-popup (childCall)="selectStyle($event)" [buyers]="buyers" [brands]="brands">
+    </sa-style-master-search-popup>
+  </sa-popup-modal>
+</ng-template>
+
+<ng-template #popupStyleMasterRegistColor>
+  <sa-popup-modal headerTitle="Regist Color" width="50%" height="400" (onClose)="closeRegistColorPopup()">
+    <sa-style-master-regist-color-popup ParentInfo="{{styleHeader|json}}" (childCall)="reloadData($event)">
+    </sa-style-master-regist-color-popup>
+  </sa-popup-modal>
+</ng-template>
+
+<ng-template #popupStyleMasterRegistSwatch>
+  <sa-popup-modal headerTitle="Regist Swatch" width="50%" height="400" (onClose)="closeRegistSwatchPopup()">
+    <sa-style-master-regist-swatch-popup ParentInfo="{{styleHeader|json}}">
+    </sa-style-master-regist-swatch-popup>
+  </sa-popup-modal>
+</ng-template>
+
+<ng-template #popupStyleMasterRegistYield>
+  <sa-popup-modal headerTitle="Regist Yield" width="50%" height="400" (onClose)="closeRegistYieldPopup()">
+    <sa-style-master-regist-yield-popup ParentInfo="{{styleHeader|json}}" (childCall)="reloadData($event)">
+    </sa-style-master-regist-yield-popup>
+  </sa-popup-modal>
+</ng-template>
+
+<!-- <ng-template #popupStyleMasterPOBreakdown>
+  <sa-popup-modal headerTitle="Color/Size Break Down" width="50%" height="400" (onClose)="closePOBreakdownPopup()">
+    <sa-style-master-breakdown-popup >
+    </sa-style-master-breakdown-popup>
+  </sa-popup-modal>
+</ng-template> -->

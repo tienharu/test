@@ -1,0 +1,112 @@
+<div id="content">
+  <div class="well well-sm">
+    <div class="row">
+        <div class="col-sm-2" style="padding-right: 0;">
+            <div class="input-group">
+                <span class="input-group-addon" style="padding: 0; top: 0px; position: relative; border: none;">
+                    <button type="button"[disabled]="!permission.canSearch" (click)="searchFavourite()" class="customer-star">
+                        <i class="fav-style fa fa-star-o"></i>
+                      </button>
+                </span>
+              <input id="txtKeyword"[disabled]="!permission.canSearch" (keypress)="checkKeycode($event)" class="form-control input-sm col col-lg-7" onclick="this.select()"
+                placeholder="Search anything values...">
+              <span class="input-group-addon" style="padding: 0; top: 0px; position: relative; left: -4px; border: none;">
+                <button type="button"[disabled]="!permission.canSearch" class="col col-lg-3" style="padding-bottom: 4px;" (click)="search()" class="btn btn-default">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="col-sm-3" style="padding-left: 0;">
+            <button type="button" (click)="openPopup(null)" style="padding-bottom: 4px;" class="btn btn-success">
+              <i class="fa fa-plus"></i>
+              {{'OPPORTUNITY-New' | i18n}}
+            </button>
+          </div>
+      <div class="dropdown-toggle dropdown pull-right" style="padding: 5px 20px 0 0;">
+        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-angle-down"></i> Sort by</a>
+        <ul class="dropdown-menu">
+          <li>
+            <a><b>Last Modified</b></a>
+          </li>
+          <li>
+            <a>Contactor Name</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngFor="let item of contactor" class="col-sm-2">
+      <div class="panel panel-default">
+        <div class="panel-body status contactorListInfo">
+          <div class="who clearfix">
+            <div class="name">
+              <a class="text-warning" *ngIf="item.favourite_yn">
+                <i class="fa fa-star"></i>
+              </a>&nbsp;
+              <a class="text-warning" *ngIf="!item.favourite_yn">
+                <i class="fa fa-star-o"></i>
+              </a>
+              <a  [routerLink]="['/contactor-detail', item.contactor_id]"> <b> {{item.contactor_nm}}</b></a>
+              <p class="pull-right text-boder">
+                {{getContactorName(item.contactor_type_gen_cd)}}
+              </p>
+            </div>
+          </div>
+          <div class="text">
+            <div><i class="circular icon-append fa fa-user"></i> {{item.contactor_position_nm}}</div>
+            <div>
+              <i class="circular fa fa-envelope"></i><a href="{{item.email}}"> {{item.email}}</a>
+            </div>
+          </div>
+          <ul class="links">
+            <li>
+              <i class="circular fa fa-phone"></i> {{item.mobile_no}}
+            </li>
+            <li class="dropdown-toggle dropdown pull-right">
+              <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-angle-down"></i></a>
+              <ul class="dropdown-menu" id="drop-menu">
+                <li>
+                  &nbsp;&nbsp; AM : {{getAmName(item.am_id)}}
+                </li>
+                <li>
+                  &nbsp;&nbsp; Rule : {{getRuleName(item.rule_gen_cd)}}
+                </li>
+                <li>
+                  &nbsp;&nbsp; Level : {{getLevelName(item.level_gen_cd)}}
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row center" >
+      <!-- <span class=" pull-right">Total {{pager.totalItems}} record(s)</span> -->
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination pagination-md">
+          <li [ngClass]="{disabled:pager.currentPage === 1}">
+              <a (click)="loadPage(1)">First</a>
+          </li>
+          <li [ngClass]="{disabled:pager.currentPage === 1}">
+              <a (click)="loadPage(pager.currentPage - 1)"><i class="fa fa-angle-left"></i></a>
+          </li>
+          <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+              <a (click)="loadPage(page)">{{page}}</a>
+          </li>
+          <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+              <a (click)="loadPage(pager.currentPage + 1)"><i class="fa fa-angle-right"></i></a>
+          </li>
+          <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+              <a (click)="loadPage(pager.totalPages)">Last</a>
+          </li>
+      </ul>
+</div>
+</div>
+
+<ng-template #popupContactorEditData>
+  <sa-popup-modal  class="hide-border-bottom-popup" headerTitle="Contactor data management" width="1000" height="900" (onClose)="closeContactorPopup()">
+    <sa-contactor-edit contactorJson="{{contactorInfo|json}}" (childCall)="reloadListContactor($event)"></sa-contactor-edit>
+  </sa-popup-modal>
+</ng-template>

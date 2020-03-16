@@ -1,0 +1,75 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[('PACKAGE-MENU-TITLE'|i18n)]" icon="reorder" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>
+
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-md-5">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-table"></i>
+            </span>
+            <h2>{{'PACKAGE-MENU-LIST-HEADER' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                tableClass="table table-striped table-condensed table-hover table-bordered">
+                <thead>
+                  <tr class="heading">
+                    <th>{{'PACK-ID' | i18n}}</th>
+                    <th>{{'PACK-NAME' | i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Code" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Name" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+        <form #frmDetail="ngForm" (ngSubmit)="onSubmit()" class="smart-form frm-detail" novalidate="novalidate">
+          <footer>
+              <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close">
+                  <i class="fa fa-times"></i>
+                  {{'button-close' | i18n}}
+              </button>
+            <button type="submit" [disabled]="!this.permission.canSave" name="submit" id='btnSubmit' class="btn btn-primary btn-xs edit-program">
+              <i class="fa fa-save"></i>
+             {{'BUTTON-SAVE' | i18n}}
+            </button>
+          </footer>
+        </form>
+
+      </article>
+
+      <article class="col-md-7">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon"> <i class="fa fa-sitemap"></i> </span>
+            <h2>{{'MENU-MAPPING' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body">
+              <tree-root #treeMenuMapping id="treeMenuMapping" [nodes]="menuPackageNodes" [options]="treeViewOptions">
+                <ng-template #treeNodeTemplate let-node="node" let-index="index">
+                  <input type="checkbox" 
+                        [indeterminate]="node.data.indeterminate" 
+                        [(ngModel)]="node.data.checked">
+                  {{ node.data.menu_name}} - {{ node.data.menu_id }}
+                </ng-template>
+              </tree-root>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

@@ -1,0 +1,140 @@
+.row-odd {
+  background-color: #fff !important;
+}
+
+.row-even {
+  background-color: #ffffff !important;
+}
+.well.well-sm {
+  border: none;
+  margin-bottom: 8px;
+}
+:host /deep/ .select-header {
+  cursor: none;
+  vertical-align: middle;
+  background-color: #f4f4f4;
+  white-space: nowrap;
+  color: #fff;
+  background: linear-gradient(to bottom, #4c4f53c4, #2c3742bd);
+}
+:host /deep/ .employee-name {
+  width: 250px;
+  border-right: solid 1px #7d7d7d !important;
+}
+:host /deep/ .department {
+  width: 155px;
+  padding-left: 5px;
+  border-right: solid 1px #7d7d7d !important;
+}
+:host /deep/ .position {
+  width: 150px;
+  padding-left: 5px;
+}
+
+:host /deep/ .row-employee-name {
+  padding-left: 20px;
+  float: left;
+  width: 250px;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+:host /deep/ .row-department {
+  padding-left: 5px;
+  float: left;
+  width: 155px;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+:host /deep/ .row-position {
+  padding-left: 5px;
+  float: left;
+  width: 150px;
+  border-bottom: 1px solid #ddd;
+}
+
+:host /deep/ .selectize-dropdown {
+  width: 600px !important;
+  font-size: 12px;
+}
+
+:host /deep/ .selectize-control.single .selectize-input:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  right: 17px;
+  margin-top: -3px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 5px 0 5px;
+  border-color: #333333 transparent transparent transparent;
+}
+
+:host /deep/ .selectize-input {
+    border: 1px solid #ccc;
+    padding: 4px 12px !important;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    box-shadow: none;
+    border-radius: 4px;
+    height: 30px;
+    min-height: 30px !important;
+  }
+  :host /deep/ .selectize-dropdown-header{
+    background: #6d6c6e !important;
+    border: solid 1px #7d7d7d !important;
+    color:#fff;
+    padding-left: 6px;
+  }
+  :host /deep/ .selectize-dropdown-header-close{
+    color: #fff;
+    padding-top: 3px;
+  }
+  :host /deep/ .selectize-dropdown-content>div.row:hover{
+    background:#d3eefb;
+  }
+  :host /deep/ .selectize-dropdown-content{
+    border: 1px solid #ddd;
+    padding:0;
+  }
+  :host /deep/ .selectize-input.input-active>div.item{
+    padding-top: -10px !important;
+  }
+  :host /deep/.selectize-control.single .selectize-input.input-active
+  {
+    background: linear-gradient(to bottom, #ededed 0%,#f6f6f6 53%,#ffffff 100%);
+  }
+  :host /deep/.selectize-control.single .selectize-input.input-active>input#select-employee-selectized{
+    position: absolute !important;
+    cursor: pointer;
+    background: #eee;
+  }
+  :host /deep/.selectize-control.single .selectize-input.input-active>input#select-employee-selectized:focus{
+    color: transparent;
+    text-shadow: 0px 0px 0px #666;
+  }
+  :host /deep/.selectize-dropdown-content::-webkit-scrollbar-track {
+    background-color: #f4f4f4;
+  }
+  
+  :host /deep/.selectize-dropdown-content::-webkit-scrollbar {
+    width: 8px;
+    height:8px;
+	background-color: #f4f4f4;
+  }
+  
+  :host /deep/.selectize-dropdown-content::-webkit-scrollbar-thumb {
+    background-color: #908e8e;
+  }
+  tr.edited-in-out td{
+    /* background: #eaeef3 */
+  }
+  tr.edited-working-time td{
+    /* background: #fbf3ea */
+  }
+  .pointer{cursor: pointer;}
+  .pointer:hover{background:#fbf3ea }

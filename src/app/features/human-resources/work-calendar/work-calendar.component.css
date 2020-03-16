@@ -1,0 +1,15 @@
+:host /deep/ .at-smart-table .ng2-smart-title{text-align: left !important}
+:host /deep/ .at-smart-table tbody td:last-child,.at-smart-table th:last-child{width: 115px;text-align: left !important}
+:host /deep/ .at-smart-table tbody td:nth-child(2n+2),.at-smart-table tbody td:nth-child(n+3){text-align: left !important}
+:host /deep/ .at-smart-table tbody td:last-child{text-align: left !important}
+:host /deep/ .padding-top-20{
+    padding-top: 20px;
+}
+
+.checkbox_saturday{
+    white-space:nowrap;
+    margin-left: -100px;
+}
+.calendar_create{
+    margin-left: -75px;
+}

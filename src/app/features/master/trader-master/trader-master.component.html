@@ -1,0 +1,399 @@
+<div id="content">
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-4">
+        <div sa-widget color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-edit"></i>
+            </span>
+            <h2>{{'EDIT-TRADER' | i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" class="smart-form atman-form-small frm-detail"
+                novalidate="novalidate" [saUiValidate]="validationOptions">
+                <fieldset>
+                  <input type="hidden" name="trader_id" [(ngModel)]="traderInfo.trader_id" />
+                  <div class="row">
+                    <section [hidden] class="col col-4">
+                      <label class="label">{{'company' | i18n}}</label>
+                      <label class="input">
+                        <select name="company_id" [(ngModel)]="traderInfo.company_id" [defaultVal]="traderInfo.company_id"
+                          select2 required style="width:100%;" class="select2 required" placeHolder="Select company"
+                          disabled>
+                          <option *ngFor="let s of companies" value={{s.company_id}}>{{s.company_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+                    <section class="col col-2">
+                        <label class="label">ID</label>
+                        <label class="input">
+                          <input type="text" class="text-center disabled" name="trader_id" [(ngModel)]="traderInfo.trader_id" disabled />
+                        </label>
+                      </section>
+                    <section class="col col-6">
+                        <label class="label">{{'TRADER-LOCAL-NAME' | i18n}}</label>
+                        <label class="input">
+                          <i class="icon-append fa fa-book"></i>
+                          <input type="text" name="trader_local_nm" [(ngModel)]="traderInfo.trader_local_nm" autocomplete="off"
+                            required />
+                        </label>
+                      </section>
+                  </div>
+                  <div class="row">
+                      
+                      <section class="col col-6">
+                        <label class="label">{{'TRADER-ENG-NAME' | i18n}}</label>
+                        <label class="input">
+                          <i class="icon-append fa fa-book"></i>
+                          <input type="text" name="trader_eng_nm" [(ngModel)]="traderInfo.trader_eng_nm" autocomplete="off" />
+                        </label>
+                      </section>
+                      <section class="col col-6">
+                          <label class="label">{{'TRADER-SIM-NAME' | i18n}}</label>
+                          <label class="input">
+                            <i class="icon-append fa fa-book"></i>
+                            <input type="text" name="trader_sim_nm" [(ngModel)]="traderInfo.trader_sim_nm" autocomplete="off"
+                              required />
+                          </label>
+                        </section>
+                    </div>
+                  <div class="row">
+                    <section class="col col-6">
+                      <label class="label">{{'TRADER-CATE' | i18n}}</label>
+                      <label class="input">
+                        <select name="cate_gen_cd" [(ngModel)]="traderInfo.cate_gen_cd" [defaultVal]="traderInfo.cate_gen_cd"
+                          select2 required style="width:100%;" class="select2 required" placeHolder="Select cate">
+                          <option *ngFor="let cate of traderCate" value={{cate.gen_cd}}>{{cate.gen_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="label">{{'type' | i18n}}</label>
+                        <label class="input">
+                          <select name="type" [(ngModel)]="traderInfo.type_gen_cd" select2 [defaultVal]="traderInfo.type_gen_cd"
+                            style="width:100%;" class="select2 type required">
+                            <option value=''></option>
+                            <option *ngFor="let type of traderType" value={{type.gen_cd}}>{{type.gen_nm}}</option>
+                          </select>
+                        </label>
+                      </section>
+                    
+                  </div>
+
+                  <div class="row">
+                    <section class="col col-6">
+                      <label class="label">{{'TRADER-CHANNEL' | i18n}}</label>
+                      <label class="input">
+                        <select name="channel_gen_cd" [(ngModel)]="traderInfo.channel_gen_cd" [defaultVal]="traderInfo.channel_gen_cd"
+                          select2 required style="width:100%;" class="select2 required" placeHolder="Select channel">
+                          <option *ngFor="let channel of traderChannel" value={{channel.gen_cd}}>{{channel.gen_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+
+                    <section class="col col-6">
+                      <label class="label">{{'TRADER-PAY' | i18n}}</label>
+                      <label class="input">
+                        <select name="pay" [(ngModel)]="traderInfo.pay_terms_gen_cd" [defaultVal]="traderInfo.pay_terms_gen_cd"
+                          select2 style="width:100%;" class="select2" placeHolder="Select pay terms">
+                          <option *ngFor="let pay of payTerms" value={{pay.gen_cd}}>{{pay.gen_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+                  </div>
+
+                  <div class="row">
+                    <section class="col col-6">
+                      <label class="label">{{'TRADER-IMPORTANT' | i18n}}</label>
+                      <label class="input">
+                        <select name="important_gen_cd" [(ngModel)]="traderInfo.important_gen_cd" [defaultVal]="traderInfo.important_gen_cd"
+                          select2 required style="width:100%;" class="select2 required" placeHolder="Select important">
+                          <option *ngFor="let im of important" value={{im.gen_cd}}>{{im.gen_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+                    <!-- <section class="col col-6">
+                        <label class="label">{{'TRADER-PROPER' | i18n}}</label>
+                        <label class="input">
+                          <select name="proper_gen_cd" [(ngModel)]="traderInfo.proper_gen_cd" [defaultVal]="traderInfo.proper_gen_cd"
+                            select2 required style="width:100%;" class="select2 required" placeHolder="Select proper">
+                            <option *ngFor="let proper of traderProper" value={{proper.gen_cd}}>{{proper.gen_nm}}</option>
+                          </select>
+                        </label>
+                      </section> -->
+                      <section class="col col-6">
+                        <label class="label">{{'INCHARGE-ID' | i18n}}</label>
+                        <label class="input">
+                          <select name="incharge_id" [(ngModel)]="traderInfo.incharge_id" [defaultVal]="traderInfo.incharge_id"
+                            select2  style="width:100%;" class="select2" placeHolder="Select incharge">
+                            <option *ngFor="let us of user" value={{us.user_id}}>{{us.user_nm}}</option>
+                          </select>
+                        </label>
+                      </section>
+                  </div>
+
+                  
+
+                  <div class="row">
+                    <section class="col col-6">
+                      <label class="label">{{'CEO' | i18n}}</label>
+                      <label class="input">
+                        <i class="icon-append fa fa-user"></i>
+                        <input type="text" name="ceo_nm" [(ngModel)]="traderInfo.ceo_nm" autocomplete="off" />
+                      </label>
+                    </section>
+                    <section class="col col-3">
+                      <label class="label">{{'FOREIGN Y/N' | i18n}}</label>
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="foreign_ym" [(ngModel)]="traderInfo.foreign_ym" checked="traderInfo.use_yn">
+                          <i></i>Yes
+                        </label>
+                      </label>
+                    </section>
+                    
+                  </div>
+
+                  <div class="row">
+                    <section class="col col-4">
+                      <label class="label">{{'SALE-AMOUNT' | i18n}}</label>
+                      <label class="input">
+                        <i class="icon-append fa fa-usd"></i>
+                        <input type="text" name="sale_amount" [(ngModel)]="traderInfo.sale_amount" autocomplete="off" />
+                      </label>
+                    </section>
+                    <section class="col col-4">
+                      <label class="label">{{'ZIP-CODE' | i18n}}</label>
+                      <label class="input">
+                        <i class="icon-append fa fa-file-zip-o"></i>
+                        <input type="text" name="zip_code" [(ngModel)]="traderInfo.zip_code" autocomplete="off" />
+                      </label>
+                    </section>
+                    <section class="col col-4">
+                      <label class="label">{{'NUM-PEOPLE' | i18n}}</label>
+                      <label class="input">
+                        <i class="icon-append fa fa-users"></i>
+                        <input type="text" name="num_people" [(ngModel)]="traderInfo.num_people" autocomplete="off" />
+                      </label>
+                    </section>
+                  </div>
+
+                  <div class="row">
+                    <section class="col col-4">
+                      <label class="label">{{'BIZ-TYPE' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="biz_type" [(ngModel)]="traderInfo.biz_type" autocomplete="off" />
+                      </label>
+                    </section>
+                    <section class="col col-4">
+                      <label class="label">{{'BIZ-REGIST-NUM' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="biz_regist_num" [(ngModel)]="traderInfo.biz_regist_num" autocomplete="off" />
+                      </label>
+                    </section>
+                    <section class="col col-4">
+                      <label class="label">{{'BIZ-CONDITIONS' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="biz_conditions" [(ngModel)]="traderInfo.biz_conditions" autocomplete="off" />
+                      </label>
+                    </section>
+                  </div>
+                  <div class="row">
+
+                    <section class="col col-6">
+                      <label class="label">{{'Email' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="email" [(ngModel)]="traderInfo.email" autocomplete="off" />
+                      </label>
+                    </section>
+                    <section class="col col-6">
+                      <label class="label">{{'Phone' | i18n}}</label>
+                      <label class="input">
+                        <i class="icon-append fa fa-phone"></i>
+                        <input type="text" name="phone" [(ngModel)]="traderInfo.phone" autocomplete="off" />
+                      </label>
+                    </section>
+                  </div>
+                  
+                  <div class="row">
+                    <section class="col col-6">
+                      <label class="label">{{'ADDRESS' | i18n}}</label>
+                      <label class="input">
+                        <i class="icon-append glyphicon glyphicon-map-marker"></i>
+                        <input type="text" name="address" [(ngModel)]="traderInfo.address" autocomplete="off" />
+                      </label>
+                    </section>
+                    <section class="col col-6">
+                      <label class="label">{{'country' | i18n}}</label>
+                      <label class="input">
+                        <select name="country_gen_cd" [(ngModel)]="traderInfo.country_gen_cd" [defaultVal]="traderInfo.country_gen_cd"
+                          select2 style="width:100%;" class="select2" placeHolder="Select important">
+                          <option *ngFor="let country of countries" value={{country.gen_cd}}>{{country.gen_nm}}</option>
+                        </select>
+                      </label>
+                    </section>
+                  </div>
+                  <div class="row">
+                    <section class="col col-6">
+                      <label class="label">{{'HOME-PAGE' | i18n}}</label>
+                      <label class="input">
+                        <input type="text" name="home_page" [(ngModel)]="traderInfo.home_page" autocomplete="off" />
+                      </label>
+                    </section>
+                    <!-- <section class="col col-3">
+                      <label class="label">{{'FAVOURITE-YN' | i18n}}</label>
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="favourite_yn" [(ngModel)]="traderInfo.favourite_yn" checked="traderInfo.favourite_yn">
+                          <i></i>Yes
+                        </label>
+                      </label>
+                    </section> -->
+                  </div>
+                  <div class="row">
+                    <section class="col col-3">
+                      <label class="label">{{'CRM-YN' | i18n}}</label>
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="crm_yn" [(ngModel)]="traderInfo.crm_yn" checked="traderInfo.crm_yn">
+                          <i></i>Yes
+                        </label>
+                      </label>
+                    </section>
+                    <section class="col col-3">
+                      <label class="label">{{'CRM-PARTNER' | i18n}}</label>
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="crm_partner_yn" [(ngModel)]="traderInfo.crm_partner_yn" checked="traderInfo.crm_partner_yn">
+                          <i></i>Yes
+                        </label>
+                      </label>
+                    </section>
+
+                    
+                    <section class="col col-3">
+                      <label class="label">{{'USE-YN' | i18n}}</label>
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="use_yn" [(ngModel)]="traderInfo.use_yn" checked="traderInfo.use_yn">
+                          <i></i>Yes
+                        </label>
+                      </label>
+                    </section>
+                  </div>
+                  <div class="row">
+                    <section class=" col col-xs-12">
+                      <label class="label">{{'REMARK' | i18n}}</label>
+                      <label class="textarea">
+                        <textarea type="text" name="remark" [(ngModel)]="traderInfo.remark" autocomplete="off" rows="2"></textarea>
+                      </label>
+                    </section>
+                  </div>
+                </fieldset>
+                <footer>
+                    <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close">
+                        <i class="fa fa-times"></i>
+                        {{'button-close' | i18n}}
+                    </button>
+                  <button type="button" (click)="onReset()" name="reset" class="btn btn-reset-form">
+                    <i class="fa fa-refresh"></i>
+                    {{'button-reset' | i18n}}
+                  </button>
+                  <button type="submit" [disabled]="!this.permission.canSave" name="submit" class="btn btn-primary btn-xs edit-program">
+                    <i class="fa fa-save"></i>
+                    {{'button-save' | i18n}}
+                  </button>
+                </footer>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="col-sm-8">
+        <div sa-widget color="atman" class="jarviswidget-atman">
+          <header>
+            <span class="widget-icon">
+              <i class="fa fa-table"></i>
+            </span>
+            <h2>{{'LIST-TRADER'|i18n}}</h2>
+          </header>
+          <div>
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="options" id="example" (rowClick)="onRowClick($event)" paginationLength="true"
+                filter="true" tableClass="traderListInfo table table-striped table-condensed table-hover table-bordered datagrid_languages">
+                <thead>
+                  <tr class="heading">
+                    <th>ID</th>
+                    <th>{{'type' | i18n}}</th>
+                    <th>{{'TRADER-CATE' | i18n}}</th>
+                    <th>{{'TRADER-CHANNEL' | i18n}}</th>
+                    <th>{{'TRADER-LOCAL-NAME' | i18n}}</th>
+                    <th>{{'INCHARGE-ID' | i18n}}</th>
+                    <th>{{'CEO' | i18n}}</th>
+                    <th>{{'Use' | i18n}}</th>
+                    <th>{{'CREATED-BY' | i18n}}</th>
+                    <th>{{'CREATED-DATE' | i18n}}</th>
+                  </tr>
+                  <tr>
+                      <th class="hasinput">
+                          <input type="text" class="form-control" placeholder="Filter ID" />
+                        </th>
+                    <th class="hasinput">
+                      <select id="filerByType" class="form-control select-filter">
+                        <option value="">All</option>
+                        <option *ngFor="let type of traderType" value={{type.gen_cd}}>{{type.gen_nm}}</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <select id="filerByCate" class="form-control select-filter" style="width:100%">
+                        <option value="">All</option>
+                        <option *ngFor="let cate of traderCate" value={{cate.gen_cd}}>{{cate.gen_nm}}</option>
+                      </select>
+                    </th>
+
+                    <th class="hasinput" >
+                      <select id="filerByChannel" class="form-control select-filter" style="width:100%">
+                        <option value="">All</option>
+                        <option *ngFor="let channel of traderChannel" value={{channel.gen_cd}}>{{channel.gen_nm}}</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter name" />
+                    </th>
+                    <th class="hasinput">
+                      <select id="filerByUser" class="form-control select-filter">
+                        <option value="">All</option>
+                        <option *ngFor="let us of user" value={{us.user_id}}>{{us.user_nm}}</option>
+                      </select>
+                    </th>
+                    <th class="hasinput">
+                        <input type="text" class="form-control" placeholder="ceo" />
+                      </th>
+                    <th class="hasinput">
+                      <select id="filerByStatus" class="form-control select-filter" style="width:100%">
+                        <option value="">All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    
+                    
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Creator" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Date" class="form-control datepicker"
+                        [saUiDatepicker]="{}" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

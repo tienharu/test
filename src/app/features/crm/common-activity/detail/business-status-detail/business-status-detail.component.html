@@ -1,0 +1,61 @@
+<ng-container *ngIf="saleActivityInfo.length; else noneBusiness">
+    <div class="well well-sm" style="overflow: auto; max-height: 400px;">
+        <div class="smart-timeline">
+            <ul class="smart-timeline-list">
+                <li *ngFor="let item of saleActivityInfo;let idx = index">
+                  <div class="smart-timeline-icon">
+                    <div class="index" (click)="openPopup(item)">
+                      <span><i class="fa fa-suitcase"></i></span>
+                    </div>
+                  </div>
+                  <div class="smart-timeline-time">
+                    <small>{{item.created_time}}</small>
+                  </div>
+                  <div class="smart-timeline-content custom-span">
+                      <section>
+                          <span class="custom-tooltip" tooltip="{{item.created_time | moment:'YYYY-MM-DD HH:mm'}}"placement="left">
+                              {{item.created_time| amTimeAgo}}
+                            </span>
+                              <p>
+                                  <span><a href="javascript:void(0);" style="padding: 0 15px 0 0"><strong>{{item.creator}}</strong></a></span>
+                                  <span><a href="javascript:void(0);" (click)="Expand(idx,'business')" style="padding: 0 15px 0 0;color:black"><strong>{{salesoptNm}}</strong></a></span>
+                                  <span class="label label-default">Business day {{item.created_time | date:"yy-mm-dd"}}</span>
+                                  <span class="label border-transparent">Progress rate {{item.sales_status_gen_nm}}</span>
+                                  <span class="label border-transparent">Possibility {{item.possibility}}%</span>
+                                  <span class="label border-red"><i class="fa fa-won"></i> {{item.expect_amt |number}}</span>
+                              </p>
+                      </section>
+                      <section *ngIf="idx == indexExpand">
+                          <div class="input-group col-lg-12">
+                              <span class="input-group-addon" style="width: 60px;">
+                                  Issue
+                              </span>
+                            <span class="form-control input-sm" style="background: white; overflow: auto; height: 100%; color: black;" readonly innerHtml="{{item.issue_text}}">&nbsp;</span>
+                          </div>
+                          <div class="input-group col-lg-12">
+                              <span class="input-group-addon" style="width: 60px;">
+                                  Memo
+                              </span>
+                            <span class="form-control input-sm" style="background: white; overflow: auto; height: 100%; color: black;" readonly innerHtml="{{item.memo_text}}">&nbsp;</span>
+                          </div>
+                      </section>
+                  </div>
+                </li>
+              </ul>
+        </div>        
+      </div>
+</ng-container>
+<ng-template #noneBusiness>
+    <h2 style="text-align: center;">
+        <i class="fa fa-exclamation"></i>
+        <p>{{'ACTIVITY-WARNING-NO-ACTIVITY' | i18n}}!</p>
+      </h2>
+</ng-template>
+
+
+<ng-template #popupBusiness>
+        <sa-popup-modal headerTitle="{{'NEW-ACTIVITY-LB-EDIT-BUSINESS-STATUS' | i18n}}" width="780" height="600" (onClose)="closePopup()">
+          <sa-business-status companyId="{{companyId}}" opportunityId="{{opportunityId}}" Id={{Id}}
+            SliderdefaultVal={{SliderdefaultVal}}  bussinessJson="{{bussinessJson|json}}" (childCall)="reloadData($event)"></sa-business-status>
+        </sa-popup-modal>
+      </ng-template>

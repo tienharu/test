@@ -1,0 +1,414 @@
+:host /deep/ .price-format {
+  text-align: right !important;
+}
+
+:host /deep/ #materialTabs > li.active > a {
+  box-shadow: 0 -3px 0 #57889c;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+:host /deep/ .frm-due-out-material-detail .input-group-addon {
+  padding: 0px 8px;
+}
+:host /deep/ .frm-due-out-material-detail .input-group-addon .onoffswitch {
+  width: 40px;
+}
+:host
+  /deep/
+  .frm-due-out-material-detail
+  .input-group-addon
+  .onoffswitch
+  input {
+  display: none;
+}
+:host
+  /deep/
+  .frm-due-out-material-detail
+  .input-group-addon
+  .onoffswitch
+  .onoffswitch-inner::before {
+  float: left;
+  width: 50%;
+  height: 10px;
+  line-height: 12px;
+  font-size: 8px;
+  padding-left: 5px;
+}
+:host
+  /deep/
+  .frm-due-out-material-detail
+  .input-group-addon
+  .onoffswitch
+  .onoffswitch-inner::after {
+  float: left;
+  width: 50%;
+  height: 10px;
+  line-height: 12px;
+  font-size: 8px;
+  padding-left: 5px;
+}
+:host
+  /deep/
+  .frm-due-out-material-detail
+  .input-group-addon
+  .onoffswitch-switch {
+  width: 15px;
+  height: 15px;
+  right: 25px;
+}
+:host
+  /deep/
+  .frm-due-out-material-detail
+  .onoffswitch-checkbox:checked
+  + .onoffswitch-label
+  .onoffswitch-switch {
+  right: 0px;
+}
+:host
+  /deep/
+  .frm-due-out-material-detail
+  .input-group-addon
+  .onoffswitch-switch::before {
+  line-height: 15px;
+}
+
+:host /deep/ .frm-due-out-material-detail .input-group-btn .btn {
+  margin: 0;
+  height: 22px;
+}
+
+:host /deep/ .frm-due-out-material-detail .input-group-btn .create-data-btn {
+  line-height: 1px;
+}
+
+:host /deep/ .frm-due-out-material-detail .input-group-btn .btn .icon-append {
+  top: 0px;
+  right: 0px;
+  border: 0;
+}
+.row {
+  margin-bottom: 5px;
+}
+.right {
+  float: right !important;
+  margin-bottom: 15px;
+}
+
+.together {
+  display: flex;
+  width: 100%;
+}
+
+.form th {
+  width: 100%;
+  background-color: #e3e3e3;
+  color: #3a3633;
+  border: solid 1px #d5d3d3;
+}
+
+.letter-spacing {
+  text-align: center;
+  margin-top: 1.1%;
+  font-family: Helvetica;
+  font-size: 13px;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.67;
+  letter-spacing: normal;
+  color: var(--black);
+}
+
+footer {
+  height: 50px;
+  border: none !important;
+  background-color: #f3f3f3;
+}
+
+.checkbox-field .checkbox {
+  float: left;
+  margin-top: 25px;
+  margin-left: 10%;
+}
+
+.checkbox-field .checkbox i {
+  right: 0px;
+  left: auto;
+}
+
+.checkbox-field .checkbox span {
+  position: absolute;
+  right: 25px;
+  top: -2px;
+}
+
+.btnViewProcessFlow {
+  width: 93%;
+  height: 20px;
+  margin-top: 16px;
+  margin-bottom: 0;
+  border-radius: 1px;
+  background-color: #a0804e;
+  color: #ffffff;
+}
+:host /deep/ .section-path-route-tables {
+  padding: 0;
+  height: 245px;
+}
+
+:host /deep/ .process-path-route-table tr.row-head-1 th:nth-child(1) {
+  width: 5%;
+}
+:host /deep/ .process-path-route-table tr.row-head-1 th:nth-child(2) {
+  width: 20%;
+}
+:host /deep/ .process-path-route-table tr.row-head-1 th:nth-child(3) {
+  width: 30%;
+}
+:host /deep/ .process-path-route-table tr.row-head-1 th:nth-child(4) {
+  width: 15%;
+}
+:host /deep/ .process-path-route-table tr.row-head-1 th:nth-child(5) {
+  width: 20%;
+}
+:host /deep/ .process-path-route-table tr.row-head-1 th:nth-child(6) {
+  width: 10%;
+}
+
+:host /deep/ .process-path-route-table tr.row-head-2 th:nth-child(1) {
+  width: 10%;
+}
+:host /deep/ .process-path-route-table tr.row-head-2 th:nth-child(2) {
+  width: 10%;
+}
+:host /deep/ .process-path-route-table tr.row-head-2 th:nth-child(3) {
+  width: 7.5%;
+}
+:host /deep/ .process-path-route-table tr.row-head-2 th:nth-child(4) {
+  width: 7.5%;
+}
+:host /deep/ .process-path-route-table tr.row-head-2 th:nth-child(5) {
+  width: 7.5%;
+}
+:host /deep/ .process-path-route-table tr.row-head-2 th:nth-child(6) {
+  width: 7.5%;
+}
+:host /deep/ .process-path-route-table tr.row-head-2 th:nth-child(7) {
+  width: 7.5%;
+}
+:host /deep/ .process-path-route-table tr.row-head-2 th:nth-child(8) {
+  width: 7.5%;
+}
+
+:host
+  /deep/
+  .process-path-route-table
+  tr
+  td
+  ng2-smart-table-cell[ng-reflect-is-new="true"]
+  label.popup-select {
+  position: relative;
+  top: 5px;
+}
+
+:host /deep/ .process-path-route-table > thead > tr > td label.popup-select {
+  position: relative;
+  top: 5px;
+}
+
+:host /deep/ .process-path-route-table tr td[colspan="11"] {
+  width: 100% !important;
+}
+
+:host /deep/ .process-path-route-table tr td:nth-child(1) {
+  width: 5%;
+}
+:host /deep/ .process-path-route-table tr td:nth-child(2) {
+  width: 10%;
+}
+:host /deep/ .process-path-route-table tr td:nth-child(3) {
+  width: 10%;
+}
+:host /deep/ .process-path-route-table tr td:nth-child(4) {
+  width: 7.5%;
+  text-align: right;
+}
+:host /deep/ .process-path-route-table tr td:nth-child(5) {
+  width: 7.5%;
+  text-align: right;
+}
+:host /deep/ .process-path-route-table tr td:nth-child(6) {
+  width: 7.5%;
+  text-align: right;
+}
+:host /deep/ .process-path-route-table tr td:nth-child(7) {
+  width: 7.5%;
+  text-align: right;
+}
+:host /deep/ .process-path-route-table tr td:nth-child(8) {
+  width: 7.5%;
+  text-align: right;
+}
+:host /deep/ .process-path-route-table tr td:nth-child(9) {
+  width: 7.5%;
+  text-align: right;
+}
+:host /deep/ .process-path-route-table tr td:nth-child(10) {
+  width: 20%;
+  text-align: left;
+  word-break: break-all;
+  white-space: normal;
+}
+:host /deep/ .process-path-route-table tr td:nth-child(11) {
+  width: 10%;
+}
+:host /deep/ .at-smart-table thead tr th {
+  text-align: center;
+  vertical-align: middle;
+  padding: 4px;
+}
+
+.jarviswidget-atman {
+  border: solid 0.5px #dddddd;
+}
+
+:host /deep/ .at-smart-table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 4px;
+}
+:host /deep/ ng2-smart-table thead > tr.ng2-smart-titles {
+  background: #6d6c6e !important;
+  color: #fff;
+}
+:host
+  /deep/
+  ng2-smart-table
+  thead
+  > tr.ng2-smart-titles
+  > th
+  > ng2-st-column-title
+  .ng2-smart-title
+  > ng2-smart-table-title
+  > a {
+  color: #fff !important;
+  font-weight: normal !important;
+}
+:host /deep/ ng2-smart-table thead > tr.ng2-smart-titles > th {
+  vertical-align: middle;
+}
+:host /deep/ ng2-smart-table thead > tr.ng2-smart-filters {
+  background: #e3e3e3 !important;
+}
+:host /deep/ ng2-smart-table thead > tr.ng2-smart-filters > th {
+  border: none;
+}
+:host
+  /deep/
+  ng2-smart-table
+  thead
+  > tr.ng2-smart-filters
+  > th.ng2-smart-th
+  > ng2-smart-table-filter
+  .ng2-smart-filter
+  > select-filter
+  > select {
+  border-color: #52494487;
+  border-radius: 3px !important;
+}
+:host
+  /deep/
+  ng2-smart-table
+  thead
+  > tr.ng2-smart-filters
+  > th.ng2-smart-th
+  > ng2-smart-table-filter
+  .ng2-smart-filter
+  > input-filter
+  > input {
+  border-color: #989898;
+}
+:host
+  /deep/
+  ng2-smart-table
+  thead
+  > tr.ng2-smart-filters
+  > th.ng2-smart-actions-title {
+  padding: 10px;
+}
+
+:host
+  /deep/
+  ng2-smart-table
+  thead
+  > tr.ng2-smart-filters
+  > th.ng2-smart-actions-title
+  a.ng2-smart-action-add-add {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 52px;
+}
+
+:host /deep/ .fixed_header {
+  width: 100%;
+  display: inline-table;
+  border-collapse: collapse;
+}
+
+:host /deep/ .fixed_header thead {
+  display: inherit;
+  width: 100%;
+}
+
+:host /deep/ .fixed_header tbody {
+  display: block;
+  width: 100%;
+  overflow: overlay;
+  max-height: 200px;
+}
+
+:host /deep/ .fixed_header thead tr {
+  width: 100%;
+}
+
+:host /deep/ .fixed_header tbody tr {
+  display: flex;
+  width: 100%;
+}
+
+/* ====================================================================== */
+:host /deep/ table.fixed_header ::-webkit-scrollbar {
+  width: 8px;
+}
+/* Track */
+:host /deep/ table.fixed_header ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+:host /deep/ table.fixed_header ::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+:host /deep/ table.fixed_header ::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+#start-date-calendar {
+  position: absolute;
+  float: right;
+  top: 5px;
+  right: 5px;
+  }
+.icon {
+  top: 5px;
+  right: 6px;
+  position: absolute;
+  color: #707070;
+}
+#date_created {
+  text-align: center;
+  padding-right: 19px !important;
+}

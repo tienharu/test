@@ -1,0 +1,1 @@
+export { MainScreenComponent } from './main-screen.component';

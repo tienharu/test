@@ -1,0 +1,123 @@
+<article class="col-sm-12 col-md-12 col-lg-12">
+  <div class="row">
+    <div class="no-padding ">
+      <div>
+          <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" class="smart-form atman-form-small frm-detail"
+            novalidate="novalidate" [saUiValidate]="validationOptions">
+            <section class="col col-4 border-right">
+                <fieldset>
+                    <div class="row">
+                      <section><h5>{{'OPPORTUNITY-LB-EDIT-BASIC-INFORMATION' | i18n}}</h5></section>
+                      <section class="no-padding">
+                          <label class="label">{{'OPPORTUNITY-LB-EDIT-SALES-DIVISION' | i18n}}</label>
+                          <label class="input">
+                            <select name="salesopt_type_gen_cd" 
+                              select2 required style="width:100%;" class="select2 required" placeHolder="----- Selection -----"
+                              [(ngModel)]="opportunityInfo.salesopt_type_gen_cd" [defaultVal]="opportunityInfo.salesopt_type_gen_cd">
+                              <option *ngFor="let s of saleType" value={{s.gen_cd}}>{{s.gen_nm}}</option>
+                            </select>
+                          </label>
+                      </section>
+                      <section class="no-padding">
+                          <label class="label">{{'OPPORTUNITY-LB-EDIT-SALES-NAME' | i18n}}</label>
+                          <label class="input">
+                              <input type="text" required [(ngModel)]="opportunityInfo.salesopt_nm" name="salesopt_nm" autocomplete="off"/>
+                          </label>
+                      </section>
+                      <section class="no-padding">
+                          <label class="label">{{'OPPORTUNITY-LB-EDIT-AM-IN-CHARGE' | i18n}}</label>
+                          <label class="input">
+                            <select name="admin_id" 
+                              select2 required style="width:100%;" class="select2 required" placeHolder="----- Selection -----"
+                              [(ngModel)]="opportunityInfo.admin_id" [defaultVal]="opportunityInfo.admin_id">
+                              <option *ngFor="let s of user" value={{s.user_id}}>{{s.user_nm}}</option>
+                            </select>
+                          </label>
+                      </section>
+                    </div>
+                  </fieldset>
+            </section>
+            <section class="col col-lg-8">
+                <fieldset>
+                    <div class="row">
+                      <section><h5>{{'OPPORTUNITY-LB-EDIT-CUSTOMER-INFORMATION' | i18n}}</h5></section>
+                      <section class="no-padding-left col col-6">
+                          <label class="label">{{'OPPORTUNITY-LB-EDIT-CONTRACTOR' | i18n}}</label>
+                          <label class="input">
+                            <select name="contractor_id" 
+                              select2 required style="width:100%;" class="select2 required" placeHolder="----- Selection -----"
+                              [(ngModel)]="opportunityInfo.contractor_id" [defaultVal]="opportunityInfo.contractor_id">
+                              <option *ngFor="let s of customer" value={{s.trader_id}}>{{s.trader_local_nm}}</option>
+                            </select>
+                          </label>
+                      </section>
+                      <section class="no-padding col col-6">
+                          <label class="label">{{'OPPORTUNITY-LB-EDIT-CONTRACTOR-PERSON' | i18n}}</label>
+                          <label class="input">
+                            <select name="contractor_contactor_id" 
+                              select2 required style="width:100%;" class="select2 required" placeHolder="----- Selection -----"
+                              [(ngModel)]="opportunityInfo.contractor_contactor_id" [defaultVal]="opportunityInfo.contractor_contactor_id">
+                              <option *ngFor="let s of contactor" value={{s.contactor_id}}>{{s.contactor_nm}}</option>
+                            </select>
+                          </label>
+                      </section>
+                      <section class="no-padding-left col-lg-12" style="padding: 11px 0px;">
+                          <label class="input">
+                              <label class="checkbox">
+                                <input type="checkbox" name="favourite_yn" [(ngModel)]="theSameCheck" (click)="makeTheSame($event)" >
+                                <i></i>{{'OPPORTUNITY-LB-EDIT-The-contractor-and-client-information-are-the-same' | i18n}}
+                              </label>
+                          </label>
+                      </section>
+                      <section class="no-padding-left col col-6">
+                          <label class="label">{{'OPPORTUNITY-LB-EDIT-CUSTOMER' | i18n}}</label>
+                          <label class="input">
+                            <select name="customer_id" 
+                              select2 required style="width:100%;" class="select2 required" placeHolder="----- Selection -----"
+                              [(ngModel)]="opportunityInfo.customer_id" [defaultVal]="opportunityInfo.customer_id">
+                              <option *ngFor="let s of customer" value={{s.trader_id}}>{{s.trader_local_nm}}</option>
+                            </select>
+                          </label>
+                      </section>
+                      <section class="no-padding col col-6">
+                          <label class="label">{{'OPPORTUNITY-LB-EDIT-CUSTOMER-CONTACTOR-PERSON' | i18n}}</label>
+                          <label class="input">
+                            <select name="customer_contactor_id" 
+                              select2 required style="width:100%;" class="select2 required" placeHolder="----- Selection -----"
+                              [(ngModel)]="opportunityInfo.customer_contactor_id" [defaultVal]="opportunityInfo.customer_contactor_id">
+                              <option *ngFor="let s of contactor" value={{s.contactor_id}}>{{s.contactor_nm}}</option>
+                            </select>
+                          </label>
+                      </section>
+                    </div>
+                  </fieldset>
+            </section>
+            <section class="col-lg-12" style="margin-top: 5px;">
+                <section class="col col-lg-8 sharing">
+                    <!--sharing here-->
+                    <sa-sharing-info (outputData)="sharingToSelected($event)" [sharedData]="opportunityInfo.sharing_to"></sa-sharing-info>
+                  </section>
+                  <section class="col col-4" style="top: 95px;text-align: right;padding: 0 13px 0 0;">
+                      <button type="button" (click)="onReset()" name="reset" style="margin:0 5px 0 0" class="btn btn-default btn-xs btn-reset float-none">
+                        <i class="fa fa-refresh"></i>
+                        {{'button-reset' | i18n}}
+                      </button>
+                      <button type="submit" [disabled]="!permission.canSave" name="submit" style="margin:0 5px 0 0" class="btn btn-primary btn-xs btn-save float-none">
+                        <i class="fa fa-save"></i>
+                        {{'button-save' | i18n}}
+                     </button>
+                     <button type="button" [disabled]="!permission.canDelete" name="delete" (click)="onDelete()" style="margin:0 5px 0 0" *ngIf="EditDetailJson" class="btn btn-danger btn-xs btn-delete float-none">
+                        <i class="fa fa-trash-o"></i>
+                        {{'button-delete' | i18n}}
+                      </button>
+                      <button type="button" name="close" (click)="onClose()" class="btn btn-xs btn-close float-none">
+                          <i class="fa fa-remove"></i>
+                          {{'button-close' | i18n}}
+                        </button>
+                  </section>
+            </section>
+          </form>
+      </div>
+    </div>
+  </div>
+</article>

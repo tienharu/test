@@ -1,0 +1,14 @@
+<label class="input" style="width: 100%; margin: 0px;">
+  <div (click)="onShowPopupInitTable()">
+    <input type="text" [ngClass]="inputClass" id="inputItemBom" [name]="name" [(ngModel)]="cell.newValue" disabled required style="width: 100%; background-color: white; padding: 0 5px;" />
+    <i class="fa fa-search icon-2"></i>
+  </div>
+</label>
+
+<ng-template #popupBomItemComponent>
+  <sa-popup-modal headerTitle="Bom Item Search" width="40%" height="400" (onClose)="closePopup()">
+    <sa-bom-master-popup (childCall)="onChange($event)" itemCheck="2" itemizedAll="{{itemizeds|json}}"
+      bomItemsBind="{{bomItems2|json}}">
+    </sa-bom-master-popup>
+  </sa-popup-modal>
+</ng-template>

@@ -1,0 +1,208 @@
+<article class="col-sm-12 col-md-12 col-lg-12 human-resources">
+  <div class="row">
+    <div class="no-padding ">
+        <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()" class="smart-form atman-form-small frm-detail"
+        novalidate="novalidate" [saUiValidate]="validationOptions">
+      <section class="col col-lg-7">
+          <fieldset style="padding-bottom: 15px">
+            <input type="hidden" name="contactor_id" [(ngModel)]="contactorInfo.contactor_id" />
+
+            <div class="row">
+              <!-- <section class="col col-4">
+                <label class="label">{{'company' | i18n}}</label>
+                <label class="input">
+                  <select name="company_id" [(ngModel)]="contactorInfo.company_id" [defaultVal]="contactorInfo.company_id"
+                    select2 required style="width:100%;" class="select2 required" placeHolder="Select company"disabled>
+                    <option *ngFor="let s of companies" value={{s.company_id}}>{{s.company_nm}}</option>
+                  </select>
+                </label>
+              </section> -->
+              <section class="col col-4">
+                <label class="label">{{'CONTACTOR-TYPE' | i18n}}</label>
+                <label class="input">
+                  <select name="contactor_type_gen_cd" [(ngModel)]="contactorInfo.contactor_type_gen_cd" select2 [defaultVal]="contactorInfo.contactor_type_gen_cd"
+                    style="width:100%;" class="select2 type required">
+                    <option *ngFor="let type of contactorTypeGen" value={{type.gen_cd}}>{{type.gen_nm}}</option>
+                  </select>
+                </label>
+              </section>
+
+              <section class="col col-4">
+                <label class="label">{{'CUSTOMER' | i18n}}</label>
+                <label class="input">
+                  <select name="trader_id" [(ngModel)]="contactorInfo.trader_id" select2 [defaultVal]="contactorInfo.trader_id"
+                    style="width:100%;" class="select2 type required">
+                    <option value=''></option>
+                    <option *ngFor="let name of traderLocalName" value={{name.trader_id}}>{{name.trader_local_nm}}</option>
+                  </select>
+                </label>
+              </section>
+            </div>
+
+            <div class="row">
+              <section class="col col-4">
+                <label class="label">{{'LEVEL' | i18n}}</label>
+                <label class="input">
+                  <select name="level_gen_cd" [(ngModel)]="contactorInfo.level_gen_cd" select2 [defaultVal]="contactorInfo.level_gen_cd"
+                    style="width:100%;" class="select2 type required">
+                    <option value=''></option>
+                    <option *ngFor="let lev of Level" value={{lev.gen_cd}}>{{lev.gen_nm}}</option>
+                  </select>
+                </label>
+              </section>
+              <section class="col col-4">
+                <label class="label">{{'CONTACTOR-RULE' | i18n}}</label>
+                <label class="input">
+                  <select name="rule_gen_cd" [(ngModel)]="contactorInfo.rule_gen_cd" select2 [defaultVal]="contactorInfo.rule_gen_cd"
+                    style="width:100%;" class="select2 type required">
+                    <option value=''></option>
+                    <option *ngFor="let rul of Rule" value={{rul.gen_cd}}>{{rul.gen_nm}}</option>
+                  </select>
+                </label>
+              </section>
+
+              <section class="col col-4">
+                <label class="label">{{'CONTACTOR-NAME' | i18n}}</label>
+                <label class="input">
+                  <i class="icon-append fa fa-book"></i>
+                  <input type="text" name="contactor_nm" [(ngModel)]="contactorInfo.contactor_nm" autocomplete="off" required />
+                </label>
+              </section>
+            </div>
+
+            <div class="row">
+              <section class="col col-4">
+                <label class="label">{{'CONTACTOR-DEPT' | i18n}}</label>
+                <label class="input">
+                  <i class="icon-append fa fa-book"></i>
+                  <input type="text" name="contactor_dept_nm" [(ngModel)]="contactorInfo.contactor_dept_nm"
+                    autocomplete="off" />
+                </label>
+              </section>
+              <section class="col col-4">
+                <label class="label">{{'CONTACTOR-POSITION' | i18n}}</label>
+                <label class="input">
+                  <i class="icon-append fa fa-book"></i>
+                  <input type="text" name="contactor_position_nm" [(ngModel)]="contactorInfo.contactor_position_nm"
+                    autocomplete="off" />
+                </label>
+              </section>
+
+              <section class="col col-4">
+                <label class="label">{{'CONTACTOR-MOBILE' | i18n}}</label>
+                <label class="input">
+                  <i class="icon-append fa fa-phone"></i>
+                  <input type="text" name="mobile_no" [(ngModel)]="contactorInfo.mobile_no" autocomplete="off" />
+                </label>
+              </section>
+            </div>
+
+
+            <div class="row">
+              <section class="col col-6">
+                <label class="label">{{'EMAIL' | i18n}}</label>
+                <label class="input">
+                  <i class="icon-append fa fa-envelope"></i>
+                  <input type="text" name="email" [(ngModel)]="contactorInfo.email" autocomplete="off" />
+                </label>
+              </section>
+              <section class="col col-3">
+                  <label class="label">{{'USER-ID' | i18n}}</label>
+                  <label class="input">
+                    <select name="am_id" [(ngModel)]="contactorInfo.am_id" [defaultVal]="contactorInfo.am_id"
+                      select2 required style="width:100%;" class="select2 required" placeHolder="Select user">
+                      <option *ngFor="let us of user" value={{us.user_id}}>{{us.user_nm}}</option>
+                    </select>
+                  </label>
+                </section>
+
+              <section class="col col-3">
+                <label class="label">{{'CONTACTOR-PRIORITY' | i18n}}</label>
+                <label class="input">
+                  <input type="text" name="priority_value" [(ngModel)]="contactorInfo.priority_value" autocomplete="off" />
+                </label>
+              </section>
+            </div>
+
+            <div class="row">
+              <section class="col col-6">
+                <label class="label">{{'TEL-NO' | i18n}}</label>
+                <label class="input">
+                  <i class="icon-append fa fa-phone"></i>
+                  <input type="text" name="tel_no" [(ngModel)]="contactorInfo.tel_no" autocomplete="off" />
+                </label>
+              </section>
+              <section class="col col-6">
+                <label class="label">{{'Emergency-Tel' | i18n}}</label>
+                <label class="input">
+                  <i class="icon-append fa fa-phone"></i>
+                  <input type="text" name="emergency_tel_no" [(ngModel)]="contactorInfo.emergency_tel_no" autocomplete="off" />
+                </label>
+              </section>
+            </div>
+            <div class="row">
+              <section style="padding:0 15px">
+                <label class="label">{{'ADDRESS' | i18n}}</label>
+                <label class="input">
+                  <i class="icon-append glyphicon glyphicon-map-marker"></i>
+                  <input type="text" name="address" [(ngModel)]="contactorInfo.address" autocomplete="off" />
+                </label>
+              </section>
+            </div>
+            <div class="row">
+                <section class="col col-3">
+                    <label class="label">{{'USE-YN' | i18n}}</label>
+                    <label class="input">
+                      <label class="checkbox">
+                        <input type="checkbox" name="use_yn" [(ngModel)]="contactorInfo.use_yn" checked="contactorInfo.use_yn">
+                        <i></i>Active
+                      </label>
+                    </label>
+                  </section>
+                  <section class="col col-3">
+                      <label class="label">{{'FAVOURITE-YN' | i18n}}</label>
+                      <label class="input">
+                        <label class="checkbox">
+                          <input type="checkbox" name="favourite_yn" [(ngModel)]="contactorInfo.favourite_yn" checked="contactorInfo.favourite_yn">
+                          <i></i>Active
+                        </label>
+                      </label>
+                    </section>
+            </div>
+            <div class="row">
+              <section class=" col col-xs-12">
+                <label class="label">{{'REMARK' | i18n}}</label>
+                <label class="textarea">
+                  <textarea type="text" name="remark" [(ngModel)]="contactorInfo.remark" autocomplete="off" rows="2"></textarea>
+                </label>
+              </section>
+            </div>
+          </fieldset>
+      </section>
+      <section class="col col-lg-5" style="padding-right: 25px;">
+        <sa-sharing-info (outputData)="sharingToSelected($event)" [sharedData]="contactorInfo.sharing_to"></sa-sharing-info>
+        <div class="smart-form" style="top: 45px;">
+            <footer style="background:none;border:none;padding: 0;float: right;">
+                <button type="button" (click)="onReset()" name="reset" class="btn btn-default btn-xs btn-reset float-left">
+                    <i class="fa fa-refresh"></i>
+                    {{'button-reset' | i18n}}
+                  </button>
+                  <button type="submit" name="submit"[disabled]="!permission.canSave" class="btn btn-primary btn-xs btn-save float-left">
+                    <i class="fa fa-save"></i>
+                    {{'button-save' | i18n}}
+                  </button>
+                  <button type="button" name="delete"[disabled]="!permission.canDelete" (click)="onDelete()" *ngIf="contactorId > 0" class="btn btn-danger btn-xs btn-delete float-left">
+                      <i class="fa fa-trash-o"></i>
+                      {{'button-delete' | i18n}}
+                    </button>
+                    <button type="button" name="close" (click)="onClose()" class="btn btn-xs btn-close float-left">
+                        <i class="fa fa-remove"></i>
+                        {{'button-close' | i18n}}
+                      </button>
+              </footer>
+        </div>
+      </section>
+    </form>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,366 @@
+<div id="content">
+    <div class="well well-sm">
+        <div class="row">
+            <div class="col-lg-9 smart-form">
+                <section class="col col-2">
+                    <label class="label">{{'ATTEND_PERSON_LBL_HR-ID' | i18n}}</label>
+                    <label class="input">
+                        <input type="text" [(ngModel)]="hrid" />
+                    </label>
+                </section>
+                <section class="col-sm-2">
+                    <label class="label">{{'ATTEND_PERSON_LBL_EMPLOYEE' | i18n}}</label>
+                    <label class="input">
+                        <input type="text" [(ngModel)]="employeeName" [disabled]="true" />
+                    </label>
+                </section>
+                <section class="col col-2">
+                    <label class="label">{{'ATTEND_PERSON_LBL_DEPARTMENT' | i18n}}</label>
+                    <label class="input">
+                        <input type="text" [(ngModel)]="department" [disabled]="true" />
+                    </label>
+                </section>
+                <section class="col-sm-1">
+                    <label class="label">{{'ATTEND_PERSON_LBL_START_DATE' | i18n}}</label>
+                    <label class="input">
+                        <input type="text" [(ngModel)]="startdate" (ngModelChange)="hideSetting()" id="startdate"
+                            autocomplete="off" [saUiDatepicker]="{minRestrict:'#finishdate'}" />
+                    </label>
+                </section>
+                <section style="float:left;text-align: center;width: 30px;">
+                    <label class="label">&nbsp;</label>
+                    <label class="input"><strong>~</strong></label>
+                </section>
+                <section class="col-sm-1">
+                    <label class="label">{{'ATTEND_PERSON_LBL_FINISH_DATE' | i18n}}</label>
+                    <label class="input">
+                        <input type="text" [(ngModel)]="finishdate" (ngModelChange)="hideSetting()" id="finishdate"
+                            autocomplete="off" [saUiDatepicker]="{maxRestrict:'#startdate'}" />
+                    </label>
+                </section>
+                <section class="col-sm-2" style="padding-left: 15px">
+                    <label class="label">{{'ATTEND_PERSON_LBL_VACATION' | i18n}}</label>
+                    <label class="input">
+                        <select select2 class="select2" [(ngModel)]="vacation" allowClear="true" placeHolder="Vacation"
+                            style="width:100%">
+                            <option value=""></option>
+                            <option *ngFor="let a of attendancePayments" value="{{ a.code }}">{{ a.value }}</option>
+                        </select>
+                    </label>
+                </section>
+            </div>
+            <div class="col-lg-3 right text-right padding-top-15">
+                <!-- <button type="button" (click)="createPersonAttendance()" class="btn btn-primary btn-sm margin-right-5" >
+                            {{ "BUTTON-CREATE" | i18n }}
+                        </button> -->
+                <button type="button" (click)="searchAttendance(false)" class="btn btn-default btn-sm margin-right-5">
+                    <i class="fa fa-search"></i>
+                    {{'SEARCH' | i18n}}
+                </button>
+                <!-- <button type="button" (click)="showSettingPopup()" class="btn btn-primary btn-sm margin-right-5" *ngIf="isShowSetting==true && attendances.length > 0">
+                    {{'MAKE SETTING' | i18n}}
+                </button> -->
+                <button type="button" (click)="excelExport()" class="btn btn-info btn-sm margin-right-5"
+                    *ngIf="attendances.length > 0">
+                    <i class="fa fa-file-excel-o"></i>
+                    Excel
+                </button>
+                <button type="button" (click)="saveChange()" class="btn btn-success btn-sm margin-right-5"
+                    *ngIf="attendances.length > 0">
+                    <i class="fa fa-save"></i>
+                    {{'SAVE CHANGES' | i18n}}
+                </button>
+                <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-close btn-xs">
+                    <i class="fa fa-times"></i>
+                    {{'button-close' | i18n}}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <sa-widgets-grid>
+            <div class="row">
+                <section class="col-sm-12">
+                    <div sa-widget [editbutton]="false" color="darken">
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                            <h2>{{'ATTEND_PERSON_LBL_TITLE'|i18n}}</h2>
+                        </header>
+                        <div>
+                            <div class="widget-body no-padding">
+                                <table
+                                    class="table table-striped table-condensed table-hover table-bordered cell-border table-grid">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="5">{{'ATTEND_PERSON_LBL_PERSON_INFO'|i18n}}</th>
+                                            <th colspan="4">{{'ATTEND_PERSON_LBL_PERSON_WORKING'|i18n}}</th>
+                                            <th colspan="2">{{'ATTEND_PERSON_LBL_ATTEND_LOG'|i18n}}</th>
+                                            <th colspan="9">{{'ATTEND_PERSON_LBL_OVETIME'|i18n}}</th>
+                                        </tr>
+                                        <tr class="heading">
+                                            <th class="center" colspan="2">{{'ATTEND_PERSON_LBL_DATE'|i18n}}</th>
+                                            <!-- <th class="center">{{'ATTEND_PERSON_LBL_DAY_TYPE'|i18n}}</th> -->
+                                            <th class="center">{{'ATTEND_PERSON_LBL_DUTY_TYPE'|i18n}}</th>
+                                            <th class="center">{{ "DAILY_ATTEND_START_WORK" | i18n }}</th>
+                                            <th class="center">{{ "DAILY_ATTEND_END_WORK" | i18n }}</th>
+                                            <th class="center">{{'ATTEND_PERSON_LBL_IN'|i18n}}</th>
+                                            <th class="center">{{'ATTEND_PERSON_LBL_OUT'|i18n}}</th>
+                                            <th class="center">{{'ATTEND_PERSON_LBL_WORKING'|i18n}}</th>
+                                            <th class="center">Force Update</th>
+                                            <th class="left">{{'ATTEND_PERSON_LBL_START'|i18n}}</th>
+                                            <th class="left">{{'ATTEND_PERSON_LBL_FINISH'|i18n}}</th>
+                                            <th class="center">{{'ATTEND_PERSON_LBL_NIGHT'|i18n}}</th>
+                                            <th class="center">{{'ATTEND_PERSON_LBL_BASIC'|i18n}}</th>
+                                            <th class="center" title="150%">{{ "OT-0" | i18n }}</th>
+                                            <th class="center" title="150%">{{'ATTEND_PERSON_LBL_OT-1'|i18n}}</th>
+                                            <th class="center" title="200%">{{'ATTEND_PERSON_LBL_OT-2'|i18n}}</th>
+                                            <th class="center" title="300%">{{'ATTEND_PERSON_LBL_OT-3'|i18n}}</th>
+                                            <th class="center" title="OT Night 210%">{{ "OT-N1" | i18n }}</th>
+                                            <th class="center" title="OT Night 270%">{{ "OT-N2" | i18n }}</th>
+                                            <th class="center" title="OT Night 390%">{{ "OT-N3" | i18n }}</th>
+                                            <!-- <th class="center" title="Night-time OT 210%">{{'ATTEND_PERSON_LBL_OT-4'|i18n}}</th> 
+                                            <th class="center">{{'ATTEND_PERSON_LBL_OT-5'|i18n}}</th>-->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let a of attendances | 
+										paginate: { 
+										  itemsPerPage: pageSize, 
+										  currentPage: page, 
+										  totalItems: totalItems
+										}; let i=index" [ngClass]="{ 'row-odd':i%2!=0, 'row-even':i%2==0, 'edited-working-time':a.edit_working_time_yn, 'edited-in-out':a.edit_yn}">
+                                            <td class="center">{{a.attendance_ymd | date : "yyyy-MM-dd" }}</td>
+                                            <td class="center">{{a.day}}</td>
+                                            <!-- <td class="center">{{a.day_type}}</td> -->
+                                            <td class="center">{{a.duty_type}}</td>
+                                            <td class="center">{{a.standard_in_time }}</td>
+                                            <td class="center">{{a.standard_out_time }}</td>
+
+                                            <td class="center" (click)="editTime($event, a, 1)"
+                                                [style.color]="a.is_warning_in_time ? 'red' : 'black'">{{a.in_time}}
+                                            </td>
+                                            <td class="center" (click)="editTime($event, a, 2)"
+                                                [style.color]="a.is_warning_out_time ? 'red' : 'black'">{{a.out_time}}
+                                            </td>
+                                            <td class="center pointer" (click)="showPopupEditWorkingTime($event, a)"
+                                                title="Click to edit working time">{{a.working_time}}</td>
+                                            <td class="center" style="width:80px;">
+                                                <label class="toggle">
+                                                    <input [checked]="a.force_update" name="force_update"
+                                                        type="checkbox" [(ngModel)]="a.force_update">
+                                                    <i data-swchoff-text="No" data-swchon-text="Yes"></i></label>
+                                            </td>
+                                            <td class="left">
+                                                <select select2 class="form-control select2 selection-box"
+                                                    [(ngModel)]="a.start_gen_cd"
+                                                    (onSelectedChange)="logStartChanges($event,a)" name="start_gen_cd"
+                                                    style="width:100%">
+                                                    <option *ngFor="let item of attendanceLogs" value="{{item.code}}">
+                                                        {{item.value}}</option>
+                                                </select>
+                                            </td>
+                                            <td class="left">
+                                                <select select2 class="form-control select2"
+                                                    [(ngModel)]="a.finish_gen_cd" [defaultVal]="a.finish_gen_cd"
+                                                    name="finish_gen_cd" style="width:100%">
+                                                    <option *ngFor="let item of attendanceLogs" value="{{item.code}}">
+                                                        {{item.value}}</option>
+                                                </select>
+                                            </td>
+                                            <td class="center">{{a.night_time | number : '1.2-2'}}</td>
+                                            <td class="center">{{a.basic | number : '1.2-2'}}</td>
+                                            <td class="center">{{a.ot_0 | number : '1.2-2'}}</td>
+                                            <td class="center">{{a.ot_1 | number : '1.2-2'}}</td>
+                                            <td class="center">{{a.ot_2 | number : '1.2-2'}}</td>
+                                            <td class="center">{{a.ot_3 | number : '1.2-2'}}</td>
+                                            <td class="center">
+                                                {{ a.ot_n1 | number : '1.2-2' }}
+                                            </td>
+                                            <td class="center">
+                                                {{ a.ot_n2 | number : '1.2-2' }}
+                                            </td>
+                                            <td class="center">
+                                                {{ a.ot_n3 | number : '1.2-2' }}
+                                            </td>
+                                            <!-- <td class="center">{{a.ot_4 | number : '1.2-2'}}</td>
+                                            <td class="center">{{a.ot_5 | number : '1.2-2'}}</td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="widget-foot">
+                                <div class="row">
+                                    <div class="atman-paging dt-toolbar-footer">
+                                        <div class="col-sm-6 col-xs-12 hidden-xs">
+                                            <div class="dataTables_info" id="DataTables_Table_3_info" role="status"
+                                                aria-live="polite">{{'COMMON_LBL_SHOW'|i18n}} {{ from_record }}
+                                                {{'COMMON_LBL_SHOW_TO'|i18n}} {{to_record}}
+                                                {{'COMMON_LBL_SHOW_OF'|i18n}} {{totalItems}}
+                                                {{'COMMON_LBL_SHOW_ENTRIES'|i18n}}</div>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-12 hidden-xs">
+                                            <pagination-controls class="my-pagination" (pageChange)="changePage($event)"
+                                                [autoHide]="true" [previousLabel]="labels.previousLabel"
+                                                [nextLabel]="labels.nextLabel">
+                                            </pagination-controls>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </sa-widgets-grid>
+    </div>
+</div>
+
+<ng-template #popupSetting>
+    <sa-popup-modal headerTitle="{{'MAKE SETTING' | i18n}}" width="400" height="600" (onClose)="closeFactoryPopup()">
+        <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && saveSetting()" novalidate="novalidate">
+            <div class="panel-body smart-form">
+                <fieldset>
+                    <div class="row">
+                        <section>
+                            <label class="label">{{'ATTEND_PERSON_LBL_SETTING_APPLY'|i18n}} <b>{{totalItems}}</b>
+                                {{'ATTEND_PERSON_LBL_DAY'|i18n}}</label>
+                        </section>
+                        <section>
+                            <label class="label">{{'ATTEND_PERSON_LBL_INTIME'|i18n}}</label>
+                            <label class="input"> <i class="icon-prepend fa fa-clock-o"></i>
+                                <input type="text" smartTimepicker autocomplete="off" [(ngModel)]="setting.in_time"
+                                    name="in_time" readonly />
+                            </label>
+                        </section>
+                        <section>
+                            <label class="label">{{'DAILYATTEND_LBL_OUTTIME'|i18n}}</label>
+                            <label class="input"> <i class="icon-prepend fa fa-clock-o"></i>
+                                <input type="text" smartTimepicker autocomplete="off" [(ngModel)]="setting.out_time"
+                                    name="out_time" readonly />
+                            </label>
+                        </section>
+                        <section>
+                            <label class="label">{{'ATTEND_PERSON_LBL_RESETNAME'|i18n}}</label>
+                            <label class="input"> <i class="icon-prepend fa fa-user"></i>
+                                <input type="text" [(ngModel)]="setting.reset_name" name="reset_name" />
+                            </label>
+                        </section>
+                        <section>
+                            <label class="label">{{'ATTEND_PERSON_LBL_DESCRIPTION'|i18n}}</label>
+                            <label class="textarea"> <i class="icon-append fa fa-comment"></i>
+                                <textarea row="4" [(ngModel)]="setting.description" name="description"></textarea>
+                            </label>
+                        </section>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="panel-footer right">
+                <button type="submit" class="btn btn-primary margin-right-5">
+                    {{'BUTTON-SAVE' | i18n}}
+                </button>
+                <button type="button" (click)="deleteSetting()" class="btn btn-danger margin-right-5">
+                    {{'BUTTON-DELETE' | i18n}}
+                </button>
+                <button type="button" (click)="closeFactoryPopup()" class="btn btn-default">
+                    {{'CANCEL' | i18n}}
+                </button>
+            </div>
+        </form>
+    </sa-popup-modal>
+</ng-template>
+
+<ng-template #popupEditWorkingTime>
+    <sa-popup-modal headerTitle="{{'Edit-Working-Time' | i18n}}" width="400" height="400"
+        (onClose)="closeEditWorkingTimePopup()">
+        <form #frmEdit="ngForm" novalidate="novalidate">
+            <div class="panel-body smart-form">
+                <fieldset>
+                    <div class="row">
+                        <section class="col col-6">
+                            <label class="label">{{'HR_ID'|i18n}}</label>
+                            <label class="label">
+                                <b>{{editRow.hr_id}}</b>
+                            </label>
+                        </section>
+                        <section class="col col-6">
+                            <label class="label">{{'ATTEND_PERSON_LBL_DATE'|i18n}}</label>
+                            <label class="label">
+                                <b>{{editRow.attendance_ymd | date : "yyyy-MM-dd" }}</b>
+                            </label>
+                        </section>
+                        <section class="col col-6">
+                            <label class="label">{{'ATTEND_PERSON_LBL_WORKING'|i18n}}</label>
+                            <label class="input">
+                                <input type="text" autocomplete="off" [(ngModel)]="editRow.working_time"
+                                    name="working_time" />
+                            </label>
+                        </section>
+                        <section class="col col-6">
+                            <label class="label">{{'ATTEND_PERSON_LBL_BASIC'|i18n}}</label>
+                            <label class="input">
+                                <input type="text" autocomplete="off" [(ngModel)]="editRow.basic" name="basic" />
+                            </label>
+                        </section>
+                        <section class="col col-6">
+                            <label class="label">{{'ATTEND_PERSON_LBL_NIGHT'|i18n}}</label>
+                            <label class="input">
+                                <input type="text" autocomplete="off" [(ngModel)]="editRow.night_time"
+                                    name="night_time" />
+                            </label>
+                        </section>
+                        <section class="col col-6">
+                            <label class="label">{{'OT-0'|i18n}}</label>
+                            <label class="input">
+                                <input type="text" autocomplete="off" [(ngModel)]="editRow.ot_0" name="ot_0" />
+                            </label>
+                        </section>
+                        <section class="col col-6">
+                            <label class="label">{{'ATTEND_PERSON_LBL_OT-1'|i18n}}</label>
+                            <label class="input">
+                                <input type="text" autocomplete="off" [(ngModel)]="editRow.ot_1" name="ot_1" />
+                            </label>
+                        </section>
+                        <section class="col col-6">
+                            <label class="label">{{'ATTEND_PERSON_LBL_OT-2'|i18n}}</label>
+                            <label class="input">
+                                <input type="text" autocomplete="off" [(ngModel)]="editRow.ot_2" name="ot_2" />
+                            </label>
+                        </section>
+                        <section class="col col-6">
+                            <label class="label">{{'ATTEND_PERSON_LBL_OT-3'|i18n}}</label>
+                            <label class="input">
+                                <input type="text" autocomplete="off" [(ngModel)]="editRow.ot_3" name="ot_3" />
+                            </label>
+                        </section>
+                        <section class="col col-6">
+                            <label class="label">{{'ATTEND_PERSON_LBL_OT-4'|i18n}}</label>
+                            <label class="input">
+                                <input type="text" autocomplete="off" [(ngModel)]="editRow.ot_4" name="ot_4" />
+                            </label>
+                        </section>
+                        <section class="col col-6">
+                            <label class="label">{{'ATTEND_PERSON_LBL_OT-5'|i18n}}</label>
+                            <label class="input">
+                                <input type="text" autocomplete="off" [(ngModel)]="editRow.ot_5" name="ot_5" />
+                            </label>
+                        </section>
+                    </div>
+                    <section>
+                        <label class="label">{{'REASON'|i18n}}</label>
+                        <label class="textarea">
+                            <textarea row="4" name="remark"></textarea>
+                        </label>
+                    </section>
+                </fieldset>
+            </div>
+            <div class="panel-footer right">
+                <button type="button" (click)="updateWorkingTime()" class="btn btn-primary margin-right-5">
+                    {{'SAVE CHANGES' | i18n}}
+                </button>
+                <button type="button" (click)="cancelEditWorkingTime()" class="btn btn-default">
+                    {{'CANCEL' | i18n}}
+                </button>
+            </div>
+        </form>
+    </sa-popup-modal>
+</ng-template>

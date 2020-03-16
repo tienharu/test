@@ -1,0 +1,491 @@
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+      <div>
+        <h1 class="page-title"><i class="fa-fw fa fa-road"></i>Process Flow Master</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <!-- formLeft -->
+    <form #frmDetail="ngForm" (ngSubmit)="frmDetail.form.valid && onSubmit()"
+      class="smart-form atman-form-small no-header frm-detail" novalidate="novalidate"
+      [saUiValidate]="validationOptions">
+      <section class="col-md-6">
+        <!-- (ngSubmit)="frmDetail.form.valid && onSubmit()" -->
+        <fieldset>
+          <!-- Row 1-->
+          <div class="row">
+            <section class="col-md-12">
+              <section class="col col-md-5">
+                <!-- Register -->
+                <div class="row">
+                  <section class="input-group col col-md-12">
+                    <label class="label">Register</label>
+                    <label class="input state-disabled together">
+                      <input type="text" name="register" class="center" value="{{registerInfo.register}}" disabled />
+                      <input type="text" name="register_date" class="center" value="{{registerInfo.registerDate}}"
+                        disabled />
+                    </label>
+                    <span class="input-group-btn"></span>
+                  </section>
+                </div>
+                <!-- RoutingProcessName -->
+                <div class="row">
+                  <section class="col col-md-12">
+                    <label class="label">{{'ROUTING-PRO-NAME' | i18n}}</label>
+                    <label class="input col-md-8">
+                      <input class="main" name="process_name" [(ngModel)]="headerInfo.processflowNm" type="text"
+                        autocomplete="off" />
+                    </label>
+                    <label class="input col-md-4 state-disabled">
+                      <input class="extra center" name="process_id" type="text" disabled value="{{headerInfo.headerSeq}}"
+                        autocomplete="off" />
+                    </label>
+                  </section>
+                </div>
+                <!-- ItemCategory -->
+                <div class="row">
+                  <section class="col col-md-7">
+                    <!-- <label class="label">{{'CK-VAL-1' | i18n}}</label> -->
+                    <label class="input">
+                      {{'ITEM-CATEGORY' | i18n}}
+                      <select name="item_cate" [(ngModel)]="headerInfo.itemCateGenCd"
+                        [defaultVal]="headerInfo.itemCateGenCd" select2 style="width:100%;" class="select2"
+                        placeHolder="Select item category">
+                        <option *ngFor="let cate of itemsCate" value={{cate.gen_cd}}>{{cate.gen_nm}}</option>
+                      </select>
+                    </label>
+                  </section>
+                  <section class="col col-md-5">
+                    <label class="input">
+                      {{'STOCK-UNIT' | i18n}}
+                      <select name="unit_stock" [(ngModel)]="headerInfo.stockUnitGenCd"
+                        [defaultVal]="headerInfo.stockUnitGenCd" select2 style="width:100%;" class="select2"
+                        placeHolder="Select stock unit">
+                        <option *ngFor="let stock of stockUnits" value={{stock.gen_cd}}>{{stock.gen_nm}}</option>
+                      </select>
+                    </label>
+                  </section>
+                </div>
+                <!-- WorkingTime -->
+                <div class="row">
+                  <section class="col col-md-8">
+                    <label class="label">{{'WORKING-TIME' | i18n}}</label>
+                    <div class="col-md-12">
+                      <label class="input col-md-5">
+                        <input class="form-control" smartClockpicker type="text" placeholder="Select time"
+                          data-autoclose="true" autocomplete="off" type="text" name="start_time"
+                          [(ngModel)]="headerInfo.workStartTime">
+                      </label>
+                      <label class="label col-md-2 letter-spacing">~</label>
+                      <label class="input col-md-5">
+                        <input class="form-control" smartClockpicker type="text" placeholder="Select time"
+                          data-autoclose="true" autocomplete="off" type="text" name="finish_time"
+                          [(ngModel)]="headerInfo.workFinishTime">
+                      </label>
+                    </div>
+                  </section>
+                  <section class="col col-md-4">
+                    <label class="input">
+                      {{'STATUS' | i18n}}
+                      <select name="status" [(ngModel)]="registerInfo.status" [defaultVal]="registerInfo.status" disabled select2 style="width:100%;" class="select2">
+                        <option value="no">No</option>
+                        <option value="finish">Finish</option>
+                      </select>
+                    </label>
+                  </section>
+                </div>
+                <!-- StartRouting & FinalRouting -->
+                <div class="row">
+                  <section class="col col-md-6">
+                    <label class="input state-disabled">
+                      {{'START-ROUTING' | i18n}}
+                      <input type="text" name="start_routing" class="center" disabled
+                        value="{{registerInfo.startRouting && registerInfo.startRouting.routeName}}"
+                        autocomplete="off" />
+                    </label>
+                  </section>
+                  <section class="col col-md-6">
+                    <label class="input state-disabled">
+                      {{'FINAL-ROUTING' | i18n}}
+                      <input type="text" name="final_routing" class="center" disabled
+                        value="{{registerInfo.finalRouting && registerInfo.finalRouting.routeName}}"
+                        autocomplete="off" />
+                    </label>
+                  </section>
+                </div>
+                <!-- CCR - Total - Degree -->
+                <div class="row">
+                  <section class="col col-md-6">
+                    <label class="input state-disabled">
+                      CCR
+                      <input type="text" name="ccr" class="center" disabled
+                        value="{{registerInfo.ccr && registerInfo.ccr.routeName}}" autocomplete="off" />
+                    </label>
+                  </section>
+                  <section class="col col-md-3">
+                    <label class="input state-disabled">
+                      {{'FL-TOTAL' | i18n}}
+                      <input type="text" name="fl_total" class="center" disabled value="{{registerInfo.totalRouting}}"
+                        autocomplete="off" />
+                    </label>
+                  </section>
+                  <section class="col col-md-3">
+                    <label class="input state-disabled">
+                      {{'DEGREE' | i18n}}
+                      <input type="text" name="degree" class="center" disabled value="{{registerInfo.degree + '%'}} "
+                        autocomplete="off" />
+                    </label>
+                  </section>
+                </div>
+              </section>
+              <!-- table 3col -->
+              <section class="col col-md-7">
+                <label class="label" style="visibility: hidden;">Path Table</label>
+                <sa-widgets-grid>
+                  <div class="at-smart-table">
+                    <section class="col-lg-12 table-bordered">
+                      <div class="section-path-tables">
+                        <ng2-smart-table class="table table-striped table-condensed table-hover"
+                          [settings]="settingsPath" [source]="pathsSource" (deleteConfirm)="onDeletePathConfirm($event)"
+                          (editConfirm)="onSavePathConfirm($event)" (userRowSelect)="onPathRowClick($event)"
+                          (createConfirm)="onCreatePathConfirm($event)">
+                        </ng2-smart-table>
+                      </div>
+                    </section>
+                  </div>
+                </sa-widgets-grid>
+              </section>
+            </section>
+          </div>
+          <!-- Row 2-->
+          <div class="row">
+            <section class="col col-md-12">
+              <!-- <label class="label">{{'REMARK' | i18n}}</label> -->
+              <label class="input">
+                {{'DESCRIPTION' | i18n}}
+                <label class="textarea">
+                  <textarea autocomplete="off" rows="2" name="desc" [(ngModel)]="headerInfo.remark"></textarea>
+                </label>
+              </label>
+            </section>
+          </div>
+          <div class="row">
+            <section class="col-md-12">
+              <section class="col col-md-4">
+                <label class="checkbox">
+                  <input type="checkbox" name="use_yn" [(ngModel)]="headerInfo.useYn" [checked]="headerInfo.useYn" />
+                  <i></i>
+                  <span>Active</span>
+                </label>
+              </section>
+              <section class="col col-md-8">
+                <button type="button" name="btnCloseProgram" (click)="onCloseProgram()" class="btn btn-cancel">
+                  <!-- <i class="fa fa-times"></i>
+                  {{'button-close' | i18n}} -->
+                  {{'BUTTON-CLOSE' | i18n}}
+                </button>
+                <button type="button" (click)="onReset(frmDetail)" name="reset" class="btn btn-reset-form">
+                  <!-- <i class="fa fa-refresh"></i>
+                  {{'BUTTON-RESET' | i18n}} -->
+                  {{'BUTTON-RESET' | i18n}}
+                </button>
+                <!-- <button type="submit" [disabled]="!this.permission.canSave" name="submit" class="btn btn-primary"> -->
+                <!-- <button type="submit" [disabled]="(registerInfo.status === 'no' && isEdit)" name="submit" class="btn btn-primary"> -->
+                <button type="submit" name="submit" class="btn btn-primary">
+                  <!-- <i class="fa fa-save"></i>
+                  {{'BUTTON-SAVE' | i18n}} -->
+                  {{'BUTTON-SAVE' | i18n}}
+                </button>
+              </section>
+            </section>
+          </div>
+        </fieldset>
+      </section>
+      <!-- formRight -->
+      <section class="col-md-6">
+        <!-- (ngSubmit)="frmDetail.form.valid && onSubmit()" -->
+        <fieldset>
+          <!-- Row 2-->
+          <div class="row">
+            <section class="col col-md-12">
+              <div class="row">
+                <section class="col col-md-2">
+                  <label class="label">Step</label>
+                  <label class="input state-disabled">
+                    <input type="text" name="step" class="center" value="{{(selectedPath.processStepNo) || ''}}"
+                      autocomplete="off" disabled />
+                  </label>
+                </section>
+                <section class="col col-md-5">
+                  <label class="label">Path</label>
+                  <label class="input col-md-6 state-disabled">
+                    <input class="main center" name="path" type="text" value="{{(selectedPath.processPathNm) || ''}}"
+                      autocomplete="off" disabled />
+                  </label>
+                  <label class="input col-md-6 state-disabled">
+                    <input class="extra center" name="path_id" type="text"
+                      value="{{(selectedPath.pathUkId) || ''}}" autocomplete="off" disabled />
+                  </label>
+                </section>
+                <section class="col col-md-5">
+                  <!-- <button type="button" class="btnViewProcessFlow" style="width: 100%;">
+                    View Process Flow Diagram
+                  </button> -->
+                </section>
+              </div>
+              <!-- table 10col -->
+              <div class="row">
+                <section class="col col-md-12">
+                  <sa-widgets-grid>
+                    <div class="at-smart-table">
+                      <section class="col-lg-12 table-bordered">
+                        <div class="section-path-route-tables">
+                          <ng2-smart-table class="table table-striped table-condensed table-hover"
+                            [settings]="settingsPathRoute" [source]="pathRouteSource"
+                            (deleteConfirm)="onDeletePathRouteConfirm($event)"
+                            (editConfirm)="onSavePathRouteConfirm($event)"
+                            (createConfirm)="onCreatePathRouteConfirm($event)">
+                          </ng2-smart-table>
+                        </div>
+                      </section>
+                    </div>
+                  </sa-widgets-grid>
+                </section>
+              </div>
+            </section>
+          </div>
+          <!-- Row 3-->
+          <div class="row">
+            <section class="col col-md-12">
+              <!-- <label class="label">{{'REMARK' | i18n}}</label> -->
+              <label class="input">
+                {{'DESCRIPTION' | i18n}}
+                <label class="textarea">
+                  <textarea autocomplete="off" remark rows="2" name="path-desc"
+                    [(ngModel)]="selectedPath.remark"></textarea>
+                </label>
+              </label>
+            </section>
+          </div>
+          <footer>
+            <!-- <button type="button" name="btnCloseProgram" (click)="onCloseProgram()"  class="btn btn-cancel">
+              <i class="fa fa-times"></i>
+              {{'button-close' | i18n}}
+              {{'BUTTON-CLOSE' | i18n}}
+            </button> -->
+            <button type="button" (click)="onResetPathRoute()"  name="reset"
+              [disabled]="!allowEditRoute" class="btn btn-reset-form">
+              <!-- <i class="fa fa-refresh"></i>
+              {{'BUTTON-RESET' | i18n}} -->
+              {{'BUTTON-RESET' | i18n}}
+            </button>
+            <button type="button"
+              [disabled]="!allowEditRoute" name="submit" 
+              class="btn btn-primary" (click)="onSaveRoute(pathRoutes, selectedPath.processPathId)">
+              <!-- <i class="fa fa-save"></i>
+              {{'BUTTON-SAVE' | i18n}} -->
+              {{'BUTTON-SAVE' | i18n}}
+            </button>
+          </footer>
+        </fieldset>
+      </section>
+    </form>
+  </div>
+  <sa-widgets-grid>
+    <div class="row">
+      <article class="col-sm-12">
+        <div sa-widget [editbutton]="false" [deletebutton]="false" color="atman" class="jarviswidget-atman">
+          <!-- <header>
+            <span class="widget-icon">
+              <i class="fa fa-list"></i>
+            </span> -->
+          <!-- <h2>{{'GENERAL MASTER' | i18n}}</h2> -->
+          <!-- <h2>Product Master</h2> -->
+          <!-- </header> -->
+          <div>
+            <!-- <div class="widget-body no-padding table-wrap">
+              <table class="table dataTable table-striped table-condensed table-hover
+                    table-bordered cell-border table-grid">
+                <thead>
+                  <tr class="heading">
+                    <th class="center">No</th>
+                    <th class="center" colspan="2">{{'PROCESS-FLOW-NAME' | i18n}}</th>
+                    <th class="center">{{'ITEM-CATEGORY' | i18n}}</th>
+                    <th class="center">{{'UNIT' | i18n}}</th>
+                    <th class="center">{{'STATUS' | i18n}}</th>
+                    <th class="center">{{'PATH' | i18n}}</th>
+                    <th class="center">{{'TA-START' | i18n}}</th>
+                    <th class="center">{{'TA-FINISH' | i18n}}</th>
+                    <th class="center">{{'CCR' | i18n}}</th>
+                    <th class="center">{{'FL-TOTAL' | i18n}}</th>
+                    <th class="center">{{'DEGREE' | i18n}}</th>
+                    <th class="center">{{'WORK-HOUR' | i18n}}</th>
+                    <th class="center">{{'ACT' | i18n}}</th>
+                    <th class="center">{{'DESCRIPTION' | i18n}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let e of (items
+                        | paginate
+                        : {
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: totalItems
+                        });
+                        let i= index">
+                    <td class="center" style="vertical-align:middle;">
+                        {{i + 1}}
+                    </td>
+                    <td class="center" style="vertical-align:middle;">
+                        {{e.processflowNm}}
+                    </td>
+                    <td class="center" style="vertical-align:middle;">
+                        {{e.headerSeq}}
+                    </td>
+                    <td class="center" style="vertical-align:middle;">
+                        {{e.totalRouteCount}}
+                    </td>
+                    <td class="center" style="vertical-align:middle;">
+
+                    </td>
+                    <td class="center" style="vertical-align:middle;">
+
+                    </td>
+                    <td class="center" style="vertical-align:middle;">
+                    </td>
+                    <td class="center" style="vertical-align:middle;">
+
+                    </td>
+                    <td class="center" style="vertical-align:middle;">
+
+                    </td>
+                    <td class="center" style="vertical-align:middle;">
+
+                    </td>
+                    <td class="center" style="vertical-align:middle;">
+
+                    </td>
+                    <td class="center" style="vertical-align:middle;">
+
+                    </td>
+                    <td class="center" style="vertical-align:middle;">
+
+                    </td>
+                    <td class="center" style="vertical-align:middle;">
+
+                    </td>
+                    <td class="center" style="vertical-align:middle;">
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="widget-foot">
+              <div class="row">
+                <div class="atman-paging dt-toolbar-footer">
+                  <div class="col-sm-6 col-xs-12 hidden-xs">
+                    <div class="dataTables_info">
+                      {{ "COMMON_LBL_SHOW" | i18n }} {{ from_record }}
+                      {{ "COMMON_LBL_SHOW_TO" | i18n }} {{ to_record }}
+                      {{ "COMMON_LBL_SHOW_OF" | i18n }} {{ totalItems }}
+                      {{ "COMMON_LBL_SHOW_ENTRIES" | i18n }}
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-xs-12 hidden-xs">
+                    <pagination-controls class="my-pagination" (pageChange)="changePage($event)" [previousLabel]="labels.previousLabel" [nextLabel]="labels.nextLabel">
+                    </pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <div class="widget-body no-padding">
+              <sa-datatable [options]="table" (rowClick)="onRowClick($event)" paginationLength="true" filter="true"
+                tableClass="table table-striped table-condensed table-hover table-bordered tableProcessFlow">
+                <thead>
+                  <tr class="heading">
+                    <th>No</th>
+                    <th colspan="2">{{'PROCESS-FLOW-NAME' | i18n}}</th>
+                    <th>{{'ITEM-CATEGORY' | i18n}}</th>
+                    <th>{{'UNIT' | i18n}}</th>
+                    <th>{{'STATUS' | i18n}}</th>
+                    <th>{{'PATH' | i18n}}</th>
+                    <th>{{'TA-START' | i18n}}</th>
+                    <th>{{'TA-FINISH' | i18n}}</th>
+                    <th>{{'CCR' | i18n}}</th>
+                    <th>{{'FL-TOTAL' | i18n}}</th>
+                    <th>{{'DEGREE' | i18n}}</th>
+                    <th>{{'WORK-HOUR' | i18n}}</th>
+                    <th>{{'ACT' | i18n}}</th>
+                    <th>{{'DESCRIPTION' | i18n}}</th>
+                  </tr>
+                  <tr>
+                    <th class="hasinput" style="width:4%;">
+                    </th>
+                    <th class="hasinput" style="width:15%;">
+                      <input type="text" class="form-control" placeholder="Filter Process Flow Name" />
+                    </th>
+                    <th class="hasinput" style="width:5%;">
+                      <input type="text" class="form-control" placeholder="Filter Process Flow Id" />
+                    </th>
+                    <th class="hasinput" style="width:10%;">
+                      <select name="filter_by_cate" class="form-control" style="width: 100%">
+                        <option value=''>All</option>
+                        <option *ngFor="let cate of itemsCate" value={{cate.gen_cd}}>{{cate.gen_nm}}</option>
+                      </select>
+                    </th>
+                    <th class="hasinput" style="width:6%;">
+                      <select name="filter_by_unit" class="form-control" style="width: 100%">
+                        <option value=''>All</option>
+                        <option *ngFor="let stock of stockUnits" value={{stock.gen_cd}}>{{stock.gen_nm}}</option>
+                      </select>
+                    </th>
+                    <th class="hasinput" style="width:5%;">
+                      <select name="filter_by_status" class="form-control" style="width: 100%">
+                        <option value=''>All</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </th>
+                    <th class="hasinput" style="width:5%;">
+                      <input type="text" class="form-control" placeholder="Filter Path" />
+                    </th>
+                    <th class="hasinput" style="width:8%;">
+                      <input type="text" class="form-control" placeholder="Filter Start Route" />
+                    </th>
+                    <th class="hasinput" style="width:8%;">
+                      <input type="text" class="form-control" placeholder="Filter Finish Route" />
+                    </th>
+                    <th class="hasinput" style="width:8%;">
+                        <input type="text" class="form-control" placeholder="Filter CCR" />
+                    </th>
+                    <th class="hasinput" style="width:5%;">
+                      <input type="text" class="form-control" placeholder="Filter Total Path" />
+                    </th>
+                    <th class="hasinput" style="width:5%;">
+                      <input type="text" class="form-control" placeholder="Filter Degree" />
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Total Hours" />
+                    </th>
+                    <th class="hasinput"  style="width:5%;">
+                      <label class="atman-checkbox">
+                        <input type="checkbox" disabled name="checkbox-inline">
+                        <i></i>
+                      </label>
+                    </th>
+                    <th class="hasinput">
+                      <input type="text" class="form-control" placeholder="Filter Description" />
+                    </th>
+                  </tr>
+                </thead>
+              </sa-datatable>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

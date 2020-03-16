@@ -1,0 +1,70 @@
+:host /deep/ .overtime-tool .title {
+   padding: 0;
+   text-align: 
+   center; margin: 0; 
+   height: 30px; 
+   line-height: 30px;}
+.custom-avatar {
+width:160px;
+height: 196px;
+border: 2px solid black
+}
+.table-bordered>tbody>tr>th{
+  border: 1px solid #000;
+  vertical-align: middle;
+  font-size: 12px;
+}
+.custom-th-width {
+  width: 170px ;
+  text-align: center
+}
+.custom-title{
+  margin-left: 5px ;
+  font-weight: 700 ; 
+  font-size: 14px
+}
+.table-bordered>thead>tr>th{
+text-align: center
+}
+.custom-table{
+  width: 1000px;
+}
+.custom-table .table-bordered>thead>tr>th{
+  border: 1px solid #000;
+  vertical-align: middle;
+  font-size: 12px; 
+}
+.custom-table .table-bordered>tbody>tr>td{
+  border: 1px solid #000;
+  font-size: 13px;
+}
+.custom-border-table{
+  border: 2px solid black
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+   padding: 7px 5px;
+}
+.table45>tbody>tr>td {
+   padding: 4px 5px;
+}
+.table20>tbody>tr>td {
+   padding: 2px 5px;
+}
+.table5>tbody>tr>td {
+   padding: 1px 5px;
+}
+.custom-height-td>tbody>tr{
+  height: 32px;
+}
+.center {
+  text-align: center;
+}
+
+.font-weight-epl-info{
+   font-weight: 500;
+}
+.btn-excel{
+  color: #fff;
+    background-color: #346832;
+    border-color: #4e8c56;
+}

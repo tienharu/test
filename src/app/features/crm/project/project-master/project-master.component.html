@@ -1,0 +1,63 @@
+<div id="content">
+  <div class="well well-sm">
+      <div class="row">
+          <div class="col-sm-2" style="padding-right: 0;">
+              <div class="input-group">
+                  <input id="txtKeyword" (keypress)="checkKeycode($event)" class="form-control input-sm col col-lg-7"
+                      onclick="this.select()" placeholder="Search anything values...">
+                  <span class="input-group-addon" style="padding: 0; top: 0px; position: relative; left: -4px; border: none;">
+                      <button type="button" class="col col-lg-3" style="padding-bottom: 4px;" (click)="search()"
+                          class="btn btn-default">
+                          <i class="fa fa-search"></i>
+                      </button>
+                  </span>
+              </div>
+          </div>
+          <div class="col-sm-3" style="padding-left: 0;">
+              <button type="button" (click)="openPopup()" style="padding-bottom: 4px;" class="btn btn-success">
+                  <i class="fa fa-plus"></i>
+                  {{'PROJECT-NEW' | i18n}}
+              </button>
+          </div>
+      </div>
+  </div>
+  <!--a---------------------->
+  <sa-widgets-grid>
+      <section class="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+          <div sa-widget class="jarviswidget-atman" color="atman">
+              <header>
+                  <span class="widget-icon">
+                      <i class="fa fa-list"></i>
+                  </span>
+                  <h2>{{'PROJECT-TBL-HEADER-SALE-PROJECT-LIST'|i18n}}</h2>
+              </header>
+              <div>
+                  <div class="widget-body no-padding smart-tbl">
+                      <sa-datatable [options]="options" paginationLength="true" filter="false" tableClass="ProjectTbl table table-striped table-condensed table-hover table-bordered">
+                          <thead>
+                              <tr class="heading">
+                                  <th>{{'PROJECT-TBL-PROJECT-NAME' | i18n}}</th>
+                                  <th>{{'PROJECT-TBL-DIVISION' | i18n}}</th>
+                                  <th>{{'PROJECT-TBL-SALES-NAME' | i18n}}</th>
+                                  <th>{{'PROJECT-TBL-START-DATE' | i18n}}</th>
+                                  <th>{{'PROJECT-TBL-EXPECTED-END-DATE' | i18n}}</th>
+                                  <th>{{'PROJECT-TBL-TOTAL-SUPPORT-TIMES' | i18n}}</th>
+                                  <th>{{'PROJECT-TBL-SUPPORT-TIMES' | i18n}}</th>
+                                  <th>{{'PROJECT-TBL-MODIFIED-DATE' | i18n}}</th>
+                              </tr>
+                          </thead>
+                      </sa-datatable>
+                  </div>
+              </div>
+          </div>
+      </section>
+  </sa-widgets-grid>
+
+</div>
+
+<ng-template #popupProject>
+  <sa-popup-modal headerTitle="{{'PROJECT-HEADER-EDIT-SALES-PROJECT-DATA-MANAGEMENT' | i18n}}" width="800"
+      height="900" (onClose)="closePopup()">
+      <sa-project-popup (childCall)="reloadDatatable($event)" projectType={{projectType|json}}></sa-project-popup>
+  </sa-popup-modal>
+</ng-template>
