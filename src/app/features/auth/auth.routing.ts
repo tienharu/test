@@ -6,27 +6,27 @@ import {Routes, RouterModule} from "@angular/router";
 export const routes:Routes = [
   {
     path: 'login',
-    loadChildren: './login/login.module#LoginModule'
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
   {
     path: 'register',
-    loadChildren: './register/register.module#RegisterModule'
+    loadChildren: () => import('./register/register.module').then(m => m.RegisterModule)
   },
   {
     path: 'forgot-password',
-    loadChildren: './forgot/forgot.module#ForgotModule'
+    loadChildren: () => import('./forgot/forgot.module').then(m => m.ForgotModule)
   },
   {
     path: 'locked',
-    loadChildren: './locked/locked.module#LockedModule'
+    loadChildren: () => import('./locked/locked.module').then(m => m.LockedModule)
   },
   {
     path: 'request-join',
-    loadChildren: './request-join/request-join.module#RequestJoinModule'
+    loadChildren: () => import('./request-join/request-join.module').then(m => m.RequestJoinModule)
   },
   {
     path: 'register-company',
-    loadChildren: './register-company/register-company.module#RegisterCompanyModule'
+    loadChildren: () => import('./register-company/register-company.module').then(m => m.RegisterCompanyModule)
   },
 ];
 

@@ -18,7 +18,7 @@ const routes: Routes = [
       },
       {
         path: 'home',
-        loadChildren: 'app/features/home/home.module#HomeModule',
+        loadChildren: () => import('app/features/home/home.module').then(m => m.HomeModule),
         data: { pageTitle: 'Home' },
         canActivate: [AuthGuard],
       },
@@ -37,7 +37,7 @@ const routes: Routes = [
       // },      
       {
         path: "error",
-        loadChildren: "app/features/error/error.module#ErrorModule",
+        loadChildren: () => import('app/features/error/error.module').then(m => m.ErrorModule),
         data: { pageTitle: "Error" }
       },
       // home.
@@ -51,14 +51,14 @@ const routes: Routes = [
       // dashboard.
       {
         path: "dashboard",
-        loadChildren: "app/features/dashboard/dashboard.module#DashboardModule",
+        loadChildren: () => import('app/features/dashboard/dashboard.module').then(m => m.DashboardModule),
         data: { pageTitle: "Dashboard" }
       },
 
       // register-system-menu.
       {
         path: 'register-system-menu',
-        loadChildren: 'app/features/system/system-menu/system-menu.module#SystemMenuModule',
+        loadChildren: () => import('app/features/system/system-menu/system-menu.module').then(m => m.SystemMenuModule),
         data: { pageTitle: 'Register System menu' },
         canActivate: [AuthGuard],
       },
@@ -66,26 +66,26 @@ const routes: Routes = [
       // register-company.
       {
         path: 'register-company',
-        loadChildren: 'app/features/system/company-master/company-master.module#CompanyMasterModule',
+        loadChildren: () => import('app/features/system/company-master/company-master.module').then(m => m.CompanyMasterModule),
         data: { pageTitle: 'Register Company' },
         canActivate: [AuthGuard],
       },
       //group sharing master
       {
         path: 'group-sharing-setting',
-        loadChildren: 'app/features/system/group-sharing-setting/group-sharing-setting.module#GroupSharingSettingModule',
+        loadChildren: () => import('app/features/system/group-sharing-setting/group-sharing-setting.module').then(m => m.GroupSharingSettingModule),
         canActivate: [AuthGuard],
       },
       //security item setting
       {
         path: 'security-item-setting',
-        loadChildren: 'app/features/system/security-item-setting/security-item-setting.module#SecurityItemSettingModule',
+        loadChildren: () => import('app/features/system/security-item-setting/security-item-setting.module').then(m => m.SecurityItemSettingModule),
         canActivate: [AuthGuard],
       },
       // register-organization.
       {
         path: 'register-organization',
-        loadChildren: 'app/features/system/organization-master/organization-master.module#OrganizationMasterModule',
+        loadChildren: () => import('app/features/system/organization-master/organization-master.module').then(m => m.OrganizationMasterModule),
         data: { pageTitle: 'Register Organization' },
         canActivate: [AuthGuard],
       },
@@ -93,7 +93,7 @@ const routes: Routes = [
       // register-position.
       {
         path: 'register-position',
-        loadChildren: 'app/features/system/position-master/position-master.module#PositionMasterModule',
+        loadChildren: () => import('app/features/system/position-master/position-master.module').then(m => m.PositionMasterModule),
         data: { pageTitle: 'Register Position' },
         canActivate: [AuthGuard],
       },
@@ -101,7 +101,7 @@ const routes: Routes = [
       // register-user.
       {
         path: 'register-user',
-        loadChildren: 'app/features/system/user-master/user-master.module#UserMasterModule',
+        loadChildren: () => import('app/features/system/user-master/user-master.module').then(m => m.UserMasterModule),
         data: { pageTitle: 'Register User' },
         canActivate: [AuthGuard],
       },
@@ -109,7 +109,7 @@ const routes: Routes = [
       // register-authority-group.
       {
         path: 'register-authority-group',
-        loadChildren: 'app/features/system/register-authority-group/register-authority-group.module#RegisterAuthorityGroupModule',
+        loadChildren: () => import('app/features/system/register-authority-group/register-authority-group.module').then(m => m.RegisterAuthorityGroupModule),
         data: { pageTitle: 'Register Authority Group' },
         canActivate: [AuthGuard],
       },
@@ -117,7 +117,7 @@ const routes: Routes = [
       // authority-group-menu-setting.
       {
         path: 'authority-group-menu-setting',
-        loadChildren: 'app/features/system/authority-group-menu-setting/authority-group-menu-setting.module#AuthorityGroupMenuSettingModule',
+        loadChildren: () => import('app/features/system/authority-group-menu-setting/authority-group-menu-setting.module').then(m => m.AuthorityGroupMenuSettingModule),
         data: { pageTitle: 'Authority Group Menu Setting' },
         canActivate: [AuthGuard],
       },
@@ -125,7 +125,7 @@ const routes: Routes = [
       // user-authority-group-setting.
       {
         path: 'user-authority-group-setting',
-        loadChildren: 'app/features/system/user-authority-group-setting/user-authority-group-setting.module#UserAuthorityGroupSettingModule',
+        loadChildren: () => import('app/features/system/user-authority-group-setting/user-authority-group-setting.module').then(m => m.UserAuthorityGroupSettingModule),
         data: { pageTitle: 'User Authority Group Setting' },
         canActivate: [AuthGuard],
       },
@@ -133,7 +133,7 @@ const routes: Routes = [
       // general-master.
       {
         path: 'general-master',
-        loadChildren: 'app/features/system/general-master/general-master.module#GeneralMasterModule',
+        loadChildren: () => import('app/features/system/general-master/general-master.module').then(m => m.GeneralMasterModule),
         data: { pageTitle: 'General Master' },
         canActivate: [AuthGuard],
       },
@@ -141,7 +141,7 @@ const routes: Routes = [
       // language-setting.
       {
         path: 'language-setting',
-        loadChildren: 'app/features/system/language-master/language-master.module#LanguageMasterModule',
+        loadChildren: () => import('app/features/system/language-master/language-master.module').then(m => m.LanguageMasterModule),
         data: { pageTitle: 'Language Setting' },
         canActivate: [AuthGuard],
       },
@@ -149,288 +149,288 @@ const routes: Routes = [
       // geneal-sys-master
       {
         path: 'general-sys-master',
-        loadChildren: 'app/features/system/general-sys-master/general-sys-master.module#GeneralSysMasterModule',
+        loadChildren: () => import('app/features/system/general-sys-master/general-sys-master.module').then(m => m.GeneralSysMasterModule),
         data: { pageTitle: 'General Sys Master' },
         canActivate: [AuthGuard],
       },
       // account master
       {
         path: 'account-master',
-        loadChildren: 'app/features/system/account-master/main-info/main-info.module#MainInfoModule',
+        loadChildren: () => import('app/features/system/account-master/main-info/main-info.module').then(m => m.MainInfoModule),
         data: { pageTitle: 'Account Master' },
         canActivate: [AuthGuard],
       },
       //transaction code box
       {
         path: 'transaction-code',
-        loadChildren: 'app/features/system/transaction-code-box/transaction-code-box.module#TransactionCodeBoxModule',
+        loadChildren: () => import('app/features/system/transaction-code-box/transaction-code-box.module').then(m => m.TransactionCodeBoxModule),
         data: { pageTitle: 'Transaction-code Box' },
         canActivate: [AuthGuard],
       },
       //packages
       {
         path: 'package-master',
-        loadChildren: 'app/features/system/package-master/package-master.module#PackageMasterModule',
+        loadChildren: () => import('app/features/system/package-master/package-master.module').then(m => m.PackageMasterModule),
         data: { pageTitle: 'Packages Master' },
         canActivate: [AuthGuard],
       },
       {
         path: 'package-menu',
-        loadChildren: 'app/features/system/package-menu/package-menu.module#PackageMenuModule',
+        loadChildren: () => import('app/features/system/package-menu/package-menu.module').then(m => m.PackageMenuModule),
         data: { pageTitle: 'Packages Menu' },
         canActivate: [AuthGuard],
       },
       // routing-master
       {
         path: 'routing-master',
-        loadChildren: 'app/features/system/routing-master/routing-master.module#RoutingMasterModule',
+        loadChildren: () => import('app/features/system/routing-master/routing-master.module').then(m => m.RoutingMasterModule),
         data: { pageTitle: 'Routing Master' },
         canActivate: [AuthGuard],
       },
       // material-master
       {
         path: 'material-master',
-        loadChildren: 'app/features/system/material-master/material-master.module#MaterialMasterModule',
+        loadChildren: () => import('app/features/system/material-master/material-master.module').then(m => m.MaterialMasterModule),
         data: { pageTitle: 'Material Master' },
         canActivate: [AuthGuard],
       },
       // wip-master
       {
         path: 'wip-master',
-        loadChildren: 'app/features/system/wip-master/wip-master.module#WipMasterModule',
+        loadChildren: () => import('app/features/system/wip-master/wip-master.module').then(m => m.WipMasterModule),
         data: { pageTitle: 'Wip Master' },
         canActivate: [AuthGuard],
       },
       // product-master
       {
         path: 'product-master',
-        loadChildren: 'app/features/system/product-master/product-master.module#ProductMasterModule',
+        loadChildren: () => import('app/features/system/product-master/product-master.module').then(m => m.ProductMasterModule),
         data: { pageTitle: 'Product Master' },
         canActivate: [AuthGuard],
       },
       // global-master
       {
         path: 'global-master',
-        loadChildren: 'app/features/system/global-master/global-master.module#GlobalMasterModule',
+        loadChildren: () => import('app/features/system/global-master/global-master.module').then(m => m.GlobalMasterModule),
         data: { pageTitle: 'Global Master' },
         canActivate: [AuthGuard],
       },
       // bom-master
       {
         path: 'bom-master',
-        loadChildren: 'app/features/system/bom-master/bom-master.module#BomMasterModule',
+        loadChildren: () => import('app/features/system/bom-master/bom-master.module').then(m => m.BomMasterModule),
         data: { pageTitle: 'BOM Master' },
         canActivate: [AuthGuard],
       },
       // cus-master
       {
         path: 'customer-new-master',
-        loadChildren: 'app/features/system/customer-new-master/customer-new-master.module#CustomerNewMasterModule',
+        loadChildren: () => import('app/features/system/customer-new-master/customer-new-master.module').then(m => m.CustomerNewMasterModule),
         data: { pageTitle: 'Customer Master' },
         canActivate: [AuthGuard],
       },
       // sales-order-create
       {
         path: 'sales-order-create',
-        loadChildren: 'app/features/order/sales-order-create/sales-order-create.module#SalesOrderCreateModule',
+        loadChildren: () => import('app/features/order/sales-order-create/sales-order-create.module').then(m => m.SalesOrderCreateModule),
         data: { pageTitle: 'Sales Order Create' },
         canActivate: [AuthGuard],
       },
       // sales-order-board
       {
         path: 'sales-order-board',
-        loadChildren: 'app/features/order/sales-order-board/sales-order-board.module#SalesOrderBoardModule',
+        loadChildren: () => import('app/features/order/sales-order-board/sales-order-board.module').then(m => m.SalesOrderBoardModule),
         data: { pageTitle: 'Sales Order Board' },
         canActivate: [AuthGuard],
       },
       // process-flow-master
       {
         path: 'process-flow-master',
-        loadChildren: 'app/features/system/process-flow-master/process-flow-master.module#ProcessFlowMasterModule',
+        loadChildren: () => import('app/features/system/process-flow-master/process-flow-master.module').then(m => m.ProcessFlowMasterModule),
         data: { pageTitle: 'Process Flow Master' },
         canActivate: [AuthGuard],
       },
       // item-master
       {
         path: 'item-master',
-        loadChildren: 'app/features/system/item-master/item-master.module#ItemMasterModule',
+        loadChildren: () => import('app/features/system/item-master/item-master.module').then(m => m.ItemMasterModule),
         data: { pageTitle: 'Item Master' },
         canActivate: [AuthGuard],
       },
       // rocket-chat
       {
         path: 'rocket-chat',
-        loadChildren: 'app/features/system/rocket-chat/rocket-chat.module#RocketChatModule',
+        loadChildren: () => import('app/features/system/rocket-chat/rocket-chat.module').then(m => m.RocketChatModule),
         data: { pageTitle: 'Rocket Chat' },
         canActivate: [AuthGuard],
       },
       // Approval Master
       {
         path: 'approval-line-registration',
-        loadChildren: 'app/features/system/approval-line-registration/approval-line-registration.module#ApprovalLineRegistrationModule',
+        loadChildren: () => import('app/features/system/approval-line-registration/approval-line-registration.module').then(m => m.ApprovalLineRegistrationModule),
         data: { pageTitle: 'Approval Line Registration' },
         canActivate: [AuthGuard],
       },
       // human-resource.
       {
         path: 'employee-master',
-        loadChildren: 'app/features/human-resources/employee-info/main-info/main-info.module#HRMainInfoModule',
+        loadChildren: () => import('app/features/human-resources/employee-info/main-info/main-info.module').then(m => m.HRMainInfoModule),
         data: { pageTitle: 'Human Resources' },
         canActivate: [AuthGuard],
       },
       {
         path: 'employee-print',
-        loadChildren: 'app/features/human-resources/employee-print/employee-print.module#HREmployeePrintModule',
+        loadChildren: () => import('app/features/human-resources/employee-print/employee-print.module').then(m => m.HREmployeePrintModule),
         data: { pageTitle: 'Human Resources' },
         canActivate: [AuthGuard],
       },
       {
         path: 'employee-print-card',
-        loadChildren: 'app/features/human-resources/employee-print-card/employee-print-card.module#EmployeePrintCardModule',
+        loadChildren: () => import('app/features/human-resources/employee-print-card/employee-print-card.module').then(m => m.EmployeePrintCardModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'trader-master',
-        loadChildren: 'app/features/master/trader-master/trader-master.module#TraderMasterModule',
+        loadChildren: () => import('app/features/master/trader-master/trader-master.module').then(m => m.TraderMasterModule),
         canActivate: [AuthGuard],
       },
       // crm
       {
         path: 'customer-master',
-        loadChildren: 'app/features/crm/customer/customer-master/customer-master.module#CustomerMasterModule',
+        loadChildren: () => import('app/features/crm/customer/customer-master/customer-master.module').then(m => m.CustomerMasterModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'customer-detail/:id',
-        loadChildren: 'app/features/crm/customer/customer-detail/customer-detail.module#CustomerDetailModule',
+        loadChildren: () => import('app/features/crm/customer/customer-detail/customer-detail.module').then(m => m.CustomerDetailModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'contactor-detail/:id',
-        loadChildren: 'app/features/crm/contactor/contactor-detail/contactor-detail.module#ContactorDetailModule',
+        loadChildren: () => import('app/features/crm/contactor/contactor-detail/contactor-detail.module').then(m => m.ContactorDetailModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'crm-contactor',
-        loadChildren: 'app/features/crm/contactor/contactor-master/contactor-master.module#ContactorMasterModule',
+        loadChildren: () => import('app/features/crm/contactor/contactor-master/contactor-master.module').then(m => m.ContactorMasterModule),
         canActivate: [AuthGuard],
       },
 
       {
         path: 'crm-payment',
-        loadChildren: 'app/features/crm/order-magt/expenses-magt/expenses-magt.module#ExpensesMagtModule',
+        loadChildren: () => import('app/features/crm/order-magt/expenses-magt/expenses-magt.module').then(m => m.ExpensesMagtModule),
         canActivate: [AuthGuard],
       },
 
       {
         path: 'crm-service-item',
-        loadChildren: 'app/features/crm/setting/service-item/service-item.module#ServiceItemModule',
+        loadChildren: () => import('app/features/crm/setting/service-item/service-item.module').then(m => m.ServiceItemModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'overtime-table',
-        loadChildren: 'app/features/human-resources/overtime-table/overtime-table.module#HrOvertimeTableModule',
+        loadChildren: () => import('app/features/human-resources/overtime-table/overtime-table.module').then(m => m.HrOvertimeTableModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'work-calendar',
-        loadChildren: 'app/features/human-resources/work-calendar/work-calendar.module#WorkCalendarModule',
+        loadChildren: () => import('app/features/human-resources/work-calendar/work-calendar.module').then(m => m.WorkCalendarModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'annual-leave-register',
-        loadChildren: 'app/features/human-resources/annual-leave/annual-leave.module#AnnualLeaveModule',
+        loadChildren: () => import('app/features/human-resources/annual-leave/annual-leave.module').then(m => m.AnnualLeaveModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'posting-attendance-list',
-        loadChildren: 'app/features/human-resources/annual-leave/posting-attendance-list/posting-attendance-list.module#PostingAttendanceListModule',
+        loadChildren: () => import('app/features/human-resources/annual-leave/posting-attendance-list/posting-attendance-list.module').then(m => m.PostingAttendanceListModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'ETL-Machine',
-        loadChildren: 'app/features/human-resources/attendance-machine/attendance-machine.module#MasMachineDataModule',
+        loadChildren: () => import('app/features/human-resources/attendance-machine/attendance-machine.module').then(m => m.MasMachineDataModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'shiftwork-register',
-        loadChildren: 'app/features/human-resources/shiftwork-register/shiftwork-register.module#ShiftworkRegisterModule',
+        loadChildren: () => import('app/features/human-resources/shiftwork-register/shiftwork-register.module').then(m => m.ShiftworkRegisterModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'salary-basic',
-        loadChildren: 'app/features/human-resources/standard-salary-basic/salary-register.module#SalaryRegisterModule',
+        loadChildren: () => import('app/features/human-resources/standard-salary-basic/salary-register.module').then(m => m.SalaryRegisterModule),
         canActivate: [AuthGuard],
       },
       //payroll
       {
         path: 'special-payment',
-        loadChildren: 'app/features/human-resources/special-salary/special-salary.module#HrSpecialSalaryModule',
+        loadChildren: () => import('app/features/human-resources/special-salary/special-salary.module').then(m => m.HrSpecialSalaryModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'payroll-item',
-        loadChildren: 'app/features/human-resources/payroll-item/payroll-item.module#PayrollItemModule',
+        loadChildren: () => import('app/features/human-resources/payroll-item/payroll-item.module').then(m => m.PayrollItemModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'payroll-master',
-        loadChildren: 'app/features/human-resources/payroll-master/payroll-master.module#PayrollMasterModule',
+        loadChildren: () => import('app/features/human-resources/payroll-master/payroll-master.module').then(m => m.PayrollMasterModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'news-master',
-        loadChildren: 'app/features/system/news-master/news-master.module#NewsMasterModule',
+        loadChildren: () => import('app/features/system/news-master/news-master.module').then(m => m.NewsMasterModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'daily-duty-adjust',
-        loadChildren: 'app/features/human-resources/daily-attendance/daily-attendance.module#DailyAttendanceModule',
+        loadChildren: () => import('app/features/human-resources/daily-attendance/daily-attendance.module').then(m => m.DailyAttendanceModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'personal-duty-adjust',
-        loadChildren: 'app/features/human-resources/attendance-person/attendance-person.module#AttendancePersonModule',
+        loadChildren: () => import('app/features/human-resources/attendance-person/attendance-person.module').then(m => m.AttendancePersonModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'duty-type',
-        loadChildren: 'app/features/human-resources/duty-type/duty-type.module#DutyTypeModule',
+        loadChildren: () => import('app/features/human-resources/duty-type/duty-type.module').then(m => m.DutyTypeModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'report-monthly-overtime',
-        loadChildren: 'app/features/human-resources/monthly-overtime-report/monthly-overtime-report.module#MonthlyOvertimeReportModule',
+        loadChildren: () => import('app/features/human-resources/monthly-overtime-report/monthly-overtime-report.module').then(m => m.MonthlyOvertimeReportModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'report-monthly-duty',
-        loadChildren: 'app/features/human-resources/monthly-duty-report/monthly-duty-report.module#MonthlyDutyReportModule',
+        loadChildren: () => import('app/features/human-resources/monthly-duty-report/monthly-duty-report.module').then(m => m.MonthlyDutyReportModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'report-monthly-attendance',
-        loadChildren: 'app/features/human-resources/monthly-attendance-report/monthly-attendance-report.module#MonthlyAttendanceReportModule',
+        loadChildren: () => import('app/features/human-resources/monthly-attendance-report/monthly-attendance-report.module').then(m => m.MonthlyAttendanceReportModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'report-daily-duty',
-        loadChildren: 'app/features/human-resources/daily-duty-report/daily-duty-report.module#DailyDutyReportModule',
+        loadChildren: () => import('app/features/human-resources/daily-duty-report/daily-duty-report.module').then(m => m.DailyDutyReportModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'report-daily-duty-department',
-        loadChildren: 'app/features/human-resources/daily-duty-dept-report/daily-duty-dept-report.module#DailyDutyByDeptReportModule',
+        loadChildren: () => import('app/features/human-resources/daily-duty-dept-report/daily-duty-dept-report.module').then(m => m.DailyDutyByDeptReportModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'gvn-monthly-attendance',
-        loadChildren: 'app/features/human-resources/report/green-vina/gvn-monthly-attendance/gvn-monthly-attendance.module#GvnMonthlyAttendanceModule',
+        loadChildren: () => import('app/features/human-resources/report/green-vina/gvn-monthly-attendance/gvn-monthly-attendance.module').then(m => m.GvnMonthlyAttendanceModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'gvn-summary-excel',
-        loadChildren: 'app/features/human-resources/report/green-vina/summary-excel-download/summary-excel.module#GvnReportSummaryExcelModule',
+        loadChildren: () => import('app/features/human-resources/report/green-vina/summary-excel-download/summary-excel.module').then(m => m.GvnReportSummaryExcelModule),
         canActivate: [AuthGuard],
       },
       // {
@@ -445,89 +445,89 @@ const routes: Routes = [
       // },
       {
         path: 'crm-sales-opportunity',
-        loadChildren: 'app/features/crm/opportunity/opportunity-master/opportunity-master.module#OpportunityMasterModule',
+        loadChildren: () => import('app/features/crm/opportunity/opportunity-master/opportunity-master.module').then(m => m.OpportunityMasterModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'opportunity-detail/:id',
-        loadChildren: 'app/features/crm/opportunity/opportunity-detail/opportunity-detail.module#OpportunityDetailModule',
+        loadChildren: () => import('app/features/crm/opportunity/opportunity-detail/opportunity-detail.module').then(m => m.OpportunityDetailModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'closing-payroll',
-        loadChildren: 'app/features/human-resources/payroll-closing/payroll-closing.module#PayrollClosingModule',
+        loadChildren: () => import('app/features/human-resources/payroll-closing/payroll-closing.module').then(m => m.PayrollClosingModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'crm-project',
-        loadChildren: 'app/features/crm/project/project-master/project-master.module#ProjectMasterModule',
+        loadChildren: () => import('app/features/crm/project/project-master/project-master.module').then(m => m.ProjectMasterModule),
         canActivate: [AuthGuard],
       },
       {
         path: 'project-detail/:id',
-        loadChildren: 'app/features/crm/project/project-detail/project-detail.module#ProjectDetailModule',
+        loadChildren: () => import('app/features/crm/project/project-detail/project-detail.module').then(m => m.ProjectDetailModule),
         canActivate: [AuthGuard],
       },
       // style-master
       {
         path: 'style-master',
-        loadChildren: 'app/features/system/style-master/style-master.module#StyleMasterModule',
+        loadChildren: () => import('app/features/system/style-master/style-master.module').then(m => m.StyleMasterModule),
         data: { pageTitle: 'Style Master' },
         canActivate: [AuthGuard],
       },
       // bank-book
       {
         path: 'bank-book',
-        loadChildren: 'app/features/system/bank-book/bank-book.module#BankBookModule',
+        loadChildren: () => import('app/features/system/bank-book/bank-book.module').then(m => m.BankBookModule),
         data: { pageTitle: 'Bank Book' },
         canActivate: [AuthGuard],
       },
       // work-order-master
       {
         path: 'work-order-master',
-        loadChildren: 'app/features/system/work-order-master/work-order-master.module#WorkOrderMasterModule',
+        loadChildren: () => import('app/features/system/work-order-master/work-order-master.module').then(m => m.WorkOrderMasterModule),
         data: { pageTitle: 'Work Order Master' },
         canActivate: [AuthGuard],
       },
       // po-sheet
       {
         path: 'po-sheet',
-        loadChildren: 'app/features/system/po-sheet/po-sheet.module#PoSheetModule',
+        loadChildren: () => import('app/features/system/po-sheet/po-sheet.module').then(m => m.PoSheetModule),
         data: { pageTitle: 'PO Sheet' },
         canActivate: [AuthGuard],
       },
       // purch-order
       {
         path: 'purch-order',
-        loadChildren: 'app/features/system/purch-order/purch-order.module#PurchOrderModule',
+        loadChildren: () => import('app/features/system/purch-order/purch-order.module').then(m => m.PurchOrderModule),
         data: { pageTitle: 'Purch Order' },
         canActivate: [AuthGuard],
       },
       //purchasing
       {
         path: 'purchasing',
-        loadChildren: 'app/features/system/purchasing-magt/purchasing-magt.module#PurchasingModule',
+        loadChildren: () => import('app/features/system/purchasing-magt/purchasing-magt.module').then(m => m.PurchasingModule),
         data: { pageTitle: 'Purchasing' },
         canActivate: [AuthGuard],
       },
       //due-out-material
       {
         path: 'due-out-material-order',
-        loadChildren: 'app/features/system/due-out-material/due-out-material.module#DueOutMaterialModule',
+        loadChildren: () => import('app/features/system/due-out-material/due-out-material.module').then(m => m.DueOutMaterialModule),
         data: { pageTitle: 'Due Out Material' },
         canActivate: [AuthGuard],
       },
       // inbount-style
       {
         path: 'inbount-style',
-        loadChildren: 'app/features/system/inbount-style/inbount-style.module#InbountStyleModule',
+        loadChildren: () => import('app/features/system/inbount-style/inbount-style.module').then(m => m.InbountStyleModule),
         data: { pageTitle: 'Inbount Style' },
         canActivate: [AuthGuard],
       },
        // sales-due-out
        {
         path: 'sales-due-out',
-        loadChildren: 'app/features/system/sales-due-out/sales-due-out.module#SalesDueOutModule',
+        loadChildren: () => import('app/features/system/sales-due-out/sales-due-out.module').then(m => m.SalesDueOutModule),
         data: { pageTitle: 'Sales Due Out' },
         canActivate: [AuthGuard],
       },
@@ -537,7 +537,7 @@ const routes: Routes = [
   {
     path: "auth",
     component: AuthLayoutComponent,
-    loadChildren: "app/features/auth/auth.module#AuthModule"
+    loadChildren: () => import('app/features/auth/auth.module').then(m => m.AuthModule)
   },
 
 

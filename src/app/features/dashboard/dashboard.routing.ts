@@ -6,7 +6,7 @@ import { AuthGuard } from "@app/core/guards/auth.guard";
 export const routes: Routes = [
   {
     path: 'analytics',
-    loadChildren:'./analytics/analytics.module#AnalyticsModule',
+    loadChildren:() => import('./analytics/analytics.module').then(m => m.AnalyticsModule),
     data: { 
       pageTitle: 'Analytics Dashboard' 
     },
@@ -14,7 +14,7 @@ export const routes: Routes = [
   },
   {
     path: 'social',
-    loadChildren:'./social/social.module#SocialModule',
+    loadChildren:() => import('./social/social.module').then(m => m.SocialModule),
     data: { 
       pageTitle: 'Social Wall' 
     },
