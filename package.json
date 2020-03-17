@@ -97,6 +97,7 @@
     "@types/datejs": "0.0.30",
     "@types/jasmine": "^3.5.9",
     "@types/jasminewd2": "~2.0.3",
+    "@types/jquery": "^3.3.33",
     "@types/node": "^13.9.1",
     "codelyzer": "^5.2.1",
     "imports-loader": "^0.8.0",
@@ -114,7 +115,7 @@
     "script-loader": "^0.7.2",
     "ts-node": "~5.0.1",
     "tslint": "^6.1.0",
-    "typescript": "^3.8.3",
+    "typescript": "^3.7.5",
     "webpack": "^4.42.0"
   },
   "repository": {
